@@ -15,6 +15,8 @@
 		91CEB78C1A8BB2CD0055CB17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */; };
 		91CEB78F1A8BB2CD0055CB17 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91CEB78D1A8BB2CD0055CB17 /* LaunchScreen.xib */; };
 		91CEB79B1A8BB2CD0055CB17 /* SpriteKitGameMMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB79A1A8BB2CD0055CB17 /* SpriteKitGameMMTests.swift */; };
+		91CEB7A71A8BD02D0055CB17 /* Soldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB7A61A8BD02D0055CB17 /* Soldier.swift */; };
+		91CEB7A91A8C07C20055CB17 /* ControllerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		91CEB7941A8BB2CD0055CB17 /* SpriteKitGameMMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpriteKitGameMMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91CEB7991A8BB2CD0055CB17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91CEB79A1A8BB2CD0055CB17 /* SpriteKitGameMMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitGameMMTests.swift; sourceTree = "<group>"; };
+		91CEB7A61A8BD02D0055CB17 /* Soldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soldier.swift; sourceTree = "<group>"; };
+		91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,13 +85,12 @@
 		91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */ = {
 			isa = PBXGroup;
 			children = (
-				91CEB7801A8BB2CD0055CB17 /* AppDelegate.swift */,
-				91CEB7821A8BB2CD0055CB17 /* GameScene.sks */,
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
 				91CEB7861A8BB2CD0055CB17 /* GameViewController.swift */,
+				91CEB7A61A8BD02D0055CB17 /* Soldier.swift */,
+				91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */,
 				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
-				91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */,
-				91CEB78D1A8BB2CD0055CB17 /* LaunchScreen.xib */,
+				91CEB7AA1A8C07DA0055CB17 /* Defaults */,
 				91CEB77E1A8BB2CD0055CB17 /* Supporting Files */,
 			);
 			path = SpriteKitGameMM;
@@ -116,6 +119,17 @@
 				91CEB7991A8BB2CD0055CB17 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		91CEB7AA1A8C07DA0055CB17 /* Defaults */ = {
+			isa = PBXGroup;
+			children = (
+				91CEB7801A8BB2CD0055CB17 /* AppDelegate.swift */,
+				91CEB7821A8BB2CD0055CB17 /* GameScene.sks */,
+				91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */,
+				91CEB78D1A8BB2CD0055CB17 /* LaunchScreen.xib */,
+			);
+			name = Defaults;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,7 +235,9 @@
 			files = (
 				91CEB7851A8BB2CD0055CB17 /* GameScene.swift in Sources */,
 				91CEB7871A8BB2CD0055CB17 /* GameViewController.swift in Sources */,
+				91CEB7A71A8BD02D0055CB17 /* Soldier.swift in Sources */,
 				91CEB7811A8BB2CD0055CB17 /* AppDelegate.swift in Sources */,
+				91CEB7A91A8C07C20055CB17 /* ControllerButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +429,7 @@
 				91CEB7A01A8BB2CD0055CB17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91CEB7A11A8BB2CD0055CB17 /* Build configuration list for PBXNativeTarget "SpriteKitGameMMTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +438,7 @@
 				91CEB7A31A8BB2CD0055CB17 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
