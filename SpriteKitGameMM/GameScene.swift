@@ -13,28 +13,41 @@ class GameScene: SKScene {
     var increment = 0
     var soldierNode:Soldier?
 
-//    let buttonJump:ControllerButton?
-//    let buttonDuck:ControllerButton?
-
 
     let buttonJump = SKSpriteNode(imageNamed: "directionUpRed")
     let buttonDuck = SKSpriteNode(imageNamed: "directionDownRed")
-
-
+    let buttonFire = SKSpriteNode(imageNamed: "fireButtonRed")
+    let healthStatus = SKSpriteNode(imageNamed: "healthStatus")
+    let scoreKeeperBG = SKSpriteNode(imageNamed: "scoreKeeperBG")
 
 
     override func didMoveToView(view: SKView) {
 
-//        self.physicsWorld.gravity = CGVectorMake(0, -9.8)
+
+//        self.physicsWorld.gravity = CGVectorMake(0.0, -2)
 
 
-        soldierNode = Soldier(imageNamed: "Walk__000")
+
+
+        var groundInfo:[String: String] = ["ImageName": "groundOutside",
+                                            "BodyType": "square",
+                                            "Location": "{0, 100}",
+                                   "PlaceMultiplesOnX": "10",]
+
+        let groundPlatform = Object(groundDict: groundInfo)
+        addChild(groundPlatform)
+
+
+        soldierNode = Soldier(imageNamed: "Idle__000")
         soldierNode?.position = CGPointMake(300, 300)
         soldierNode?.setScale(0.65)
         addChild(soldierNode!)
 
         soldierNode?.setCurrentState(Soldier.SoldierStates.Idle)
         soldierNode?.stepState()
+
+
+        // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
 
         buttonJump.position = CGPointMake(75, 400)
         buttonJump.setScale(1.6)
@@ -43,6 +56,18 @@ class GameScene: SKScene {
         buttonDuck.position = CGPointMake(75, 200)
         buttonDuck.setScale(1.6)
         addChild(buttonDuck)
+
+        buttonFire.position = CGPointMake(75, 300)
+        buttonFire.setScale(1.4)
+        addChild(buttonFire)
+
+        healthStatus.position = CGPointMake(100, 630)
+        healthStatus.setScale(1.1)
+        addChild(healthStatus)
+
+        scoreKeeperBG.position = CGPointMake(910, 630)
+        scoreKeeperBG.setScale(1.0)
+        addChild(scoreKeeperBG)
 
     }
 
@@ -60,6 +85,9 @@ class GameScene: SKScene {
                 jump()
             } else if CGRectContainsPoint(buttonDuck.frame, location) {
                 duck()
+
+            } else if CGRectContainsPoint(buttonFire.frame, location) {
+                walkShoot()
             } else {
                 run()
             }
@@ -68,7 +96,6 @@ class GameScene: SKScene {
     }
 
     func jump() {
-
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
     }
@@ -83,6 +110,16 @@ class GameScene: SKScene {
         soldierNode?.stepState()
     }
 
+    func runShoot() {
+        soldierNode?.setCurrentState(Soldier.SoldierStates.RunShoot)
+        soldierNode?.stepState()
+    }
+
+    func walkShoot() {
+        soldierNode?.setCurrentState(Soldier.SoldierStates.WalkShoot)
+        soldierNode?.stepState()
+    }
+
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
         soldierNode?.stepState()
@@ -91,12 +128,7 @@ class GameScene: SKScene {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-
         soldierNode?.update()
-
-
-
-
     }
 }
 
