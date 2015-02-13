@@ -95,7 +95,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if soldierNode!.color == UIColor.greenColor() {
             let changeColorAction = SKAction.colorizeWithColor(SKColor.redColor(), colorBlendFactor: 1.0, duration: 0.5)
             soldierNode!.runAction(changeColorAction)
-        } 
+        }
 
     }
 
