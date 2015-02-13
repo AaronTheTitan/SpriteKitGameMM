@@ -54,7 +54,7 @@ class Soldier : SKSpriteNode {
 
 
     }
-
+    
 
     func setCurrentState(currentStateEntry: SoldierStates) {
         currentState = currentStateEntry
@@ -104,7 +104,7 @@ class Soldier : SKSpriteNode {
         }
 
         if currentState == .Jump {
-            self.physicsBody?.applyImpulse(CGVectorMake(0, 40))
+           // self.physicsBody?.applyImpulse(CGVectorMake(0, 40))
 //            [self.physicsBody applyImpulse:CGVectorMake(0, 40)];
 
 //            self.position = CGPointMake(self.position.x, self.position.y + 2)
