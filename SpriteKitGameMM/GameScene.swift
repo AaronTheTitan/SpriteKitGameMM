@@ -16,8 +16,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var obstruction:Obstruction!
     var max:Obstruction! // playing around
     var moveObject = SKAction()
-
-    
+    var platform:Platform?
+    var powerup: PowerUp?
     var bomb:Bomb!
 
     //allows us to differentiate sprites
@@ -26,6 +26,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         static let SoldierCategory     : UInt32 = 0b1     // 1
         static let ObstructionCategory : UInt32 = 0b10    // 2
         static let Edge                : UInt32 = 0b100   // 3
+        static let PlatformCategory    : UInt32 = 0b1000  // 4
+        static let PowerupCategory     : UInt32 = 0b10000 // 5
     }
 
     // Buttons
@@ -93,12 +95,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
        //soldierNode!.removeFromParent()
     }
 
+    func soldierDidCollideWithPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
+        let changeColorAction = SKAction.colorizeWithColor(SKColor.greenColor(), colorBlendFactor: 1.0, duration: 0.5)
+        soldierNode!.runAction(changeColorAction)
+    }
+
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody : SKPhysicsBody
         var secondBody: SKPhysicsBody
 
-        die()
+        //die()
 
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody  = contact.bodyA
@@ -111,6 +118,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.ObstructionCategory != 0)) {
                 soldierDidCollideWithObstacle(firstBody.node as SKSpriteNode, Obstruction: secondBody.node as SKSpriteNode)
+        } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+            (secondBody.categoryBitMask & PhysicsCategory.PowerupCategory != 0)){
+                soldierDidCollideWithPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
         }
     }
 
@@ -285,7 +295,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.setScale(0.45)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
-        soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge //| PhysicsCategory.ObstructionCategory
+        soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.PlatformCategory
         soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
         soldierNode?.physicsBody?.allowsRotation = false
         soldierNode?.physicsBody?.usesPreciseCollisionDetection = true
@@ -339,15 +349,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         max = Obstruction(imageNamed: "max-howell")
         max.setScale(0.45)
+
         max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
-       // max.position = CGPointMake(1020.0, 450)
         let height = UInt32(self.frame.size.height / 4)
         let y = arc4random() % height + height
         max?.position = CGPointMake(1200.0, CGFloat(y + height))
-
         max.physicsBody?.dynamic = false
         max.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
-        //max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
+       // max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
         max.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         max.physicsBody?.usesPreciseCollisionDetection = true
         max.runAction(moveObject)
@@ -356,23 +365,56 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
+    func addPlatform() {
+        platform = Platform(imageNamed: "platform")
+        // max.setScale(0.45)
+        platform?.setScale(1.1)
+        platform?.physicsBody = SKPhysicsBody(circleOfRadius: platform!.size.width/2)
+        platform?.position = CGPointMake(1200.0, 350)
+        platform?.physicsBody?.dynamic = false
+        platform?.physicsBody?.categoryBitMask = PhysicsCategory.PlatformCategory
+        platform?.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
+        platform?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+        platform?.physicsBody?.usesPreciseCollisionDetection = true
+        platform?.runAction(moveObject)
+        
+        addChild(platform!)
+    }
+
+    func addPowerup() {
+        powerup = PowerUp(imageNamed: "powerup")
+        // max.setScale(0.45)
+        powerup?.setScale(0.75)
+        powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/2)
+        powerup?.position = CGPointMake(1200.0, 415)
+        powerup?.physicsBody?.dynamic = false
+        powerup?.physicsBody?.categoryBitMask = PhysicsCategory.PowerupCategory
+        powerup?.physicsBody?.collisionBitMask = PhysicsCategory.None
+        powerup?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+        powerup?.physicsBody?.usesPreciseCollisionDetection = true
+        powerup?.runAction(moveObject)
+
+        addChild(powerup!)
+    }
+
     func addBadGuys() {
         let distance = CGFloat(self.frame.size.width * 2.0)
         let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.005 * distance))
         moveObject = SKAction.sequence([moveObstruction])
-
         //can comment out, need for reference for collisions
-        let y = arc4random() % 2
+
+        let y = arc4random() % 3
         if y == 0 {
             addDon()
         } else if y == 1 {
             addMax ()
+
         } else {
-            println(y)
+            addPlatform()
+            addPowerup()
         }
     }
 
- //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
     //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         func addEdge() {
         let edge = SKNode()

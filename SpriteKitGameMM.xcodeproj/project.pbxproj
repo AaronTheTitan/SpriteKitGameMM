@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8A0A126A1A8D3B0D006B69C9 /* Obstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A12691A8D3B0D006B69C9 /* Obstruction.swift */; };
+		8AFEE4871A8E9C6B00BF6D79 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */; };
+		8AFEE4891A8E9EAC00BF6D79 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */; };
 		9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911020991A8D3D1D002532E9 /* Bullet.swift */; };
 		9110209C1A8D45EE002532E9 /* WorldGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110209B1A8D45EE002532E9 /* WorldGenerator.swift */; };
 		914ABA451A8D08EA008039D7 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914ABA441A8D08EA008039D7 /* Object.swift */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		8A0A12691A8D3B0D006B69C9 /* Obstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstruction.swift; sourceTree = "<group>"; };
+		8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
+		8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
 		911020991A8D3D1D002532E9 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9110209B1A8D45EE002532E9 /* WorldGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldGenerator.swift; sourceTree = "<group>"; };
 		914ABA441A8D08EA008039D7 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				91DD163D1A8E51E0004742FA /* GirlSoldier.swift */,
 				91CEB7A61A8BD02D0055CB17 /* Soldier.swift */,
 				8A0A12691A8D3B0D006B69C9 /* Obstruction.swift */,
+				8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */,
+				8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */,
 			);
 			name = Model/Objects;
 			sourceTree = "<group>";
@@ -267,8 +273,10 @@
 				91CEB7A71A8BD02D0055CB17 /* Soldier.swift in Sources */,
 				9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */,
 				91CEB7811A8BB2CD0055CB17 /* AppDelegate.swift in Sources */,
+				8AFEE4871A8E9C6B00BF6D79 /* Platform.swift in Sources */,
 				91DD163E1A8E51E0004742FA /* GirlSoldier.swift in Sources */,
 				914ABA451A8D08EA008039D7 /* Object.swift in Sources */,
+				8AFEE4891A8E9EAC00BF6D79 /* PowerUp.swift in Sources */,
 				91DD16421A8E61A3004742FA /* Bomb.swift in Sources */,
 				9110209C1A8D45EE002532E9 /* WorldGenerator.swift in Sources */,
 				91CEB7A91A8C07C20055CB17 /* ControllerButton.swift in Sources */,
