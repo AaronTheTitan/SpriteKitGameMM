@@ -35,10 +35,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let totalGroundPieces = 5
     var groundPieces = [SKSpriteNode]()
 
-    let groundSpeed: CGFloat = 2.5
+    let groundSpeed: CGFloat = 3.5
     var moveGroundAction: SKAction!
     var moveGroundForeverAction: SKAction!
-    let groundResetXCoord: CGFloat = 0
+    let groundResetXCoord: CGFloat = -500
 
 
     override func didMoveToView(view: SKView) {
@@ -124,39 +124,31 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         /* Setup your scene here */
 
         //Add background sprites
+
         var bg = SKSpriteNode(imageNamed: "bg_spaceship_1")
+
         bg.position = CGPointMake(bg.size.width / 2, bg.size.height / 2)
 
         self.addChild(bg)
 
-        //        var hills = SKSpriteNode(imageNamed: "ground")
-        //        hills.position = CGPointMake(hills.size.width / 2, 300)
-        //
-        //        self.addChild(hills)
-
-        //Add ground sprites
         for var x = 0; x < totalGroundPieces; x++
         {
-
-            var sprite = SKSpriteNode(imageNamed: "groundOutside")
-
-
-            groundPieces.append(bg)
-           
+            var sprite = SKSpriteNode(imageNamed: "bg_spaceship_1")
+            groundPieces.append(sprite)
 
             var wSpacing = sprite.size.width / 2
             var hSpacing = sprite.size.height / 2
 
             if x == 0
             {
-                bg.position = CGPointMake(bg.size.width / 2, bg.size.height / 2)
+                sprite.position = CGPointMake(wSpacing, hSpacing)
             }
             else
             {
-                bg.position = CGPointMake((wSpacing * 2) + groundPieces[x - 1].position.x,groundPieces[x - 1].position.y)
+                sprite.position = CGPointMake((wSpacing * 2) + groundPieces[x - 1].position.x,groundPieces[x - 1].position.y)
             }
 
-
+            self.addChild(sprite)
         }
     }
 
@@ -166,13 +158,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         {
             if groundPieces[x].position.x <= groundResetXCoord
             {
+
                 if x != 0
                 {
                     groundPieces[x].position = CGPointMake(groundPieces[x - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
+
+
                 }
                 else
                 {
-                    groundPieces[x].position = CGPointMake(groundPieces[groundPieces.count - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
+                    groundPieces[x].position = CGPointMake(groundPieces[x + 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
+//                    groundPieces[x].position = CGPointMake(groundPieces[groundPieces.count - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
+                    println("change picture")
                 }
             }
         }
