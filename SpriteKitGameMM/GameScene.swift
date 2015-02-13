@@ -14,7 +14,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var soldierNode:Soldier?
     var obstruction:Obstruction!
     var max:Obstruction! // playing around
-
+    var moveObject = SKAction()
     //allows us to differentiate sprites
     struct PhysicsCategory {
         static let None                : UInt32 = 0
@@ -59,10 +59,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        let groundPlatform = Object(groundDict: groundInfo)
 //        addChild(groundPlatform)
 
-
-        addMax()
+        //addMax()
         //can comment out, need for reference for collisions
-        addDon()
+        //addDon()
         //adds soldier, moved to function to clean up
         addSoldier()
 
@@ -72,8 +71,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
-    }
 
+        let distance = CGFloat(self.frame.size.width * 2.0)
+        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.05 * distance))
+        moveObject = SKAction.sequence([moveObstruction])
+
+        let spawn = SKAction.runBlock({() in self.addBadGuys()})
+        let delay = SKAction.waitForDuration(NSTimeInterval(5.5))
+        let spawnThenDelay = SKAction.sequence([spawn,delay])
+        let spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
+
+        self.runAction(spawnThenDelayForever)
+
+    }
     //when Soldier collides with Obsturction, do this function (currently does nothing)
     func soldierDidCollideWithObstacle(Soldier:SKSpriteNode, Obstruction:SKSpriteNode) {
        //soldierNode!.removeFromParent()
@@ -106,10 +116,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func initSetup()
     {
-
         moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)
         moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([moveGroundAction]))
     }
+
     func startGame()
     {
         for sprite in groundPieces
@@ -158,24 +168,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         {
             if groundPieces[x].position.x <= groundResetXCoord
             {
-
                 if x != 0
                 {
                     groundPieces[x].position = CGPointMake(groundPieces[x - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
-
-
                 }
                 else
                 {
                     groundPieces[x].position = CGPointMake(groundPieces[x + 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
 //                    groundPieces[x].position = CGPointMake(groundPieces[groundPieces.count - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
-                    println("change picture")
                 }
             }
         }
     }
-    
-
 
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 //         Called when a touch begins 
@@ -247,11 +251,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //was 300, 300
         soldierNode?.position = CGPointMake(450, 450)
         soldierNode?.setScale(0.45)
-
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
         soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.ObstructionCategory
         soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
+        soldierNode?.physicsBody?.allowsRotation = false
         soldierNode?.physicsBody?.usesPreciseCollisionDetection = true
 
         addChild(soldierNode!)
@@ -265,12 +269,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         obstruction = Obstruction(imageNamed: "don-bora")
         obstruction.setScale(0.45)
         obstruction.physicsBody = SKPhysicsBody(circleOfRadius: obstruction!.size.width/2)
-        obstruction.position = CGPointMake(740.0, 220.0)
+       // obstruction.position = CGPointMake(740.0, 220.0)
+//        let height = UInt32(self.frame.size.height / 4)
+//        let y = arc4random() % height + height
+        obstruction?.position = CGPointMake(1100.0, 150)
+
         obstruction.physicsBody?.dynamic = false
         obstruction.physicsBody?.categoryBitMask    = PhysicsCategory.ObstructionCategory
         obstruction.physicsBody?.collisionBitMask   = PhysicsCategory.SoldierCategory
         obstruction.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         obstruction.physicsBody?.usesPreciseCollisionDetection = true
+        obstruction.runAction(moveObject)
 
         addChild(obstruction!)
     }
@@ -281,17 +290,33 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         max = Obstruction(imageNamed: "max-howell")
         max.setScale(0.45)
         max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
-        max.position = CGPointMake(880.0, 220.0)
+       // max.position = CGPointMake(1020.0, 450)
+        let height = UInt32(self.frame.size.height / 4)
+        let y = arc4random() % height + height
+        max?.position = CGPointMake(1200.0, CGFloat(y + height))
+
         max.physicsBody?.dynamic = false
         max.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
         max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
         max.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         max.physicsBody?.usesPreciseCollisionDetection = true
+        max.runAction(moveObject)
 
-        addChild(max)
+        addChild(max!)
 
     }
- //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.    
+
+    func addBadGuys() {
+        let distance = CGFloat(self.frame.size.width * 2.0)
+        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.01 * distance))
+        moveObject = SKAction.sequence([moveObstruction])
+
+        addMax()
+        //can comment out, need for reference for collisions
+        addDon()
+        
+    }
+ //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
     //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         func addEdge() {
         let edge = SKNode()
