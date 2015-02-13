@@ -73,7 +73,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         addEdge()
-//      ADDED CODED INTO THE SOLDIER OBJECT TO FIX THIS PROBLEM
 
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
@@ -85,7 +84,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         moveObject = SKAction.sequence([moveObstruction])
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        let delay = SKAction.waitForDuration(NSTimeInterval(5.5))
+        let delay = SKAction.waitForDuration(NSTimeInterval(2.9))
         let spawnThenDelay = SKAction.sequence([spawn,delay])
         let spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
 
@@ -97,10 +96,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
        //soldierNode!.removeFromParent()
     }
 
-
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
-        // 1
+
         var firstBody : SKPhysicsBody
         var secondBody: SKPhysicsBody
 
@@ -111,7 +109,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             firstBody  = contact.bodyB
             secondBody = contact.bodyA
         }
-        // 2
+
         if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.ObstructionCategory != 0)) {
                 soldierDidCollideWithObstacle(firstBody.node as SKSpriteNode, Obstruction: secondBody.node as SKSpriteNode)
@@ -121,7 +119,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func didEndContact(contact: SKPhysicsContact) {
         // will get called automatically when two objects end contact with each other
     }
-
 
     func initSetup()
     {
@@ -136,7 +133,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             sprite.runAction(moveGroundForeverAction)
         }
     }
-
 
     func setupScenery()
     {
@@ -164,7 +160,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             if x == 0
             {
                 sprite.position = CGPointMake(wSpacing, hSpacing)
-                println(x)
             }
             else
             {
@@ -295,8 +290,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         girlSoldierNode = GirlSoldier(imageNamed: "G-Idle__000")
         girlSoldierNode?.position = CGPointMake(300, 450)
         girlSoldierNode?.setScale(0.45)
-
         girlSoldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: girlSoldierNode!.size)
+        girlSoldierNode?.physicsBody?.allowsRotation = false
         girlSoldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
         girlSoldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.ObstructionCategory
         girlSoldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
@@ -317,7 +312,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
        // obstruction.position = CGPointMake(740.0, 220.0)
 //        let height = UInt32(self.frame.size.height / 4)
 //        let y = arc4random() % height + height
-        obstruction?.position = CGPointMake(1100.0, 150)
+        obstruction?.position = CGPointMake(1100.0, 175)
 
         obstruction.physicsBody?.dynamic = false
         obstruction.physicsBody?.categoryBitMask    = PhysicsCategory.ObstructionCategory
@@ -353,14 +348,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func addBadGuys() {
         let distance = CGFloat(self.frame.size.width * 2.0)
-        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.01 * distance))
+        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.005 * distance))
         moveObject = SKAction.sequence([moveObstruction])
 
-        addMax()
         //can comment out, need for reference for collisions
-        addDon()
-        
+        let y = arc4random() % 2
+        if y == 0 {
+            addDon()
+        } else if y == 1 {
+            addMax ()
+        } else {
+            println(y)
+        }
     }
+
  //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
     //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         func addEdge() {

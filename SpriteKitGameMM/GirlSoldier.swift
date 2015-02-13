@@ -100,7 +100,7 @@ class GirlSoldier : SKSpriteNode {
             if isJumping == false {
                 isJumping = true
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.13), count: 1))
-                self.physicsBody?.applyImpulse(CGVectorMake(0, 900))
+                self.physicsBody?.applyImpulse(CGVectorMake(0, 450))
             }
             else {
                 isJumping = false

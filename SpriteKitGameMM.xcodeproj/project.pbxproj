@@ -103,7 +103,6 @@
 				91DD163F1A8E58B6004742FA /* Model/Objects */,
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
 				91CEB7861A8BB2CD0055CB17 /* GameViewController.swift */,
-				8A0A12691A8D3B0D006B69C9 /* Obstruction.swift */,
 				9110209B1A8D45EE002532E9 /* WorldGenerator.swift */,
 				91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */,
 				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
@@ -156,6 +155,7 @@
 				911020991A8D3D1D002532E9 /* Bullet.swift */,
 				91DD163D1A8E51E0004742FA /* GirlSoldier.swift */,
 				91CEB7A61A8BD02D0055CB17 /* Soldier.swift */,
+				8A0A12691A8D3B0D006B69C9 /* Obstruction.swift */,
 			);
 			name = Model/Objects;
 			sourceTree = "<group>";
