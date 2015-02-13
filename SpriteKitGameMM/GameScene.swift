@@ -23,34 +23,42 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         static let Edge                : UInt32 = 0b100   // 3
     }
 
+    // Buttons
     let buttonJump    = SKSpriteNode(imageNamed: "directionUpRed")
     let buttonDuck    = SKSpriteNode(imageNamed: "directionDownRed")
     let buttonFire    = SKSpriteNode(imageNamed: "fireButtonRed")
+
+    // Status Holders
     let healthStatus  = SKSpriteNode(imageNamed: "healthStatus")
-    let scoreKeeperBG = SKSpriteNode(imageNamed: "scoreKeeperBG")
+    let scoreKeeperBG = SKSpriteNode(imageNamed: "scoreKeepYellow")
 
 
     override func didMoveToView(view: SKView) {
 
         //added for collision detection
+        //        view.showsPhysics = true
          self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
          physicsWorld.contactDelegate = self
 
         var groundInfo:[String: String] = ["ImageName": "groundOutside",
                                             "BodyType": "square",
-                                            "Location": "{0, 100}",
-                                   "PlaceMultiplesOnX": "10",]
+                                            "Location": "{0, 120}",
+//                                   "PlaceMultiplesOnX": "10"
+                                                        ]
 
         let groundPlatform = Object(groundDict: groundInfo)
         addChild(groundPlatform)
 
         addMax()
         //can comment out, need for reference for collisions
-        addSpaceship()
+        addDon()
         //adds soldier, moved to function to clean up
         addSoldier()
+
         //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
-        addEdge()
+//        addEdge()
+//      ADDED CODED INTO THE SOLDIER OBJECT TO FIX THIS PROBLEM
+
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
     }
@@ -79,25 +87,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
+    func didEndContact(contact: SKPhysicsContact) {
+        // will get called automatically when two objects end contact with each other
+    }
+
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 //         Called when a touch begins 
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
-            soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
+            soldierNode?.setCurrentState(Soldier.SoldierStates.Idle)
             soldierNode?.stepState()
 
             if CGRectContainsPoint(buttonJump.frame, location ) {
                 jump()
 
-
             } else if CGRectContainsPoint(buttonDuck.frame, location) {
                 duck()
                 //can delete, just reference in case we want to change colors :)
-                //let changeColorAction = SKAction.colorizeWithColor(SKColor.redColor(), colorBlendFactor: 1.0,                         duration: 0.5)
+                //let changeColorAction = SKAction.colorizeWithColor(SKColor.redColor(), colorBlendFactor: 1.0, duration: 0.5)
                //soldierNode!.runAction(changeColorAction)
 
             } else if CGRectContainsPoint(buttonFire.frame, location) {
                 walkShoot()
+
             } else {
                 run()
 
@@ -147,7 +159,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode = Soldier(imageNamed: "Walk__000")
         //was 300, 300
         soldierNode?.position = CGPointMake(450, 450)
-        soldierNode?.setScale(0.55)
+        soldierNode?.setScale(0.45)
 
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
@@ -161,12 +173,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.stepState()
     }
 
-    func addSpaceship(){
+    func addDon(){
         //Spaceship placeholder, don't delete. Can comment out
         obstruction = Obstruction(imageNamed: "don-bora")
-        obstruction.setScale(0.55)
+        obstruction.setScale(0.45)
         obstruction.physicsBody = SKPhysicsBody(circleOfRadius: obstruction!.size.width/2)
-        obstruction.position = CGPointMake(640.0, 290.0)
+        obstruction.position = CGPointMake(740.0, 220.0)
         obstruction.physicsBody?.dynamic = false
         obstruction.physicsBody?.categoryBitMask    = PhysicsCategory.ObstructionCategory
         obstruction.physicsBody?.collisionBitMask   = PhysicsCategory.SoldierCategory
@@ -176,11 +188,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(obstruction!)
     }
 
+    // Having fun, can remove in real thang if we want
     func addMax(){
+
         max = Obstruction(imageNamed: "max-howell")
-        max.setScale(0.55)
+        max.setScale(0.45)
         max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
-        max.position = CGPointMake(780.0, 290.0)
+        max.position = CGPointMake(880.0, 220.0)
         max.physicsBody?.dynamic = false
         max.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
         max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
@@ -195,7 +209,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         func addEdge() {
         let edge = SKNode()
         //might not need the minus 200...will see!
-        edge.physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0,y: 100,width: self.frame.size.width,height: self.frame.size.height-200))
+        edge.physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0,y: 160,width: self.frame.size.width,height: self.frame.size.height-200))
         edge.physicsBody!.usesPreciseCollisionDetection = true
         edge.physicsBody!.categoryBitMask = PhysicsCategory.Edge
         edge.physicsBody!.dynamic = false
@@ -220,8 +234,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         healthStatus.setScale(1.1)
         addChild(healthStatus)
 
-        scoreKeeperBG.position = CGPointMake(910, 630)
-        scoreKeeperBG.setScale(1.0)
+        scoreKeeperBG.position = CGPointMake(950, 610)
+        scoreKeeperBG.setScale(1.3)
         addChild(scoreKeeperBG)
     }
     

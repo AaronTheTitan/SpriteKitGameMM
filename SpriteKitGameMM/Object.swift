@@ -11,6 +11,8 @@ import SpriteKit
 
 class Object: SKNode {
 
+    var hasPhysics:Bool = false
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -33,16 +35,29 @@ class Object: SKNode {
             for var i = 0; i < amount; i++ {
 
                 let groundSprite:SKSpriteNode = SKSpriteNode(imageNamed: image!)
+
                 addChild(groundSprite)
-                groundSprite.position = CGPoint(x: groundSprite.size.width * CGFloat(i), y: CGFloat(i) * 4)
+                groundSprite.position = CGPoint(x: groundSprite.size.width * CGFloat(i), y: CGFloat(i))
 
-                println("The var is now \(i)")
+                if (groundDict["BodyType"] == "square") {
+                    hasPhysics = true
+                    groundSprite.physicsBody = SKPhysicsBody(rectangleOfSize: groundSprite.size)
+                    groundSprite.physicsBody?.dynamic = false
+                }
             }
-
 
         } else {
             // put only one sprite
-        }
 
+            let groundSprite:SKSpriteNode = SKSpriteNode(imageNamed: image!)
+            addChild(groundSprite)
+            // doesn't need positioning set since it will be added in the center of the node
+
+            if (groundDict["BodyType"] == "square") {
+                hasPhysics = true
+                groundSprite.physicsBody = SKPhysicsBody(rectangleOfSize: groundSprite.size)
+                groundSprite.physicsBody?.dynamic = false
+            }
+        }
     }
 }

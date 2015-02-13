@@ -12,6 +12,7 @@ import SpriteKit
 class Soldier : SKSpriteNode {
 
     var currentState = SoldierStates.Idle
+    var isJumping:Bool = false
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -70,6 +71,12 @@ class Soldier : SKSpriteNode {
 
         let imageTexture = SKTexture(imageNamed: imageNamed)
         super.init(texture: imageTexture, color: nil, size: imageTexture.size())
+
+        // may or may not need
+        self.physicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width / 2.6))
+        self.physicsBody?.dynamic = true
+        self.physicsBody?.allowsRotation = false
+
     }
 
     func stepState() {
@@ -86,10 +93,19 @@ class Soldier : SKSpriteNode {
             case .Run:
                 currentState = .Run
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Run.sprites(), timePerFrame: 0.04)))
+//                self.physicsBody?.applyImpulse(CGVectorMake(0, 40))
 
             case .Jump:
                 currentState = .Jump
-                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1))
+                if isJumping == false {
+                    isJumping = true
+                    self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.13), count: 1))
+                    self.physicsBody?.applyImpulse(CGVectorMake(0, 900))
+                }
+                else {
+                    isJumping = false
+            }
+
 
             case .Crouch:
                 currentState = .Crouch
@@ -110,23 +126,21 @@ class Soldier : SKSpriteNode {
         }
     }
 
+
+
     func update() {
         // update when told by the GameScene class
         
-        if currentState != .Idle {
-            //run, croch, etc
-//            self.position = CGPointMake(self.position.x + 5, self.position.y)
-        }
-
-        if currentState == .Jump {
-           // self.physicsBody?.applyImpulse(CGVectorMake(0, 40))
-//            [self.physicsBody applyImpulse:CGVectorMake(0, 40)];
-            self.physicsBody?.applyImpulse(CGVectorMake(0,40))
-
-        }
-
-        if currentState == .RunShoot {
-
-        }
+//        if currentState != .Idle {
+//
+//        }
+//
+//        if currentState == .Jump {
+//
+//        }
+//
+//        if currentState == .RunShoot {
+//
+//        }
     }
 }
