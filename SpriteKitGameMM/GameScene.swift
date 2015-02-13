@@ -21,17 +21,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         static let Edge                : UInt32 = 0b100   // 3
     }
 
-    let buttonJump = SKSpriteNode(imageNamed: "directionUpRed")
-    let buttonDuck = SKSpriteNode(imageNamed: "directionDownRed")
-    let buttonFire = SKSpriteNode(imageNamed: "fireButtonRed")
-    let healthStatus = SKSpriteNode(imageNamed: "healthStatus")
+    let buttonJump    = SKSpriteNode(imageNamed: "directionUpRed")
+    let buttonDuck    = SKSpriteNode(imageNamed: "directionDownRed")
+    let buttonFire    = SKSpriteNode(imageNamed: "fireButtonRed")
+    let healthStatus  = SKSpriteNode(imageNamed: "healthStatus")
     let scoreKeeperBG = SKSpriteNode(imageNamed: "scoreKeeperBG")
 
 
     override func didMoveToView(view: SKView) {
 
         //added for collision detection
-         self.physicsWorld.gravity = CGVectorMake(0, -4.5)
+         self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
          physicsWorld.contactDelegate = self
 
         var groundInfo:[String: String] = ["ImageName": "groundOutside",
@@ -50,7 +50,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addEdge()
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
-
     }
 
     //when Soldier collides with Obsturction, do this function (currently does nothing)
@@ -61,13 +60,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
         // 1
-        var firstBody: SKPhysicsBody
+        var firstBody : SKPhysicsBody
         var secondBody: SKPhysicsBody
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-            firstBody = contact.bodyA
+            firstBody  = contact.bodyA
             secondBody = contact.bodyB
         } else {
-            firstBody = contact.bodyB
+            firstBody  = contact.bodyB
             secondBody = contact.bodyA
         }
         // 2
@@ -75,7 +74,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             (secondBody.categoryBitMask & PhysicsCategory.ObstructionCategory != 0)) {
                 soldierDidCollideWithObstacle(firstBody.node as SKSpriteNode, Obstruction: secondBody.node as SKSpriteNode)
         }
-
     }
 
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -167,17 +165,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         obstruction.physicsBody = SKPhysicsBody(circleOfRadius: obstruction!.size.width/2)
         obstruction.position = CGPointMake(640.0, 250.0)
         obstruction.physicsBody?.dynamic = false
-        obstruction.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
-        obstruction.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
+        obstruction.physicsBody?.categoryBitMask    = PhysicsCategory.ObstructionCategory
+        obstruction.physicsBody?.collisionBitMask   = PhysicsCategory.SoldierCategory
         obstruction.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         obstruction.physicsBody?.usesPreciseCollisionDetection = true
 
         addChild(obstruction!)
     }
- //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.    
+    //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         func addEdge() {
         let edge = SKNode()
-        edge.physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
+        //might not need the minus 200...will see!
+        edge.physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0,y: 100,width: self.frame.size.width,height: self.frame.size.height-200))
         edge.physicsBody!.usesPreciseCollisionDetection = true
         edge.physicsBody!.categoryBitMask = PhysicsCategory.Edge
         edge.physicsBody!.dynamic = false
