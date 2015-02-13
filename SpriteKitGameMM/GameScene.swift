@@ -13,6 +13,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
    // var increment = 0
     var soldierNode:Soldier?
     var obstruction:Obstruction!
+    var max:Obstruction! // playing around
+
     //allows us to differentiate sprites
     struct PhysicsCategory {
         static let None                : UInt32 = 0
@@ -42,6 +44,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let groundPlatform = Object(groundDict: groundInfo)
         addChild(groundPlatform)
 
+        addMax()
         //can comment out, need for reference for collisions
         addSpaceship()
         //adds soldier, moved to function to clean up
@@ -162,10 +165,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func addSpaceship(){
         //Spaceship placeholder, don't delete. Can comment out
-        obstruction = Obstruction(imageNamed: "Spaceship")
-        obstruction.setScale(0.25)
+        obstruction = Obstruction(imageNamed: "don-bora")
+        obstruction.setScale(0.55)
         obstruction.physicsBody = SKPhysicsBody(circleOfRadius: obstruction!.size.width/2)
-        obstruction.position = CGPointMake(640.0, 250.0)
+        obstruction.position = CGPointMake(640.0, 290.0)
         obstruction.physicsBody?.dynamic = false
         obstruction.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
         obstruction.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
@@ -173,6 +176,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         obstruction.physicsBody?.usesPreciseCollisionDetection = true
 
         addChild(obstruction!)
+    }
+
+    func addMax(){
+        max = Obstruction(imageNamed: "max-howell")
+        max.setScale(0.55)
+        max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
+        max.position = CGPointMake(780.0, 290.0)
+        max.physicsBody?.dynamic = false
+        max.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
+        max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
+        max.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+        max.physicsBody?.usesPreciseCollisionDetection = true
+
+        addChild(max)
+
     }
  //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.    
         func addEdge() {
