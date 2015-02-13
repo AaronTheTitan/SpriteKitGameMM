@@ -93,10 +93,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     //when Soldier collides with Obsturction, do this function (currently does nothing)
     func soldierDidCollideWithObstacle(Soldier:SKSpriteNode, Obstruction:SKSpriteNode) {
         if soldierNode!.color == UIColor.greenColor() {
-            println("Lost green")
             let changeColorAction = SKAction.colorizeWithColor(SKColor.redColor(), colorBlendFactor: 1.0, duration: 0.5)
             soldierNode!.runAction(changeColorAction)
-        }
+        } 
+
     }
 
     func soldierDidCollideWithPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
@@ -122,7 +122,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.ObstructionCategory != 0)) {
                 soldierDidCollideWithObstacle(firstBody.node as SKSpriteNode, Obstruction: secondBody.node as SKSpriteNode)
-                die()
+                //die()
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.PowerupCategory != 0)){
                 soldierDidCollideWithPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
