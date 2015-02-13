@@ -61,13 +61,10 @@ class Soldier : SKSpriteNode {
             }
         }
     }
-    
-
 
     func setCurrentState(currentStateEntry: SoldierStates) {
         currentState = currentStateEntry
     }
-
 
     init(imageNamed: String) {
 
@@ -125,7 +122,6 @@ class Soldier : SKSpriteNode {
            // self.physicsBody?.applyImpulse(CGVectorMake(0, 40))
 //            [self.physicsBody applyImpulse:CGVectorMake(0, 40)];
             self.physicsBody?.applyImpulse(CGVectorMake(0,40))
-
 
         }
 
