@@ -43,7 +43,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         var groundInfo:[String: String] = ["ImageName": "groundOutside",
                                             "BodyType": "square",
                                             "Location": "{0, 120}",
-//                                   "PlaceMultiplesOnX": "10"
+                                   "PlaceMultiplesOnX": "10"
                                                         ]
 
         let groundPlatform = Object(groundDict: groundInfo)
