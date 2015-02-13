@@ -64,10 +64,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        let groundPlatform = Object(groundDict: groundInfo)
 //        addChild(groundPlatform)
 
-        //addMax()
-        //can comment out, need for reference for collisions
-        //addDon()
-
         //adds soldier, moved to function to clean up
         addSoldier()
         addGirlSoldier()
@@ -99,9 +95,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
-
         var firstBody : SKPhysicsBody
         var secondBody: SKPhysicsBody
+
+        die()
 
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody  = contact.bodyA
@@ -288,7 +285,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.setScale(0.45)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
-        soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.ObstructionCategory
+        soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge //| PhysicsCategory.ObstructionCategory
         soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
         soldierNode?.physicsBody?.allowsRotation = false
         soldierNode?.physicsBody?.usesPreciseCollisionDetection = true
@@ -306,7 +303,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         girlSoldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: girlSoldierNode!.size)
         girlSoldierNode?.physicsBody?.allowsRotation = false
         girlSoldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
-        girlSoldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.ObstructionCategory
+        girlSoldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge //| PhysicsCategory.ObstructionCategory
         girlSoldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
         girlSoldierNode?.physicsBody?.usesPreciseCollisionDetection = true
 
@@ -329,7 +326,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         obstruction.physicsBody?.dynamic = false
         obstruction.physicsBody?.categoryBitMask    = PhysicsCategory.ObstructionCategory
-        obstruction.physicsBody?.collisionBitMask   = PhysicsCategory.SoldierCategory
+        //obstruction.physicsBody?.collisionBitMask   = PhysicsCategory.SoldierCategory
         obstruction.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         obstruction.physicsBody?.usesPreciseCollisionDetection = true
         obstruction.runAction(moveObject)
@@ -350,7 +347,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         max.physicsBody?.dynamic = false
         max.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
-        max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
+        //max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
         max.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         max.physicsBody?.usesPreciseCollisionDetection = true
         max.runAction(moveObject)

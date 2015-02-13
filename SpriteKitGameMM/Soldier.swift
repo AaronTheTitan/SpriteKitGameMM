@@ -115,7 +115,6 @@ class Soldier : SKSpriteNode {
                     })
             }
 
-
             case .Crouch:
                 currentState = .Crouch
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Crouch.sprites(), timePerFrame: 0.07), count: 1))
