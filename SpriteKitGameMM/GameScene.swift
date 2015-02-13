@@ -12,9 +12,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
    // var increment = 0
     var soldierNode:Soldier?
+    var girlSoldierNode:GirlSoldier? // testing for adding another player for selection
     var obstruction:Obstruction!
     var max:Obstruction! // playing around
     var moveObject = SKAction()
+
+    var bomb:Bomb!
+
     //allows us to differentiate sprites
     struct PhysicsCategory {
         static let None                : UInt32 = 0
@@ -62,8 +66,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //addMax()
         //can comment out, need for reference for collisions
         //addDon()
+
         //adds soldier, moved to function to clean up
         addSoldier()
+        addGirlSoldier()
 
         //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         addEdge()
@@ -71,6 +77,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
+
+//        addBombs() // testing out bombs
 
         let distance = CGFloat(self.frame.size.width * 2.0)
         let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.05 * distance))
@@ -95,6 +103,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // 1
         var firstBody : SKPhysicsBody
         var secondBody: SKPhysicsBody
+
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody  = contact.bodyA
             secondBody = contact.bodyB
@@ -135,16 +144,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         //Add background sprites
 
-        var bg = SKSpriteNode(imageNamed: "bg_spaceship_1")
+        let bgImages:[String] = ["bg_spaceship_1", "bg_spaceship_2", "bg_spaceship_3"]
+
+        var bg = SKSpriteNode(imageNamed: bgImages[0])
 
         bg.position = CGPointMake(bg.size.width / 2, bg.size.height / 2)
 
         self.addChild(bg)
 
-        for var x = 0; x < totalGroundPieces; x++
+        for var x = 0; x < bgImages.count; x++
         {
-            var sprite = SKSpriteNode(imageNamed: "bg_spaceship_1")
-            groundPieces.append(sprite)
+            var sprite = SKSpriteNode(imageNamed: bgImages[x])
+
+             groundPieces.append(sprite)
 
             var wSpacing = sprite.size.width / 2
             var hSpacing = sprite.size.height / 2
@@ -152,6 +164,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             if x == 0
             {
                 sprite.position = CGPointMake(wSpacing, hSpacing)
+                println(x)
             }
             else
             {
@@ -185,7 +198,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //         Called when a touch begins 
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
-            soldierNode?.setCurrentState(Soldier.SoldierStates.Idle)
+            soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
             soldierNode?.stepState()
 
             if CGRectContainsPoint(buttonJump.frame, location ) {
@@ -210,6 +223,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
+
+        let delay = 0.07 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+
+        dispatch_after(time, dispatch_get_main_queue()) {
+            self.girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Jump)
+            self.girlSoldierNode?.stepState()
+        }
+
     }
 
     func duck() {
@@ -229,6 +251,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func walkShoot() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.WalkShoot)
+        soldierNode?.stepState()
+    }
+
+    func walk() {
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
         soldierNode?.stepState()
     }
 
@@ -260,8 +287,26 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         addChild(soldierNode!)
 
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Idle)
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
         soldierNode?.stepState()
+    }
+
+    func addGirlSoldier() {
+        girlSoldierNode = GirlSoldier(imageNamed: "G-Idle__000")
+        girlSoldierNode?.position = CGPointMake(300, 450)
+        girlSoldierNode?.setScale(0.45)
+
+        girlSoldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: girlSoldierNode!.size)
+        girlSoldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
+        girlSoldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.ObstructionCategory
+        girlSoldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
+        girlSoldierNode?.physicsBody?.usesPreciseCollisionDetection = true
+
+        addChild(girlSoldierNode!)
+
+        girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
+        girlSoldierNode?.stepState()
+
     }
 
     func addDon(){
@@ -350,7 +395,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scoreKeeperBG.setScale(1.3)
         addChild(scoreKeeperBG)
     }
-    
+
+//    func addBombs() {
+//        bomb.position = CGPointMake(400, 450)
+//        addChild(bomb)
+//
+//        bomb.bombAnimate()
+//
+//    }
+
 
 }
 
