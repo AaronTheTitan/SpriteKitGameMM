@@ -16,6 +16,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var obstruction:Obstruction!
     var max:Obstruction! // playing around
 
+    
     var bomb:Bomb!
 
 
@@ -134,7 +135,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //Add background sprites
 
         let bgImages:[String] = ["bg_spaceship_1", "bg_spaceship_2", "bg_spaceship_3"]
-
         var bg = SKSpriteNode(imageNamed: bgImages[0])
 
         bg.position = CGPointMake(bg.size.width / 2, bg.size.height / 2)
@@ -196,6 +196,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
             soldierNode?.stepState()
 
+            girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
+            girlSoldierNode?.stepState()
+
             if CGRectContainsPoint(buttonJump.frame, location ) {
                 jump()
 
@@ -215,48 +218,48 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
+    
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
-
-        let delay = 0.07 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-
-        dispatch_after(time, dispatch_get_main_queue()) {
-            self.girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Jump)
-            self.girlSoldierNode?.stepState()
-        }
-
+        girlFollowDelay(GirlSoldier.SoldierStates.Jump)
     }
 
     func duck() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Crouch)
         soldierNode?.stepState()
+        girlFollowDelay(GirlSoldier.SoldierStates.Crouch)
     }
 
     func run() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
         soldierNode?.stepState()
+        girlFollowDelay(GirlSoldier.SoldierStates.Run)
     }
 
     func runShoot() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.RunShoot)
         soldierNode?.stepState()
+        girlFollowDelay(GirlSoldier.SoldierStates.RunShoot)
     }
 
     func walkShoot() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.WalkShoot)
         soldierNode?.stepState()
+        girlFollowDelay(GirlSoldier.SoldierStates.WalkShoot)
     }
 
     func walk() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
         soldierNode?.stepState()
+        girlFollowDelay(GirlSoldier.SoldierStates.Walk)
     }
+
 
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
         soldierNode?.stepState()
+        girlFollowDelay(GirlSoldier.SoldierStates.Dead)
     }
 
    
@@ -265,6 +268,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.update()
         groundMovement()
 
+    }
+
+    func girlFollowDelay(state: GirlSoldier.SoldierStates) {
+        let delay = 0.07 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+
+        dispatch_after(time, dispatch_get_main_queue()) {
+            self.girlSoldierNode?.setCurrentState(state)
+            self.girlSoldierNode?.stepState()
+        }
     }
 
     //add a soldier, called in did move to view
@@ -287,7 +300,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func addGirlSoldier() {
-        girlSoldierNode = GirlSoldier(imageNamed: "G-Idle__000")
+        girlSoldierNode = GirlSoldier(imageNamed: "G-Walk__000")
         girlSoldierNode?.position = CGPointMake(300, 450)
         girlSoldierNode?.setScale(0.45)
 
