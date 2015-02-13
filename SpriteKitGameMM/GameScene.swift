@@ -12,8 +12,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
    // var increment = 0
     var soldierNode:Soldier?
+    var girlSoldierNode:GirlSoldier? // testing for adding another player for selection
     var obstruction:Obstruction!
     var max:Obstruction! // playing around
+
+    var bomb:Bomb!
+
 
     //allows us to differentiate sprites
     struct PhysicsCategory {
@@ -49,11 +53,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let groundPlatform = Object(groundDict: groundInfo)
         addChild(groundPlatform)
 
-        addMax()
         //can comment out, need for reference for collisions
+        addMax()
         addDon()
+
         //adds soldier, moved to function to clean up
         addSoldier()
+        addGirlSoldier()
 
         //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
 //        addEdge()
@@ -61,6 +67,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
+//        addBombs() // testing out bombs
     }
 
     //when Soldier collides with Obsturction, do this function (currently does nothing)
@@ -173,6 +180,24 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.stepState()
     }
 
+    func addGirlSoldier() {
+        girlSoldierNode = GirlSoldier(imageNamed: "G-Idle__000")
+        girlSoldierNode?.position = CGPointMake(300, 450)
+        girlSoldierNode?.setScale(0.45)
+
+        girlSoldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: girlSoldierNode!.size)
+        girlSoldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
+        girlSoldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.ObstructionCategory
+        girlSoldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
+        girlSoldierNode?.physicsBody?.usesPreciseCollisionDetection = true
+
+        addChild(girlSoldierNode!)
+
+        girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Idle)
+        girlSoldierNode?.stepState()
+
+    }
+
     func addDon(){
         //Spaceship placeholder, don't delete. Can comment out
         obstruction = Obstruction(imageNamed: "don-bora")
@@ -238,7 +263,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scoreKeeperBG.setScale(1.3)
         addChild(scoreKeeperBG)
     }
-    
+
+//    func addBombs() {
+//        bomb.position = CGPointMake(400, 450)
+//        addChild(bomb)
+//
+//        bomb.bombAnimate()
+//
+//    }
+
 
 }
 

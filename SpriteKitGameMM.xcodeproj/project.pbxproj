@@ -21,6 +21,8 @@
 		91CEB79B1A8BB2CD0055CB17 /* SpriteKitGameMMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB79A1A8BB2CD0055CB17 /* SpriteKitGameMMTests.swift */; };
 		91CEB7A71A8BD02D0055CB17 /* Soldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB7A61A8BD02D0055CB17 /* Soldier.swift */; };
 		91CEB7A91A8C07C20055CB17 /* ControllerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */; };
+		91DD163E1A8E51E0004742FA /* GirlSoldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD163D1A8E51E0004742FA /* GirlSoldier.swift */; };
+		91DD16421A8E61A3004742FA /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD16411A8E61A3004742FA /* Bomb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +54,9 @@
 		91CEB79A1A8BB2CD0055CB17 /* SpriteKitGameMMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitGameMMTests.swift; sourceTree = "<group>"; };
 		91CEB7A61A8BD02D0055CB17 /* Soldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soldier.swift; sourceTree = "<group>"; };
 		91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerButton.swift; sourceTree = "<group>"; };
+		91DD163D1A8E51E0004742FA /* GirlSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GirlSoldier.swift; sourceTree = "<group>"; };
+		91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = PlayinAroundForGame.playground; path = SpriteKitGameMM/PlayinAroundForGame.playground; sourceTree = "<group>"; };
+		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bomb.swift; path = SpriteKitGameMM/Bomb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +80,8 @@
 		91CEB7721A8BB2CD0055CB17 = {
 			isa = PBXGroup;
 			children = (
+				91DD16411A8E61A3004742FA /* Bomb.swift */,
+				91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */,
 				91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */,
 				91CEB7971A8BB2CD0055CB17 /* SpriteKitGameMMTests */,
 				91CEB77C1A8BB2CD0055CB17 /* Products */,
@@ -93,9 +100,9 @@
 		91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */ = {
 			isa = PBXGroup;
 			children = (
+				91DD163F1A8E58B6004742FA /* Model/Objects */,
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
 				91CEB7861A8BB2CD0055CB17 /* GameViewController.swift */,
-				91CEB7A61A8BD02D0055CB17 /* Soldier.swift */,
 				8A0A12691A8D3B0D006B69C9 /* Obstruction.swift */,
 				9110209B1A8D45EE002532E9 /* WorldGenerator.swift */,
 				91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */,
@@ -138,10 +145,19 @@
 				91CEB7801A8BB2CD0055CB17 /* AppDelegate.swift */,
 				91CEB7821A8BB2CD0055CB17 /* GameScene.sks */,
 				91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */,
-				911020991A8D3D1D002532E9 /* Bullet.swift */,
 				91CEB78D1A8BB2CD0055CB17 /* LaunchScreen.xib */,
 			);
 			name = Defaults;
+			sourceTree = "<group>";
+		};
+		91DD163F1A8E58B6004742FA /* Model/Objects */ = {
+			isa = PBXGroup;
+			children = (
+				911020991A8D3D1D002532E9 /* Bullet.swift */,
+				91DD163D1A8E51E0004742FA /* GirlSoldier.swift */,
+				91CEB7A61A8BD02D0055CB17 /* Soldier.swift */,
+			);
+			name = Model/Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,7 +267,9 @@
 				91CEB7A71A8BD02D0055CB17 /* Soldier.swift in Sources */,
 				9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */,
 				91CEB7811A8BB2CD0055CB17 /* AppDelegate.swift in Sources */,
+				91DD163E1A8E51E0004742FA /* GirlSoldier.swift in Sources */,
 				914ABA451A8D08EA008039D7 /* Object.swift in Sources */,
+				91DD16421A8E61A3004742FA /* Bomb.swift in Sources */,
 				9110209C1A8D45EE002532E9 /* WorldGenerator.swift in Sources */,
 				91CEB7A91A8C07C20055CB17 /* ControllerButton.swift in Sources */,
 			);
