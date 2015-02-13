@@ -36,22 +36,33 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let healthStatus  = SKSpriteNode(imageNamed: "healthStatus")
     let scoreKeeperBG = SKSpriteNode(imageNamed: "scoreKeepYellow")
 
+    let totalGroundPieces = 5
+    var groundPieces = [SKSpriteNode]()
+
+    let groundSpeed: CGFloat = 3.5
+    var moveGroundAction: SKAction!
+    var moveGroundForeverAction: SKAction!
+    let groundResetXCoord: CGFloat = -500
+
 
     override func didMoveToView(view: SKView) {
 
         //added for collision detection
         //        view.showsPhysics = true
+        initSetup()
+        setupScenery()
+        startGame()
          self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
          physicsWorld.contactDelegate = self
+//        var groundInfo:[String: String] = ["ImageName": "groundOutside",
+//                                            "BodyType": "square",
+//                                            "Location": "{0, 120}",
+//                                   "PlaceMultiplesOnX": "10"
+//                                                        ]
+//
+//        let groundPlatform = Object(groundDict: groundInfo)
+//        addChild(groundPlatform)
 
-        var groundInfo:[String: String] = ["ImageName": "groundOutside",
-                                            "BodyType": "square",
-                                            "Location": "{0, 120}",
-                                   "PlaceMultiplesOnX": "10"
-                                                        ]
-
-        let groundPlatform = Object(groundDict: groundInfo)
-        addChild(groundPlatform)
 
         //can comment out, need for reference for collisions
         addMax()
@@ -62,7 +73,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addGirlSoldier()
 
         //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
-//        addEdge()
+        addEdge()
 //      ADDED CODED INTO THE SOLDIER OBJECT TO FIX THIS PROBLEM
 
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
@@ -74,6 +85,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func soldierDidCollideWithObstacle(Soldier:SKSpriteNode, Obstruction:SKSpriteNode) {
        //soldierNode!.removeFromParent()
     }
+
 
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
@@ -97,6 +109,80 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func didEndContact(contact: SKPhysicsContact) {
         // will get called automatically when two objects end contact with each other
     }
+
+
+    func initSetup()
+    {
+
+        moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)
+        moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([moveGroundAction]))
+    }
+    func startGame()
+    {
+        for sprite in groundPieces
+        {
+            sprite.runAction(moveGroundForeverAction)
+        }
+    }
+
+
+    func setupScenery()
+    {
+        /* Setup your scene here */
+
+        //Add background sprites
+
+        var bg = SKSpriteNode(imageNamed: "bg_spaceship_1")
+
+        bg.position = CGPointMake(bg.size.width / 2, bg.size.height / 2)
+
+        self.addChild(bg)
+
+        for var x = 0; x < totalGroundPieces; x++
+        {
+            var sprite = SKSpriteNode(imageNamed: "bg_spaceship_1")
+            groundPieces.append(sprite)
+
+            var wSpacing = sprite.size.width / 2
+            var hSpacing = sprite.size.height / 2
+
+            if x == 0
+            {
+                sprite.position = CGPointMake(wSpacing, hSpacing)
+            }
+            else
+            {
+                sprite.position = CGPointMake((wSpacing * 2) + groundPieces[x - 1].position.x,groundPieces[x - 1].position.y)
+            }
+
+            self.addChild(sprite)
+        }
+    }
+
+    func groundMovement()
+    {
+        for var x = 0; x < groundPieces.count; x++
+        {
+            if groundPieces[x].position.x <= groundResetXCoord
+            {
+
+                if x != 0
+                {
+                    groundPieces[x].position = CGPointMake(groundPieces[x - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
+
+
+                }
+                else
+                {
+                    groundPieces[x].position = CGPointMake(groundPieces[x + 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
+//                    groundPieces[x].position = CGPointMake(groundPieces[groundPieces.count - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
+                    println("change picture")
+                }
+            }
+        }
+    }
+    
+
 
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 //         Called when a touch begins 
@@ -158,6 +244,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         soldierNode?.update()
+        groundMovement()
 
     }
 
