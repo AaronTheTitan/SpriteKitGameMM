@@ -18,6 +18,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var platform:Platform?
     var powerup: PowerUp?
     var powerupWhite: PowerUp?
+    var labelScore:SKLabelNode!
+    var score: Int!
 //    var bomb:Bomb!
 
     //allows us to differentiate sprites
@@ -80,7 +82,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
-
+        score = 0
+        addScoreLabel()
 //        addBombs() // testing out bombs
 
         let distance = CGFloat(self.frame.size.width * 2.0)
@@ -95,6 +98,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.runAction(spawnThenDelayForever)
 
     }
+
+    //TODO: Change font size based on phone that is being used
+    //TODO: Do we want score in the middle?
+    func addScoreLabel(){
+        labelScore = SKLabelNode(text: "Score: \(score)")
+        labelScore.fontName = "MarkerFelt-Wide"
+        labelScore.fontSize = 24
+        labelScore.zPosition = 4
+        //labelScore.position = CGPointMake(500, 625)
+        labelScore.position = CGPointMake(30 + labelScore.frame.size.width/2, self.size.height - (107 + labelScore.frame.size.height/2))
+        addChild(labelScore)
+    }
+
     //when Soldier collides with Obsturction, do this function (currently does nothing)
     func soldierDidCollideWithObstacle(Soldier:SKSpriteNode, Obstruction:SKSpriteNode) {
         if soldierNode!.color == UIColor.greenColor() {
@@ -108,9 +124,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        let changeColorAction = SKAction.colorizeWithColor(SKColor.greenColor(), colorBlendFactor: 1.0, duration: 0.5)
 //        soldierNode!.runAction(changeColorAction)
         PowerUp.removeFromParent()
+        score = score + 1
+        labelScore.text = "Score: \(score)"
     }
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
         PowerUp.removeFromParent()
+        score = score + 2
+        labelScore.text = "Score: \(score)"
     }
 
     //when contact begins
