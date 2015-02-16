@@ -18,9 +18,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var platform:Platform?
     var powerup: PowerUp?
     var powerupWhite: PowerUp?
-
+    var highScoreLabel:SKLabelNode!
     var labelScore:SKLabelNode!
     var score: Int!
+    var highScore:NSInteger?
     var bomb:Bomb?
 
 
@@ -85,7 +86,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
         score = 0
+        highScore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
+
+//        NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"HighScore"];
+
         addScoreLabel()
+        addHighScoreLabel()
 //        addBombs() // testing out bombs
 
         let distance = CGFloat(self.frame.size.width * 2.0)
@@ -112,6 +118,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         labelScore.position = CGPointMake(30 + labelScore.frame.size.width/2, self.size.height - (107 + labelScore.frame.size.height/2))
         addChild(labelScore)
     }
+//TODO: Make Highscore same level as score
+    func addHighScoreLabel(){
+        highScoreLabel = SKLabelNode(text: "Highscore: \(highScore!)")
+        highScoreLabel.fontName = "MarkerFelt-Wide"
+        highScoreLabel.fontSize  = 24
+        highScoreLabel.zPosition = 4
+        highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.835)
+        addChild(highScoreLabel)
+}
 
     //when Soldier collides with Obsturction, do this function (currently does nothing)
     func soldierDidCollideWithObstacle(Soldier:SKSpriteNode, Obstruction:SKSpriteNode) {
@@ -128,11 +143,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         PowerUp.removeFromParent()
         score = score + 1
         labelScore.text = "Score: \(score)"
+
+        if score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+            NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "highscore")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
     }
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
         PowerUp.removeFromParent()
         score = score + 2
         labelScore.text = "Score: \(score)"
+
+        if score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+            NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "highscore")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
     }
 
     //when contact begins
