@@ -28,6 +28,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         static let Edge                : UInt32 = 0b100   // 3
         static let PlatformCategory    : UInt32 = 0b1000  // 4
         static let PowerupCategory     : UInt32 = 0b10000 // 5
+        static let SuperPowerCategory  : UInt32 = 0b100000 //6
+
     }
 
     // Buttons
@@ -103,8 +105,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func soldierDidCollideWithPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
-        let changeColorAction = SKAction.colorizeWithColor(SKColor.greenColor(), colorBlendFactor: 1.0, duration: 0.5)
-        soldierNode!.runAction(changeColorAction)
+//        let changeColorAction = SKAction.colorizeWithColor(SKColor.greenColor(), colorBlendFactor: 1.0, duration: 0.5)
+//        soldierNode!.runAction(changeColorAction)
+        PowerUp.removeFromParent()
+    }
+    func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
+        PowerUp.removeFromParent()
     }
 
     //when contact begins
@@ -129,9 +135,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.PowerupCategory != 0)){
                 soldierDidCollideWithPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
+        }else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+            (secondBody.categoryBitMask & PhysicsCategory.SuperPowerCategory != 0)){
+                 soldierDidCollideWithSuperPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
         }
     }
-
 
     func didEndContact(contact: SKPhysicsContact) {
         // will get called automatically when two objects end contact with each other
@@ -338,7 +346,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
         soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.PlatformCategory
-        soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
+        soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory | PhysicsCategory.PowerupCategory | PhysicsCategory.SuperPowerCategory
         soldierNode?.physicsBody?.allowsRotation = false
         soldierNode?.physicsBody?.usesPreciseCollisionDetection = true
 
@@ -347,7 +355,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
         soldierNode?.stepState()
     }
-
+//need to update girlPhysics catergories
     func addGirlSoldier() {
         girlSoldierNode = GirlSoldier(imageNamed: "G-Walk__000")
         girlSoldierNode?.position = CGPointMake(300, 450)
@@ -430,7 +438,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/2)
         powerup?.position = CGPointMake(1480.0, 620)
         powerup?.physicsBody?.dynamic = false
-        powerup?.physicsBody?.categoryBitMask = PhysicsCategory.PowerupCategory
+        powerup?.physicsBody?.categoryBitMask = PhysicsCategory.SuperPowerCategory
         powerup?.physicsBody?.collisionBitMask = PhysicsCategory.None
         powerup?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         powerup?.physicsBody?.usesPreciseCollisionDetection = true
@@ -443,7 +451,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func addPowerUpWhite() {
         powerupWhite = PowerUp(imageNamed: "powerup02_1")
         powerupWhite?.setScale(0.85)
-        powerupWhite?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/2)
+        powerupWhite?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
         powerupWhite?.position = CGPointMake(1200.0, 445)
         powerupWhite?.physicsBody?.dynamic = false
         powerupWhite?.physicsBody?.categoryBitMask = PhysicsCategory.PowerupCategory
