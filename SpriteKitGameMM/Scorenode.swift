@@ -1,14 +1,14 @@
 //
-//  PowerUp.swift
+//  Scorenode.swift
 //  SpriteKitGameMM
 //
-//  Created by Nick Dobrez on 2/13/15.
+//  Created by Nick Dobrez on 2/14/15.
 //  Copyright (c) 2015 Aaron Bradley. All rights reserved.
 //
 
 import SpriteKit
 
-class PowerUp: SKSpriteNode {
+class Scorenode: SKSpriteNode {
 
     init(imageNamed: String) {
 
