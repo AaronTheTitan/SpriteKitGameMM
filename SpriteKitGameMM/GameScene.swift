@@ -9,6 +9,7 @@ import SpriteKit
 
 class GameScene: SKScene , SKPhysicsContactDelegate {
 
+    // MARK: PROPERTIES
    // var increment = 0
     var soldierNode:Soldier?
     var girlSoldierNode:GirlSoldier? // testing for adding another player for selection
@@ -24,6 +25,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var bomb:Bomb?
 
 
+    // MARK: PHYSICS CATEGORY STRUCT
     //allows us to differentiate sprites
     struct PhysicsCategory {
         static let None                : UInt32 = 0
@@ -33,18 +35,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         static let PlatformCategory    : UInt32 = 0b1000  // 4
         static let PowerupCategory     : UInt32 = 0b10000 // 5
         static let SuperPowerCategory  : UInt32 = 0b100000 //6
+        static let BombCategory        : UInt32 = 31 //31
 
     }
 
-    // Buttons
+    // MARK: BUTTONS
     let buttonJump    = SKSpriteNode(imageNamed: "directionUpRed")
     let buttonDuck    = SKSpriteNode(imageNamed: "directionDownRed")
     let buttonFire    = SKSpriteNode(imageNamed: "fireButtonRed")
 
+    // MARK: STATUS HOLDERS
     // Status Holders
     let healthStatus  = SKSpriteNode(imageNamed: "healthStatus")
     let scoreKeeperBG = SKSpriteNode(imageNamed: "scoreKeepYellow")
 
+    // MARK: GROUND/WORLD
     let totalGroundPieces = 5
     var groundPieces = [SKSpriteNode]()
 
@@ -54,7 +59,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let groundResetXCoord: CGFloat = -500
     var timeIncrement:Double = 0.02
 
-
+    // MARK: VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
         //added for collision detection
@@ -113,6 +118,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(labelScore)
     }
 
+    // MARK: COLLISION FUNCTIONS
     //when Soldier collides with Obsturction, do this function (currently does nothing)
     func soldierDidCollideWithObstacle(Soldier:SKSpriteNode, Obstruction:SKSpriteNode) {
         if soldierNode!.color == UIColor.greenColor() {
@@ -133,6 +139,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         PowerUp.removeFromParent()
         score = score + 2
         labelScore.text = "Score: \(score)"
+    }
+
+    func soldierDidCollideWithBomb(Soldier:SKSpriteNode, Bomb:SKSpriteNode) {
+        Bomb.removeFromParent()
+        bomb?.bombExplode()
+        die()
     }
 
     //when contact begins
@@ -157,15 +169,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.PowerupCategory != 0)){
                 soldierDidCollideWithPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
-        }else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+        } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.SuperPowerCategory != 0)){
                  soldierDidCollideWithSuperPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
         }
+
     }
 
     func didEndContact(contact: SKPhysicsContact) {
         // will get called automatically when two objects end contact with each other
     }
+
+    // MARK: GROUND SPEED MANIPULATION
 
     func groundSpeedIncrease(){
 
@@ -187,8 +202,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-
-
+    // MARK: INIT SETUP FUNCTIONS
     func initSetup()
     {
         moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)
@@ -258,6 +272,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
+    // MARK: TOUCHES BEGAN
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 //         Called when a touch begins 
         for touch: AnyObject in touches {
@@ -286,7 +301,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    
+    // MARK: SOLDIER ACTIONS
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
@@ -359,6 +374,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
 
+    // MARK: ADD ASSETS TO SCENE
     //add a soldier, called in did move to view
     func addSoldier(){
         soldierNode = Soldier(imageNamed: "Walk__000")
@@ -380,7 +396,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
         soldierNode?.stepState()
     }
-//need to update girlPhysics catergories
+
+    //need to update girlPhysics catergories
     func addGirlSoldier() {
         girlSoldierNode = GirlSoldier(imageNamed: "G-Walk__000")
         girlSoldierNode?.position = CGPointMake(300, 450)
@@ -525,6 +542,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         addChild(bomb!)
     }
+
 
     //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         func addEdge() {

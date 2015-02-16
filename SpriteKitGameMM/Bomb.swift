@@ -12,6 +12,7 @@ import SpriteKit
 class Bomb : SKSpriteNode {
 
     let bombNode = (0...1).map{ SKTexture(imageNamed: "bomb_0\($0)")! }
+    let explosion = (0...10).map{ SKTexture(imageNamed: "GroundExplo__00\($0)")! }
 
     init(imageNamed: String) {
 
@@ -24,7 +25,9 @@ class Bomb : SKSpriteNode {
         runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(bombNode, timePerFrame: 0.17)))
     }
 
-
+    func bombExplode() {
+        runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosion, timePerFrame: 0.14), count: 1))
+    }
 
 
     required init?(coder aDecoder: NSCoder) {

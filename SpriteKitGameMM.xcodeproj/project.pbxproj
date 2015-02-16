@@ -78,7 +78,7 @@
 		91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerButton.swift; sourceTree = "<group>"; };
 		91DD163D1A8E51E0004742FA /* GirlSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GirlSoldier.swift; sourceTree = "<group>"; };
 		91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = PlayinAroundForGame.playground; path = SpriteKitGameMM/PlayinAroundForGame.playground; sourceTree = "<group>"; };
-		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bomb.swift; path = SpriteKitGameMM/Bomb.swift; sourceTree = "<group>"; };
+		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
 		F7A80E271A916B840059F987 /* LoginScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		F7A80E2A1A9174D30059F987 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		F7A80E2B1A9174D30059F987 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -147,7 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				F7A80E4C1A9175930059F987 /* Frameworks */,
-				91DD16411A8E61A3004742FA /* Bomb.swift */,
 				91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */,
 				91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */,
 				91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */,
@@ -220,6 +219,7 @@
 		91DD163F1A8E58B6004742FA /* Model/Objects */ = {
 			isa = PBXGroup;
 			children = (
+				91DD16411A8E61A3004742FA /* Bomb.swift */,
 				911020991A8D3D1D002532E9 /* Bullet.swift */,
 				91DD163D1A8E51E0004742FA /* GirlSoldier.swift */,
 				91CEB7A61A8BD02D0055CB17 /* Soldier.swift */,
