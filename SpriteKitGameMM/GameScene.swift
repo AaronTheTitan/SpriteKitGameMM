@@ -174,14 +174,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         {
             sprite.runAction(speedUpAction)
         }
-
-        println("\(groundSpeed)")
-
+//        println("\(groundSpeed)")
         if groundSpeed > 10.5 {
             run()
         }
-
-
 
     }
 
@@ -277,14 +273,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             } else if CGRectContainsPoint(buttonFire.frame, location) {
                 walkShoot()
-
             }
-
-
         }
     }
 
-    
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
@@ -344,8 +336,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.position.x = originalHeroPoint.x
     }
 
-    
-
     func girlFollowDelay(state: GirlSoldier.SoldierStates) {
         let delay = 0.07 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
@@ -363,7 +353,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //was 300, 300
 
         soldierNode?.position = CGPointMake(450, 450)
-
 
         soldierNode?.setScale(0.35)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
@@ -458,7 +447,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         powerup = PowerUp(imageNamed: "powerup")
         // max.setScale(0.45)
         powerup?.setScale(0.85)
-        powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/2)
+        powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
         powerup?.position = CGPointMake(1480.0, 620)
         powerup?.physicsBody?.dynamic = false
         powerup?.physicsBody?.categoryBitMask = PhysicsCategory.SuperPowerCategory
@@ -488,18 +477,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func addBadGuys() {
-        let distance = CGFloat(self.frame.size.width * 2.0)
-        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.005 * distance))
-        moveObject = SKAction.sequence([moveObstruction])
+//        let distance = CGFloat(self.frame.size.width * 2.0)
+//        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.005 * distance))
+//        moveObject = SKAction.sequence([moveObstruction])
         //can comment out, need for reference for collisions
 
         let y = arc4random() % 3
         if y == 0 {
+            let distance = CGFloat(self.frame.size.width * 2.0)
+            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
+            moveObject = SKAction.sequence([moveObstruction])
             addDon()
         } else if y == 1 {
+            let distance = CGFloat(self.frame.size.width * 2.0)
+            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
+            moveObject = SKAction.sequence([moveObstruction])
             addMax ()
 
         } else {
+            let distance = CGFloat(self.frame.size.width * 2.0)
+            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
+            moveObject = SKAction.sequence([moveObstruction])
             addPlatform()
             addPowerup()
             addPowerUpWhite()
