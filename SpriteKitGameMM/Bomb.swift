@@ -12,7 +12,7 @@ import SpriteKit
 class Bomb : SKSpriteNode {
 
     let bombNode = (0...1).map{ SKTexture(imageNamed: "bomb_0\($0)")! }
-    let explosion = (0...10).map{ SKTexture(imageNamed: "GroundExplo__00\($0)")! }
+    let explosion = (0...9).map{ SKTexture(imageNamed: "GroundExplo__00\($0)")! }
 
     init(imageNamed: String) {
 

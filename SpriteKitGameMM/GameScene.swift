@@ -24,6 +24,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var score: Int!
     var highScore:NSInteger?
     var bomb:Bomb?
+    var bombExplode:Bomb?
 
 
     // MARK: PHYSICS CATEGORY STRUCT
@@ -168,7 +169,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func soldierDidCollideWithBomb(Soldier:SKSpriteNode, Bomb:SKSpriteNode) {
         Bomb.removeFromParent()
-        bomb?.bombExplode()
+        bombExplode?.bombExplode()
         die()
     }
 
@@ -568,8 +569,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bomb?.bombFlash()
 
         addChild(bomb!)
-    }
 
+        bombExplode = Bomb(imageNamed: "empty")
+        bombExplode?.setScale(1.00)
+        bombExplode?.position = CGPointMake(bomb!.position.x, bomb!.position.y + 100)
+        bombExplode?.runAction(moveObject)
+
+        addChild(bombExplode!)
+
+
+    }
 
     //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         func addEdge() {
