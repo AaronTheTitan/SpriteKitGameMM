@@ -36,7 +36,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         static let PlatformCategory    : UInt32 = 0b1000  // 4
         static let PowerupCategory     : UInt32 = 0b10000 // 5
         static let SuperPowerCategory  : UInt32 = 0b100000 //6
-        static let BombCategory        : UInt32 = 31 //31
+        static let BombCategory        : UInt32 = 0b1000000 //7
 
     }
 
@@ -197,8 +197,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.SuperPowerCategory != 0)){
                  soldierDidCollideWithSuperPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
+        }else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+            (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
+                soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, Bomb: secondBody.node as SKSpriteNode)
         }
-
     }
 
     func didEndContact(contact: SKPhysicsContact) {
@@ -403,7 +405,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
         soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.PlatformCategory
-        soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory | PhysicsCategory.PowerupCategory | PhysicsCategory.SuperPowerCategory
+        soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory | PhysicsCategory.PowerupCategory | PhysicsCategory.SuperPowerCategory | PhysicsCategory.BombCategory
         soldierNode?.physicsBody?.allowsRotation = false
         soldierNode?.physicsBody?.usesPreciseCollisionDetection = true
 
@@ -558,7 +560,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
         bomb?.position = CGPointMake(1280.0, 180)
         bomb?.physicsBody?.dynamic = false
-        bomb?.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
+        bomb?.physicsBody?.categoryBitMask = PhysicsCategory.BombCategory
         bomb?.physicsBody?.collisionBitMask = PhysicsCategory.None
         bomb?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         bomb?.physicsBody?.usesPreciseCollisionDetection = true
