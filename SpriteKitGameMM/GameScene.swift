@@ -516,7 +516,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
         bomb?.position = CGPointMake(1280.0, 180)
         bomb?.physicsBody?.dynamic = false
-        bomb?.physicsBody?.categoryBitMask = PhysicsCategory.SuperPowerCategory
+        bomb?.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
         bomb?.physicsBody?.collisionBitMask = PhysicsCategory.None
         bomb?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         bomb?.physicsBody?.usesPreciseCollisionDetection = true
