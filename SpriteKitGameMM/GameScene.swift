@@ -42,10 +42,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let totalGroundPieces = 5
     var groundPieces = [SKSpriteNode]()
 
-    let groundSpeed: CGFloat = 3.5
+    var groundSpeed: CGFloat = 1.0
     var moveGroundAction: SKAction!
     var moveGroundForeverAction: SKAction!
     let groundResetXCoord: CGFloat = -500
+    var timeIncrement:Double = 0.02
 
 
     override func didMoveToView(view: SKView) {
@@ -55,8 +56,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         initSetup()
         setupScenery()
         startGame()
-        self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
-        physicsWorld.contactDelegate = self
+
+         self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
+         physicsWorld.contactDelegate = self
+         var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("groundSpeedIncrease"), userInfo: nil, repeats: true)
 //        var groundInfo:[String: String] = ["ImageName": "groundOutside",
 //                                            "BodyType": "square",
 //                                            "Location": "{0, 120}",
@@ -129,9 +132,28 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
+
     func didEndContact(contact: SKPhysicsContact) {
         // will get called automatically when two objects end contact with each other
     }
+
+    func groundSpeedIncrease(){
+
+        groundSpeed = groundSpeed + 0.3
+        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
+
+        for sprite in groundPieces
+        {
+            sprite.runAction(speedUpAction)
+        }
+
+        println("\(groundSpeed)")
+
+
+        
+    }
+
+
 
     func initSetup()
     {
@@ -146,6 +168,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             sprite.runAction(moveGroundForeverAction)
         }
     }
+
 
     func setupScenery()
     {
