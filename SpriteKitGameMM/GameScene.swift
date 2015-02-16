@@ -31,12 +31,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     //allows us to differentiate sprites
     struct PhysicsCategory {
         static let None                : UInt32 = 0
-        static let SoldierCategory     : UInt32 = 0b1     // 1
-        static let ObstructionCategory : UInt32 = 0b10    // 2
-        static let Edge                : UInt32 = 0b100   // 3
-        static let PlatformCategory    : UInt32 = 0b1000  // 4
-        static let PowerupCategory     : UInt32 = 0b10000 // 5
-        static let SuperPowerCategory  : UInt32 = 0b100000 //6
+        static let SoldierCategory     : UInt32 = 0b1       //1
+        static let ObstructionCategory : UInt32 = 0b10      //2
+        static let Edge                : UInt32 = 0b100     //3
+        static let PlatformCategory    : UInt32 = 0b1000    //4
+        static let PowerupCategory     : UInt32 = 0b10000   //5
+        static let SuperPowerCategory  : UInt32 = 0b100000  //6
         static let BombCategory        : UInt32 = 0b1000000 //7
 
     }
@@ -212,7 +212,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func groundSpeedIncrease(){
 
-        groundSpeed = groundSpeed + 0.3
+        groundSpeed = groundSpeed + 0.25
         var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
 
         for sprite in groundPieces
@@ -534,19 +534,59 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let y = arc4random() % 3
         if y == 0 {
             let distance = CGFloat(self.frame.size.width * 2.0)
-            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
-            moveObject = SKAction.sequence([moveObstruction])
+            if groundSpeed < 10.5{
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.007  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            } else if groundSpeed < 15.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0055  * distance))
+            }
+            else if groundSpeed < 20.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            } else if groundSpeed < 25.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            }else if groundSpeed < 30.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0015  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            }
             addDon()
         } else if y == 1 {
             let distance = CGFloat(self.frame.size.width * 2.0)
-            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
-            moveObject = SKAction.sequence([moveObstruction])
+            if groundSpeed < 10.5{
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.007  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            } else if groundSpeed < 15.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0055  * distance))
+            } else if groundSpeed < 20.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            } else if groundSpeed < 25.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            }else if groundSpeed < 30.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0015  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            }
             addMax ()
 
         } else {
             let distance = CGFloat(self.frame.size.width * 2.0)
-            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
-            moveObject = SKAction.sequence([moveObstruction])
+            if groundSpeed < 6.5{
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.007  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            } else if groundSpeed < 12.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0055  * distance))
+            } else if groundSpeed < 18.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            } else if groundSpeed < 24.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            }else if groundSpeed < 30.5 {
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0015  * distance))
+                moveObject = SKAction.sequence([moveObstruction])
+            }
             addPlatform()
             addPowerup()
             addPowerUpWhite()
