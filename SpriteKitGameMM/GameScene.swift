@@ -18,9 +18,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var platform:Platform?
     var powerup: PowerUp?
     var powerupWhite: PowerUp?
+
     var labelScore:SKLabelNode!
     var score: Int!
-//    var bomb:Bomb!
+    var bomb:Bomb?
+
 
     //allows us to differentiate sprites
     struct PhysicsCategory {
@@ -501,7 +503,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             addPlatform()
             addPowerup()
             addPowerUpWhite()
+            addBomb()
         }
+    }
+
+    func addBomb() {
+        bomb = Bomb(imageNamed: "bomb_00")
+        // max.setScale(0.45)
+        bomb?.setScale(0.75)
+        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
+        bomb?.position = CGPointMake(1280.0, 180)
+        bomb?.physicsBody?.dynamic = false
+        bomb?.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
+        bomb?.physicsBody?.collisionBitMask = PhysicsCategory.None
+        bomb?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+        bomb?.physicsBody?.usesPreciseCollisionDetection = true
+        bomb?.runAction(moveObject)
+        bomb?.bombFlash()
+
+        addChild(bomb!)
     }
 
     //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
