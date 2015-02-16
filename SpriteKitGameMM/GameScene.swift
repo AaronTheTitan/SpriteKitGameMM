@@ -149,8 +149,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         println("\(groundSpeed)")
 
+        if groundSpeed > 10.5 {
+            run()
+        }
 
-        
+
+
     }
 
 
@@ -246,10 +250,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             } else if CGRectContainsPoint(buttonFire.frame, location) {
                 walkShoot()
 
-            } else {
-                run()
-
             }
+
+
         }
     }
 
@@ -301,7 +304,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        if soldierNode?.position.x < originalHeroPoint.x - 400 || soldierNode?.position.x > originalHeroPoint.x + 300 {
+        if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
                 resetSoldierPosition()
         }
 
