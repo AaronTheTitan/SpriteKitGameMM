@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         Parse.setApplicationId("PeaTcxDstCFxbD320OshP9bA9PkBXvyNIw5FJlIF", clientKey: "fU0X9yNe0TUmr566CoSU0gVmnjzBRQUZcJzCTUft")
+        //PFFacebookUtils.initializeFacebook()
       
         return true
     }

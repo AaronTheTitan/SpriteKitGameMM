@@ -43,6 +43,7 @@
 		F7A80E471A9175290059F987 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E461A9175290059F987 /* Security.framework */; };
 		F7A80E491A91753F0059F987 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E481A91753F0059F987 /* SystemConfiguration.framework */; };
 		F7A80E4B1A9175500059F987 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E4A1A9175500059F987 /* libsqlite3.dylib */; };
+		F7A80E4E1A91802D0059F987 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E4D1A91802D0059F987 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		F7A80E461A9175290059F987 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F7A80E481A91753F0059F987 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F7A80E4A1A9175500059F987 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		F7A80E4D1A91802D0059F987 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				F7A80E3B1A9174FC0059F987 /* StoreKit.framework in Frameworks */,
 				F7A80E471A9175290059F987 /* Security.framework in Frameworks */,
 				F7A80E451A9175220059F987 /* QuartzCore.framework in Frameworks */,
+				F7A80E4E1A91802D0059F987 /* FacebookSDK.framework in Frameworks */,
 				F7A80E431A91751C0059F987 /* MobileCoreServices.framework in Frameworks */,
 				F7A80E411A9175150059F987 /* libz.dylib in Frameworks */,
 				F7A80E3F1A91750D0059F987 /* CFNetwork.framework in Frameworks */,
@@ -139,6 +142,7 @@
 			children = (
 				F7A80E4C1A9175930059F987 /* Frameworks */,
 				91DD16411A8E61A3004742FA /* Bomb.swift */,
+				F7A80E4D1A91802D0059F987 /* FacebookSDK.framework */,
 				91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */,
 				91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */,
 				91CEB7971A8BB2CD0055CB17 /* SpriteKitGameMMTests */,
@@ -493,6 +497,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SpriteKitGameMM/parse1",
+					/Users/ryangunn/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = SpriteKitGameMM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -508,6 +513,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SpriteKitGameMM/parse1",
+					/Users/ryangunn/Documents/FacebookSDK,
 				);
 				INFOPLIST_FILE = SpriteKitGameMM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
