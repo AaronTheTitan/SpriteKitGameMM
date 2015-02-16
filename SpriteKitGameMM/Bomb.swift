@@ -11,9 +11,18 @@ import SpriteKit
 
 class Bomb : SKSpriteNode {
 
+//    override init()
+
+
+
 //    var currentState = SoldierStates.Idle
 //    var isJumping:Bool = false
-    
+
+//    init(spriteTexture: SKTexture) {
+//
+////        let imageTexture = SKTexture(spriteTexture: spriteTexture)
+////        super.init(texture: imageTexture, color: nil, size: imageTexture.size())
+//    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

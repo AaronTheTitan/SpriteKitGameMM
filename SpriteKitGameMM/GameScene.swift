@@ -5,7 +5,6 @@
 //  Created by Aaron Bradley on 2/11/15.
 //  Copyright (c) 2015 Aaron Bradley. All rights reserved.
 //
-
 import SpriteKit
 
 class GameScene: SKScene , SKPhysicsContactDelegate {
@@ -18,7 +17,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var moveObject = SKAction()
     var platform:Platform?
     var powerup: PowerUp?
-    var bomb:Bomb!
+    var powerupWhite: PowerUp?
+//    var bomb:Bomb!
 
     //allows us to differentiate sprites
     struct PhysicsCategory {
@@ -55,8 +55,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         initSetup()
         setupScenery()
         startGame()
-         self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
-         physicsWorld.contactDelegate = self
+        self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
+        physicsWorld.contactDelegate = self
 //        var groundInfo:[String: String] = ["ImageName": "groundOutside",
 //                                            "BodyType": "square",
 //                                            "Location": "{0, 120}",
@@ -274,13 +274,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         girlFollowDelay(GirlSoldier.SoldierStates.Dead)
     }
 
-   
+    let originalHeroPoint = CGPointMake(450, 450)
+
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        if soldierNode?.position.x < originalHeroPoint.x - 400 || soldierNode?.position.x > originalHeroPoint.x + 300 {
+                resetSoldierPosition()
+        }
+
         soldierNode?.update()
         groundMovement()
-
     }
+
+    func resetSoldierPosition() {
+        soldierNode?.position.x = originalHeroPoint.x
+    }
+
+    
 
     func girlFollowDelay(state: GirlSoldier.SoldierStates) {
         let delay = 0.07 * Double(NSEC_PER_SEC)
@@ -292,12 +302,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
+
     //add a soldier, called in did move to view
     func addSoldier(){
         soldierNode = Soldier(imageNamed: "Walk__000")
         //was 300, 300
+
         soldierNode?.position = CGPointMake(450, 450)
-        soldierNode?.setScale(0.45)
+
+
+        soldierNode?.setScale(0.35)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
         soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.PlatformCategory
@@ -314,7 +328,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func addGirlSoldier() {
         girlSoldierNode = GirlSoldier(imageNamed: "G-Walk__000")
         girlSoldierNode?.position = CGPointMake(300, 450)
-        girlSoldierNode?.setScale(0.45)
+        girlSoldierNode?.setScale(0.35)
         girlSoldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: girlSoldierNode!.size)
         girlSoldierNode?.physicsBody?.allowsRotation = false
         girlSoldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
@@ -375,7 +389,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // max.setScale(0.45)
         platform?.setScale(1.1)
         platform?.physicsBody = SKPhysicsBody(circleOfRadius: platform!.size.width/2)
-        platform?.position = CGPointMake(1200.0, 350)
+        platform?.position = CGPointMake(1200.0, 380)
         platform?.physicsBody?.dynamic = false
         platform?.physicsBody?.categoryBitMask = PhysicsCategory.PlatformCategory
         platform?.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
@@ -389,17 +403,34 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func addPowerup() {
         powerup = PowerUp(imageNamed: "powerup")
         // max.setScale(0.45)
-        powerup?.setScale(0.75)
+        powerup?.setScale(0.85)
         powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/2)
-        powerup?.position = CGPointMake(1200.0, 415)
+        powerup?.position = CGPointMake(1480.0, 620)
         powerup?.physicsBody?.dynamic = false
         powerup?.physicsBody?.categoryBitMask = PhysicsCategory.PowerupCategory
         powerup?.physicsBody?.collisionBitMask = PhysicsCategory.None
         powerup?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         powerup?.physicsBody?.usesPreciseCollisionDetection = true
         powerup?.runAction(moveObject)
+        powerup?.powerUpBlue()
 
         addChild(powerup!)
+    }
+
+    func addPowerUpWhite() {
+        powerupWhite = PowerUp(imageNamed: "powerup02_1")
+        powerupWhite?.setScale(0.85)
+        powerupWhite?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/2)
+        powerupWhite?.position = CGPointMake(1200.0, 445)
+        powerupWhite?.physicsBody?.dynamic = false
+        powerupWhite?.physicsBody?.categoryBitMask = PhysicsCategory.PowerupCategory
+        powerupWhite?.physicsBody?.collisionBitMask = PhysicsCategory.None
+        powerupWhite?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+        powerupWhite?.physicsBody?.usesPreciseCollisionDetection = true
+        powerupWhite?.runAction(moveObject)
+        powerupWhite?.powerUpWhite()
+
+        addChild(powerupWhite!)
     }
 
     func addBadGuys() {
@@ -417,6 +448,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else {
             addPlatform()
             addPowerup()
+            addPowerUpWhite()
         }
     }
 
@@ -455,10 +487,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
 //    func addBombs() {
+//        var bomb = Bomb()
+//
 //        bomb.position = CGPointMake(400, 450)
-//        addChild(bomb)
 //
 //        bomb.bombAnimate()
+//        addChild(bomb)
+//
 //
 //    }
 

@@ -51,7 +51,7 @@
 		91CEB7841A8BB2CD0055CB17 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		91CEB7861A8BB2CD0055CB17 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		91CEB7891A8BB2CD0055CB17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SpriteKitGameMM/Images.xcassets; sourceTree = "<group>"; };
 		91CEB78E1A8BB2CD0055CB17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		91CEB7941A8BB2CD0055CB17 /* SpriteKitGameMMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpriteKitGameMMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91CEB7991A8BB2CD0055CB17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerButton.swift; sourceTree = "<group>"; };
 		91DD163D1A8E51E0004742FA /* GirlSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GirlSoldier.swift; sourceTree = "<group>"; };
 		91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = PlayinAroundForGame.playground; path = SpriteKitGameMM/PlayinAroundForGame.playground; sourceTree = "<group>"; };
-		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bomb.swift; path = SpriteKitGameMM/Bomb.swift; sourceTree = "<group>"; };
+		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,11 +81,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9102BF891A8ECF7A008E08CA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				91CEB7861A8BB2CD0055CB17 /* GameViewController.swift */,
+				91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		91CEB7721A8BB2CD0055CB17 = {
 			isa = PBXGroup;
 			children = (
-				91DD16411A8E61A3004742FA /* Bomb.swift */,
 				91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */,
+				91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */,
 				91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */,
 				91CEB7971A8BB2CD0055CB17 /* SpriteKitGameMMTests */,
 				91CEB77C1A8BB2CD0055CB17 /* Products */,
@@ -104,11 +113,10 @@
 		91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */ = {
 			isa = PBXGroup;
 			children = (
-				91DD163F1A8E58B6004742FA /* Model/Objects */,
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
-				91CEB7861A8BB2CD0055CB17 /* GameViewController.swift */,
 				9110209B1A8D45EE002532E9 /* WorldGenerator.swift */,
-				91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */,
+				91DD163F1A8E58B6004742FA /* Model/Objects */,
+				9102BF891A8ECF7A008E08CA /* Controllers */,
 				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
 				914ABA441A8D08EA008039D7 /* Object.swift */,
 				91CEB7AA1A8C07DA0055CB17 /* Defaults */,
@@ -147,7 +155,6 @@
 			children = (
 				91CEB7801A8BB2CD0055CB17 /* AppDelegate.swift */,
 				91CEB7821A8BB2CD0055CB17 /* GameScene.sks */,
-				91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */,
 				91CEB78D1A8BB2CD0055CB17 /* LaunchScreen.xib */,
 			);
 			name = Defaults;
@@ -156,6 +163,7 @@
 		91DD163F1A8E58B6004742FA /* Model/Objects */ = {
 			isa = PBXGroup;
 			children = (
+				91DD16411A8E61A3004742FA /* Bomb.swift */,
 				911020991A8D3D1D002532E9 /* Bullet.swift */,
 				91DD163D1A8E51E0004742FA /* GirlSoldier.swift */,
 				91CEB7A61A8BD02D0055CB17 /* Soldier.swift */,
