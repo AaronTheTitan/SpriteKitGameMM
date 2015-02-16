@@ -19,9 +19,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var platform:Platform?
     var powerup: PowerUp?
     var powerupWhite: PowerUp?
-
+    var highScoreLabel:SKLabelNode!
     var labelScore:SKLabelNode!
     var score: Int!
+    var highScore:NSInteger?
     var bomb:Bomb?
 
 
@@ -90,7 +91,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
         addButtons()
         score = 0
+        highScore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
+
+//        NSInteger highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"HighScore"];
+
         addScoreLabel()
+        addHighScoreLabel()
 //        addBombs() // testing out bombs
 
         let distance = CGFloat(self.frame.size.width * 2.0)
@@ -117,6 +123,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         labelScore.position = CGPointMake(30 + labelScore.frame.size.width/2, self.size.height - (107 + labelScore.frame.size.height/2))
         addChild(labelScore)
     }
+//TODO: Make Highscore same level as score
+    func addHighScoreLabel(){
+        highScoreLabel = SKLabelNode(text: "Highscore: \(highScore!)")
+        highScoreLabel.fontName = "MarkerFelt-Wide"
+        highScoreLabel.fontSize  = 24
+        highScoreLabel.zPosition = 4
+        highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.835)
+        addChild(highScoreLabel)
+}
 
     // MARK: COLLISION FUNCTIONS
     //when Soldier collides with Obsturction, do this function (currently does nothing)
@@ -134,11 +149,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         PowerUp.removeFromParent()
         score = score + 1
         labelScore.text = "Score: \(score)"
+
+        if score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+            NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "highscore")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
     }
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
         PowerUp.removeFromParent()
         score = score + 2
         labelScore.text = "Score: \(score)"
+
+        if score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+            NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "highscore")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
     }
 
     func soldierDidCollideWithBomb(Soldier:SKSpriteNode, Bomb:SKSpriteNode) {
@@ -191,14 +216,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         {
             sprite.runAction(speedUpAction)
         }
-
-        println("\(groundSpeed)")
-
+//        println("\(groundSpeed)")
         if groundSpeed > 10.5 {
             run()
         }
-
-
 
     }
 
@@ -294,14 +315,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             } else if CGRectContainsPoint(buttonFire.frame, location) {
                 walkShoot()
-
             }
-
-
         }
     }
 
     // MARK: SOLDIER ACTIONS
+
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
@@ -361,8 +380,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.position.x = originalHeroPoint.x
     }
 
-    
-
     func girlFollowDelay(state: GirlSoldier.SoldierStates) {
         let delay = 0.07 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
@@ -381,7 +398,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //was 300, 300
 
         soldierNode?.position = CGPointMake(450, 450)
-
 
         soldierNode?.setScale(0.35)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
@@ -477,7 +493,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         powerup = PowerUp(imageNamed: "powerup")
         // max.setScale(0.45)
         powerup?.setScale(0.85)
-        powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/2)
+        powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
         powerup?.position = CGPointMake(1480.0, 620)
         powerup?.physicsBody?.dynamic = false
         powerup?.physicsBody?.categoryBitMask = PhysicsCategory.SuperPowerCategory
@@ -507,18 +523,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func addBadGuys() {
-        let distance = CGFloat(self.frame.size.width * 2.0)
-        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.005 * distance))
-        moveObject = SKAction.sequence([moveObstruction])
+//        let distance = CGFloat(self.frame.size.width * 2.0)
+//        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.005 * distance))
+//        moveObject = SKAction.sequence([moveObstruction])
         //can comment out, need for reference for collisions
 
         let y = arc4random() % 3
         if y == 0 {
+            let distance = CGFloat(self.frame.size.width * 2.0)
+            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
+            moveObject = SKAction.sequence([moveObstruction])
             addDon()
         } else if y == 1 {
+            let distance = CGFloat(self.frame.size.width * 2.0)
+            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
+            moveObject = SKAction.sequence([moveObstruction])
             addMax ()
 
         } else {
+            let distance = CGFloat(self.frame.size.width * 2.0)
+            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.004 * distance))
+            moveObject = SKAction.sequence([moveObstruction])
             addPlatform()
             addPowerup()
             addPowerUpWhite()
