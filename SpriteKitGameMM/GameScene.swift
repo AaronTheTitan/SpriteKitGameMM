@@ -11,7 +11,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     // MARK: - PROPERTIES
-    // var increment = 0
+
+   // var increment = 0
+
+    var gameWorld:SKNode?
+
     var soldierNode:Soldier?
     var girlSoldierNode:GirlSoldier? // testing for adding another player for selection
     var obstruction:Obstruction!
@@ -25,14 +29,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var score: Int!
     var highScore:NSInteger?
     var bomb:Bomb?
+//    var warhead:Bomb?
     var bombExplode:Bomb?
+    var warheadExplode:Bomb?
     var isRunning:Bool?
+    var pauseText:SKLabelNode!
+    var isPause = true
 
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
     var soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
     // MARK: PHYSICS CATEGORY STRUCT
     // Allows us to differentiate sprites
+    // MARK: - PHYSICS CATEGORY STRUCT
+    var used:Bool?
+
+    //allows us to differentiate sprites
+
     struct PhysicsCategory {
         static let None                : UInt32 = 0
         static let SoldierCategory     : UInt32 = 0b1       //1
@@ -42,6 +55,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         static let PowerupCategory     : UInt32 = 0b10000   //5
         static let SuperPowerCategory  : UInt32 = 0b100000  //6
         static let BombCategory        : UInt32 = 0b1000000 //7
+        static let WarheadCategory     : UInt32 = 0b10000000 //8
 
     }
 
@@ -72,6 +86,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
+        gameWorld = SKNode()
+        addChild(gameWorld!)
+
         let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
         swipeUp.direction = .Up
         view.addGestureRecognizer(swipeUp)
@@ -86,9 +103,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         setupScenery()
         startGame()
 
-         self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
+         self.physicsWorld.gravity    = CGVectorMake(0, -40)
          physicsWorld.contactDelegate = self
-         var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("groundSpeedIncrease"), userInfo: nil, repeats: true)
+         //var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("groundSpeedIncrease"), userInfo: nil, repeats: true)
 
 
         //adds soldier, moved to function to clean up
@@ -136,6 +153,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.runAction(spawnThenDelayForever)
     }
 
+
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         jump()
     }
@@ -148,6 +166,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             runShoot()
         }
     }
+
     //TODO: Change font size based on phone that is being used
     //TODO: Do we want score in the middle?
     func addScoreLabel(){
@@ -214,6 +233,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         die()
     }
 
+    func soldierDidCollideWithWarhead(Soldier:SKSpriteNode, Bomb:SKSpriteNode) {
+        max.removeFromParent()
+        warheadExplode?.warHeadExplode()
+        die()
+    }
+
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
         var firstBody : SKPhysicsBody
@@ -243,7 +268,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
                 soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, Bomb: secondBody.node as SKSpriteNode)
+        } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+            (secondBody.categoryBitMask & PhysicsCategory.WarheadCategory != 0)){
+                soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, Bomb: secondBody.node as SKSpriteNode)
         }
+
     }
 
     func didEndContact(contact: SKPhysicsContact) {
@@ -259,11 +288,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             groundSpeed = groundSpeed + 0.03
         }
 
-        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
-        for sprite in groundPieces {
-            sprite.runAction(speedUpAction)
-        }
+//        groundSpeed = groundSpeed + 0.25
+//        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
+//
+//        for sprite in groundPieces
+//        {
+//            sprite.runAction(speedUpAction)
+//        }
 
+//        println("\(groundSpeed)")
         if groundSpeed > 10.5 {
             run()
             isRunning = true
@@ -340,6 +373,46 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
             girlSoldierNode?.stepState()
 
+
+            var locationPause: CGPoint = touch.locationInNode(self)
+            if self.nodeAtPoint(locationPause) == buttonPause{
+                buttonPause.removeFromParent()
+                addChild(buttonPlay)
+                runAction(SKAction.runBlock(pauseGame))
+
+                println("moneyteam")
+            }
+
+            if self.nodeAtPoint(locationPause) == buttonPlay {
+                runAction(SKAction.runBlock(resumeGame))
+                              scene?.view?.paused = false
+                               addChild(buttonPause)
+                                buttonPlay.removeFromParent()
+
+            }
+
+//            if CGRectContainsPoint(buttonPause.frame, location)  {
+//                //addChild(pauseText)
+//                buttonPause.removeFromParent()
+//                addChild(buttonPlay)
+//                runAction(SKAction.runBlock(pauseGame))
+//
+//
+//                //pauseGame()
+//            }
+////
+//            if CGRectContainsPoint(buttonPlay.frame, location) {
+//                //addChild(pauseText)
+//
+//                runAction(SKAction.runBlock(resumeGame))
+//                scene?.view?.paused = false
+//                addChild(buttonPause)
+//                buttonPlay.removeFromParent()
+//
+//
+//            }
+//
+
             if CGRectContainsPoint(buttonJump.frame, location ) {
                 jump()
 
@@ -353,6 +426,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     // MARK: - SOLDIER ACTIONS
+
+    func pauseGame()
+    {
+        //scene.view?.paused = true // to pause the game
+        scene?.view?.paused = true
+        buttonPause.hidden = true
+        buttonPlay.hidden = false
+    }
+    func resumeGame()
+    {
+        //scene.view?.paused = true // to pause the game
+        scene?.view?.paused = false
+        buttonPause.hidden = false
+        buttonPlay.hidden = true
+    }
 
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
@@ -421,6 +509,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.update()
         groundMovement()
 
+        groundSpeed = groundSpeed + 0.02
+
+        initSetup()
+        startGame()
+
+        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(currentTime)))
+
+
+        for sprite in groundPieces
+        {
+            //sprite.speed = 1
+            sprite.runAction(speedUpAction)
+        }
     }
 
     func resetSoldierPosition() {
@@ -443,13 +544,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode = Soldier(imageNamed: "Walk__000")
         //was 300, 300
 
-        soldierNode?.position = CGPointMake(450, 450)
+        soldierNode?.position = CGPointMake(250, 450)
 
         soldierNode?.setScale(0.35)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
         soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.PlatformCategory
-        soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory | PhysicsCategory.PowerupCategory | PhysicsCategory.SuperPowerCategory | PhysicsCategory.BombCategory
+        soldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory | PhysicsCategory.PowerupCategory | PhysicsCategory.SuperPowerCategory | PhysicsCategory.BombCategory | PhysicsCategory.WarheadCategory
         soldierNode?.physicsBody?.allowsRotation = false
         soldierNode?.physicsBody?.usesPreciseCollisionDetection = true
 
@@ -506,7 +607,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     // Having fun, can remove in real thang if we want
     func addMax(){
 
-        max = Obstruction(imageNamed: "fatboyBomb")
+        max = Obstruction(imageNamed: "warhead")
         max.setScale(0.65)
 
         max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
@@ -514,13 +615,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let y = arc4random_uniform(height) % height + 40
         max?.position = CGPointMake(1200.0, CGFloat(y + height))
         max.physicsBody?.dynamic = false
-        max.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
+        max.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
        // max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
         max.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         max.physicsBody?.usesPreciseCollisionDetection = true
         max.runAction(moveObject)
 
         addChild(max!)
+
+
+        warheadExplode = Bomb(imageNamed: "empty")
+        warheadExplode?.setScale(1.2)
+        warheadExplode?.position = CGPointMake(max!.position.x, max!.position.y + 100)
+        warheadExplode?.runAction(moveObject)
+
+        addChild(warheadExplode!)
 
     }
 
@@ -643,9 +752,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func addBomb() {
         bomb = Bomb(imageNamed: "bomb_00")
-        //max.setScale(0.45)
-        bomb?.setScale(0.75)
-        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/20)
+
+        // max.setScale(0.45)
+        bomb?.setScale(0.45)
+        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
         bomb?.position = CGPointMake(1280.0, 180)
         bomb?.physicsBody?.dynamic = false
         bomb?.physicsBody?.categoryBitMask = PhysicsCategory.BombCategory
@@ -666,6 +776,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     }
+
+
+//    func addWarhead() {
+//        warhead = Bomb(imageNamed: "warHead")
+//        warhead?.setScale(0.65)
+//
+//        warhead?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
+//
+//        let height = UInt32(self.frame.size.height / 4)
+//        let y = arc4random_uniform(height) % height + height
+//        warhead?.position = CGPointMake(1200.0, CGFloat(y + height))
+//        warhead.physicsBody?.dynamic = false
+//        warhead.physicsBody?.categoryBitMask = PhysicsCategory.BombCategory
+//        // max.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
+//        warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+//        warhead.physicsBody?.usesPreciseCollisionDetection = true
+//        warhead.runAction(moveObject)
+//
+//        addChild(warhead!)
+//    }
+
     //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         func addEdge() {
         let edge = SKNode()
@@ -705,28 +836,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(buttonPause)
 
         // play button hidden until pause button hit.
-        buttonPlay.position = buttonPause.position
-        buttonPlay.size = buttonPause.size
+        buttonPlay.position = CGPointMake(50, 250)
+        buttonPlay.setScale(1.4)
         buttonPlay.hidden = true
-        addChild(buttonPlay)
+        //addChild(buttonPlay)
     }
 
     func playSound(soundVariable: SKAction) {
         runAction(soundVariable)
+
     }
-
-
-//    func addBombs() {
-//        var bomb = Bomb()
-//
-//        bomb.position = CGPointMake(400, 450)
-//
-//        bomb.bombAnimate()
-//        addChild(bomb)
-//
-//
-//    }
-
 
 }
 
