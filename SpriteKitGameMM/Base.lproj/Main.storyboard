@@ -217,6 +217,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="HomeScreen" translatesAutoresizingMaskIntoConstraints="NO" id="nKr-Ui-59Z">
+                                <rect key="frame" x="123" y="0.0" width="380" height="608"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jaT-ug-Jbo">
                                 <rect key="frame" x="67" y="276" width="80" height="30"/>
                                 <state key="normal" title="User Profile">
@@ -283,7 +286,10 @@
             <point key="canvasLocation" x="499" y="307"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="HomeScreen" width="207" height="368"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6OG-12-7tW"/>
+        <segue reference="8ab-Z6-3Bm"/>
     </inferredMetricsTieBreakers>
 </document>
