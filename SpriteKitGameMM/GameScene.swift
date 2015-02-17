@@ -94,7 +94,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         //adds soldier, moved to function to clean up
         addSoldier()
-        addGirlSoldier()
+        //addGirlSoldier()
 
         // soldier is NOT running at the start...used to determine which animation will trigger when shooting
         isRunning = false
@@ -602,7 +602,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0015  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             }
-            addDon()
+            //addDon()
+            addBomb()
         } else if y == 1 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             if groundSpeed < 6.5{
@@ -639,10 +640,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0015  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             }
-            addPlatform()
+           //addPlatform()
             addPowerup()
-            addPowerUpWhite()
-            addBomb()
+            //addPowerUpWhite()
+            //addBomb()
         }
     }
 
