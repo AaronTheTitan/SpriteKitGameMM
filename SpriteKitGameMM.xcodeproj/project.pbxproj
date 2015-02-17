@@ -198,12 +198,12 @@
 		91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */ = {
 			isa = PBXGroup;
 			children = (
+				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
 				9110209B1A8D45EE002532E9 /* WorldGenerator.swift */,
 				91990D721A92835D00553594 /* SoundFX */,
 				91DD163F1A8E58B6004742FA /* Model/Objects */,
 				9102BF891A8ECF7A008E08CA /* Controllers */,
-				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
 				F74CBD211A924B46006D283C /* BridgeHeader.h */,
 				914ABA441A8D08EA008039D7 /* Object.swift */,
 				F7B72D571A92920800CE9C5A /* FacebookSDK.framework */,
