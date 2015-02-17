@@ -29,7 +29,9 @@
 		91CEB7A91A8C07C20055CB17 /* ControllerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */; };
 		91DD163E1A8E51E0004742FA /* GirlSoldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD163D1A8E51E0004742FA /* GirlSoldier.swift */; };
 		91DD16421A8E61A3004742FA /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD16411A8E61A3004742FA /* Bomb.swift */; };
-		F7A80E281A916B840059F987 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A80E271A916B840059F987 /* LoginScreen.swift */; };
+		F74CBD231A9268A8006D283C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74CBD221A9268A8006D283C /* Login.swift */; };
+		F74CBD251A926A7F006D283C /* PlayerSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74CBD241A926A7F006D283C /* PlayerSelection.swift */; };
+		F7A80E281A916B840059F987 /* SignupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A80E271A916B840059F987 /* SignupScreen.swift */; };
 		F7A80E2F1A9174D30059F987 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E2A1A9174D30059F987 /* Bolts.framework */; };
 		F7A80E301A9174D30059F987 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E2B1A9174D30059F987 /* Parse.framework */; };
 		F7A80E311A9174D30059F987 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E2C1A9174D30059F987 /* ParseCrashReporting.framework */; };
@@ -47,6 +49,7 @@
 		F7A80E471A9175290059F987 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E461A9175290059F987 /* Security.framework */; };
 		F7A80E491A91753F0059F987 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E481A91753F0059F987 /* SystemConfiguration.framework */; };
 		F7A80E4B1A9175500059F987 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E4A1A9175500059F987 /* libsqlite3.dylib */; };
+		F7B72D581A92920800CE9C5A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7B72D571A92920800CE9C5A /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,8 +89,11 @@
 		91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerButton.swift; sourceTree = "<group>"; };
 		91DD163D1A8E51E0004742FA /* GirlSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GirlSoldier.swift; sourceTree = "<group>"; };
 		91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = PlayinAroundForGame.playground; path = SpriteKitGameMM/PlayinAroundForGame.playground; sourceTree = "<group>"; };
-		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
-		F7A80E271A916B840059F987 /* LoginScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bomb.swift; path = SpriteKitGameMM/Bomb.swift; sourceTree = "<group>"; };
+		F74CBD211A924B46006D283C /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
+		F74CBD221A9268A8006D283C /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		F74CBD241A926A7F006D283C /* PlayerSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSelection.swift; sourceTree = "<group>"; };
+		F7A80E271A916B840059F987 /* SignupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupScreen.swift; sourceTree = "<group>"; };
 		F7A80E2A1A9174D30059F987 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		F7A80E2B1A9174D30059F987 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		F7A80E2C1A9174D30059F987 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
@@ -105,6 +111,7 @@
 		F7A80E461A9175290059F987 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F7A80E481A91753F0059F987 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F7A80E4A1A9175500059F987 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		F7B72D571A92920800CE9C5A /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +124,7 @@
 				F7A80E3B1A9174FC0059F987 /* StoreKit.framework in Frameworks */,
 				F7A80E471A9175290059F987 /* Security.framework in Frameworks */,
 				F7A80E451A9175220059F987 /* QuartzCore.framework in Frameworks */,
+				F7B72D581A92920800CE9C5A /* FacebookSDK.framework in Frameworks */,
 				F7A80E431A91751C0059F987 /* MobileCoreServices.framework in Frameworks */,
 				F7A80E411A9175150059F987 /* libz.dylib in Frameworks */,
 				F7A80E3F1A91750D0059F987 /* CFNetwork.framework in Frameworks */,
@@ -147,6 +155,9 @@
 			children = (
 				91CEB7861A8BB2CD0055CB17 /* GameViewController.swift */,
 				91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */,
+				F74CBD221A9268A8006D283C /* Login.swift */,
+				F74CBD241A926A7F006D283C /* PlayerSelection.swift */,
+				F7A80E271A916B840059F987 /* SignupScreen.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -193,8 +204,9 @@
 				91DD163F1A8E58B6004742FA /* Model/Objects */,
 				9102BF891A8ECF7A008E08CA /* Controllers */,
 				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
-				F7A80E271A916B840059F987 /* LoginScreen.swift */,
+				F74CBD211A924B46006D283C /* BridgeHeader.h */,
 				914ABA441A8D08EA008039D7 /* Object.swift */,
+				F7B72D571A92920800CE9C5A /* FacebookSDK.framework */,
 				F7A80E291A9174D30059F987 /* parse1 */,
 				91CEB7AA1A8C07DA0055CB17 /* Defaults */,
 				91CEB77E1A8BB2CD0055CB17 /* Supporting Files */,
@@ -240,7 +252,6 @@
 		91DD163F1A8E58B6004742FA /* Model/Objects */ = {
 			isa = PBXGroup;
 			children = (
-				91DD16411A8E61A3004742FA /* Bomb.swift */,
 				911020991A8D3D1D002532E9 /* Bullet.swift */,
 				91DD163D1A8E51E0004742FA /* GirlSoldier.swift */,
 				91CEB7A61A8BD02D0055CB17 /* Soldier.swift */,
@@ -390,9 +401,11 @@
 				91CEB7851A8BB2CD0055CB17 /* GameScene.swift in Sources */,
 				8A0A126A1A8D3B0D006B69C9 /* Obstruction.swift in Sources */,
 				91CEB7871A8BB2CD0055CB17 /* GameViewController.swift in Sources */,
+				F74CBD251A926A7F006D283C /* PlayerSelection.swift in Sources */,
 				91CEB7A71A8BD02D0055CB17 /* Soldier.swift in Sources */,
 				9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */,
 				91CEB7811A8BB2CD0055CB17 /* AppDelegate.swift in Sources */,
+				F74CBD231A9268A8006D283C /* Login.swift in Sources */,
 				8AFEE4871A8E9C6B00BF6D79 /* Platform.swift in Sources */,
 				91DD163E1A8E51E0004742FA /* GirlSoldier.swift in Sources */,
 				914ABA451A8D08EA008039D7 /* Object.swift in Sources */,
@@ -400,7 +413,7 @@
 				91DD16421A8E61A3004742FA /* Bomb.swift in Sources */,
 				9110209C1A8D45EE002532E9 /* WorldGenerator.swift in Sources */,
 				91CEB7A91A8C07C20055CB17 /* ControllerButton.swift in Sources */,
-				F7A80E281A916B840059F987 /* LoginScreen.swift in Sources */,
+				F7A80E281A916B840059F987 /* SignupScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,11 +540,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SpriteKitGameMM/parse1",
 					/Users/ryangunn/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/SpriteKitGameMM",
 				);
 				INFOPLIST_FILE = SpriteKitGameMM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = SpriteKitGameMM/BridgeHeader.h;
 			};
 			name = Debug;
 		};
@@ -543,11 +558,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SpriteKitGameMM/parse1",
 					/Users/ryangunn/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/SpriteKitGameMM",
 				);
 				INFOPLIST_FILE = SpriteKitGameMM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = SpriteKitGameMM/BridgeHeader.h;
 			};
 			name = Release;
 		};
