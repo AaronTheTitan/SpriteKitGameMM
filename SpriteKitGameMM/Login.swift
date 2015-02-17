@@ -21,6 +21,27 @@ class Login: UIViewController{
         super.viewDidLoad()
         
     }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+
+        println("\(PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()))")
+
+        if  PFFacebookUtils.isLinkedWithUser(PFUser.currentUser()) {
+            println("moneyteam")
+            let vc = Login()
+            //self.presentViewController(vc, animated: true, completion: nil)
+            //performSegueWithIdentifier("loginSegue", sender: self)
+
+
+        }
+
+//        if ([PFUser currentUser] && // Check if user is cached
+//            [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) { // Check if user is linked to Facebook
+//                // Present the next view controller without animation
+//                [self _presentUserDetailsViewControllerAnimated:NO];
+//        }
+
+    }
 
 
     @IBAction func loginButtonPressed(sender: UIButton) {

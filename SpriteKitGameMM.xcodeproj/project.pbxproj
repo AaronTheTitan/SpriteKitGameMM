@@ -45,6 +45,7 @@
 		F7A80E471A9175290059F987 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E461A9175290059F987 /* Security.framework */; };
 		F7A80E491A91753F0059F987 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E481A91753F0059F987 /* SystemConfiguration.framework */; };
 		F7A80E4B1A9175500059F987 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E4A1A9175500059F987 /* libsqlite3.dylib */; };
+		F7B72D581A92920800CE9C5A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7B72D571A92920800CE9C5A /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,14 +81,12 @@
 		91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerButton.swift; sourceTree = "<group>"; };
 		91DD163D1A8E51E0004742FA /* GirlSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GirlSoldier.swift; sourceTree = "<group>"; };
 		91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = PlayinAroundForGame.playground; path = SpriteKitGameMM/PlayinAroundForGame.playground; sourceTree = "<group>"; };
-
 		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bomb.swift; path = SpriteKitGameMM/Bomb.swift; sourceTree = "<group>"; };
 		F74CBD211A924B46006D283C /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		F74CBD221A9268A8006D283C /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		F74CBD241A926A7F006D283C /* PlayerSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSelection.swift; sourceTree = "<group>"; };
 		F7A80E271A916B840059F987 /* SignupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupScreen.swift; sourceTree = "<group>"; };
-
-			F7A80E2A1A9174D30059F987 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		F7A80E2A1A9174D30059F987 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		F7A80E2B1A9174D30059F987 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		F7A80E2C1A9174D30059F987 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		F7A80E2D1A9174D30059F987 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -104,10 +103,7 @@
 		F7A80E461A9175290059F987 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F7A80E481A91753F0059F987 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F7A80E4A1A9175500059F987 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-
-		F7A80E4D1A91802D0059F987 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
-
-
+		F7B72D571A92920800CE9C5A /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +116,7 @@
 				F7A80E3B1A9174FC0059F987 /* StoreKit.framework in Frameworks */,
 				F7A80E471A9175290059F987 /* Security.framework in Frameworks */,
 				F7A80E451A9175220059F987 /* QuartzCore.framework in Frameworks */,
+				F7B72D581A92920800CE9C5A /* FacebookSDK.framework in Frameworks */,
 				F7A80E431A91751C0059F987 /* MobileCoreServices.framework in Frameworks */,
 				F7A80E411A9175150059F987 /* libz.dylib in Frameworks */,
 				F7A80E3F1A91750D0059F987 /* CFNetwork.framework in Frameworks */,
@@ -188,6 +185,7 @@
 				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
 				F74CBD211A924B46006D283C /* BridgeHeader.h */,
 				914ABA441A8D08EA008039D7 /* Object.swift */,
+				F7B72D571A92920800CE9C5A /* FacebookSDK.framework */,
 				F7A80E291A9174D30059F987 /* parse1 */,
 				91CEB7AA1A8C07DA0055CB17 /* Defaults */,
 				91CEB77E1A8BB2CD0055CB17 /* Supporting Files */,
@@ -517,6 +515,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SpriteKitGameMM/parse1",
 					/Users/ryangunn/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/SpriteKitGameMM",
 				);
 				INFOPLIST_FILE = SpriteKitGameMM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -534,6 +533,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/SpriteKitGameMM/parse1",
 					/Users/ryangunn/Documents/FacebookSDK,
+					"$(PROJECT_DIR)/SpriteKitGameMM",
 				);
 				INFOPLIST_FILE = SpriteKitGameMM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
