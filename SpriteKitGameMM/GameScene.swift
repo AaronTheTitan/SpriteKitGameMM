@@ -26,6 +26,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var highScore:NSInteger?
     var bomb:Bomb?
     var bombExplode:Bomb?
+    var isRunning:Bool?
 
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
@@ -95,6 +96,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addSoldier()
         addGirlSoldier()
 
+        // soldier is NOT running at the start...used to determine which animation will trigger when shooting
+        isRunning = false
+
         //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         addEdge()
 
@@ -127,7 +131,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func handleTaps(sender:UITapGestureRecognizer) {
-        walkShoot()
+
+        if isRunning == false {
+            walkShoot()
+        } else {
+            runShoot()
+        }
     }
     //TODO: Change font size based on phone that is being used
     //TODO: Do we want score in the middle?
@@ -245,6 +254,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        println("\(groundSpeed)")
         if groundSpeed > 10.5 {
             run()
+            isRunning = true
         }
 
     }
@@ -365,18 +375,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
         soldierNode?.stepState()
         girlFollowDelay(GirlSoldier.SoldierStates.Run)
+
+
     }
 
     func runShoot() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.RunShoot)
         soldierNode?.stepState()
         girlFollowDelay(GirlSoldier.SoldierStates.RunShoot)
+
+        var fireShot = Bullet(imageNamed: "emptyMuzzle")
+        addChild(fireShot)
+        fireShot.position = CGPointMake(soldierNode!.position.x + 132, soldierNode!.position.y)
+        fireShot.shootFire(fireShot)
     }
 
     func walkShoot() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.WalkShoot)
         soldierNode?.stepState()
         girlFollowDelay(GirlSoldier.SoldierStates.WalkShoot)
+
+        var fireShot = Bullet(imageNamed: "emptyMuzzle")
+        addChild(fireShot)
+        fireShot.position = CGPointMake(soldierNode!.position.x + 132, soldierNode!.position.y)
+        fireShot.shootFire(fireShot)
     }
 
     func walk() {
@@ -439,7 +461,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
         soldierNode?.stepState()
+
     }
+//    func addfireShot() {
+//        fireShot = Bullet(imageNamed: "emptyMuzzle")
+//        addChild(fireShot!)
+//    }
 
     //need to update girlPhysics catergories
     func addGirlSoldier() {
