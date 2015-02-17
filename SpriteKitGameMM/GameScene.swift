@@ -510,8 +510,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     // Having fun, can remove in real thang if we want
     func addMax(){
 
-        max = Obstruction(imageNamed: "max-howell")
-        max.setScale(0.45)
+        max = Obstruction(imageNamed: "fatboyBomb")
+        max.setScale(0.65)
 
         max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
         let height = UInt32(self.frame.size.height / 4)
