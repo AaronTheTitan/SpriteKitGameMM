@@ -680,8 +680,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         buttonPause.position = CGPointMake(50, 150)
         buttonPause.setScale(1.4)
+        buttonPause.hidden = false
         addChild(buttonPause)
 
+        // play button hidden until pause button hit.
         buttonPlay.position = buttonPause.position
         buttonPlay.size = buttonPause.size
         buttonPlay.hidden = true
