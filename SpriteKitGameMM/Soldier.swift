@@ -102,17 +102,19 @@ class Soldier : SKSpriteNode {
 
                     isJumping = true
 
-                    self.physicsBody?.applyImpulse(CGVectorMake(0, 500))
+                    self.physicsBody?.applyImpulse(CGVectorMake(200, 1600))
 
-                    self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.13), count: 1), completion: { () -> Void in
+                    self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
+                        self.isJumping = false
 
-                            let delay = 0.13 * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-        
-                            dispatch_after(time, dispatch_get_main_queue()) {
-                                self.isJumping = false
-                            }
-                    })
+//                            let delay = 0.13 * Double(NSEC_PER_SEC)
+//                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+//        
+//                            dispatch_after(time, dispatch_get_main_queue()) {
+//                                self.isJumping = false
+//                            }
+                    }
+                    )
             }
 
             case .Crouch:

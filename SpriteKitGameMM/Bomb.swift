@@ -15,6 +15,7 @@ class Bomb : SKSpriteNode {
 
     let bombNode = (0...1).map{ SKTexture(imageNamed: "bomb_0\($0)")! }
     let explosion = (0...9).map{ SKTexture(imageNamed: "GroundExplo__00\($0)")! }
+    let explosionInAir = (0...9).map{ SKTexture(imageNamed: "MidAirExplo__00\($0)")! }
 
     init(imageNamed: String) {
 
@@ -30,6 +31,17 @@ class Bomb : SKSpriteNode {
     func bombExplode() {
         runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosion, timePerFrame: 0.14), count: 1))
         runAction(soundExplosion)
+//        bomb.removeFromParent()
+
+
+    }
+
+    func warHeadExplode() {
+        runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosionInAir, timePerFrame: 0.14), count: 1))
+        runAction(soundExplosion)
+//        , completion: {
+//            warhead.removeFromParent(warhead)
+//        })
 
     }
 
