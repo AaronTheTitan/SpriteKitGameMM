@@ -226,6 +226,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 //die()
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.PowerupCategory != 0)){
+                //TO DO: FOUND NIL UNWRAPPING OPTIONAL VALUE HERE
                 soldierDidCollideWithPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.SuperPowerCategory != 0)){
@@ -515,7 +516,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
         let height = UInt32(self.frame.size.height / 4)
-        let y = arc4random() % height + height
+        let y = arc4random_uniform(height) % height + height
         max?.position = CGPointMake(1200.0, CGFloat(y + height))
         max.physicsBody?.dynamic = false
         max.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
@@ -581,9 +582,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        let distance = CGFloat(self.frame.size.width * 2.0)
 //        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.005 * distance))
 //        moveObject = SKAction.sequence([moveObstruction])
-        //can comment out, need for reference for collisions
 
-        let y = arc4random() % 3
+        let y = arc4random_uniform(3)
         if y == 0 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             if groundSpeed < 6.5{
