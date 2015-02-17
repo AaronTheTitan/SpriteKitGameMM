@@ -9,7 +9,8 @@ import SpriteKit
 
 class GameScene: SKScene , SKPhysicsContactDelegate {
 
-    // MARK: PROPERTIES
+
+    // MARK: - PROPERTIES
    // var increment = 0
     var soldierNode:Soldier?
     var girlSoldierNode:GirlSoldier? // testing for adding another player for selection
@@ -26,6 +27,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var bomb:Bomb?
     var bombExplode:Bomb?
 
+    var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
+    var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
+    var soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
 
     // MARK: PHYSICS CATEGORY STRUCT
     //allows us to differentiate sprites
@@ -41,17 +45,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-    // MARK: BUTTONS
+    // MARK: - BUTTONS
     let buttonJump    = SKSpriteNode(imageNamed: "directionUpRed")
     let buttonDuck    = SKSpriteNode(imageNamed: "directionDownRed")
     let buttonFire    = SKSpriteNode(imageNamed: "fireButtonRed")
+    let buttonPause   = SKSpriteNode(imageNamed: "buttonPause")
+    let buttonPlay    = SKSpriteNode(imageNamed: "buttonPlay")
 
-    // MARK: STATUS HOLDERS
+    // MARK: - STATUS HOLDERS
     // Status Holders
     let healthStatus  = SKSpriteNode(imageNamed: "healthStatus")
     let scoreKeeperBG = SKSpriteNode(imageNamed: "scoreKeepYellow")
 
-    // MARK: GROUND/WORLD
+    // MARK: - GROUND/WORLD
     let totalGroundPieces = 5
     var groundPieces = [SKSpriteNode]()
 
@@ -59,10 +65,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var moveGroundAction: SKAction!
     var moveGroundForeverAction: SKAction!
     let groundResetXCoord: CGFloat = -500
-    var timeIncrement:Double = 0.02
+    var timeIncrement:Double = 0.001
 
-    // MARK: VIEW/SETUP
+
+
+    // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
+
+        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        swipeUp.direction = .Up
+        view.addGestureRecognizer(swipeUp)
+
+        let tapShoot:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTaps:"))
+        tapShoot.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapShoot)
 
         //added for collision detection
         //        view.showsPhysics = true
@@ -73,14 +89,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
          self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
          physicsWorld.contactDelegate = self
          var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("groundSpeedIncrease"), userInfo: nil, repeats: true)
-//        var groundInfo:[String: String] = ["ImageName": "groundOutside",
-//                                            "BodyType": "square",
-//                                            "Location": "{0, 120}",
-//                                   "PlaceMultiplesOnX": "10"
-//                                                        ]
-//
-//        let groundPlatform = Object(groundDict: groundInfo)
-//        addChild(groundPlatform)
+
 
         //adds soldier, moved to function to clean up
         addSoldier()
@@ -113,6 +122,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
+    func handleSwipes(sender:UISwipeGestureRecognizer) {
+        jump()
+    }
+
+    func handleTaps(sender:UITapGestureRecognizer) {
+        walkShoot()
+    }
     //TODO: Change font size based on phone that is being used
     //TODO: Do we want score in the middle?
     func addScoreLabel(){
@@ -124,6 +140,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         labelScore.position = CGPointMake(30 + labelScore.frame.size.width/2, self.size.height - (107 + labelScore.frame.size.height/2))
         addChild(labelScore)
     }
+
 //TODO: Make Highscore same level as score
     func addHighScoreLabel(){
         highScoreLabel = SKLabelNode(text: "Highscore: \(highScore!)")
@@ -134,7 +151,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(highScoreLabel)
 }
 
-    // MARK: COLLISION FUNCTIONS
+    // MARK: - COLLISION FUNCTIONS
     //when Soldier collides with Obsturction, do this function (currently does nothing)
     func soldierDidCollideWithObstacle(Soldier:SKSpriteNode, Obstruction:SKSpriteNode) {
         if soldierNode!.color == UIColor.greenColor() {
@@ -151,15 +168,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         score = score + 1
         labelScore.text = "Score: \(score)"
 
+        playSound(soundPowerUp)
+
         if score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
             NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "highscore")
             NSUserDefaults.standardUserDefaults().synchronize()
         }
+
     }
+
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
         PowerUp.removeFromParent()
         score = score + 2
         labelScore.text = "Score: \(score)"
+
+        playSound(soundSuperPowerUp)
 
         if score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
             NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "highscore")
@@ -208,7 +231,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // will get called automatically when two objects end contact with each other
     }
 
-    // MARK: GROUND SPEED MANIPULATION
+    // MARK: - GROUND SPEED MANIPULATION
 
     func groundSpeedIncrease(){
 
@@ -226,7 +249,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-    // MARK: INIT SETUP FUNCTIONS
+    // MARK: - INIT SETUP FUNCTIONS
     func initSetup()
     {
         moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)
@@ -296,7 +319,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    // MARK: TOUCHES BEGAN
+    // MARK: - TOUCHES BEGAN
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 //         Called when a touch begins 
         for touch: AnyObject in touches {
@@ -322,12 +345,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    // MARK: SOLDIER ACTIONS
+    // MARK: - SOLDIER ACTIONS
 
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
         girlFollowDelay(GirlSoldier.SoldierStates.Jump)
+
+        playSound(soundJump)
     }
 
     func duck() {
@@ -394,7 +419,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
 
-    // MARK: ADD ASSETS TO SCENE
+    // MARK: - ADD ASSETS TO SCENE
     //add a soldier, called in did move to view
     func addSoldier(){
         soldierNode = Soldier(imageNamed: "Walk__000")
@@ -633,26 +658,41 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func addButtons(){
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
-        buttonJump.position = CGPointMake(75, 400)
-        buttonJump.setScale(1.6)
-        addChild(buttonJump)
+//        buttonJump.position = CGPointMake(75, 400)
+//        buttonJump.setScale(1.6)
+//        addChild(buttonJump)
 
-        buttonDuck.position = CGPointMake(75, 200)
-        buttonDuck.setScale(1.6)
-        addChild(buttonDuck)
+//        buttonDuck.position = CGPointMake(75, 200)
+//        buttonDuck.setScale(1.6)
+//        addChild(buttonDuck)
 
-        buttonFire.position = CGPointMake(75, 300)
-        buttonFire.setScale(1.4)
-        addChild(buttonFire)
+//        buttonFire.position = CGPointMake(60, 300)
+//        buttonFire.setScale(1.6)
+//        addChild(buttonFire)
 
         healthStatus.position = CGPointMake(100, 630)
         healthStatus.setScale(1.1)
         addChild(healthStatus)
 
-        scoreKeeperBG.position = CGPointMake(950, 610)
-        scoreKeeperBG.setScale(1.3)
-        addChild(scoreKeeperBG)
+//        scoreKeeperBG.position = CGPointMake(950, 610)
+//        scoreKeeperBG.setScale(1.3)
+//        addChild(scoreKeeperBG)
+
+        buttonPause.position = CGPointMake(50, 150)
+        buttonPause.setScale(1.4)
+        addChild(buttonPause)
+
+        buttonPlay.position = buttonPause.position
+        buttonPlay.size = buttonPause.size
+        buttonPlay.hidden = true
+        addChild(buttonPlay)
     }
+
+    func playSound(soundVariable: SKAction) {
+        runAction(soundVariable)
+    }
+
+
 
 //    func addBombs() {
 //        var bomb = Bomb()

@@ -11,6 +11,8 @@ import SpriteKit
 
 class Bomb : SKSpriteNode {
 
+    let soundExplosion = SKAction.playSoundFileNamed("Explosion.mp3", waitForCompletion: false)
+
     let bombNode = (0...1).map{ SKTexture(imageNamed: "bomb_0\($0)")! }
     let explosion = (0...9).map{ SKTexture(imageNamed: "GroundExplo__00\($0)")! }
 
@@ -27,6 +29,8 @@ class Bomb : SKSpriteNode {
 
     func bombExplode() {
         runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosion, timePerFrame: 0.14), count: 1))
+        runAction(soundExplosion)
+
     }
 
 

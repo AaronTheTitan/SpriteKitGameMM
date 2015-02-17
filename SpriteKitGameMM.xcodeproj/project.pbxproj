@@ -13,6 +13,10 @@
 		9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911020991A8D3D1D002532E9 /* Bullet.swift */; };
 		9110209C1A8D45EE002532E9 /* WorldGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110209B1A8D45EE002532E9 /* WorldGenerator.swift */; };
 		914ABA451A8D08EA008039D7 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914ABA441A8D08EA008039D7 /* Object.swift */; };
+		91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D741A92869100553594 /* PowerUpOne.mp3 */; };
+		91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D751A92869100553594 /* PowerUpTwo.mp3 */; };
+		91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D791A928DFC00553594 /* Explosion.mp3 */; };
+		91990D7E1A92905900553594 /* Jump.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D7D1A92905900553594 /* Jump.mp3 */; };
 		91CEB7811A8BB2CD0055CB17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB7801A8BB2CD0055CB17 /* AppDelegate.swift */; };
 		91CEB7831A8BB2CD0055CB17 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91CEB7821A8BB2CD0055CB17 /* GameScene.sks */; };
 		91CEB7851A8BB2CD0055CB17 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB7841A8BB2CD0055CB17 /* GameScene.swift */; };
@@ -62,6 +66,10 @@
 		911020991A8D3D1D002532E9 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9110209B1A8D45EE002532E9 /* WorldGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldGenerator.swift; sourceTree = "<group>"; };
 		914ABA441A8D08EA008039D7 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		91990D741A92869100553594 /* PowerUpOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PowerUpOne.mp3; sourceTree = "<group>"; };
+		91990D751A92869100553594 /* PowerUpTwo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PowerUpTwo.mp3; sourceTree = "<group>"; };
+		91990D791A928DFC00553594 /* Explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Explosion.mp3; sourceTree = "<group>"; };
+		91990D7D1A92905900553594 /* Jump.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jump.mp3; sourceTree = "<group>"; };
 		91CEB77B1A8BB2CD0055CB17 /* SpriteKitGameMM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpriteKitGameMM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91CEB77F1A8BB2CD0055CB17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91CEB7801A8BB2CD0055CB17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +151,18 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		91990D721A92835D00553594 /* SoundFX */ = {
+			isa = PBXGroup;
+			children = (
+				91990D7D1A92905900553594 /* Jump.mp3 */,
+				91990D791A928DFC00553594 /* Explosion.mp3 */,
+				91990D741A92869100553594 /* PowerUpOne.mp3 */,
+				91990D751A92869100553594 /* PowerUpTwo.mp3 */,
+			);
+			name = SoundFX;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		91CEB7721A8BB2CD0055CB17 = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +189,7 @@
 			children = (
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
 				9110209B1A8D45EE002532E9 /* WorldGenerator.swift */,
+				91990D721A92835D00553594 /* SoundFX */,
 				91DD163F1A8E58B6004742FA /* Model/Objects */,
 				9102BF891A8ECF7A008E08CA /* Controllers */,
 				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
@@ -343,7 +364,11 @@
 			files = (
 				91CEB78F1A8BB2CD0055CB17 /* LaunchScreen.xib in Resources */,
 				91CEB78C1A8BB2CD0055CB17 /* Images.xcassets in Resources */,
+				91990D7E1A92905900553594 /* Jump.mp3 in Resources */,
+				91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */,
+				91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */,
 				91CEB7831A8BB2CD0055CB17 /* GameScene.sks in Resources */,
+				91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */,
 				91CEB78A1A8BB2CD0055CB17 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
