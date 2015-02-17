@@ -610,7 +610,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
         warheadExplode = Bomb(imageNamed: "empty")
-        warheadExplode?.setScale(2.00)
+        warheadExplode?.setScale(1.2)
         warheadExplode?.position = CGPointMake(max!.position.x, max!.position.y + 100)
         warheadExplode?.runAction(moveObject)
 
