@@ -27,6 +27,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var bomb:Bomb?
     var bombExplode:Bomb?
     var isRunning:Bool?
+    var pauseText:SKLabelNode!
+    var isPause = true
 
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
@@ -89,7 +91,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
          self.physicsWorld.gravity    = CGVectorMake(0, -4.5)
          physicsWorld.contactDelegate = self
-         var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("groundSpeedIncrease"), userInfo: nil, repeats: true)
+         //var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("groundSpeedIncrease"), userInfo: nil, repeats: true)
 
 
         //adds soldier, moved to function to clean up
@@ -244,13 +246,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func groundSpeedIncrease(){
 
-        groundSpeed = groundSpeed + 0.25
-        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
-
-        for sprite in groundPieces
-        {
-            sprite.runAction(speedUpAction)
-        }
+//        groundSpeed = groundSpeed + 0.25
+//        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
+//
+//        for sprite in groundPieces
+//        {
+//            sprite.runAction(speedUpAction)
+//        }
 //        println("\(groundSpeed)")
         if groundSpeed > 10.5 {
             run()
@@ -340,6 +342,46 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
             girlSoldierNode?.stepState()
 
+
+            var locationPause: CGPoint = touch.locationInNode(self)
+            if self.nodeAtPoint(locationPause) == buttonPause{
+                buttonPause.removeFromParent()
+                addChild(buttonPlay)
+                runAction(SKAction.runBlock(pauseGame))
+
+                println("moneyteam")
+            }
+
+            if self.nodeAtPoint(locationPause) == buttonPlay {
+                runAction(SKAction.runBlock(resumeGame))
+                              scene?.view?.paused = false
+                               addChild(buttonPause)
+                                buttonPlay.removeFromParent()
+
+            }
+
+//            if CGRectContainsPoint(buttonPause.frame, location)  {
+//                //addChild(pauseText)
+//                buttonPause.removeFromParent()
+//                addChild(buttonPlay)
+//                runAction(SKAction.runBlock(pauseGame))
+//
+//
+//                //pauseGame()
+//            }
+////
+//            if CGRectContainsPoint(buttonPlay.frame, location) {
+//                //addChild(pauseText)
+//
+//                runAction(SKAction.runBlock(resumeGame))
+//                scene?.view?.paused = false
+//                addChild(buttonPause)
+//                buttonPlay.removeFromParent()
+//
+//
+//            }
+//
+
             if CGRectContainsPoint(buttonJump.frame, location ) {
                 jump()
 
@@ -356,6 +398,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     // MARK: - SOLDIER ACTIONS
+
+    func pauseGame()
+    {
+        //scene.view?.paused = true // to pause the game
+        scene?.view?.paused = true
+        buttonPause.hidden = true
+        buttonPlay.hidden = false
+    }
+    func resumeGame()
+    {
+        //scene.view?.paused = true // to pause the game
+        scene?.view?.paused = false
+        buttonPause.hidden = false
+        buttonPlay.hidden = true
+    }
 
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
@@ -424,6 +481,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         soldierNode?.update()
         groundMovement()
+        groundSpeed = groundSpeed + 0.02
+
+        initSetup()
+        startGame()
+
+        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(currentTime)))
+
+
+        for sprite in groundPieces
+        {
+            //sprite.speed = 1
+            sprite.runAction(speedUpAction)
+        }
+        println("\(groundSpeed)")
     }
 
     func resetSoldierPosition() {
@@ -711,10 +782,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(buttonPause)
 
         // play button hidden until pause button hit.
-        buttonPlay.position = buttonPause.position
-        buttonPlay.size = buttonPause.size
+        buttonPlay.position = CGPointMake(50, 250)
+        buttonPlay.setScale(1.4)
         buttonPlay.hidden = true
-        addChild(buttonPlay)
+        //addChild(buttonPlay)
     }
 
     func playSound(soundVariable: SKAction) {
