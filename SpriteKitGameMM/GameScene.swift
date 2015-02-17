@@ -11,7 +11,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     // MARK: - PROPERTIES
-   // var increment = 0
+    // var increment = 0
     var soldierNode:Soldier?
     var girlSoldierNode:GirlSoldier? // testing for adding another player for selection
     var obstruction:Obstruction!
@@ -31,9 +31,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
     var soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
-    var used:Bool?
     // MARK: PHYSICS CATEGORY STRUCT
-    //allows us to differentiate sprites
+    // Allows us to differentiate sprites
     struct PhysicsCategory {
         static let None                : UInt32 = 0
         static let SoldierCategory     : UInt32 = 0b1       //1
@@ -115,7 +114,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let distance = CGFloat(self.frame.size.width * 2.0)
         let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.05 * distance))
         moveObject = SKAction.sequence([moveObstruction])
-
+//        addBadGuys()
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
         var delay = SKAction.waitForDuration(NSTimeInterval(2.9))
 //        if  groundSpeed > 17.0 {
@@ -133,36 +132,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //            delay = SKAction.waitForDuration(NSTimeInterval(1.5))
 //        }
         var spawnThenDelay = SKAction.sequence([spawn,delay])
-        println("Delay in thing: \(delay)")
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
-
     }
-
-//    func delayAndSpawn(){
-//        
-//        let spawn = SKAction.runBlock({() in self.addBadGuys()})
-//        var delay = SKAction.waitForDuration(NSTimeInterval(2.7))
-//        if  groundSpeed > 17.0 {
-//            delay = SKAction.waitForDuration(NSTimeInterval(0.4))
-//        } else if groundSpeed > 16 {
-//            delay = SKAction.waitForDuration(NSTimeInterval(0.55))
-//            println("Delay at .35")
-//        } else if groundSpeed > 14.0 {
-//            delay = SKAction.waitForDuration(NSTimeInterval(0.8))
-//            println("Delay at .6")
-//        } else if groundSpeed > 10.0 {
-//            delay = SKAction.waitForDuration(NSTimeInterval(1.1))
-//            println("Delay at 1.1")
-//        } else if groundSpeed > 6.0 {
-//            delay = SKAction.waitForDuration(NSTimeInterval(1.5))
-//        }
-//        var spawnThenDelay = SKAction.sequence([spawn,delay])
-//        println("Delay in thing: \(delay)")
-//        var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
-//
-//        self.runAction(spawnThenDelay)
-//    }
 
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         jump()
@@ -221,7 +193,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "highscore")
             NSUserDefaults.standardUserDefaults().synchronize()
         }
-
     }
 
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
@@ -269,7 +240,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.SuperPowerCategory != 0)){
                  soldierDidCollideWithSuperPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
-        }else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+        } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
                 soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, Bomb: secondBody.node as SKSpriteNode)
         }
@@ -284,43 +255,32 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func groundSpeedIncrease(){
         if groundSpeed < 15 {
             groundSpeed = groundSpeed + 0.2
-            println("ground speed \(groundSpeed)")
         } else if groundSpeed < 17.24 {
             groundSpeed = groundSpeed + 0.03
-        } else {
-
         }
-
 
         var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
-        for sprite in groundPieces
-        {
+        for sprite in groundPieces {
             sprite.runAction(speedUpAction)
         }
-//        println("\(groundSpeed)")
+
         if groundSpeed > 10.5 {
             run()
             isRunning = true
-            println("ground speed \(groundSpeed)")
         }
-
     }
 
     // MARK: - INIT SETUP FUNCTIONS
-    func initSetup()
-    {
+    func initSetup() {
         moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)
         moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([moveGroundAction]))
     }
 
-    func startGame()
-    {
-        for sprite in groundPieces
-        {
+    func startGame() {
+        for sprite in groundPieces {
             sprite.runAction(moveGroundForeverAction)
         }
     }
-
 
     func setupScenery()
     {
@@ -344,12 +304,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             var wSpacing = sprite.size.width / 2
             var hSpacing = sprite.size.height / 2
 
-            if x == 0
-            {
+            if x == 0{
                 sprite.position = CGPointMake(wSpacing, hSpacing)
             }
-            else
-            {
+            else {
                 sprite.position = CGPointMake((wSpacing * 2) + groundPieces[x - 1].position.x,groundPieces[x - 1].position.y)
             }
 
@@ -357,18 +315,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    func groundMovement()
-    {
-        for var x = 0; x < groundPieces.count; x++
-        {
-            if groundPieces[x].position.x <= groundResetXCoord
-            {
-                if x != 0
-                {
+    func groundMovement(){
+        for var x = 0; x < groundPieces.count; x++ {
+            if groundPieces[x].position.x <= groundResetXCoord {
+                if x != 0{
                     groundPieces[x].position = CGPointMake(groundPieces[x - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
                 }
-                else
-                {
+                else {
                     groundPieces[x].position = CGPointMake(groundPieces[x + 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
 //                    groundPieces[x].position = CGPointMake(groundPieces[groundPieces.count - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
                 }
@@ -392,9 +345,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             } else if CGRectContainsPoint(buttonDuck.frame, location) {
                 duck()
-                //can delete, just reference in case we want to change colors :)
-                //let changeColorAction = SKAction.colorizeWithColor(SKColor.redColor(), colorBlendFactor: 1.0, duration: 0.5)
-               //soldierNode!.runAction(changeColorAction)
 
             } else if CGRectContainsPoint(buttonFire.frame, location) {
                 walkShoot()
@@ -470,6 +420,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         soldierNode?.update()
         groundMovement()
+
     }
 
     func resetSoldierPosition() {
@@ -485,7 +436,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             self.girlSoldierNode?.stepState()
         }
     }
-
 
     // MARK: - ADD ASSETS TO SCENE
     //add a soldier, called in did move to view
@@ -561,7 +511,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
         let height = UInt32(self.frame.size.height / 4)
-        let y = arc4random_uniform(height) % height + height
+        let y = arc4random_uniform(height) % height + 40
         max?.position = CGPointMake(1200.0, CGFloat(y + height))
         max.physicsBody?.dynamic = false
         max.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
@@ -574,21 +524,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-    func addPlatform() {
-        platform = Platform(imageNamed: "platform")
-        // max.setScale(0.45)
-        platform?.setScale(1.1)
-        platform?.physicsBody = SKPhysicsBody(circleOfRadius: platform!.size.width/2)
-        platform?.position = CGPointMake(1190.0, 380)
-        platform?.physicsBody?.dynamic = false
-        platform?.physicsBody?.categoryBitMask = PhysicsCategory.PlatformCategory
-        platform?.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
-        platform?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
-        platform?.physicsBody?.usesPreciseCollisionDetection = true
-        platform?.runAction(moveObject)
-        
-        addChild(platform!)
-    }
+//    func addPlatform() {
+//        platform = Platform(imageNamed: "platform")
+//        // max.setScale(0.45)
+//        platform?.setScale(1.1)
+//        platform?.physicsBody = SKPhysicsBody(circleOfRadius: platform!.size.width/2)
+//        platform?.position = CGPointMake(1190.0, 380)
+//        platform?.physicsBody?.dynamic = false
+//        platform?.physicsBody?.categoryBitMask = PhysicsCategory.PlatformCategory
+//        platform?.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
+//        platform?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+//        platform?.physicsBody?.usesPreciseCollisionDetection = true
+//        platform?.runAction(moveObject)
+//        
+//        addChild(platform!)
+//    }
 
     func addPowerup() {
         powerup = PowerUp(imageNamed: "powerup")
@@ -693,9 +643,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func addBomb() {
         bomb = Bomb(imageNamed: "bomb_00")
-        // max.setScale(0.45)
+        //max.setScale(0.45)
         bomb?.setScale(0.75)
-        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
+        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/20)
         bomb?.position = CGPointMake(1280.0, 180)
         bomb?.physicsBody?.dynamic = false
         bomb?.physicsBody?.categoryBitMask = PhysicsCategory.BombCategory
@@ -716,7 +666,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     }
-
     //add an edge to keep soldier from falling forever. This currently has the edge just off the screen, needs to be fixed.
         func addEdge() {
         let edge = SKNode()
@@ -765,7 +714,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func playSound(soundVariable: SKAction) {
         runAction(soundVariable)
     }
-
 
 
 //    func addBombs() {
