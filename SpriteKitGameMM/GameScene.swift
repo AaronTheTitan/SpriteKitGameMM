@@ -263,15 +263,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    func soldierDidCollideWithBomb(Soldier:SKSpriteNode, Bomb:SKSpriteNode) {
-        Bomb.removeFromParent()
-        bombExplode?.bombExplode()
+    func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
+//        explodeNode.removeFromParent()
+        bombExplode?.bombExplode(bombExplode!)
         die()
     }
 
-    func soldierDidCollideWithWarhead(Soldier:SKSpriteNode, Bomb:SKSpriteNode) {
+    func soldierDidCollideWithWarhead(soldier:SKSpriteNode, bomb:SKSpriteNode) {
         max.removeFromParent()
-        warheadExplode?.warHeadExplode()
+        warheadExplode?.warHeadExplode(warheadExplode!)
         die()
     }
 
@@ -303,10 +303,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                  soldierDidCollideWithSuperPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
-                soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, Bomb: secondBody.node as SKSpriteNode)
+                soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.WarheadCategory != 0)){
-                soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, Bomb: secondBody.node as SKSpriteNode)
+                soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
         }
 
     }

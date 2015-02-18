@@ -28,20 +28,24 @@ class Bomb : SKSpriteNode {
         runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(bombNode, timePerFrame: 0.17)))
     }
 
-    func bombExplode() {
-        runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosion, timePerFrame: 0.14), count: 1))
+    func bombExplode(explodeNode: SKSpriteNode) {
+        runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosion, timePerFrame: 0.14), count: 1), completion: {
+            explodeNode.removeFromParent()
+        })
         runAction(soundExplosion)
-//        bomb.removeFromParent()
+
+//        , completion: {
+//        explodeNode.removeFromParent()
+//        })
 
 
     }
 
-    func warHeadExplode() {
-        runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosionInAir, timePerFrame: 0.14), count: 1))
+    func warHeadExplode(warhead: SKSpriteNode) {
+        runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosionInAir, timePerFrame: 0.14), count: 1), completion: {
+            warhead.removeFromParent()
+        })
         runAction(soundExplosion)
-//        , completion: {
-//            warhead.removeFromParent(warhead)
-//        })
 
     }
 
