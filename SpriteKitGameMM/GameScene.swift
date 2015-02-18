@@ -55,15 +55,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     // MARK: - BUTTONS
-    let buttonJump    = SKSpriteNode(imageNamed: "directionUpRed")
-    let buttonDuck    = SKSpriteNode(imageNamed: "directionDownRed")
-    let buttonFire    = SKSpriteNode(imageNamed: "fireButtonRed")
+//    let buttonJump    = SKSpriteNode(imageNamed: "directionUpRed")
+//    let buttonDuck    = SKSpriteNode(imageNamed: "directionDownRed")
+//    let buttonFire    = SKSpriteNode(imageNamed: "fireButtonRed")
     let buttonPause   = SKSpriteNode(imageNamed: "buttonPause")
     let buttonPlay    = SKSpriteNode(imageNamed: "buttonPlay")
 
     // MARK: - STATUS HOLDERS
     // Status Holders
-    let healthStatus  = SKSpriteNode(imageNamed: "healthStatus")
+//    let healthStatus  = SKSpriteNode(imageNamed: "healthStatus")
     let scoreKeeperBG = SKSpriteNode(imageNamed: "scoreKeepYellow")
 
     // MARK: - GROUND/WORLD
@@ -210,7 +210,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         labelScore.fontSize = 24
         labelScore.zPosition = 4
         //labelScore.position = CGPointMake(500, 625)
-        labelScore.position = CGPointMake(30 + labelScore.frame.size.width/2, self.size.height - (107 + labelScore.frame.size.height/2))
+        labelScore.position = CGPointMake(20 + labelScore.frame.size.width/2, self.size.height - (120 + labelScore.frame.size.height/2))
         addChild(labelScore)
     }
 
@@ -220,7 +220,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         highScoreLabel.fontName = "MarkerFelt-Wide"
         highScoreLabel.fontSize  = 24
         highScoreLabel.zPosition = 4
-        highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height * 0.835)
+        highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + labelScore.frame.size.height/2))
         addChild(highScoreLabel)
 }
 
@@ -423,18 +423,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
             girlSoldierNode?.stepState()
 
-            if CGRectContainsPoint(buttonJump.frame, location ) {
-                jump()
-
-            } else if CGRectContainsPoint(buttonDuck.frame, location) {
-                duck()
-                //can delete, just reference in case we want to change colors :)
-                //let changeColorAction = SKAction.colorizeWithColor(SKColor.redColor(), colorBlendFactor: 1.0, duration: 0.5)
-               //soldierNode!.runAction(changeColorAction)
-
-            } else if CGRectContainsPoint(buttonFire.frame, location) {
-                walkShoot()
-            }
+//            if CGRectContainsPoint(buttonJump.frame, location ) {
+//                jump()
+//
+//            } else if CGRectContainsPoint(buttonDuck.frame, location) {
+//                duck()
+//                //can delete, just reference in case we want to change colors :)
+//                //let changeColorAction = SKAction.colorizeWithColor(SKColor.redColor(), colorBlendFactor: 1.0, duration: 0.5)
+//               //soldierNode!.runAction(changeColorAction)
+//
+//            } else if CGRectContainsPoint(buttonFire.frame, location) {
+//                walkShoot()
+//            }
         }
     }
 
@@ -805,9 +805,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        buttonFire.setScale(1.6)
 //        addChild(buttonFire)
 
-        healthStatus.position = CGPointMake(100, 630)
-        healthStatus.setScale(1.1)
-        addChild(healthStatus)
+//        healthStatus.position = CGPointMake(100, 630)
+//        healthStatus.setScale(1.1)
+//        addChild(healthStatus)
 
 //        scoreKeeperBG.position = CGPointMake(950, 610)
 //        scoreKeeperBG.setScale(1.3)
