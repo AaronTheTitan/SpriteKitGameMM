@@ -13,6 +13,8 @@ class Soldier : SKSpriteNode {
 
     var currentState = SoldierStates.Idle
     var isJumping:Bool = false
+    let normalSize:CGFloat = 0.32
+    let duckingSize:CGFloat = 0.25
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -84,19 +86,23 @@ class Soldier : SKSpriteNode {
 
             case .Idle:
                 currentState = .Idle
+                self.setScale(normalSize)
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Idle.sprites(), timePerFrame: 0.07)))
 
             case .Walk:
                 currentState = .Walk
+                self.setScale(normalSize)
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(), timePerFrame: 0.07)))
 
             case .Run:
                 currentState = .Run
+                self.setScale(normalSize)
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Run.sprites(), timePerFrame: 0.04)))
 //                self.physicsBody?.applyImpulse(CGVectorMake(0, 40))
 
             case .Jump:
                 currentState = .Jump
+                self.setScale(normalSize)
 
                 if isJumping == false {
 
@@ -119,17 +125,21 @@ class Soldier : SKSpriteNode {
 
             case .Crouch:
                 currentState = .Crouch
+                self.setScale(duckingSize)
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Crouch.sprites(), timePerFrame: 0.07), count: 1))
 
             case .Dead:
                 currentState = .Dead
+                self.setScale(normalSize)
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Dead.sprites(), timePerFrame: 0.07), count: 1))
 
             case .RunShoot:
                 currentState = .RunShoot
+                self.setScale(normalSize)
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.RunShoot.sprites(), timePerFrame: 0.05), count: 1))
 
             case .WalkShoot:
+                self.setScale(normalSize)
                 currentState = .WalkShoot
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.WalkShoot.sprites(), timePerFrame: 0.07), count: 1))
 
@@ -141,8 +151,10 @@ class Soldier : SKSpriteNode {
     func update() {
         // update when told by the GameScene class
         
-//        if currentState != .Idle {
-//
+//        if currentState == .Crouch {
+//            self.setScale(duckingSize)
+//        } else {
+//            self.setScale(normalSize)
 //        }
 //
 //        if currentState == .Jump {
