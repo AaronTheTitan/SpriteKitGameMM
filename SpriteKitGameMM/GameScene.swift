@@ -15,7 +15,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     var soldierNode:Soldier?
     var obstruction:Obstruction!
-    var max:Obstruction!
+    var warhead:Obstruction!
     var powerup: PowerUp?
     var powerupWhite: PowerUp?
     var highScoreLabel:SKLabelNode!
@@ -175,7 +175,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func soldierDidCollideWithWarhead(soldier:SKSpriteNode, bomb:SKSpriteNode) {
-        max.removeFromParent()
+        warhead.removeFromParent()
         warheadExplode?.warHeadExplode(warheadExplode!)
         die()
     }
@@ -362,31 +362,31 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     // Having fun, can remove in real thang if we want
-    func addMax() {
+    func addWarhead() {
 
         let height = UInt32(self.frame.size.height / 4)
         let y = arc4random_uniform(height) % height + height
 
-        max = Obstruction(imageNamed: "warhead")
-        max.setScale(0.45)
-        max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
-        max?.position = CGPointMake(1200.0, CGFloat(y + height))
-        max.physicsBody?.dynamic = false
-        max.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
-        max.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
-        max.physicsBody?.usesPreciseCollisionDetection = true
-        max.runAction(moveObject)
-        addChild(max!)
+        warhead = Obstruction(imageNamed: "warhead")
+        warhead.setScale(0.45)
+        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
+        warhead?.position = CGPointMake(1200.0, CGFloat(y + height))
+        warhead.physicsBody?.dynamic = false
+        warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
+        warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+        warhead.physicsBody?.usesPreciseCollisionDetection = true
+        warhead.runAction(moveObject)
+        addChild(warhead!)
 
         var warheadRocket = Bomb(imageNamed: "emptyMuzzle")
-        warheadRocket.position = CGPointMake(max.position.x + 120, max.position.y)
+        warheadRocket.position = CGPointMake(warhead.position.x + 120, warhead.position.y)
         warheadRocket.rocketFire(warheadRocket)
         warheadRocket.runAction(moveObject)
         addChild(warheadRocket)
 
         warheadExplode = Bomb(imageNamed: "empty")
         warheadExplode?.setScale(0.6)
-        warheadExplode?.position = CGPointMake(max!.position.x, max!.position.y + 100)
+        warheadExplode?.position = CGPointMake(warhead!.position.x, warhead!.position.y + 100)
         warheadExplode?.runAction(moveObject)
 
         addChild(warheadExplode!)
@@ -477,7 +477,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 moveObject = SKAction.sequence([moveObstruction])
             }
 
-            addMax ()
+            addWarhead()
 
         } else {
             let distance = CGFloat(self.frame.size.width * 2.0)
