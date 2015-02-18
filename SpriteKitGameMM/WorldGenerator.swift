@@ -29,15 +29,15 @@ class WorldGenerator: SKNode {
     }
 
 
-    func moveBackground() {
-
-        var moveGroundAction = SKAction.repeatActionForever(SKAction.sequence([SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)]))
-
-        for sprite in groundPieces {
-            sprite.runAction(moveGroundForeverAction)
-        }
-        
-    }
+//    func moveBackground() {
+//
+//        var moveGroundAction = SKAction.repeatActionForever(SKAction.sequence([SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)]))
+//
+//        for sprite in groundPieces {
+//            sprite.runAction(moveGroundForeverAction)
+//        }
+//        
+//    }
 
     func setupScenery() {
         /* Setup your scene here */

@@ -27,6 +27,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var isRunning:Bool?
     var score: Int!
     var highScore:NSInteger?
+    var spriteposition:CGFloat  = 5
+    var moveGroundForeverAction: SKAction!
 
     let world = WorldGenerator()
 
@@ -209,6 +211,38 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 // MARK: - GROUND SPEED MANIPULATION
 
     func groundSpeedIncrease() {
+
+        var wait = SKAction.waitForDuration(1)
+
+        var run = SKAction.runBlock {
+
+            //var speedUpAction = SKAction.speedTo(self.groundSpeed, duration: self.timeIncrement)
+
+
+
+            if self.spriteposition  == 25 {
+
+                self.run()
+                
+                self.isRunning = true
+                
+                
+                
+            }
+        }
+
+        moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([run,wait]))
+
+
+
+        for sprite in world.groundPieces
+
+        {
+
+            sprite.runAction(moveGroundForeverAction)
+            
+        }
+
     }
 
 // MARK: - TOUCHES BEGAN
@@ -279,6 +313,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         soldierNode?.update()
         world.groundMovement()
+        groundSpeedIncrease()
+
+
+
+        if spriteposition < 70
+        {
+            spriteposition = spriteposition + 1
+
+
+        }
+        
+        
+        for sprite in world.groundPieces
+        {
+            
+            
+            sprite.position.x -= spriteposition
+            
+            println("\(spriteposition)")
+
+    }
     }
 
     func resetSoldierPosition() {
