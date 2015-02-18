@@ -28,6 +28,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var score: Int!
     var highScore:NSInteger?
 
+    let world = WorldGenerator()
+
     //MARK: - AUDIO
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
@@ -56,28 +58,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     let totalGroundPieces = 5
 
-    var moveGroundAction: SKAction!
-    var groundPieces = [SKSpriteNode]()
-    var moveGroundForeverAction: SKAction!
-
-    var groundSpeed: CGFloat = 1.0
-    let groundResetXCoord: CGFloat = -500
-    var timeIncrement:Double = 0.001
-
 
 //----- BEGIN LOGIC -----//
 
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
-        gameWorld = SKNode()
-        addChild(gameWorld!)
+        world.setupScenery()
+        addChild(world)
+
+        world.groundMovement()
+
 
         score = 0
         highScore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
 
-        moveBackground()
-        setupScenery()
+//        moveBackground()
         addSoldier()
         addEdge()
         addScoreLabel()
@@ -215,60 +211,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func groundSpeedIncrease() {
     }
 
-// MARK: - INIT SETUP FUNCTIONS
-    func moveBackground() {
-
-        var moveGroundAction = SKAction.repeatActionForever(SKAction.sequence([SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)]))
-
-        for sprite in groundPieces {
-            sprite.runAction(moveGroundForeverAction)
-        }
-
-    }
-
-
-
-    func setupScenery() {
-        /* Setup your scene here */
-
-        //Add background sprites
-        let bgImages:[String] = ["bg_spaceship_1", "bg_spaceship_2", "bg_spaceship_3"]
-        var bg = SKSpriteNode(imageNamed: bgImages[0])
-
-        bg.position = CGPointMake(bg.size.width / 2, bg.size.height / 2)
-
-        self.addChild(bg)
-
-        for var x = 0; x < bgImages.count; x++ {
-            var sprite = SKSpriteNode(imageNamed: bgImages[x])
-
-             groundPieces.append(sprite)
-
-            var wSpacing = sprite.size.width / 2
-            var hSpacing = sprite.size.height / 2
-
-            if x == 0 {
-                sprite.position = CGPointMake(wSpacing, hSpacing)
-            } else {
-                sprite.position = CGPointMake((wSpacing * 2) + groundPieces[x - 1].position.x,groundPieces[x - 1].position.y)
-            }
-
-            self.addChild(sprite)
-        }
-    }
-
-    func groundMovement() {
-        for var x = 0; x < groundPieces.count; x++ {
-            if groundPieces[x].position.x <= groundResetXCoord {
-                if x != 0 {
-                    groundPieces[x].position = CGPointMake(groundPieces[x - 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
-                } else {
-                    groundPieces[x].position = CGPointMake(groundPieces[x + 1].position.x + groundPieces[x].size.width,groundPieces[x].position.y)
-                }
-            }
-        }
-    }
-
 // MARK: - TOUCHES BEGAN
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 
@@ -336,7 +278,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
 
         soldierNode?.update()
-        groundMovement()
+        world.groundMovement()
     }
 
     func resetSoldierPosition() {
@@ -441,18 +383,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let y = arc4random_uniform(3)
         if y == 0 {
             let distance = CGFloat(self.frame.size.width * 2.0)
-            if groundSpeed < 5.5 {
+            if world.groundSpeed < 5.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 12.5 {
+            } else if world.groundSpeed < 12.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
-            } else if groundSpeed < 15.5 {
+            } else if world.groundSpeed < 15.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 16.55 {
+            } else if world.groundSpeed < 16.55 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            }else if groundSpeed < 20.5 {
+            }else if world.groundSpeed < 20.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             }
@@ -461,18 +403,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         } else if y == 1 {
             let distance = CGFloat(self.frame.size.width * 2.0)
-            if groundSpeed < 5.5{
+            if world.groundSpeed < 5.5{
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 12.5 {
+            } else if world.groundSpeed < 12.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
-            } else if groundSpeed < 15.5 {
+            } else if world.groundSpeed < 15.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 16.55 {
+            } else if world.groundSpeed < 16.55 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            }else if groundSpeed < 20.5 {
+            }else if world.groundSpeed < 20.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             }
@@ -481,18 +423,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         } else {
             let distance = CGFloat(self.frame.size.width * 2.0)
-            if groundSpeed < 5.5{
+            if world.groundSpeed < 5.5{
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 12.5 {
+            } else if world.groundSpeed < 12.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
-            } else if groundSpeed < 15.5 {
+            } else if world.groundSpeed < 15.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 16.55 {
+            } else if world.groundSpeed < 16.55 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
-            }else if groundSpeed < 20.5 {
+            }else if world.groundSpeed < 20.5 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             }
