@@ -64,8 +64,7 @@ class WorldGenerator: SKNode {
                 sprite.position = CGPointMake((wSpacing * 2) + groundPieces[x - 1].position.x,groundPieces[x - 1].position.y)
             }
             
-//            addChild(sprite)
-//            gameScene = sprite
+            addChild(sprite)
 
         }
     }
