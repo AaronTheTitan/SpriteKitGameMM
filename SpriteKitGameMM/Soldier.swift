@@ -102,7 +102,7 @@ class Soldier : SKSpriteNode {
 
                     isJumping = true
 
-                    self.physicsBody?.applyImpulse(CGVectorMake(200, 1600))
+                    self.physicsBody?.applyImpulse(CGVectorMake(0, 1400))
 
                     self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
                         self.isJumping = false

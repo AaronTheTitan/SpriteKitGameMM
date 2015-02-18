@@ -103,6 +103,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
          var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("groundSpeedIncrease"), userInfo: nil, repeats: true)
 
 
+
+
         //adds soldier, moved to function to clean up
         addSoldier()
         //addGirlSoldier()
@@ -265,6 +267,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
 //        explodeNode.removeFromParent()
+        bomb.removeFromParent()
         bombExplode?.bombExplode(bombExplode!)
         die()
     }
@@ -319,7 +322,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func groundSpeedIncrease(){
         if groundSpeed < 15 {
-            groundSpeed = groundSpeed + 0.2
+            groundSpeed = groundSpeed + 0.6
             println("ground speed \(groundSpeed)")
         } else if groundSpeed < 17.24 {
             groundSpeed = groundSpeed + 0.03
@@ -443,7 +446,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
-        girlFollowDelay(GirlSoldier.SoldierStates.Jump)
+//        girlFollowDelay(GirlSoldier.SoldierStates.Jump)
 
         playSound(soundJump)
     }
@@ -451,20 +454,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func duck() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Crouch)
         soldierNode?.stepState()
-        girlFollowDelay(GirlSoldier.SoldierStates.Crouch)
+//        girlFollowDelay(GirlSoldier.SoldierStates.Crouch)
     }
 
     func run() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
         soldierNode?.stepState()
-        girlFollowDelay(GirlSoldier.SoldierStates.Run)
+//        girlFollowDelay(GirlSoldier.SoldierStates.Run)
 
     }
 
     func runShoot() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.RunShoot)
         soldierNode?.stepState()
-        girlFollowDelay(GirlSoldier.SoldierStates.RunShoot)
+//        girlFollowDelay(GirlSoldier.SoldierStates.RunShoot)
 
         var fireShot = Bullet(imageNamed: "emptyMuzzle")
         addChild(fireShot)
@@ -475,7 +478,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func walkShoot() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.WalkShoot)
         soldierNode?.stepState()
-        girlFollowDelay(GirlSoldier.SoldierStates.WalkShoot)
+//        girlFollowDelay(GirlSoldier.SoldierStates.WalkShoot)
 
         var fireShot = Bullet(imageNamed: "emptyMuzzle")
         addChild(fireShot)
@@ -486,18 +489,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func walk() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
         soldierNode?.stepState()
-        girlFollowDelay(GirlSoldier.SoldierStates.Walk)
+//        girlFollowDelay(GirlSoldier.SoldierStates.Walk)
     }
 
 
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
         soldierNode?.stepState()
-        girlFollowDelay(GirlSoldier.SoldierStates.Dead)
+//        girlFollowDelay(GirlSoldier.SoldierStates.Dead)
     }
 
     let originalHeroPoint = CGPointMake(450, 450)
 
+    //MARK: - Update
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
@@ -512,15 +516,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.position.x = originalHeroPoint.x
     }
 
-    func girlFollowDelay(state: GirlSoldier.SoldierStates) {
-        let delay = 0.07 * Double(NSEC_PER_SEC)
-        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-
-        dispatch_after(time, dispatch_get_main_queue()) {
-            self.girlSoldierNode?.setCurrentState(state)
-            self.girlSoldierNode?.stepState()
-        }
-    }
+//    func girlFollowDelay(state: GirlSoldier.SoldierStates) {
+//        let delay = 0.07 * Double(NSEC_PER_SEC)
+//        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+//
+//        dispatch_after(time, dispatch_get_main_queue()) {
+//            self.girlSoldierNode?.setCurrentState(state)
+//            self.girlSoldierNode?.stepState()
+//        }
+//    }
 
 
     // MARK: - ADD ASSETS TO SCENE
@@ -531,7 +535,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         soldierNode?.position = CGPointMake(250, 450)
 
-        soldierNode?.setScale(0.35)
+        soldierNode?.setScale(0.32)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
         soldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge | PhysicsCategory.PlatformCategory
@@ -551,49 +555,49 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //    }
 
     //need to update girlPhysics catergories
-    func addGirlSoldier() {
-        girlSoldierNode = GirlSoldier(imageNamed: "G-Walk__000")
-        girlSoldierNode?.position = CGPointMake(300, 450)
-        girlSoldierNode?.setScale(0.35)
-        girlSoldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: girlSoldierNode!.size)
-        girlSoldierNode?.physicsBody?.allowsRotation = false
-        girlSoldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
-        girlSoldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge //| PhysicsCategory.ObstructionCategory
-        girlSoldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
-        girlSoldierNode?.physicsBody?.usesPreciseCollisionDetection = true
+//    func addGirlSoldier() {
+//        girlSoldierNode = GirlSoldier(imageNamed: "G-Walk__000")
+//        girlSoldierNode?.position = CGPointMake(300, 450)
+//        girlSoldierNode?.setScale(0.35)
+//        girlSoldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: girlSoldierNode!.size)
+//        girlSoldierNode?.physicsBody?.allowsRotation = false
+//        girlSoldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
+//        girlSoldierNode?.physicsBody?.collisionBitMask = PhysicsCategory.Edge //| PhysicsCategory.ObstructionCategory
+//        girlSoldierNode?.physicsBody?.contactTestBitMask = PhysicsCategory.ObstructionCategory
+//        girlSoldierNode?.physicsBody?.usesPreciseCollisionDetection = true
+//
+//        addChild(girlSoldierNode!)
+//
+//        girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
+//        girlSoldierNode?.stepState()
+//
+//    }
 
-        addChild(girlSoldierNode!)
-
-        girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
-        girlSoldierNode?.stepState()
-
-    }
-
-    func addDon(){
-        //Spaceship placeholder, don't delete. Can comment out
-        obstruction = Obstruction(imageNamed: "don-bora")
-        obstruction.setScale(0.45)
-        obstruction.physicsBody = SKPhysicsBody(circleOfRadius: obstruction!.size.width/2)
-       // obstruction.position = CGPointMake(740.0, 220.0)
-//        let height = UInt32(self.frame.size.height / 4)
-//        let y = arc4random() % height + height
-        obstruction?.position = CGPointMake(1100.0, 175)
-
-        obstruction.physicsBody?.dynamic = false
-        obstruction.physicsBody?.categoryBitMask    = PhysicsCategory.ObstructionCategory
-        //obstruction.physicsBody?.collisionBitMask   = PhysicsCategory.SoldierCategory
-        obstruction.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
-        obstruction.physicsBody?.usesPreciseCollisionDetection = true
-        obstruction.runAction(moveObject)
-
-        addChild(obstruction!)
-    }
+//    func addDon(){
+//        //Spaceship placeholder, don't delete. Can comment out
+//        obstruction = Obstruction(imageNamed: "don-bora")
+//        obstruction.setScale(0.45)
+//        obstruction.physicsBody = SKPhysicsBody(circleOfRadius: obstruction!.size.width/2)
+//       // obstruction.position = CGPointMake(740.0, 220.0)
+////        let height = UInt32(self.frame.size.height / 4)
+////        let y = arc4random() % height + height
+//        obstruction?.position = CGPointMake(1100.0, 175)
+//
+//        obstruction.physicsBody?.dynamic = false
+//        obstruction.physicsBody?.categoryBitMask    = PhysicsCategory.ObstructionCategory
+//        //obstruction.physicsBody?.collisionBitMask   = PhysicsCategory.SoldierCategory
+//        obstruction.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+//        obstruction.physicsBody?.usesPreciseCollisionDetection = true
+//        obstruction.runAction(moveObject)
+//
+//        addChild(obstruction!)
+//    }
 
     // Having fun, can remove in real thang if we want
     func addMax(){
 
         max = Obstruction(imageNamed: "warhead")
-        max.setScale(0.65)
+        max.setScale(0.45)
 
         max.physicsBody = SKPhysicsBody(circleOfRadius: max!.size.width/2)
         let height = UInt32(self.frame.size.height / 4)
@@ -608,31 +612,39 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         addChild(max!)
 
+        var warheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        warheadRocket.position = CGPointMake(max.position.x + 132, max.position.y)
+        warheadRocket.rocketFire(warheadRocket)
+        warheadRocket.runAction(moveObject)
+        addChild(warheadRocket)
+
+
+
 
         warheadExplode = Bomb(imageNamed: "empty")
-        warheadExplode?.setScale(1.2)
+        warheadExplode?.setScale(0.6)
         warheadExplode?.position = CGPointMake(max!.position.x, max!.position.y + 100)
         warheadExplode?.runAction(moveObject)
 
         addChild(warheadExplode!)
 
     }
-
-    func addPlatform() {
-        platform = Platform(imageNamed: "platform")
-        // max.setScale(0.45)
-        platform?.setScale(1.1)
-        platform?.physicsBody = SKPhysicsBody(circleOfRadius: platform!.size.width/2)
-        platform?.position = CGPointMake(1190.0, 380)
-        platform?.physicsBody?.dynamic = false
-        platform?.physicsBody?.categoryBitMask = PhysicsCategory.PlatformCategory
-        platform?.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
-        platform?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
-        platform?.physicsBody?.usesPreciseCollisionDetection = true
-        platform?.runAction(moveObject)
-        
-        addChild(platform!)
-    }
+//
+//    func addPlatform() {
+//        platform = Platform(imageNamed: "platform")
+//        // max.setScale(0.45)
+//        platform?.setScale(1.1)
+//        platform?.physicsBody = SKPhysicsBody(circleOfRadius: platform!.size.width/2)
+//        platform?.position = CGPointMake(1190.0, 380)
+//        platform?.physicsBody?.dynamic = false
+//        platform?.physicsBody?.categoryBitMask = PhysicsCategory.PlatformCategory
+//        platform?.physicsBody?.collisionBitMask = PhysicsCategory.SoldierCategory
+//        platform?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+//        platform?.physicsBody?.usesPreciseCollisionDetection = true
+//        platform?.runAction(moveObject)
+//        
+//        addChild(platform!)
+//    }
 
     func addPowerup() {
         powerup = PowerUp(imageNamed: "powerup")
@@ -668,71 +680,78 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func addBadGuys() {
-//        let distance = CGFloat(self.frame.size.width * 2.0)
-//        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.005 * distance))
-//        moveObject = SKAction.sequence([moveObstruction])
+        let distance = CGFloat(self.frame.size.width * 2.0)
+//        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.002 * distance))
+        addBomb()
 
-        let y = arc4random_uniform(3)
-        if y == 0 {
-            let distance = CGFloat(self.frame.size.width * 2.0)
-            if groundSpeed < 5.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 12.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
-            } else if groundSpeed < 15.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 16.55 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            }else if groundSpeed < 20.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            }
-            //addDon()
-            addBomb()
-        } else if y == 1 {
-            let distance = CGFloat(self.frame.size.width * 2.0)
-            if groundSpeed < 5.5{
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 12.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
-            } else if groundSpeed < 15.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 16.55 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            }else if groundSpeed < 20.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            }
-            addMax ()
+        if groundSpeed > 4 {
+            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval((0.008 / groundSpeed) * distance))
+            moveObject = SKAction.sequence([moveObstruction])
+            addMax()
 
-        } else {
-            let distance = CGFloat(self.frame.size.width * 2.0)
-            if groundSpeed < 5.5{
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 12.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
-            } else if groundSpeed < 15.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            } else if groundSpeed < 16.55 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            }else if groundSpeed < 20.5 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
-            }
-           //addPlatform()
-            addPowerup()
-            //addPowerUpWhite()
-            //addBomb()
         }
+        
+//        let y = arc4random_uniform(3)
+//        if y == 0 {
+//            let distance = CGFloat(self.frame.size.width * 2.0)
+//            if groundSpeed < 5.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            } else if groundSpeed < 12.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
+//            } else if groundSpeed < 15.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            } else if groundSpeed < 16.55 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            }else if groundSpeed < 20.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            }
+//            //addDon()
+//            addBomb()
+//        } else if y == 1 {
+//            let distance = CGFloat(self.frame.size.width * 2.0)
+//            if groundSpeed < 5.5{
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            } else if groundSpeed < 12.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
+//            } else if groundSpeed < 15.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            } else if groundSpeed < 16.55 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            }else if groundSpeed < 20.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            }
+//            addMax ()
+//
+//        } else {
+//            let distance = CGFloat(self.frame.size.width * 2.0)
+//            if groundSpeed < 5.5{
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0067  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            } else if groundSpeed < 12.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0050  * distance))
+//            } else if groundSpeed < 15.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0038  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            } else if groundSpeed < 16.55 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0025  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            }else if groundSpeed < 20.5 {
+//                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
+//                moveObject = SKAction.sequence([moveObstruction])
+//            }
+//           //addPlatform()
+//            addPowerup()
+//            //addPowerUpWhite()
+//            //addBomb()
+//        }
     }
 
     func addBomb() {
