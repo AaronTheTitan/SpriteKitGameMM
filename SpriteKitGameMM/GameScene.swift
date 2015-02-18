@@ -319,8 +319,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     // MARK: - INIT SETUP FUNCTIONS
-    func initSetup() {
-        moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)
+    func initSetup()
+    {
+        moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 3)
         moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([moveGroundAction]))
     }
 
@@ -522,12 +523,24 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.update()
         groundMovement()
 
-        groundSpeed = groundSpeed + 0.02
-
+        //groundSpeed = groundSpeed + 0.02
         initSetup()
         startGame()
 
-        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(currentTime)))
+        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(currentTime * 100000)))
+
+        if groundSpeed < 30 {
+            groundSpeed = groundSpeed + 0.2
+            println("ground speed \(groundSpeed)")
+        }
+
+        if groundSpeed > 25 {
+            run()
+            isRunning = true
+            //println("ground speed \(groundSpeed)")
+        }
+
+
 
 
         for sprite in groundPieces {
@@ -538,6 +551,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if children.count < 18 {
             addBadGuys()
         }
+        //println("\(groundSpeed)")
     }
 
     func resetSoldierPosition() {
