@@ -38,6 +38,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
     var soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
+    var spriteposition:CGFloat  = 5
 
     // MARK: - PHYSICS CATEGORY STRUCT
     var used:Bool?
@@ -86,6 +87,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         gameWorld = SKNode()
         addChild(gameWorld!)
 
+//        if spriteposition == 50 {
+//            println("moneyteam")
+//        }
+
         let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
         swipeUp.direction = .Up
         view.addGestureRecognizer(swipeUp)
@@ -96,9 +101,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         //added for collision detection
         //        view.showsPhysics = true
-        initSetup()
+        //initSetup()
         setupScenery()
-        startGame()
+        //startGame()
+
+
 
          self.physicsWorld.gravity    = CGVectorMake(0, -40)
          physicsWorld.contactDelegate = self
@@ -320,51 +327,58 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     // MARK: - GROUND SPEED MANIPULATION
 
     func groundSpeedIncrease(){
-        if groundSpeed < 15 {
-            groundSpeed = groundSpeed + 0.2
-            println("ground speed \(groundSpeed)")
-        } else if groundSpeed < 17.24 {
-            groundSpeed = groundSpeed + 0.03
-        } else {
 
+//        SKAction *wait = [SKAction waitForDuration:0.5];
+//        SKAction *performSelector = [SKAction performSelector:@selector(fireMethod:) onTarget:self];
+//        SKAction *sequence = [SKAction sequence:@[performSelector, wait]];
+//        SKAction *repeat   = [SKAction repeatActionForever:sequence];
+
+
+        var wait = SKAction.waitForDuration(1)
+        var run = SKAction.runBlock {
+            //var speedUpAction = SKAction.speedTo(self.groundSpeed, duration: self.timeIncrement)
+
+            if self.spriteposition  == 25 {
+               self.run()
+                self.isRunning = true
+
+
+            }
         }
 
+         moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([run,wait]))
 
-//        groundSpeed = groundSpeed + 0.25
-//        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
-//
-//        for sprite in groundPieces
-//        {
-//            sprite.runAction(speedUpAction)
-//        }
-
-
-        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(timeIncrement)))
         for sprite in groundPieces
         {
-            sprite.runAction(speedUpAction)
+
+
+            sprite.runAction(moveGroundForeverAction)
         }
 
-//        println("\(groundSpeed)")
-        if groundSpeed > 10.5 {
-            run()
-            isRunning = true
-            println("ground speed \(groundSpeed)")
-        }
+
 
     }
 
     // MARK: - INIT SETUP FUNCTIONS
     func initSetup()
     {
-        moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 3)
-        moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([moveGroundAction]))
+        moveGroundAction = SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)
+
+
+
+
+
+          //moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([run,moveGroundAction,wait]))
+
     }
 
     func startGame()
     {
+
         for sprite in groundPieces
         {
+            sprite.position.x -= 5
+
             sprite.runAction(moveGroundForeverAction)
         }
     }
@@ -422,7 +436,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 }
             }
         }
-    }
+
+           }
 
     // MARK: - TOUCHES BEGAN
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -434,6 +449,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
             girlSoldierNode?.stepState()
+//            startGame()
+
 
 
             var locationPause: CGPoint = touch.locationInNode(self)
@@ -442,7 +459,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 addChild(buttonPlay)
                 runAction(SKAction.runBlock(pauseGame))
 
-                println("moneyteam")
+                //println("moneyteam")
             }
 
             if self.nodeAtPoint(locationPause) == buttonPlay {
@@ -571,37 +588,76 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 resetSoldierPosition()
         }
 
-        soldierNode?.update()
-        groundMovement()
-        //groundSpeed = groundSpeed + 0.02
+       soldierNode?.update()
+       groundMovement()
+        groundSpeedIncrease()
 
-        initSetup()
-        startGame()
+        if spriteposition < 50
+        {
+            spriteposition = spriteposition + 1
+//            walk()
+           //run()
+//            isRunning = true
 
-
-        var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(currentTime * 100000)))
-
-        if groundSpeed < 30 {
-            groundSpeed = groundSpeed + 0.2
-            println("ground speed \(groundSpeed)")
+        }else {
+//            run()
+//            isRunning = true
         }
 
-        if groundSpeed > 25 {
-            run()
-            isRunning = true
-            //println("ground speed \(groundSpeed)")
-        }
-
+//        if spriteposition > 25 {
+//            walk()
+//
+//
+//        } else {
+//
+//           run()
+//            isRunning = true
+//        }
 
 
 
         for sprite in groundPieces
         {
-            //sprite.speed = 1
-            sprite.runAction(speedUpAction)
+
+
+            sprite.position.x -= spriteposition
+
+            println("\(spriteposition)")
+
+
         }
+
+
+        //groundSpeed = groundSpeed + 0.02
+
+        //initSetup()
+        //startGame()
+
+
+
+        //var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(currentTime * 100000)))
+
+//        if groundSpeed < 30 {
+//            groundSpeed = groundSpeed + 0.2
+//            println("ground speed \(groundSpeed)")
+//        }
+//
+//        if groundSpeed > 25 {
+//            run()
+//            isRunning = true
+//            //println("ground speed \(groundSpeed)")
+//        }
+
+
+
+
+//        for sprite in groundPieces
+//        {
+//            //sprite.speed = 1
+//            sprite.runAction(speedUpAction)
+//        }
         //println("\(groundSpeed)")
-    }
+   }
 
     func resetSoldierPosition() {
         soldierNode?.position.x = originalHeroPoint.x
