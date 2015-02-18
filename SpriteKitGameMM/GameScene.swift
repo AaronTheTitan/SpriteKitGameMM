@@ -7,6 +7,7 @@
 //
 import SpriteKit
 
+
 class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
@@ -42,7 +43,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     // MARK: PHYSICS CATEGORY STRUCT
     // Allows us to differentiate sprites
     // MARK: - PHYSICS CATEGORY STRUCT
-    var used:Bool?
 
     //allows us to differentiate sprites
 
@@ -131,6 +131,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let distance = CGFloat(self.frame.size.width * 2.0)
         let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.05 * distance))
         moveObject = SKAction.sequence([moveObstruction])
+
+        //spawnThenDelayFunction(2,time: 2.9)
 //        addBadGuys()
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
         var delay = SKAction.waitForDuration(NSTimeInterval(2.9))
@@ -149,10 +151,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //            delay = SKAction.waitForDuration(NSTimeInterval(1.5))
 //        }
         var spawnThenDelay = SKAction.sequence([spawn,delay])
+        //var spawnThenDelayBegin = SKAction.repeatAction(spawnThenDelay, count: 5)
+        //self.runAction(spawnThenDelayBegin)
+        //let delayIntermediate = SKAction.waitForDuration(NSTimeInterval(2.0)
+
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
     }
 
+//    func spawnThenDelayFunction(count:NSInteger , time:NSTimeInterval){
+//        let spawn = SKAction.runBlock({() in self.addBadGuys()})
+//        var delay = SKAction.waitForDuration(time)
+//        var spawnThenDelay = SKAction.sequence([spawn,delay])
+//        var spawnThenDelayBegin = SKAction.repeatAction(spawnThenDelay, count: count)
+//        self.runAction(spawnThenDelayBegin)
+//
+//
+//    }
 
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         jump()
@@ -373,7 +388,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             girlSoldierNode?.setCurrentState(GirlSoldier.SoldierStates.Walk)
             girlSoldierNode?.stepState()
 
-
             var locationPause: CGPoint = touch.locationInNode(self)
             if self.nodeAtPoint(locationPause) == buttonPause{
                 buttonPause.removeFromParent()
@@ -400,7 +414,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //
 //                //pauseGame()
 //            }
-////
+//
 //            if CGRectContainsPoint(buttonPlay.frame, location) {
 //                //addChild(pauseText)
 //
@@ -411,7 +425,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //
 //
 //            }
-//
 
             if CGRectContainsPoint(buttonJump.frame, location ) {
                 jump()
@@ -517,10 +530,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         var speedUpAction = SKAction.speedTo(groundSpeed, duration: (NSTimeInterval(currentTime)))
 
 
-        for sprite in groundPieces
-        {
+        for sprite in groundPieces {
             //sprite.speed = 1
             sprite.runAction(speedUpAction)
+        }
+        //this needs to be updated and smoothed out
+        if children.count < 18 {
+            addBadGuys()
         }
     }
 
@@ -622,7 +638,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         max.runAction(moveObject)
 
         addChild(max!)
-
 
         warheadExplode = Bomb(imageNamed: "empty")
         warheadExplode?.setScale(1.2)
