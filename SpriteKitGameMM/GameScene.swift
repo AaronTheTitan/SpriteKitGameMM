@@ -93,7 +93,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         moveObject = SKAction.sequence([moveObstruction])
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(2.2))
+        var delay = SKAction.waitForDuration(NSTimeInterval(2.36))
 
         var spawnThenDelay = SKAction.sequence([spawn,delay])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
@@ -322,7 +322,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
         if spriteposition < 70 {
-            spriteposition = spriteposition + 0.33
+            spriteposition = spriteposition + 0.35
         }
         
         
@@ -364,7 +364,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         warhead = Obstruction(imageNamed: "warhead")
         warhead.setScale(0.45)
         warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
-        warhead?.position = CGPointMake(1100.0, CGFloat(y + height + 75))
+        warhead?.position = CGPointMake(1090.0, CGFloat(y + height + 75))
         warhead.physicsBody?.dynamic = false
         warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
         warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
@@ -528,10 +528,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             } else if spriteposition < 50.0 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0040  * distance))
             } else if spriteposition < 65.0 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0030  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0027  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             } else if spriteposition < 75.55 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0020  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0017  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             }
             addBomb()
