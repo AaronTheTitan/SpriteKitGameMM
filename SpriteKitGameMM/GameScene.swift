@@ -181,36 +181,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func groundSpeedIncrease() {
 
         var wait = SKAction.waitForDuration(1)
-
         var run = SKAction.runBlock {
-
             //var speedUpAction = SKAction.speedTo(self.groundSpeed, duration: self.timeIncrement)
 
-
-
             if self.spriteposition  == 25 {
-
                 self.run()
-                
                 self.isRunning = true
-                
-                
-                
             }
         }
 
         moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([run,wait]))
 
-
-
-        for sprite in world.groundPieces
-
-        {
-
+        for sprite in world.groundPieces {
             sprite.runAction(moveGroundForeverAction)
-            
         }
-
     }
 
 // MARK: - TOUCHES BEGAN
