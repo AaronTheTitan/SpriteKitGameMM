@@ -109,7 +109,7 @@ class Soldier : SKSpriteNode {
 
                     isJumping = true
 
-                    self.physicsBody?.applyImpulse(CGVectorMake(200, 1400))
+                    self.physicsBody?.applyImpulse(CGVectorMake(00, 1400))
                     self.physicsBody?.density = 1
                     self.physicsBody?.charge = 0.0
 
@@ -117,7 +117,7 @@ class Soldier : SKSpriteNode {
                     self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
 
                         dispatch_after(1, dispatch_get_main_queue()) {
-                            self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:0.5))
+//                            self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:0.5))
                             self.isJumping = false
                         }
                                                     //
