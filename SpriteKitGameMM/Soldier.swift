@@ -113,18 +113,26 @@ class Soldier : SKSpriteNode {
                     self.physicsBody?.applyImpulse(CGVectorMake(200, 1400))
 
                     self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
-
                         self.isJumping = false
-                        self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:2))
+//
+//                        self.runAction(SKAction.waitForDuration(1), completion: { () -> Void in
+//                            self.position = (CGPointMake(self.position.x - 200, self.position.y))
+//                        })
 
-//                            let delay = 0.13 * Double(NSEC_PER_SEC)
-//                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-//        
-//                            dispatch_after(time, dispatch_get_main_queue()) {
-//                                self.isJumping = false
-//                            }
+
+
+//                        dispatch_after(1, dispatch_get_main_queue()) {
+////                            self.position = (CGPointMake(self.position.x - 200, self.position.y))
+//
+//                        }
+
+
+//                        self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:2))
+
                     }
-                    )
+                )
+//                    self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:2))
+
             }
 
             case .Crouch:

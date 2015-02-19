@@ -205,7 +205,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         for touch: AnyObject in touches {
 
             let location = touch.locationInNode(self)
-            soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
+//            soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
             soldierNode?.stepState()
              //println("moneyteam")
 
@@ -321,7 +321,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
 
-        if spriteposition < 70 {
+        if spriteposition < 19 {
             spriteposition = spriteposition + 0.35
         }
         
