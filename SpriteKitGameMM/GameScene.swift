@@ -354,7 +354,35 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         warhead = Obstruction(imageNamed: "warhead")
         warhead.setScale(0.45)
         warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
-        warhead?.position = CGPointMake(1110.0, CGFloat(y + height + 105))
+        warhead?.position = CGPointMake(1110.0, CGFloat(y + height + 205))
+        warhead.physicsBody?.dynamic = false
+        warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
+        warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+        warhead.physicsBody?.usesPreciseCollisionDetection = true
+        warhead.physicsBody?.velocity = CGVectorMake(-50, 0)
+        warhead.runAction(moveObject)
+        addChild(warhead!)
+
+        warheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        warheadRocket?.position = CGPointMake(warhead.position.x + 120, warhead.position.y)
+        warheadRocket?.rocketFire(warheadRocket!)
+        warheadRocket?.runAction(moveObject)
+        addChild(warheadRocket!)
+
+        warheadExplode = Bomb(imageNamed: "empty")
+        warheadExplode?.setScale(0.6)
+        warheadExplode?.position = CGPointMake(warhead!.position.x, warhead!.position.y + 100)
+        warheadExplode?.runAction(moveObject)
+
+        addChild(warheadExplode!)
+    }
+
+    func addDuckWarhead() {
+
+        warhead = Obstruction(imageNamed: "warhead")
+        warhead.setScale(0.45)
+        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
+        warhead?.position = CGPointMake(1110.0, 325)
         warhead.physicsBody?.dynamic = false
         warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
         warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
@@ -461,7 +489,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             //            }
 
             addWarhead()
-            addWarhead()
+            addDuckWarhead()
 
         } else if y == 2 {
             let distance = CGFloat(self.frame.size.width * 2.0)
@@ -533,7 +561,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             //                moveObject = SKAction.sequence([moveObstruction])
             //            }
             addBomb()
-            addWarhead()
+            addDuckWarhead()
         }
     }
 
