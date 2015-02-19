@@ -51,8 +51,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     // MARK: - BUTTONS
-    let buttonPause   = SKSpriteNode(imageNamed: "buttonPause")
-    let buttonPlay    = SKSpriteNode(imageNamed: "buttonPlay")
+    let buttonscencePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    let buttonscencePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
 
 
     // MARK: - GROUND/WORLD
@@ -68,6 +68,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         world.setupScenery()
         addChild(world)
+
+        createbutton()
 
         world.groundMovement()
 
@@ -99,7 +101,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
 
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
-        addButtons()
+
 
         let distance = CGFloat(self.frame.size.width * 2.0)
         let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.05 * distance))
@@ -218,22 +220,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             //var speedUpAction = SKAction.speedTo(self.groundSpeed, duration: self.timeIncrement)
 
-
-
             if self.spriteposition  == 25 {
 
                 self.run()
                 
                 self.isRunning = true
-                
-                
-                
+
             }
         }
 
         moveGroundForeverAction = SKAction.repeatActionForever(SKAction.sequence([run,wait]))
-
-
 
         for sprite in world.groundPieces
 
@@ -249,13 +245,63 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 
         for touch: AnyObject in touches {
+
             let location = touch.locationInNode(self)
             soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
             soldierNode?.stepState()
+             //println("moneyteam")
+
         }
+
     }
 
 // MARK: - SOLDIER ACTIONS
+
+    func createbutton() {
+
+        buttonscencePause.frame = CGRectMake(6.25, 316.25, 67.5, 50)
+        //button.backgroundColor = UIColor.greenColor()
+        let buttonPauseImage = UIImage(named: "buttonPause")
+        buttonscencePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
+        //button.setTitle("Test Button", forState: UIControlState.Normal)
+        buttonscencePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+        buttonscencePlay.frame = CGRectMake(6.25, 316.25, 67.5, 50)
+        //button.backgroundColor = UIColor.greenColor()
+        let buttonPlayImage = UIImage(named: "buttonPlay")
+        buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
+        //button.setTitle("Test Button", forState: UIControlState.Normal)
+        buttonscencePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+
+
+        scene?.view?.addSubview(buttonscencePause)
+        scene?.view?.addSubview(buttonscencePlay)
+        buttonscencePlay.hidden = true
+    }
+
+//    UIButton * startButton = [[UIButton alloc]initWithFrame:CGRectMake(100, 200, 60, 20)];
+//    startButton.backgroundColor = [UIColor redColor];
+//
+//    [self.view addSubview:startButton];
+    func pauseGame()
+    {
+        //scene.view?.paused = true // to pause the game
+        scene?.view?.paused = true
+        buttonscencePause.hidden = true
+        buttonscencePlay.hidden = false
+
+
+    }
+    func resumeGame()
+    {
+        //scene.view?.paused = true // to pause the game
+        scene?.view?.paused = false
+
+        buttonscencePause.hidden = false
+        buttonscencePlay.hidden = true
+    }
+
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
         soldierNode?.stepState()
@@ -315,23 +361,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         world.groundMovement()
         groundSpeedIncrease()
 
-
-
         if spriteposition < 70
         {
             spriteposition = spriteposition + 1
 
-
         }
-        
-        
+
         for sprite in world.groundPieces
         {
             
             
             sprite.position.x -= spriteposition
             
-            println("\(spriteposition)")
+           // println("\(spriteposition)")
 
     }
     }
@@ -533,19 +575,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             addChild(edge)
     }
 
-    func addButtons(){
-        // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
-        buttonPause.position = CGPointMake(50, 150)
-        buttonPause.setScale(1.4)
-        buttonPause.hidden = false
-        addChild(buttonPause)
-
-        // play button hidden until pause button hit.
-        buttonPlay.position = buttonPause.position
-        buttonPlay.size = buttonPause.size
-        buttonPlay.hidden = true
-        addChild(buttonPlay)
-    }
 
     func playSound(soundVariable: SKAction) {
         runAction(soundVariable)
