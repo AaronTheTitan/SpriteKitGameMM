@@ -15,6 +15,8 @@ class Soldier : SKSpriteNode {
     var isJumping:Bool = false
     let normalSize:CGFloat = 0.32
     let duckingSize:CGFloat = 0.20
+    var cgVector:CGVector = CGVectorMake(00, 1400)
+
 //    let originalPosition:CGPoint = CGPoint(self.position.x, self.position.y)
 
 
@@ -90,59 +92,33 @@ class Soldier : SKSpriteNode {
 
             case .Idle:
                 currentState = .Idle
-//                self.setScale(normalSize)
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Idle.sprites(), timePerFrame: 0.07)))
 
             case .Walk:
                 currentState = .Walk
-//                self.setScale(normalSize)
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(), timePerFrame: 0.07)))
 
             case .Run:
                 currentState = .Run
-//                self.setScale(normalSize)
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Run.sprites(), timePerFrame: 0.04)))
 
             case .Jump:
                 currentState = .Jump
-//                self.setScale(normalSize)
+                self.setScale(normalSize)
                 println(isJumping)
 
                 if isJumping == false {
+
                     isJumping = true
-                    println(isJumping)
-
-                    self.physicsBody?.applyImpulse(CGVectorMake(00, 1400))
-//                    self.physicsBody?.density = 1
-//                    self.physicsBody?.charge = 0.0
-
-
-                    
+                    self.physicsBody?.applyImpulse(cgVector)
                     self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
 
                         dispatch_after(1, dispatch_get_main_queue()) {
-//                            self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:0.5))
+//                          self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:0.5))
                             self.isJumping = false
                                             println(self.isJumping)
                         }
-                                                    //
-//                        self.runAction(SKAction.waitForDuration(1), completion: { () -> Void in
-//                            self.position = (CGPointMake(self.position.x - 200, self.position.y))
-//                        })
-
-
-
-//                        dispatch_after(1, dispatch_get_main_queue()) {
-////                            self.position = (CGPointMake(self.position.x - 200, self.position.y))
-//
-//                        }
-
-
-//                        self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:2))
-
-                    }
-                )
-
+                    })
             }
 
             case .Duck:
@@ -155,16 +131,13 @@ class Soldier : SKSpriteNode {
 
             case .Dead:
                 currentState = .Dead
-//                self.setScale(normalSize)
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Dead.sprites(), timePerFrame: 0.07), count: 1))
 
             case .RunShoot:
                 currentState = .RunShoot
-//                self.setScale(normalSize)
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.RunShoot.sprites(), timePerFrame: 0.05), count: 1))
 
             case .WalkShoot:
-//                self.setScale(normalSize)
                 currentState = .WalkShoot
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.WalkShoot.sprites(), timePerFrame: 0.07), count: 1))
 
