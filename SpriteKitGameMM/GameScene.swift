@@ -88,12 +88,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         // PUT THIS STUFF INTO A SEPERATE GAME BUTTON CONTROLLERS CLASS
 
 
-        let distance = CGFloat(self.frame.size.width * 2.0)
-        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.05 * distance))
-        moveObject = SKAction.sequence([moveObstruction])
+        //let distance = CGFloat(self.frame.size.width * 2.0)
+//        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.05 * distance))
+//        moveObject = SKAction.sequence([moveObstruction])
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(2.56))
+        var delay = SKAction.waitForDuration(NSTimeInterval(1.6))
 
         var spawnThenDelay = SKAction.sequence([spawn,delay])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
@@ -364,11 +364,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         warhead = Obstruction(imageNamed: "warhead")
         warhead.setScale(0.45)
         warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
-        warhead?.position = CGPointMake(1090.0, CGFloat(y + height + 75))
+        warhead?.position = CGPointMake(1110.0, CGFloat(y + height + 75))
         warhead.physicsBody?.dynamic = false
         warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
         warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         warhead.physicsBody?.usesPreciseCollisionDetection = true
+        warhead.physicsBody?.velocity = CGVectorMake(-50, 0)
         warhead.runAction(moveObject)
         addChild(warhead!)
 
@@ -436,10 +437,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if y == 0 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             if spriteposition < 10{
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0045  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.00099  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             } else if spriteposition < 20.0 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0015  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.00099  * distance))
             } else if spriteposition < 25.0 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
@@ -454,10 +455,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if y == 1 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             if spriteposition < 10{
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0045  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.00098  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             } else if spriteposition < 20.0 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0015  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0008  * distance))
             } else if spriteposition < 25.0 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
@@ -472,10 +473,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if y == 2 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             if spriteposition < 10{
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0045  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.00098  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             } else if spriteposition < 20.0 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0017  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0008  * distance))
             } else if spriteposition < 25.0 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0018  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
@@ -485,13 +486,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             //                moveObject = SKAction.sequence([moveObstruction])
             //            }
             addPowerup()
+
         } else if y == 3 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             if spriteposition < 10{
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0045  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0012  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             } else if spriteposition < 20.0 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0024  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0012  * distance))
             } else if spriteposition < 25.0 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0016  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
@@ -506,10 +508,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if y == 4 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             if spriteposition < 10{
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0045  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0012  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             } else if spriteposition < 20.0 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0024  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0012  * distance))
             } else if spriteposition < 25.0 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0015  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
@@ -524,10 +526,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         else {
             let distance = CGFloat(self.frame.size.width * 2.0)
             if spriteposition < 10{
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0045  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.00013  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
             } else if spriteposition < 20.0 {
-                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0024  * distance))
+                let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.00013  * distance))
             } else if spriteposition < 25.0 {
                 let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.0014  * distance))
                 moveObject = SKAction.sequence([moveObstruction])
@@ -546,7 +548,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         bomb?.setScale(0.45)
         bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
-        bomb?.position = CGPointMake(1458.0, 180)
+        bomb?.position = CGPointMake(1465.0, 180)
         bomb?.physicsBody?.dynamic = false
         bomb?.physicsBody?.categoryBitMask = PhysicsCategory.BombCategory
         bomb?.physicsBody?.collisionBitMask = PhysicsCategory.None

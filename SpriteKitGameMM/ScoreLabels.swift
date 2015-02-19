@@ -17,7 +17,7 @@ class ScoreLabel: SKLabelNode {
 
     var score: Int!
     var highScore:NSInteger?
-
+    var totalScore:NSInteger?
 
     override init() {
         super.init()
