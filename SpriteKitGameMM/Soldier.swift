@@ -37,7 +37,6 @@ class Soldier : SKSpriteNode {
         case RunShoot
         case WalkShoot
 
-
         func sprites() -> [SKTexture] {
             switch self {
 
@@ -104,9 +103,8 @@ class Soldier : SKSpriteNode {
 
             case .Jump:
                 currentState = .Jump
-                self.setScale(normalSize)
-                println(isJumping)
 
+                self.setScale(normalSize)
                 if isJumping == false {
 
                     isJumping = true
@@ -123,6 +121,7 @@ class Soldier : SKSpriteNode {
 
             case .Duck:
                 currentState = .Duck
+
                 self.setScale(duckingSize)
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Duck.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
                     self.setScale(self.normalSize)
@@ -148,20 +147,6 @@ class Soldier : SKSpriteNode {
 
     func update() {
         // update when told by the GameScene class
-        
-        
-//        if currentState == .Crouch {
-//            self.setScale(duckingSize)
-//        } else {
-//            self.setScale(normalSize)
-//        }
-//
-//        if currentState == .Jump {
-//
-//        }
-//
-//        if currentState == .RunShoot {
-//
-//        }
+
     }
 }
