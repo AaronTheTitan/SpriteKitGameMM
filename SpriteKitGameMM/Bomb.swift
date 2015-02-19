@@ -48,20 +48,16 @@ class Bomb : SKSpriteNode {
     func rocketFire(fireNode: Bomb) {
         runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(warheadRocketFire, timePerFrame: 0.025)))
         rocketFireFromScene = fireNode
-//        runAction(SKAction.repeatAction(SKAction.animateWithTextures(warheadRocketFlames, timePerFrame: 0.025), count: 2), completion: {
-//            fireNode.removeFromParent()
-//        })
-
     }
 
 
-    func warHeadExplode(warhead: SKSpriteNode) {
+    func warHeadExplode(warhead: SKSpriteNode, warheadFire: SKSpriteNode) {
+        warheadFire.removeFromParent()
+
         runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosionInAir, timePerFrame: 0.14), count: 1), completion: {
             warhead.removeFromParent()
-            self.rocketFireFromScene?.removeFromParent()
         })
         runAction(soundExplosion)
-
     }
 
 
