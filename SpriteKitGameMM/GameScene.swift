@@ -18,42 +18,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var warhead:Obstruction!
     var powerup: PowerUp?
     var powerupWhite: PowerUp?
-    var highScoreLabel:SKLabelNode!
-    var labelScore:SKLabelNode!
     var bomb:Bomb?
     var bombExplode:Bomb?
     var warheadExplode:Bomb?
 
     var isRunning:Bool?
-    var score: Int!
-    var highScore:NSInteger?
+
     var spriteposition:CGFloat  = 5
     var moveGroundForeverAction: SKAction!
 
     let world = WorldGenerator()
+
+    var scoreInfo = ScoreLabel()
 
     //MARK: - AUDIO
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
     var soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
 
-    // MARK: - PHYSICS CATEGORY STRUCT
-    struct PhysicsCategory {
-        static let None                : UInt32 = 0
-        static let SoldierCategory     : UInt32 = 0b1       //1
-        static let ObstructionCategory : UInt32 = 0b10      //2
-        static let Edge                : UInt32 = 0b100     //3
-//        static let PowerupCategory     : UInt32 = 0b10000   //5
-        static let SuperPowerCategory  : UInt32 = 0b100000  //6
-        static let BombCategory        : UInt32 = 0b1000000 //7
-        static let WarheadCategory     : UInt32 = 0b10000000 //8
-
-    }
-
     // MARK: - BUTTONS
     let buttonscencePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
     let buttonscencePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
-
 
     // MARK: - GROUND/WORLD
     var moveObject = SKAction()
@@ -73,15 +58,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         world.groundMovement()
 
-
-        score = 0
-        highScore = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
-
-//        moveBackground()
         addSoldier()
-        addEdge()
-        addScoreLabel()
-        addHighScoreLabel()
+        world.addEdge()
+
+
+        scoreInfo.addScoring()
+        scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
+        scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
+
+        addChild(scoreInfo)
 
         isRunning = false
 
@@ -136,34 +121,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    func addScoreLabel(){
-        labelScore = SKLabelNode(text: "Score: \(score)")
-        labelScore.fontName = "MarkerFelt-Wide"
-        labelScore.fontSize = 24
-        labelScore.zPosition = 4
-        labelScore.position = CGPointMake(20 + labelScore.frame.size.width/2, self.size.height - (120 + labelScore.frame.size.height/2))
-        addChild(labelScore)
-    }
-
-    func addHighScoreLabel(){
-        highScoreLabel = SKLabelNode(text: "Highscore: \(highScore!)")
-        highScoreLabel.fontName = "MarkerFelt-Wide"
-        highScoreLabel.fontSize  = 24
-        highScoreLabel.zPosition = 4
-        highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + labelScore.frame.size.height/2))
-        addChild(highScoreLabel)
-}
 
 // MARK: - COLLISION FUNCTIONS
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
         PowerUp.removeFromParent()
-        score = score + 2
-        labelScore.text = "Score: \(score)"
+        scoreInfo.score = scoreInfo.score + 2
+        scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
 
         playSound(soundSuperPowerUp)
 
-        if score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
-            NSUserDefaults.standardUserDefaults().setInteger(score, forKey: "highscore")
+        if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+            NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
             NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
@@ -361,21 +329,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         world.groundMovement()
         groundSpeedIncrease()
 
-        if spriteposition < 70
-        {
-            spriteposition = spriteposition + 1
 
+
+        if spriteposition < 70 {
+            spriteposition = spriteposition + 1
+        }
+        
+        
+        for sprite in world.groundPieces {
+            sprite.position.x -= spriteposition
+            println("\(spriteposition)")
         }
 
-        for sprite in world.groundPieces
-        {
-            
-            
-            sprite.position.x -= spriteposition
-            
-           // println("\(spriteposition)")
-
-    }
     }
 
     func resetSoldierPosition() {
@@ -564,7 +529,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(bombExplode!)
     }
 
-
         func addEdge() {
             let edge = SKNode()
 
@@ -574,7 +538,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             edge.physicsBody!.dynamic = false
             addChild(edge)
     }
-
 
     func playSound(soundVariable: SKAction) {
         runAction(soundVariable)

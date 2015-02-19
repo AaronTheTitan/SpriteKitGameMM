@@ -28,16 +28,18 @@ class WorldGenerator: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func addEdge() {
+        let edge = SKNode()
 
-//    func moveBackground() {
-//
-//        var moveGroundAction = SKAction.repeatActionForever(SKAction.sequence([SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)]))
-//
-//        for sprite in groundPieces {
-//            sprite.runAction(moveGroundForeverAction)
-//        }
-//        
-//    }
+        edge.physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0,y: 160,width: parent!.frame.size.width, height: parent!.frame.size.height-200))
+        edge.physicsBody!.usesPreciseCollisionDetection = true
+        edge.physicsBody!.categoryBitMask = PhysicsCategory.Edge
+        edge.physicsBody!.dynamic = false
+
+        addChild(edge)
+    }
+
+
 
     func setupScenery() {
         /* Setup your scene here */
@@ -83,5 +85,13 @@ class WorldGenerator: SKNode {
     }
 
 
-
+    //    func moveBackground() {
+    //
+    //        var moveGroundAction = SKAction.repeatActionForever(SKAction.sequence([SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)]))
+    //
+    //        for sprite in groundPieces {
+    //            sprite.runAction(moveGroundForeverAction)
+    //        }
+    //        
+    //    }
 }
