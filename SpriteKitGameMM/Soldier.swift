@@ -15,6 +15,8 @@ class Soldier : SKSpriteNode {
     var isJumping:Bool = false
     let normalSize:CGFloat = 0.32
     let duckingSize:CGFloat = 0.25
+//    let originalPosition:CGPoint = CGPoint(self.position.x, self.position.y)
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -98,7 +100,6 @@ class Soldier : SKSpriteNode {
                 currentState = .Run
                 self.setScale(normalSize)
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Run.sprites(), timePerFrame: 0.04)))
-//                self.physicsBody?.applyImpulse(CGVectorMake(0, 40))
 
             case .Jump:
                 currentState = .Jump
@@ -108,19 +109,35 @@ class Soldier : SKSpriteNode {
 
                     isJumping = true
 
-                    self.physicsBody?.applyImpulse(CGVectorMake(0, 1400))
+                    self.physicsBody?.applyImpulse(CGVectorMake(200, 1400))
+                    self.physicsBody?.density = 1
+                    self.physicsBody?.charge = 0.0
+
 
                     self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
-                        self.isJumping = false
 
-//                            let delay = 0.13 * Double(NSEC_PER_SEC)
-//                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
-//        
-//                            dispatch_after(time, dispatch_get_main_queue()) {
-//                                self.isJumping = false
-//                            }
+                        dispatch_after(1, dispatch_get_main_queue()) {
+                            self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:0.5))
+                            self.isJumping = false
+                        }
+                                                    //
+//                        self.runAction(SKAction.waitForDuration(1), completion: { () -> Void in
+//                            self.position = (CGPointMake(self.position.x - 200, self.position.y))
+//                        })
+
+
+
+//                        dispatch_after(1, dispatch_get_main_queue()) {
+////                            self.position = (CGPointMake(self.position.x - 200, self.position.y))
+//
+//                        }
+
+
+//                        self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:2))
+
                     }
-                    )
+                )
+
             }
 
             case .Crouch:
@@ -150,6 +167,7 @@ class Soldier : SKSpriteNode {
 
     func update() {
         // update when told by the GameScene class
+        
         
 //        if currentState == .Crouch {
 //            self.setScale(duckingSize)
