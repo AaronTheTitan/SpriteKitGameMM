@@ -15,6 +15,8 @@ class Soldier : SKSpriteNode {
     var isJumping:Bool = false
     let normalSize:CGFloat = 0.32
     let duckingSize:CGFloat = 0.25
+//    let originalPosition:CGPoint = CGPoint(self.position.x, self.position.y)
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -108,10 +110,12 @@ class Soldier : SKSpriteNode {
 
                     isJumping = true
 
-                    self.physicsBody?.applyImpulse(CGVectorMake(0, 1400))
+                    self.physicsBody?.applyImpulse(CGVectorMake(200, 1400))
 
                     self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
+
                         self.isJumping = false
+                        self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:2))
 
 //                            let delay = 0.13 * Double(NSEC_PER_SEC)
 //                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
