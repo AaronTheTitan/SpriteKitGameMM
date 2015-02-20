@@ -89,6 +89,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
 
+        addChild(gameOverMenu)
+        addChild(redButton)
+        addChild(blueButton)
+        addChild(yellowButton)
+
+        gameOverMenu.hidden = true
+        redButton.hidden = true
+        blueButton.hidden = true
+        yellowButton.hidden = true
+
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
             println("long sentence")
@@ -156,6 +166,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         gameOverMenu.size = CGSizeMake(420, 420)
         gameOverMenu.position = CGPointMake(500, 435)
 
+        println("\(inParentHierarchy(redButton))")
+
+
 
         redButton.size = CGSizeMake(80, 80)
         redButton.position = CGPointMake(380, 430)
@@ -173,16 +186,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         yellowButton.zPosition = 1.0;
 
 
+        gameOverMenu.hidden = false
+        redButton.hidden = false
+        blueButton.hidden = false
+        yellowButton.hidden = false
 
 
-            if isGameOver == true {
-                addChild(gameOverMenu)
-                addChild(redButton)
-                addChild(blueButton)
-                addChild(yellowButton)
-                //println("\(i)")
-
-        }
+//            if isGameOver == true {
+//                addChild(gameOverMenu)
+//                addChild(redButton)
+//                addChild(blueButton)
+//                addChild(yellowButton)
+//                //println("\(i)")
+//
+//        }
 
 
     }
