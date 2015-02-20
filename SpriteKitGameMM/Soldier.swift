@@ -114,7 +114,6 @@ class Soldier : SKSpriteNode {
                         dispatch_after(1, dispatch_get_main_queue()) {
 //                          self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:0.5))
                             self.isJumping = false
-                                            println(self.isJumping)
                         }
                     })
             }
