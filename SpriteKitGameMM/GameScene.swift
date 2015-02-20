@@ -18,6 +18,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var warhead:Obstruction!
     var powerup: PowerUp?
     var powerupWhite: PowerUp?
+
+    var orbFlarePath:NSString = NSString()
+    var orbFlare = SKEmitterNode()
+
+
     var bomb:Bomb?
     var bombExplode:Bomb?
     var warheadExplode:Bomb?
@@ -52,6 +57,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
+
 
 
         createbuttons(view)
@@ -180,6 +186,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         PowerUp.removeFromParent()
         scoreInfo.score = scoreInfo.score + 2
         scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
+
+        orbFlare.removeFromParent()
 
         playSound(soundSuperPowerUp)
 
@@ -433,21 +441,58 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         powerup?.powerUpBlue()
 
         addChild(powerup!)
+//        addChild(powerup!.orbFlare)
+
+
+//        let orbFlarePath:NSString = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+//        let orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
+        orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+        orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
+        orbFlare.position = CGPointMake(1480.0, 620)
+        orbFlare.name = "orbFlare"
+        orbFlare.zPosition = 1
+        orbFlare.targetNode = self
+
+        orbFlare.runAction(moveObject)
+        addChild(orbFlare)
+
     }
 
-    func addPowerUpWhite() {
-        powerupWhite = PowerUp(imageNamed: "powerup02_1")
-        powerupWhite?.setScale(0.85)
-        powerupWhite?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
-        powerupWhite?.position = CGPointMake(1200.0, 445)
-        powerupWhite?.physicsBody?.dynamic = false
-        powerupWhite?.physicsBody?.collisionBitMask = PhysicsCategory.None
-        powerupWhite?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
-        powerupWhite?.physicsBody?.usesPreciseCollisionDetection = true
-        powerupWhite?.runAction(moveObject)
-        powerupWhite?.powerUpWhite()
+//    func addPowerUpWhite() {
+//        powerupWhite = PowerUp(imageNamed: "powerup02_1")
+//        powerupWhite?.setScale(0.85)
+//        powerupWhite?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
+//        powerupWhite?.position = CGPointMake(1200.0, 445)
+//        powerupWhite?.physicsBody?.dynamic = false
+//        powerupWhite?.physicsBody?.collisionBitMask = PhysicsCategory.None
+//        powerupWhite?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+//        powerupWhite?.physicsBody?.usesPreciseCollisionDetection = true
+//        powerupWhite?.runAction(moveObject)
+//        powerupWhite?.powerUpWhite()
+//
+//        addChild(powerupWhite!)
+//
+//
+////        let orbFlarePath:NSString = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+////        let orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
+////        orbFlare.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 200)
+//////        orbFlare.position = CGPointMake(powerupWhite!.position.x, powerupWhite!.position.y)
+////        orbFlare.name = "orbFlare"
+////        orbFlare.zPosition = 1
+////        orbFlare.targetNode = self
+////        addChild(orbFlare)
+//    }
 
-        addChild(powerupWhite!)
+    func addOrbFlare() {
+
+        let orbFlarePath:NSString = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+        let orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
+        orbFlare.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 200)
+        //        orbFlare.position = CGPointMake(powerupWhite!.position.x, powerupWhite!.position.y)
+        orbFlare.name = "orbFlare"
+        orbFlare.zPosition = 1
+        orbFlare.targetNode = self
+        addChild(orbFlare)
     }
 
     func addBadGuys() {
