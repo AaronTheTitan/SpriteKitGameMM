@@ -71,11 +71,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         isRunning = false
         isGameOver = false
 
-
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
         var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
 
-        var spawnThenDelay = SKAction.sequence([spawn,delay])
+        var spawnThenDelay = SKAction.sequence([delay, spawn])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
 
@@ -133,7 +132,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //button.setTitle("Test Button", forState: UIControlState.Normal)
         buttonscencePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-
         scene?.view?.addSubview(buttonscencePause)
         scene?.view?.addSubview(buttonscencePlay)
         buttonscencePlay.hidden = true
@@ -157,7 +155,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene?.view?.paused = true
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = false
-
 
     }
     func resumeGame() {
@@ -298,7 +295,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         gameOver()
     }
 
-
     func fireGun() {
         var fireShot = Bullet(imageNamed: "emptyMuzzle")
         addChild(fireShot)
@@ -323,8 +319,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if spriteposition < 18 {
             spriteposition = spriteposition + 0.35
         }
-        
-        
+
+
         for sprite in world.groundPieces {
             sprite.position.x -= spriteposition
         }
