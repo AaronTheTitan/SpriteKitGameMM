@@ -61,8 +61,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
+        isRunning = false
+        isGameOver = false
         setupControls(view)
-        
+
         world.setupScenery()
         world.groundMovement()
         addChild(world)
@@ -78,8 +80,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
-        isRunning = false
-        isGameOver = false
+
 
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
@@ -265,7 +266,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         var firstBody : SKPhysicsBody
         var secondBody: SKPhysicsBody
-        //die()
 
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody  = contact.bodyA
