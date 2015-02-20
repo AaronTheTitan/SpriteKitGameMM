@@ -120,14 +120,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func createbutton() {
 
-        buttonscencePause.frame = CGRectMake(6.25, 316.25, 67.5, 50)
+        buttonscencePause.frame = CGRectMake(6.25, 316.25, 50, 50)
         //button.backgroundColor = UIColor.greenColor()
         let buttonPauseImage = UIImage(named: "buttonPause")
         buttonscencePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
         //button.setTitle("Test Button", forState: UIControlState.Normal)
         buttonscencePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-        buttonscencePlay.frame = CGRectMake(6.25, 316.25, 67.5, 50)
+        buttonscencePlay.frame = CGRectMake(6.25, 316.25, 50, 50)
         //button.backgroundColor = UIColor.greenColor()
         let buttonPlayImage = UIImage(named: "buttonPlay")
         buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
