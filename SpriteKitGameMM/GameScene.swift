@@ -24,6 +24,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var warheadRocket:Bomb?
 
     var isRunning:Bool?
+    var isGameOver:Bool?
 
     var spriteposition:CGFloat  = 5
     var moveGroundForeverAction: SKAction!
@@ -52,43 +53,27 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
+
+        createbuttons(view)
+
         world.setupScenery()
-        addChild(world)
-
-        createbutton()
-
         world.groundMovement()
-
-        addSoldier()
-        world.addEdge()
-
-
-        scoreInfo.addScoring()
-        scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
-        scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
-
-        addChild(scoreInfo)
-
-        isRunning = false
-
-        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-        swipeUp.direction = .Up
-        view.addGestureRecognizer(swipeUp)
-
-        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-        swipeDown.direction = .Down
-        view.addGestureRecognizer(swipeDown)
-
-        let tapOnce:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTaps:"))
-        tapOnce.numberOfTapsRequired = 1
-        view.addGestureRecognizer(tapOnce)
+        addChild(world)
 
         self.physicsWorld.gravity    = CGVectorMake(0, -40)
         physicsWorld.contactDelegate = self
+        world.addEdge()
 
-        //let distance = CGFloat(self.frame.size.width * 2.0)
-//        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.05 * distance))
-//        moveObject = SKAction.sequence([moveObstruction])
+        addSoldier()
+        addChild(scoreInfo)
+        scoreInfo.addScoring()
+
+        scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
+        scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
+
+        isRunning = false
+        isGameOver = false
+
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
         var delay = SKAction.waitForDuration(NSTimeInterval(1.4))
@@ -96,6 +81,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         var spawnThenDelay = SKAction.sequence([spawn,delay])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
+
+
+
+    }
+
+    func setupControls() {
+
     }
 
     func handleSwipes(sender:UISwipeGestureRecognizer) {
@@ -118,16 +110,28 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        }
     }
 
-    func createbutton() {
+    func createbuttons(view: SKView) {
 
-        buttonscencePause.frame = CGRectMake(6.25, 316.25, 67.5, 50)
+        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        swipeUp.direction = .Up
+        view.addGestureRecognizer(swipeUp)
+
+        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        swipeDown.direction = .Down
+        view.addGestureRecognizer(swipeDown)
+
+        let tapOnce:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTaps:"))
+        tapOnce.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapOnce)
+
+        buttonscencePause.frame = CGRectMake(6.25, 316.25, 50, 50)
         //button.backgroundColor = UIColor.greenColor()
         let buttonPauseImage = UIImage(named: "buttonPause")
         buttonscencePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
         //button.setTitle("Test Button", forState: UIControlState.Normal)
         buttonscencePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-        buttonscencePlay.frame = CGRectMake(6.25, 316.25, 67.5, 50)
+        buttonscencePlay.frame = CGRectMake(6.25, 316.25, 50, 50)
         //button.backgroundColor = UIColor.greenColor()
         let buttonPlayImage = UIImage(named: "buttonPlay")
         buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
@@ -140,6 +144,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene?.view?.addSubview(buttonscencePlay)
         buttonscencePlay.hidden = true
     }
+
+    func startGame() {
+        isGameOver = false
+    }
+
+    func gameOver() {
+        isGameOver = true
+    }
+
 
     //    UIButton * startButton = [[UIButton alloc]initWithFrame:CGRectMake(100, 200, 60, 20)];
     //    startButton.backgroundColor = [UIColor redColor];
@@ -286,6 +299,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
         soldierNode?.stepState()
+        gameOver()
     }
 
 
