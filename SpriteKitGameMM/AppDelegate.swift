@@ -8,7 +8,8 @@
 
 import UIKit
 import Parse
-
+import Fabric
+import Crashlytics
 
 
 @UIApplicationMain
@@ -19,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        Fabric.with([Crashlytics()])
+
         Parse.setApplicationId("PeaTcxDstCFxbD320OshP9bA9PkBXvyNIw5FJlIF", clientKey: "fU0X9yNe0TUmr566CoSU0gVmnjzBRQUZcJzCTUft")
         FBLoginView.self
         FBProfilePictureView.self

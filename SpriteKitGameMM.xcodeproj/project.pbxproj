@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8A0A126A1A8D3B0D006B69C9 /* Obstruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0A12691A8D3B0D006B69C9 /* Obstruction.swift */; };
+		8A35F78C1A96B6ED00E90FE0 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A35F78A1A96B6ED00E90FE0 /* Crashlytics.framework */; };
+		8A35F78D1A96B6ED00E90FE0 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A35F78B1A96B6ED00E90FE0 /* Fabric.framework */; };
 		8AFEE4871A8E9C6B00BF6D79 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */; };
 		8AFEE4891A8E9EAC00BF6D79 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */; };
 		9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911020991A8D3D1D002532E9 /* Bullet.swift */; };
@@ -66,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		8A0A12691A8D3B0D006B69C9 /* Obstruction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Obstruction.swift; sourceTree = "<group>"; };
+		8A35F78A1A96B6ED00E90FE0 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		8A35F78B1A96B6ED00E90FE0 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
 		911020991A8D3D1D002532E9 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 			files = (
 				F7A80E4B1A9175500059F987 /* libsqlite3.dylib in Frameworks */,
 				F7A80E491A91753F0059F987 /* SystemConfiguration.framework in Frameworks */,
+				8A35F78C1A96B6ED00E90FE0 /* Crashlytics.framework in Frameworks */,
 				F7A80E3B1A9174FC0059F987 /* StoreKit.framework in Frameworks */,
 				F7A80E471A9175290059F987 /* Security.framework in Frameworks */,
 				F7A80E451A9175220059F987 /* QuartzCore.framework in Frameworks */,
@@ -133,6 +138,7 @@
 				F7A80E411A9175150059F987 /* libz.dylib in Frameworks */,
 				F7A80E3F1A91750D0059F987 /* CFNetwork.framework in Frameworks */,
 				F7A80E3D1A9175040059F987 /* AudioToolbox.framework in Frameworks */,
+				8A35F78D1A96B6ED00E90FE0 /* Fabric.framework in Frameworks */,
 				F7A80E391A9174F50059F987 /* CoreGraphics.framework in Frameworks */,
 				F7A80E371A9174EF0059F987 /* CoreLocation.framework in Frameworks */,
 				F7A80E351A9174E20059F987 /* Accounts.framework in Frameworks */,
@@ -187,6 +193,8 @@
 				91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */,
 				91CEB7971A8BB2CD0055CB17 /* SpriteKitGameMMTests */,
 				91CEB77C1A8BB2CD0055CB17 /* Products */,
+				8A35F78A1A96B6ED00E90FE0 /* Crashlytics.framework */,
+				8A35F78B1A96B6ED00E90FE0 /* Fabric.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -310,6 +318,7 @@
 				91CEB7771A8BB2CD0055CB17 /* Sources */,
 				91CEB7781A8BB2CD0055CB17 /* Frameworks */,
 				91CEB7791A8BB2CD0055CB17 /* Resources */,
+				8A35F7891A96B65D00E90FE0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -399,6 +408,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8A35F7891A96B65D00E90FE0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run cada6c277bd8e193d52852718404f99c4b8db85a fb45038153125d05bdb976b4193246baca7d55cc3c214434af94589d4c314306";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		91CEB7771A8BB2CD0055CB17 /* Sources */ = {
@@ -551,6 +576,7 @@
 					"$(PROJECT_DIR)/SpriteKitGameMM/parse1",
 					/Users/ryangunn/Documents/FacebookSDK,
 					"$(PROJECT_DIR)/SpriteKitGameMM",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SpriteKitGameMM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -569,6 +595,7 @@
 					"$(PROJECT_DIR)/SpriteKitGameMM/parse1",
 					/Users/ryangunn/Documents/FacebookSDK,
 					"$(PROJECT_DIR)/SpriteKitGameMM",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SpriteKitGameMM/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
