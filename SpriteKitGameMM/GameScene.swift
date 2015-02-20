@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Aaron Bradley. All rights reserved.
 //
 import SpriteKit
+import AudioToolbox.AudioServices
 
 class GameScene: SKScene , SKPhysicsContactDelegate {
 //----- BEGIN DECLARATIONS -----//
@@ -37,7 +38,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let world = WorldGenerator()
 
     var scoreInfo = ScoreLabel()
-
     //MARK: - AUDIO
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
@@ -52,16 +52,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     let totalGroundPieces = 5
 
-
 //----- BEGIN LOGIC -----//
 
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
-
-
         createbuttons(view)
-
         world.setupScenery()
         world.groundMovement()
         addChild(world)
@@ -82,13 +78,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(1.4))
+        var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
 
         var spawnThenDelay = SKAction.sequence([spawn,delay])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
-
-
 
     }
 
@@ -143,7 +137,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
         //button.setTitle("Test Button", forState: UIControlState.Normal)
         buttonscencePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
-
 
 
         scene?.view?.addSubview(buttonscencePause)
@@ -212,9 +205,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
+
         var firstBody : SKPhysicsBody
         var secondBody: SKPhysicsBody
-
         //die()
 
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
@@ -225,16 +218,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             secondBody = contact.bodyA
         }
 
-
         if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.SuperPowerCategory != 0)){
                  soldierDidCollideWithSuperPowerup(firstBody.node as SKSpriteNode, PowerUp: secondBody.node as SKSpriteNode)
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
                 soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
-        } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
+        else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.WarheadCategory != 0)){
                 soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
 
     }
@@ -332,7 +327,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         groundSpeedIncrease()
 
 
-
         if spriteposition < 18 {
             spriteposition = spriteposition + 0.35
         }
@@ -340,7 +334,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         
         for sprite in world.groundPieces {
             sprite.position.x -= spriteposition
-            //println("\(spriteposition)")
         }
 
     }
