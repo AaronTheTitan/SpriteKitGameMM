@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "powerup01_2.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "powerup01_2@2x.png"
+      "filename" : "blueButtonBG.png"
     },
     {
       "idiom" : "universal",

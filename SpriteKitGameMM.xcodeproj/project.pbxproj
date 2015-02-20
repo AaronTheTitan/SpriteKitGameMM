@@ -17,6 +17,8 @@
 		914ABA451A8D08EA008039D7 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914ABA441A8D08EA008039D7 /* Object.swift */; };
 		915A81EA1A95336100509664 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915A81E91A95336100509664 /* PhysicsCategory.swift */; };
 		915A81EC1A95393900509664 /* ScoreLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915A81EB1A95393900509664 /* ScoreLabels.swift */; };
+		9192E0471A978DBB00BF1911 /* OrbParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9192E0451A978DBB00BF1911 /* OrbParticle.sks */; };
+		9192E0481A978DBB00BF1911 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9192E0461A978DBB00BF1911 /* spark.png */; };
 		91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D741A92869100553594 /* PowerUpOne.mp3 */; };
 		91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D751A92869100553594 /* PowerUpTwo.mp3 */; };
 		91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D791A928DFC00553594 /* Explosion.mp3 */; };
@@ -77,6 +79,8 @@
 		914ABA441A8D08EA008039D7 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		915A81E91A95336100509664 /* PhysicsCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		915A81EB1A95393900509664 /* ScoreLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreLabels.swift; sourceTree = "<group>"; };
+		9192E0451A978DBB00BF1911 /* OrbParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OrbParticle.sks; sourceTree = "<group>"; };
+		9192E0461A978DBB00BF1911 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		91990D741A92869100553594 /* PowerUpOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PowerUpOne.mp3; sourceTree = "<group>"; };
 		91990D751A92869100553594 /* PowerUpTwo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PowerUpTwo.mp3; sourceTree = "<group>"; };
 		91990D791A928DFC00553594 /* Explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Explosion.mp3; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 			children = (
 				915A81E91A95336100509664 /* PhysicsCategory.swift */,
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
+				9192E0451A978DBB00BF1911 /* OrbParticle.sks */,
+				9192E0461A978DBB00BF1911 /* spark.png */,
 				915A81EB1A95393900509664 /* ScoreLabels.swift */,
 				9110209B1A8D45EE002532E9 /* WorldGenerator.swift */,
 				91DD163F1A8E58B6004742FA /* Model/Objects */,
@@ -391,9 +397,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				91CEB78F1A8BB2CD0055CB17 /* LaunchScreen.xib in Resources */,
+				9192E0471A978DBB00BF1911 /* OrbParticle.sks in Resources */,
 				91CEB78C1A8BB2CD0055CB17 /* Images.xcassets in Resources */,
 				91990D7E1A92905900553594 /* Jump.mp3 in Resources */,
 				91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */,
+				9192E0481A978DBB00BF1911 /* spark.png in Resources */,
 				91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */,
 				91CEB7831A8BB2CD0055CB17 /* GameScene.sks in Resources */,
 				91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */,
