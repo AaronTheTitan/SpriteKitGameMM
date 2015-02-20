@@ -82,13 +82,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
 
-
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
         var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
 
-        var spawnThenDelay = SKAction.sequence([spawn,delay])
+        var spawnThenDelay = SKAction.sequence([delay, spawn])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
+
+        addChild(gameOverMenu)
+        addChild(redButton)
+        addChild(blueButton)
+        addChild(yellowButton)
+
+        gameOverMenu.hidden = true
+        redButton.hidden = true
+        blueButton.hidden = true
+        yellowButton.hidden = true
 
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
@@ -141,7 +150,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
         buttonscencePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-
         scene?.view?.addSubview(buttonscencePause)
         scene?.view?.addSubview(buttonscencePlay)
         buttonscencePlay.hidden = true
@@ -156,6 +164,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         gameOverMenu.size = CGSizeMake(420, 420)
         gameOverMenu.position = CGPointMake(500, 435)
+
+        println("\(inParentHierarchy(redButton))")
+
 
 
         redButton.size = CGSizeMake(80, 80)
@@ -174,16 +185,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         yellowButton.zPosition = 1.0;
 
 
+        gameOverMenu.hidden = false
+        redButton.hidden = false
+        blueButton.hidden = false
+        yellowButton.hidden = false
 
 
-            if isGameOver == true {
-                addChild(gameOverMenu)
-                addChild(redButton)
-                addChild(blueButton)
-                addChild(yellowButton)
-                //println("\(i)")
-
-        }
+//            if isGameOver == true {
+//                addChild(gameOverMenu)
+//                addChild(redButton)
+//                addChild(blueButton)
+//                addChild(yellowButton)
+//                //println("\(i)")
+//
+//        }
 
 
     }
@@ -202,7 +217,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene?.view?.paused = true
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = false
-
 
     }
     func resumeGame() {
@@ -367,7 +381,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //gameOver()
     }
 
-
     func fireGun() {
         var fireShot = Bullet(imageNamed: "emptyMuzzle")
         addChild(fireShot)
@@ -392,8 +405,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if spriteposition < 18 {
             spriteposition = spriteposition + 0.35
         }
-        
-        
+
+
         for sprite in world.groundPieces {
             sprite.position.x -= spriteposition
         }
