@@ -51,6 +51,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var moveObject = SKAction()
 
     let totalGroundPieces = 5
+    let gameOverMenu = SKSpriteNode(imageNamed: "gameOverMenu")
+    var redButton = SKSpriteNode (imageNamed: "redButtonBG")
+    var blueButton = SKSpriteNode (imageNamed: "blueButtonBG")
+    var yellowButton = SKSpriteNode (imageNamed: "yellowButtonBG")
 
 //----- BEGIN LOGIC -----//
 
@@ -85,6 +89,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         var spawnThenDelay = SKAction.sequence([spawn,delay])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
+
+        NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
+
+            println("long sentence")
+            self.scene?.view?.paused = true
+            //self.pauseGame()
+
+            return
+            
+        }
 
     }
 
@@ -140,7 +154,48 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func gameOver() {
         isGameOver = true
 
+        gameOverMenu.size = CGSizeMake(420, 420)
+        gameOverMenu.position = CGPointMake(500, 435)
+
+
+        redButton.size = CGSizeMake(80, 80)
+        redButton.position = CGPointMake(380, 430)
+        redButton.name = "redButton"
+        redButton.zPosition = 1.0;
+
+        blueButton.size = CGSizeMake(80, 80)
+        blueButton.position = CGPointMake(500, 430)
+        blueButton.name = "blueButton";//how the node is identified later
+        redButton.zPosition = 1.0;
+
+        yellowButton.size = CGSizeMake(80, 80)
+        yellowButton.position = CGPointMake(610, 430)
+        yellowButton.name = "redButton";//how the node is identified later
+        yellowButton.zPosition = 1.0;
+
+
+
+
+            if isGameOver == true {
+                addChild(gameOverMenu)
+                addChild(redButton)
+                addChild(blueButton)
+                addChild(yellowButton)
+                //println("\(i)")
+
+        }
+
+
     }
+
+    func gameOverPause() {
+
+        //scene.view?.paused = true // to pause the game
+        scene?.view?.paused = true
+        buttonscencePause.hidden = true
+        buttonscencePlay.hidden = true
+    }
+
 
     func pauseGame() {
         //scene.view?.paused = true // to pause the game
@@ -186,7 +241,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         warhead.removeFromParent()
         warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
 
-        die()
+       die()
     }
 
     //when contact begins
@@ -242,11 +297,28 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
+    func restartGame () {
+
+        var restartscence = GameScene(size: self.frame.size)
+
+        self.view?.presentScene(restartscence)
+
+    }
+
+
 // MARK: - TOUCHES BEGAN
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
+            let touchedNode = self.nodeAtPoint(location)
+
+            if touchedNode.name == "redButton" {
+                println("okay this work")
+                let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
+
+                restartGame()
+            }
         }
     }
 
@@ -288,7 +360,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
         soldierNode?.stepState()
-        gameOver()
+        var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
+
+        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
+        //gameOver()
     }
 
 
