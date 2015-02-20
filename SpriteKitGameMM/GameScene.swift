@@ -57,7 +57,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
-        createbuttons(view)
+        setupControls(view)
+        
         world.setupScenery()
         world.groundMovement()
         addChild(world)
@@ -86,10 +87,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-    func setupControls() {
-
-    }
-
     func handleSwipes(sender:UISwipeGestureRecognizer) {
 
         if sender.direction == .Up {
@@ -102,15 +99,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func handleTaps(sender:UITapGestureRecognizer) {
         jump()
-//        if isRunning == false {
-//            walkShoot()
-//
-//        } else {
-//            runShoot()
-//        }
+
     }
 
-    func createbuttons(view: SKView) {
+    func setupControls(view: SKView) {
 
         let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
         swipeUp.direction = .Up
@@ -125,17 +117,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         view.addGestureRecognizer(tapOnce)
 
         buttonscencePause.frame = CGRectMake(6.25, 316.25, 50, 50)
-        //button.backgroundColor = UIColor.greenColor()
         let buttonPauseImage = UIImage(named: "buttonPause")
         buttonscencePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
-        //button.setTitle("Test Button", forState: UIControlState.Normal)
         buttonscencePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
 
         buttonscencePlay.frame = CGRectMake(6.25, 316.25, 50, 50)
-        //button.backgroundColor = UIColor.greenColor()
         let buttonPlayImage = UIImage(named: "buttonPlay")
         buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
-        //button.setTitle("Test Button", forState: UIControlState.Normal)
         buttonscencePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
 
@@ -150,13 +138,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func gameOver() {
         isGameOver = true
+
     }
 
-
-    //    UIButton * startButton = [[UIButton alloc]initWithFrame:CGRectMake(100, 200, 60, 20)];
-    //    startButton.backgroundColor = [UIColor redColor];
-    //
-    //    [self.view addSubview:startButton];
     func pauseGame() {
         //scene.view?.paused = true // to pause the game
         scene?.view?.paused = true
@@ -193,14 +177,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
         bomb.removeFromParent()
         bombExplode?.bombExplode(bombExplode!)
-        die()
+//        die()
+
     }
 
     func soldierDidCollideWithWarhead(soldier:SKSpriteNode, bomb:SKSpriteNode) {
         warhead.removeFromParent()
         warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
 
-        die()
+//        die()
     }
 
     //when contact begins
@@ -213,6 +198,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
             firstBody  = contact.bodyA
             secondBody = contact.bodyB
+
         } else {
             firstBody  = contact.bodyB
             secondBody = contact.bodyA
@@ -344,6 +330,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - ADD ASSETS TO SCENE
     func addSoldier() {
+
         soldierNode = Soldier(imageNamed: "Walk__000")
         soldierNode?.position = CGPointMake(250, 450)
         soldierNode?.setScale(0.32)
@@ -421,6 +408,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func addPowerup() {
+
         powerup = PowerUp(imageNamed: "powerup")
         powerup?.setScale(0.85)
         powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
@@ -434,11 +422,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         powerup?.powerUpBlue()
 
         addChild(powerup!)
-//        addChild(powerup!.orbFlare)
 
-
-//        let orbFlarePath:NSString = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
-//        let orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
         orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
         orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
         orbFlare.position = CGPointMake(1480.0, 620)
@@ -450,31 +434,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(orbFlare)
 
     }
-
-//    func addPowerUpWhite() {
-//        powerupWhite = PowerUp(imageNamed: "powerup02_1")
-//        powerupWhite?.setScale(0.85)
-//        powerupWhite?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
-//        powerupWhite?.position = CGPointMake(1200.0, 445)
-//        powerupWhite?.physicsBody?.dynamic = false
-//        powerupWhite?.physicsBody?.collisionBitMask = PhysicsCategory.None
-//        powerupWhite?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
-//        powerupWhite?.physicsBody?.usesPreciseCollisionDetection = true
-//        powerupWhite?.runAction(moveObject)
-//        powerupWhite?.powerUpWhite()
-//
-//        addChild(powerupWhite!)
-//
-//
-////        let orbFlarePath:NSString = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
-////        let orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
-////        orbFlare.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 200)
-//////        orbFlare.position = CGPointMake(powerupWhite!.position.x, powerupWhite!.position.y)
-////        orbFlare.name = "orbFlare"
-////        orbFlare.zPosition = 1
-////        orbFlare.targetNode = self
-////        addChild(orbFlare)
-//    }
 
     func addOrbFlare() {
 
@@ -489,19 +448,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func addBadGuys() {
-
-// for testing
-//        let distance = CGFloat(self.frame.size.width * 2.0)
-////        let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.002 * distance))
-//        addBomb()
-////        addPowerUpWhite()
-//
-//        if groundSpeed > 4 {
-//            let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval((0.008 / groundSpeed) * distance))
-//            moveObject = SKAction.sequence([moveObstruction])
-//            addMax()
-//
-//        }
 
         let y = arc4random_uniform(6)
         if y == 0 {
