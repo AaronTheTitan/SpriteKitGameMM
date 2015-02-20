@@ -300,7 +300,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func restartGame () {
 
         var restartscence = GameScene(size: self.frame.size)
-
         self.view?.presentScene(restartscence)
 
     }
@@ -313,6 +312,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             let location = touch.locationInNode(self)
             let touchedNode = self.nodeAtPoint(location)
 
+
+            
             if touchedNode.name == "redButton" {
                 println("okay this work")
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
