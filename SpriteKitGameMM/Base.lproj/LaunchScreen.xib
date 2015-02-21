@@ -62,7 +62,7 @@
                         </mask>
                     </variation>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team Dynasty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Team Dynasty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
                     <rect key="frame" x="20" y="90" width="441" height="26"/>
                     <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="26"/>
@@ -96,16 +96,16 @@
                     <exclude reference="ZqX-NS-PT6"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="CB1-cZ-1TB"/>
-                    <exclude reference="MOw-Cw-YSQ"/>
-                    <exclude reference="b1K-cN-UHd"/>
-                    <exclude reference="5Yy-3q-u5v"/>
-                    <exclude reference="pbp-kt-RGD"/>
-                    <exclude reference="cf9-Cr-thO"/>
                     <exclude reference="Al5-bg-zvL"/>
                     <exclude reference="s3U-mm-LWW"/>
                     <exclude reference="vv9-jx-pG6"/>
                     <exclude reference="y6j-Nr-3G4"/>
+                    <exclude reference="5Yy-3q-u5v"/>
+                    <exclude reference="pbp-kt-RGD"/>
+                    <exclude reference="CB1-cZ-1TB"/>
+                    <exclude reference="MOw-Cw-YSQ"/>
+                    <exclude reference="b1K-cN-UHd"/>
+                    <exclude reference="cf9-Cr-thO"/>
                 </mask>
             </variation>
             <variation key="heightClass=compact">
@@ -113,16 +113,16 @@
                     <include reference="ZqX-NS-PT6"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="CB1-cZ-1TB"/>
-                    <include reference="MOw-Cw-YSQ"/>
-                    <include reference="b1K-cN-UHd"/>
-                    <include reference="5Yy-3q-u5v"/>
-                    <include reference="pbp-kt-RGD"/>
-                    <include reference="cf9-Cr-thO"/>
                     <include reference="Al5-bg-zvL"/>
                     <include reference="s3U-mm-LWW"/>
                     <include reference="vv9-jx-pG6"/>
                     <include reference="y6j-Nr-3G4"/>
+                    <include reference="5Yy-3q-u5v"/>
+                    <include reference="pbp-kt-RGD"/>
+                    <include reference="CB1-cZ-1TB"/>
+                    <include reference="MOw-Cw-YSQ"/>
+                    <include reference="b1K-cN-UHd"/>
+                    <include reference="cf9-Cr-thO"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="623" y="455"/>
