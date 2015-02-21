@@ -326,6 +326,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
         if isGameOver == false {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+
             isGameOver = true
 
             bomb.removeFromParent()
@@ -339,6 +341,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
         if isGameOver == false {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+
             isGameOver = true
 
             warhead.removeFromParent()
@@ -374,12 +378,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
                 soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
-                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
         else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.WarheadCategory != 0)){
                 soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
-                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
 
     }
