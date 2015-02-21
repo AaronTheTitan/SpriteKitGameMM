@@ -12,29 +12,23 @@ import Social
 
 
 
+
 class LeaderBoard: UIViewController{
 
- 
+   // var score:Int?
+    var gameinfo = GameScene()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-     
+        //NSInteger score = [[NSUserDefaults standardUserDefaults] integerForKey:@"highscore"];
 
-
-        NSNotificationCenter.defaultCenter().addObserverForName("leader", object: nil, queue: nil) { (notification: NSNotification?) in
-
-            self.performSegueWithIdentifier("leaderSegue", sender: self)
-            println("call me maybe")
-            //scene.removeAllChildren()
-            //scene.removeAllActions()
-
-            return
-
-        }
-
-
+        let score:NSInteger = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
+        
+        println("\(score)")
 }
+
 
 
     @IBAction func faceBookButtonPressed(sender: UIButton) {

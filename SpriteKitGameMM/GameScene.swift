@@ -439,6 +439,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
                  NSNotificationCenter.defaultCenter().postNotificationName("leader", object:nil)
 
+                
+
             }
         }
     }
