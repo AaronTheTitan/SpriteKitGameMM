@@ -100,7 +100,7 @@
 		91CEB7A61A8BD02D0055CB17 /* Soldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soldier.swift; sourceTree = "<group>"; };
 		91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerButton.swift; sourceTree = "<group>"; };
 		91DD163D1A8E51E0004742FA /* GirlSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GirlSoldier.swift; sourceTree = "<group>"; };
-		91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = PlayinAroundForGame.playground; path = SpriteKitGameMM/PlayinAroundForGame.playground; sourceTree = "<group>"; };
+		91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = PlayinAroundForGame.playground; sourceTree = "<group>"; };
 		91DD16411A8E61A3004742FA /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bomb.swift; path = SpriteKitGameMM/Bomb.swift; sourceTree = "<group>"; };
 		F74CBD211A924B46006D283C /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		F74CBD221A9268A8006D283C /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -191,7 +191,6 @@
 		91CEB7721A8BB2CD0055CB17 = {
 			isa = PBXGroup;
 			children = (
-				91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */,
 				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
 				91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */,
 				91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */,
@@ -214,6 +213,7 @@
 		91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */ = {
 			isa = PBXGroup;
 			children = (
+				91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */,
 				915A81E91A95336100509664 /* PhysicsCategory.swift */,
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
 				9192E0451A978DBB00BF1911 /* OrbParticle.sks */,
