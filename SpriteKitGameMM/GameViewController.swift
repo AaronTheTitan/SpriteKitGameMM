@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
@@ -54,6 +55,20 @@ class GameViewController: UIViewController {
                 return
                 
             }
+
+
+            NSNotificationCenter.defaultCenter().addObserverForName("leader", object: nil, queue: nil) { (notification: NSNotification?) in
+
+                self.performSegueWithIdentifier("leaderSegue", sender: self)
+                
+                scene.removeAllChildren()
+                scene.removeAllActions()
+                println("\(scene.scoreInfo.score)")
+
+                return
+                
+            }
+
 
         }
     }

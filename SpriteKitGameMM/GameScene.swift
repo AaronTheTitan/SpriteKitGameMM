@@ -422,8 +422,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         for touch: AnyObject in touches {
             let location = touch.locationInNode(self)
             let touchedNode = self.nodeAtPoint(location)
-
-
             
             if touchedNode.name == "redButton" {
 
@@ -431,8 +429,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 restartGame()
 
             }
-
-
             if touchedNode.name == "yellowButton" {
                 NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
             }
@@ -441,29 +437,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             if touchedNode.name == "facebook" {
 
-                //var currentViewController:UIViewController=UIApplication.sharedApplication().keyWindow.rootViewController!
+                 NSNotificationCenter.defaultCenter().postNotificationName("leader", object:nil)
 
-
-                var vc = self.view?.window?.rootViewController
-
-
-                if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
-                    var twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-                    twitterSheet.setInitialText("Share on Twitter")
-
-                    //presentViewController(twitterSheet, animated: true, completion: nil)
-                } else {
-                    var alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-
-                    //GameScene(alert, animated: true, completion: nil)
-                }
-
-                println("moneyteam")
             }
-
-
-
         }
     }
 
