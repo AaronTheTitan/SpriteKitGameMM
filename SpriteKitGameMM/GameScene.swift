@@ -7,6 +7,7 @@
 //
 import SpriteKit
 import AudioToolbox.AudioServices
+import Social
 
 class GameScene: SKScene , SKPhysicsContactDelegate {
 //----- BEGIN DECLARATIONS -----//
@@ -242,7 +243,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         gameOverMenu.position = CGPointMake(500, 435)
 
 
-
         redButton.size = CGSizeMake(80, 80)
         redButton.position = CGPointMake(380, 430)
         redButton.name = "redButton"
@@ -250,8 +250,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         blueButton.size = CGSizeMake(80, 80)
         blueButton.position = CGPointMake(500, 430)
-        blueButton.name = "blueButton";//how the node is identified later
-        redButton.zPosition = 1.0;
+        blueButton.name = "facebook";//how the node is identified later
+        blueButton.zPosition = 1.0;
 
         yellowButton.size = CGSizeMake(80, 80)
         yellowButton.position = CGPointMake(610, 430)
@@ -294,7 +294,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         buttonscencePlay.hidden = false
 
 
-        NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
 
     }
     func resumeGame() {
@@ -423,11 +422,44 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             
             if touchedNode.name == "redButton" {
-                println("okay this work")
+
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
                 restartGame()
 
             }
+
+
+            if touchedNode.name == "yellowButton" {
+                NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
+            }
+
+
+
+            if touchedNode.name == "facebook" {
+
+                //var currentViewController:UIViewController=UIApplication.sharedApplication().keyWindow.rootViewController!
+
+
+                var vc = self.view?.window?.rootViewController
+
+
+                if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
+                    var twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+                    twitterSheet.setInitialText("Share on Twitter")
+
+                    //presentViewController(twitterSheet, animated: true, completion: nil)
+                } else {
+                    var alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+
+                    //GameScene(alert, animated: true, completion: nil)
+                }
+
+                println("moneyteam")
+            }
+
+
+
         }
     }
 
