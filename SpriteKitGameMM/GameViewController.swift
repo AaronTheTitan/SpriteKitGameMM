@@ -47,7 +47,6 @@ class GameViewController: UIViewController {
 
             NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
 
-                println("long sentence")
                 self.performSegueWithIdentifier("gameOverSegue", sender: self)
 
                 return
