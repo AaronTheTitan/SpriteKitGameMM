@@ -19,6 +19,8 @@ class WorldGenerator: SKNode {
     let groundResetXCoord: CGFloat = -500
     var timeIncrement:Double = 0.001
 
+    let bgImages:[String] = ["bg_spaceship_1", "bg_spaceship_2", "bg_spaceship_3"]
+
 
     override init() {
         super.init()
@@ -45,13 +47,33 @@ class WorldGenerator: SKNode {
         /* Setup your scene here */
 
         //Add background sprites
-        let bgImages:[String] = ["bg_spaceship_1", "bg_spaceship_2", "bg_spaceship_3"]
+//        let bgImages:[String] = ["bg_spaceship_1", "bg_spaceship_2", "bg_spaceship_3"]
         var bg = SKSpriteNode(imageNamed: bgImages[0])
 
         bg.position = CGPointMake(bg.size.width / 2, bg.size.height / 2)
 
         addChild(bg)
 
+//        for var x = 0; x < bgImages.count; x++ {
+//            var sprite = SKSpriteNode(imageNamed: bgImages[x])
+//
+//            groundPieces.append(sprite)
+//
+//            var wSpacing = sprite.size.width / 2
+//            var hSpacing = sprite.size.height / 2
+//
+//            if x == 0 {
+//                sprite.position = CGPointMake(wSpacing, hSpacing)
+//            } else {
+//                sprite.position = CGPointMake((wSpacing * 2) + groundPieces[x - 1].position.x,groundPieces[x - 1].position.y)
+//            }
+//            
+//            addChild(sprite)
+//
+//        }
+    }
+
+    func startGroundMoving() {
         for var x = 0; x < bgImages.count; x++ {
             var sprite = SKSpriteNode(imageNamed: bgImages[x])
 
@@ -65,12 +87,11 @@ class WorldGenerator: SKNode {
             } else {
                 sprite.position = CGPointMake((wSpacing * 2) + groundPieces[x - 1].position.x,groundPieces[x - 1].position.y)
             }
-            
-            addChild(sprite)
 
+            addChild(sprite)
+            
         }
     }
-
 
     func groundMovement() {
         for var x = 0; x < groundPieces.count; x++ {

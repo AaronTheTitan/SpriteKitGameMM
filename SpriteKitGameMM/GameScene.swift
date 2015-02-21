@@ -73,7 +73,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         setupControls(view)
 
         world.setupScenery()
-        world.groundMovement()
+//        world.groundMovement()
         addChild(world)
 
         self.physicsWorld.gravity    = CGVectorMake(0, -40)
@@ -89,28 +89,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
 
-        let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
 
-        var spawnThenDelay = SKAction.sequence([spawn,delay])
-        var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
-        self.runAction(spawnThenDelayForever)
 
-        addChild(gameOverMenu)
-        addChild(redButton)
-        addChild(blueButton)
-        addChild(yellowButton)
-
-        gameOverMenu.hidden = true
-        redButton.hidden = true
-        blueButton.hidden = true
-        yellowButton.hidden = true
+//        addChild(gameOverMenu)
+//        addChild(redButton)
+//        addChild(blueButton)
+//        addChild(yellowButton)
+//
+//        gameOverMenu.hidden = true
+//        redButton.hidden = true
+//        blueButton.hidden = true
+//        yellowButton.hidden = true
 
         let view1 = super.view
 
 
         buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(false)
-         buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(false)
+        buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(false)
 
 //        var myConstraint =
 //                NSLayoutConstraint(item: buttonscencePause,
@@ -145,6 +140,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         startLabel.fontName = "MarkerFelt-Wide"
         startLabel.fontSize = 46
         addChild(startLabel)
+
     }
 
 
@@ -204,6 +200,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func startGame() {
         isGameOver = false
         startLabel.removeFromParent()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
+        soldierNode?.stepState()
+        world.startGroundMoving()
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
         var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
@@ -297,17 +296,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - COLLISION FUNCTIONS
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
-        PowerUp.removeFromParent()
-        scoreInfo.score = scoreInfo.score + 2
-        scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
 
-        orbFlare.removeFromParent()
+        if isGameOver == false {
+            PowerUp.removeFromParent()
+            scoreInfo.score = scoreInfo.score + 2
+            scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
 
-        playSound(soundSuperPowerUp)
+            orbFlare.removeFromParent()
 
-        if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
-            NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            playSound(soundSuperPowerUp)
+
+            if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+                NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
+                NSUserDefaults.standardUserDefaults().synchronize()
+            }
         }
     }
 
@@ -512,7 +514,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         addChild(soldierNode!)
 
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Idle)
         soldierNode?.stepState()
     }
 
@@ -691,21 +693,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(bombExplode!)
     }
 
-        func addEdge() {
-            let edge = SKNode()
-
-            edge.physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0,y: 160,width: self.frame.size.width,height: self.frame.size.height-200))
-            edge.physicsBody!.usesPreciseCollisionDetection = true
-            edge.physicsBody!.categoryBitMask = PhysicsCategory.Edge
-            edge.physicsBody!.dynamic = false
-            addChild(edge)
-    }
 
     func playSound(soundVariable: SKAction) {
         runAction(soundVariable)
     }
-
-
 
 }
 
