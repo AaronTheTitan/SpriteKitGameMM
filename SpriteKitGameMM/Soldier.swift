@@ -13,6 +13,12 @@ class Soldier : SKSpriteNode {
 
     var currentState = SoldierStates.Idle
     var isJumping:Bool = false
+    let normalSize:CGFloat = 0.32
+    let duckingSize:CGFloat = 0.20
+    var cgVector:CGVector = CGVectorMake(00, 1400)
+
+//    let originalPosition:CGPoint = CGPoint(self.position.x, self.position.y)
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -26,11 +32,10 @@ class Soldier : SKSpriteNode {
         case Walk
         case Run
         case Jump
-        case Crouch
+        case Duck
         case Dead
         case RunShoot
         case WalkShoot
-
 
         func sprites() -> [SKTexture] {
             switch self {
@@ -47,7 +52,7 @@ class Soldier : SKSpriteNode {
             case Jump:
                 return (0...9).map{ SKTexture(imageNamed: "Jump_Shoot__00\($0)")! }
 
-            case Crouch:
+            case Duck:
                 return (0...9).map{ SKTexture(imageNamed: "Crouch_Aim__00\($0)")! }
 
             case .Dead:
@@ -76,6 +81,8 @@ class Soldier : SKSpriteNode {
         self.physicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width / 2.6))
         self.physicsBody?.dynamic = true
         self.physicsBody?.allowsRotation = false
+        self.physicsBody?.density = 1
+        self.physicsBody?.charge = 0.0
 
     }
 
@@ -93,23 +100,32 @@ class Soldier : SKSpriteNode {
             case .Run:
                 currentState = .Run
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Run.sprites(), timePerFrame: 0.04)))
-//                self.physicsBody?.applyImpulse(CGVectorMake(0, 40))
 
             case .Jump:
                 currentState = .Jump
+
+                self.setScale(normalSize)
                 if isJumping == false {
+
                     isJumping = true
-                    self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.13), count: 1))
-                    self.physicsBody?.applyImpulse(CGVectorMake(0, 900))
-                }
-                else {
-                    isJumping = false
+                    self.physicsBody?.applyImpulse(cgVector)
+                    self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
+
+                        dispatch_after(1, dispatch_get_main_queue()) {
+//                          self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:0.5))
+                            self.isJumping = false
+                        }
+                    })
             }
 
+            case .Duck:
+                currentState = .Duck
 
-            case .Crouch:
-                currentState = .Crouch
-                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Crouch.sprites(), timePerFrame: 0.07), count: 1))
+                self.setScale(duckingSize)
+                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Duck.sprites(), timePerFrame: 0.07), count: 1), completion: { () -> Void in
+                    self.setScale(self.normalSize)
+                        }
+                    )
 
             case .Dead:
                 currentState = .Dead
@@ -130,17 +146,6 @@ class Soldier : SKSpriteNode {
 
     func update() {
         // update when told by the GameScene class
-        
-//        if currentState != .Idle {
-//
-//        }
-//
-//        if currentState == .Jump {
-//
-//        }
-//
-//        if currentState == .RunShoot {
-//
-//        }
+
     }
 }

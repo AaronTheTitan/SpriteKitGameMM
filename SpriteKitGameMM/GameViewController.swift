@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
@@ -43,6 +44,32 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
 
             skView.presentScene(scene)
+
+
+            NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
+
+                self.performSegueWithIdentifier("gameOverSegue", sender: self)
+                scene.removeAllChildren()
+                scene.removeAllActions()
+
+                return
+                
+            }
+
+
+            NSNotificationCenter.defaultCenter().addObserverForName("leader", object: nil, queue: nil) { (notification: NSNotification?) in
+
+                self.performSegueWithIdentifier("leaderSegue", sender: self)
+                
+                scene.removeAllChildren()
+                scene.removeAllActions()
+                println("\(scene.scoreInfo.score)")
+
+                return
+                
+            }
+
+
         }
     }
 
@@ -57,6 +84,7 @@ class GameViewController: UIViewController {
             return Int(UIInterfaceOrientationMask.All.rawValue)
         }
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
