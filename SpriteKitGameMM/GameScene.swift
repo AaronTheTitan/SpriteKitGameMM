@@ -149,12 +149,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         view.addGestureRecognizer(swipeDown)
 
 
-        buttonscencePause.frame = CGRectMake(6.25, 316.25, 50, 50)
+        buttonscencePause.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
         let buttonPauseImage = UIImage(named: "buttonPause")
         buttonscencePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
         buttonscencePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-        buttonscencePlay.frame = CGRectMake(6.25, 316.25, 50, 50)
+        buttonscencePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
         let buttonPlayImage = UIImage(named: "buttonPlay")
         buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
         buttonscencePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
@@ -291,6 +291,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             die()
         }
     }
+
+//    func soldierCollidedWith(soldier:SKSpriteNode, bodyCollidedWith:SKSpriteNode) {
+//        if bodyCollidedWith == PhysicsCategory.SuperPowerCategory {
+//
+//        }
+//    }
 
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
