@@ -39,6 +39,7 @@
 		91DD16421A8E61A3004742FA /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DD16411A8E61A3004742FA /* Bomb.swift */; };
 		F74CBD231A9268A8006D283C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74CBD221A9268A8006D283C /* Login.swift */; };
 		F74CBD251A926A7F006D283C /* PlayerSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74CBD241A926A7F006D283C /* PlayerSelection.swift */; };
+		F77B4F621A990EF80026E7C7 /* LeaderBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77B4F611A990EF80026E7C7 /* LeaderBoardViewController.swift */; };
 		F7A80E281A916B840059F987 /* SignupScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A80E271A916B840059F987 /* SignupScreen.swift */; };
 		F7A80E2F1A9174D30059F987 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E2A1A9174D30059F987 /* Bolts.framework */; };
 		F7A80E301A9174D30059F987 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A80E2B1A9174D30059F987 /* Parse.framework */; };
@@ -109,6 +110,7 @@
 		F74CBD211A924B46006D283C /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		F74CBD221A9268A8006D283C /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		F74CBD241A926A7F006D283C /* PlayerSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSelection.swift; sourceTree = "<group>"; };
+		F77B4F611A990EF80026E7C7 /* LeaderBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewController.swift; sourceTree = "<group>"; };
 		F7A80E271A916B840059F987 /* SignupScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupScreen.swift; sourceTree = "<group>"; };
 		F7A80E2A1A9174D30059F987 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		F7A80E2B1A9174D30059F987 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				8A5FF5D01A98F63F00E02B2A /* TutorialViewController.swift */,
 				91CEB7A81A8C07C20055CB17 /* ControllerButton.swift */,
 				F74CBD221A9268A8006D283C /* Login.swift */,
+				F77B4F611A990EF80026E7C7 /* LeaderBoardViewController.swift */,
 				F74CBD241A926A7F006D283C /* PlayerSelection.swift */,
 				F7A80E271A916B840059F987 /* SignupScreen.swift */,
 			);
@@ -452,6 +455,7 @@
 				91CEB7871A8BB2CD0055CB17 /* GameViewController.swift in Sources */,
 				F74CBD251A926A7F006D283C /* PlayerSelection.swift in Sources */,
 				91CEB7A71A8BD02D0055CB17 /* Soldier.swift in Sources */,
+				F77B4F621A990EF80026E7C7 /* LeaderBoardViewController.swift in Sources */,
 				9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */,
 				91CEB7811A8BB2CD0055CB17 /* AppDelegate.swift in Sources */,
 				F74CBD231A9268A8006D283C /* Login.swift in Sources */,
