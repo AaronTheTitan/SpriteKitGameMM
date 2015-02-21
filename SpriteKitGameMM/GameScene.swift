@@ -56,12 +56,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var blueButton = SKSpriteNode (imageNamed: "blueButtonBG")
     var yellowButton = SKSpriteNode (imageNamed: "yellowButtonBG")
 
+    let startLabel = SKLabelNode(text: "Tap To Start")
+    var tapsForStart = 0
+
+
+
 //----- BEGIN LOGIC -----//
 
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
-        isRunning = false
+
+
+//        isRunning = false
         isGameOver = false
         setupControls(view)
 
@@ -77,27 +84,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(scoreInfo)
         scoreInfo.addScoring()
 
+
         scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
+        makeStartLabel()
 
-
-        let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
-
-        var spawnThenDelay = SKAction.sequence([delay, spawn])
-        var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
-        self.runAction(spawnThenDelayForever)
-
-        addChild(gameOverMenu)
-        addChild(redButton)
-        addChild(blueButton)
-        addChild(yellowButton)
-
-        gameOverMenu.hidden = true
-        redButton.hidden = true
-        blueButton.hidden = true
-        yellowButton.hidden = true
 
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
@@ -111,6 +103,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
+    func makeStartLabel() {
+        startLabel.position = CGPointMake(frame.width/2, frame.height/2)
+        startLabel.fontName = "MarkerFelt-Wide"
+        startLabel.fontSize = 46
+        addChild(startLabel)
+    }
+
+
     func handleSwipes(sender:UISwipeGestureRecognizer) {
 
         if sender.direction == .Up {
@@ -122,11 +122,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func handleTaps(sender:UITapGestureRecognizer) {
-        jump()
-
+        if tapsForStart == 0 {
+            startGame()
+            tapsForStart = 1
+        } else if tapsForStart == 1{
+            jump()
+        } else {
+            tapsForStart = 0
+            restartGame()
+            isGameOver = false
+        }
     }
 
     func setupControls(view: SKView) {
+
+        let tapOnce:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTaps:"))
+        tapOnce.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapOnce)
 
         let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
         swipeUp.direction = .Up
@@ -136,9 +148,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         swipeDown.direction = .Down
         view.addGestureRecognizer(swipeDown)
 
-        let tapOnce:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTaps:"))
-        tapOnce.numberOfTapsRequired = 1
-        view.addGestureRecognizer(tapOnce)
 
         buttonscencePause.frame = CGRectMake(6.25, 316.25, 50, 50)
         let buttonPauseImage = UIImage(named: "buttonPause")
@@ -157,15 +166,32 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func startGame() {
         isGameOver = false
+        startLabel.removeFromParent()
+
+        let spawn = SKAction.runBlock({() in self.addBadGuys()})
+        var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
+
+        var spawnThenDelay = SKAction.sequence([delay, spawn])
+        var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
+        self.runAction(spawnThenDelayForever)
     }
 
     func gameOver() {
         isGameOver = true
+        tapsForStart = 0
+
+        addChild(gameOverMenu)
+        addChild(redButton)
+        addChild(blueButton)
+        addChild(yellowButton)
+//
+////        gameOverMenu.hidden = true
+////        redButton.hidden = true
+////        blueButton.hidden = true
+////        yellowButton.hidden = true
 
         gameOverMenu.size = CGSizeMake(420, 420)
         gameOverMenu.position = CGPointMake(500, 435)
-
-        println("\(inParentHierarchy(redButton))")
 
 
 
@@ -181,7 +207,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         yellowButton.size = CGSizeMake(80, 80)
         yellowButton.position = CGPointMake(610, 430)
-        yellowButton.name = "redButton";//how the node is identified later
+        yellowButton.name = "yellowButton";//how the node is identified later
         yellowButton.zPosition = 1.0;
 
 
@@ -199,14 +225,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //                //println("\(i)")
 //
 //        }
+        
 
 
     }
 
     func gameOverPause() {
-
+        tapsForStart = 2
         //scene.view?.paused = true // to pause the game
-        scene?.view?.paused = true
+//        scene?.view?.paused = true
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = true
     }
@@ -247,7 +274,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
         bomb.removeFromParent()
         bombExplode?.bombExplode(bombExplode!)
-        die()
+
+        if isGameOver == false {
+
+            die()
+        }
 
     }
 
@@ -255,7 +286,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         warhead.removeFromParent()
         warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
 
-       die()
+        if isGameOver == false {
+
+            die()
+        }
     }
 
     //when contact begins
@@ -331,8 +365,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             if touchedNode.name == "redButton" {
                 println("okay this work")
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
+//                restartGame()
 
-                restartGame()
             }
         }
     }
@@ -624,5 +658,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func playSound(soundVariable: SKAction) {
         runAction(soundVariable)
     }
+
+
+
 }
 
