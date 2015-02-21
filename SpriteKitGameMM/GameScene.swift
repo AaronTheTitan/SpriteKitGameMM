@@ -124,7 +124,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         //superview.addConstraint(myConstraint)
 
-        makeStartLabel()
+        startGameLabel()
 
 
 
@@ -140,7 +140,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-    func makeStartLabel() {
+    func startGameLabel() {
         startLabel.position = CGPointMake(frame.width/2, frame.height/2)
         startLabel.fontName = "MarkerFelt-Wide"
         startLabel.fontSize = 46
