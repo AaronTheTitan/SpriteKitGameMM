@@ -48,6 +48,8 @@ class GameViewController: UIViewController {
             NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
 
                 self.performSegueWithIdentifier("gameOverSegue", sender: self)
+                scene.removeAllChildren()
+                scene.removeAllActions()
 
                 return
                 
