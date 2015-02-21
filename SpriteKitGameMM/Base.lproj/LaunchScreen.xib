@@ -10,17 +10,14 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" alpha="0.44999999999999962" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="orbGameSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="W4n-Db-VPt">
+                <imageView userInteractionEnabled="NO" alpha="0.64999999999999969" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="orbGameSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="W4n-Db-VPt">
                     <rect key="frame" x="0.0" y="112" width="480" height="255"/>
                     <variation key="heightClass=compact" misplaced="YES">
                         <rect key="frame" x="106" y="119" width="268" height="134"/>
                     </variation>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="BombRushText" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-Fv-g3b">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="BombRushTextBlue" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-Fv-g3b">
                     <rect key="frame" x="90" y="233" width="300" height="102"/>
-                    <variation key="heightClass=compact" misplaced="YES">
-                        <rect key="frame" x="90" y="20" width="300" height="102"/>
-                    </variation>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="bomb_red" translatesAutoresizingMaskIntoConstraints="NO" id="xED-7f-tLa">
                     <rect key="frame" x="138" y="240" width="105" height="109"/>
@@ -62,9 +59,9 @@
                         </mask>
                     </variation>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Team Dynasty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Team Dynasty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
                     <rect key="frame" x="20" y="90" width="441" height="26"/>
-                    <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="26"/>
                     <color key="textColor" white="0.122733353" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -96,16 +93,16 @@
                     <exclude reference="ZqX-NS-PT6"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="CB1-cZ-1TB"/>
-                    <exclude reference="MOw-Cw-YSQ"/>
-                    <exclude reference="b1K-cN-UHd"/>
-                    <exclude reference="5Yy-3q-u5v"/>
-                    <exclude reference="pbp-kt-RGD"/>
-                    <exclude reference="cf9-Cr-thO"/>
                     <exclude reference="Al5-bg-zvL"/>
                     <exclude reference="s3U-mm-LWW"/>
                     <exclude reference="vv9-jx-pG6"/>
                     <exclude reference="y6j-Nr-3G4"/>
+                    <exclude reference="5Yy-3q-u5v"/>
+                    <exclude reference="pbp-kt-RGD"/>
+                    <exclude reference="CB1-cZ-1TB"/>
+                    <exclude reference="MOw-Cw-YSQ"/>
+                    <exclude reference="b1K-cN-UHd"/>
+                    <exclude reference="cf9-Cr-thO"/>
                 </mask>
             </variation>
             <variation key="heightClass=compact">
@@ -113,23 +110,23 @@
                     <include reference="ZqX-NS-PT6"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="CB1-cZ-1TB"/>
-                    <include reference="MOw-Cw-YSQ"/>
-                    <include reference="b1K-cN-UHd"/>
-                    <include reference="5Yy-3q-u5v"/>
-                    <include reference="pbp-kt-RGD"/>
-                    <include reference="cf9-Cr-thO"/>
                     <include reference="Al5-bg-zvL"/>
                     <include reference="s3U-mm-LWW"/>
                     <include reference="vv9-jx-pG6"/>
                     <include reference="y6j-Nr-3G4"/>
+                    <include reference="5Yy-3q-u5v"/>
+                    <include reference="pbp-kt-RGD"/>
+                    <include reference="CB1-cZ-1TB"/>
+                    <include reference="MOw-Cw-YSQ"/>
+                    <include reference="b1K-cN-UHd"/>
+                    <include reference="cf9-Cr-thO"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="623" y="455"/>
         </view>
     </objects>
     <resources>
-        <image name="BombRushText" width="150" height="51"/>
+        <image name="BombRushTextBlue" width="300" height="102"/>
         <image name="bomb_red" width="146" height="152"/>
         <image name="orbGameSplashBG" width="889" height="445"/>
     </resources>

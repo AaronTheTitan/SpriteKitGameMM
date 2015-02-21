@@ -18,4 +18,13 @@ NSUserDefaults.standardUserDefaults().integerForKey("highscore")
 
 
 
+ func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "ShowCounterSegue"
+    {
+        if let destinationVC = segue.destinationViewController as? LeaderBoardViewController{
+            destinationVC.numberToDisplay = counter
+        }
+    }
+}
+
 

@@ -19,6 +19,7 @@
 		914ABA451A8D08EA008039D7 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914ABA441A8D08EA008039D7 /* Object.swift */; };
 		915A81EA1A95336100509664 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915A81E91A95336100509664 /* PhysicsCategory.swift */; };
 		915A81EC1A95393900509664 /* ScoreLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915A81EB1A95393900509664 /* ScoreLabels.swift */; };
+		916376461A993B2600C3D4FC /* LeaderBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916376451A993B2600C3D4FC /* LeaderBoardCell.swift */; };
 		9192E0471A978DBB00BF1911 /* OrbParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9192E0451A978DBB00BF1911 /* OrbParticle.sks */; };
 		9192E0481A978DBB00BF1911 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9192E0461A978DBB00BF1911 /* spark.png */; };
 		91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D741A92869100553594 /* PowerUpOne.mp3 */; };
@@ -84,6 +85,7 @@
 		914ABA441A8D08EA008039D7 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 		915A81E91A95336100509664 /* PhysicsCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		915A81EB1A95393900509664 /* ScoreLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreLabels.swift; sourceTree = "<group>"; };
+		916376451A993B2600C3D4FC /* LeaderBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderBoardCell.swift; path = SpriteKitGameMM/LeaderBoardCell.swift; sourceTree = "<group>"; };
 		9192E0451A978DBB00BF1911 /* OrbParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OrbParticle.sks; sourceTree = "<group>"; };
 		9192E0461A978DBB00BF1911 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		91990D741A92869100553594 /* PowerUpOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PowerUpOne.mp3; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				91CEB7881A8BB2CD0055CB17 /* Main.storyboard */,
+				916376451A993B2600C3D4FC /* LeaderBoardCell.swift */,
 				91CEB78B1A8BB2CD0055CB17 /* Images.xcassets */,
 				91CEB77D1A8BB2CD0055CB17 /* SpriteKitGameMM */,
 				91CEB7971A8BB2CD0055CB17 /* SpriteKitGameMMTests */,
@@ -455,6 +458,7 @@
 				91CEB7871A8BB2CD0055CB17 /* GameViewController.swift in Sources */,
 				F74CBD251A926A7F006D283C /* PlayerSelection.swift in Sources */,
 				91CEB7A71A8BD02D0055CB17 /* Soldier.swift in Sources */,
+				916376461A993B2600C3D4FC /* LeaderBoardCell.swift in Sources */,
 				F77B4F621A990EF80026E7C7 /* LeaderBoardViewController.swift in Sources */,
 				9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */,
 				91CEB7811A8BB2CD0055CB17 /* AppDelegate.swift in Sources */,

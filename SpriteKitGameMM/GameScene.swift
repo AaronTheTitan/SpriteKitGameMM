@@ -105,8 +105,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let view1 = super.view
 
 
-        buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(false)
-        buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(false)
+        buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(true)
+        buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
 
 //        var myConstraint =
 //                NSLayoutConstraint(item: buttonscencePause,
@@ -126,10 +126,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
-            println("long sentence")
             self.scene?.view?.paused = true
-            //self.pauseGame()
-
             return
             
         }
@@ -218,7 +215,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         world.startGroundMoving()
 
         runSpawnActions(isGameOver!)
-
     }
 
     func runSpawnActions(gameOver: Bool) {
@@ -269,8 +265,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         blueButton.hidden = false
         yellowButton.hidden = false
 
-        buttonscencePause.hidden = true
-        buttonscencePlay.hidden = true
+//        buttonscencePause.hidden = true
+//        buttonscencePlay.hidden = true
 
     }
 
@@ -483,6 +479,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
         soldierNode?.stepState()
+        removeAllActions()
+
         var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
 
 //        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
@@ -510,7 +508,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         groundSpeedIncrease()
 
 
-        if spriteposition < 18 {
+        if spriteposition < 8 {
             spriteposition = spriteposition + 0.35
         }
 
