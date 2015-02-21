@@ -146,25 +146,37 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func handleSwipes(sender:UISwipeGestureRecognizer) {
 
-        if sender.direction == .Up {
-            jump()
+        if isGameOver == false {
+            if sender.direction == .Up {
+                jump()
 
-        } else if sender.direction == .Down {
-            duck()
+            } else if sender.direction == .Down {
+                duck()
+            }
         }
     }
 
     func handleTaps(sender:UITapGestureRecognizer) {
-        if tapsForStart == 0 {
-            startGame()
-            tapsForStart = 1
-        } else if tapsForStart == 1{
-            jump()
-        } else {
-            tapsForStart = 0
-            restartGame()
-            isGameOver = false
+
+        if isGameOver == false {
+            if tapsForStart == 0 {
+                startGame()
+                tapsForStart = 1
+            } else {
+                jump()
+            }
         }
+
+        //        if tapsForStart == 0 {
+//            startGame()
+//            tapsForStart = 1
+//        } else if tapsForStart == 1{
+//            jump()
+//        } else {
+//            tapsForStart = 0
+//            restartGame()
+//            isGameOver = false
+//        }
     }
 
     func setupControls(view: SKView) {
@@ -413,7 +425,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             if touchedNode.name == "redButton" {
                 println("okay this work")
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
-//                restartGame()
+                restartGame()
 
             }
         }
