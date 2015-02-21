@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 
 extension SKNode {
-    class func unarchiveFromFile(file : NSString) -> SKNode? {
+    class func unarchiveFromFileTutorial(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
             var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
             var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
@@ -30,7 +30,7 @@ class TutorialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let scene = TutorialScene.unarchiveFromFile("TutorialScene") as? TutorialScene {
+        if let scene = TutorialScene.unarchiveFromFileTutorial("TutorialScene") as? TutorialScene {
             // Configure the view.
             let skView = self.view as SKView
             skView.showsFPS = true
