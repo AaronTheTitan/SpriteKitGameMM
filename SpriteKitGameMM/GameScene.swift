@@ -80,9 +80,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
-
-
-
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
         var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
 
@@ -99,6 +96,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         redButton.hidden = true
         blueButton.hidden = true
         yellowButton.hidden = true
+
+        let view1 = super.view
+
+
+        buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(false)
+         buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(false)
+
+//        var myConstraint =
+//                NSLayoutConstraint(item: buttonscencePause,
+//            attribute: NSLayoutAttribute.BottomMargin,
+//            relatedBy: NSLayoutRelation.Equal,
+//            toItem: super.view,
+//            attribute: NSLayoutAttribute.BottomMargin,
+//            multiplier: 0,
+//            constant: 0)
+//        super.view?.addConstraint(myConstraint)
+
+        //superview.addConstraint(myConstraint)
+
 
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
@@ -219,6 +235,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene?.view?.paused = true
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = false
+
+        NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
 
 
     }

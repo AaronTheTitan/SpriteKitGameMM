@@ -43,6 +43,17 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
 
             skView.presentScene(scene)
+
+
+            NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
+
+                println("long sentence")
+                self.performSegueWithIdentifier("gameOverSegue", sender: self)
+
+                return
+                
+            }
+
         }
     }
 
