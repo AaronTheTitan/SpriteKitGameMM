@@ -18,9 +18,6 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="BombRushTextBlue" translatesAutoresizingMaskIntoConstraints="NO" id="Iu4-Fv-g3b">
                     <rect key="frame" x="90" y="233" width="300" height="102"/>
-                    <variation key="heightClass=compact" misplaced="YES">
-                        <rect key="frame" x="90" y="20" width="300" height="102"/>
-                    </variation>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="bomb_red" translatesAutoresizingMaskIntoConstraints="NO" id="xED-7f-tLa">
                     <rect key="frame" x="138" y="240" width="105" height="109"/>
@@ -129,7 +126,7 @@
         </view>
     </objects>
     <resources>
-        <image name="BombRushTextBlue" width="150" height="51"/>
+        <image name="BombRushTextBlue" width="300" height="102"/>
         <image name="bomb_red" width="146" height="152"/>
         <image name="orbGameSplashBG" width="889" height="445"/>
     </resources>
