@@ -28,6 +28,7 @@ extension SKNode {
 
 class GameViewController: UIViewController {
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,13 +58,15 @@ class GameViewController: UIViewController {
             }
 
 
-            NSNotificationCenter.defaultCenter().addObserverForName("leader", object: nil, queue: nil) { (notification: NSNotification?) in
 
+            NSNotificationCenter.defaultCenter().addObserverForName("leader", object: nil, queue: nil) { (notification: NSNotification?) in
                 self.performSegueWithIdentifier("leaderSegue", sender: self)
                 
                 scene.removeAllChildren()
                 scene.removeAllActions()
-                println("\(scene.scoreInfo.score)")
+                //scene.scoreInfo.score
+                //println("\(scene.scoreInfo.score)")
+
 
                 return
                 
@@ -72,6 +75,9 @@ class GameViewController: UIViewController {
 
         }
     }
+
+
+
 
     override func shouldAutorotate() -> Bool {
         return true
