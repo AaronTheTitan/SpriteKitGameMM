@@ -217,31 +217,36 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.stepState()
         world.startGroundMoving()
 
-        let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
+        runSpawnActions(isGameOver!)
 
-        var spawnThenDelay = SKAction.sequence([delay, spawn])
-        var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
-        self.runAction(spawnThenDelayForever)
+    }
+
+    func runSpawnActions(gameOver: Bool) {
+        if gameOver == false {
+            let spawn = SKAction.runBlock({() in self.addBadGuys()})
+            var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
+
+            var spawnThenDelay = SKAction.sequence([delay, spawn])
+            var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
+            self.runAction(spawnThenDelayForever)
+        } else {
+            removeAllActions()
+        }
     }
 
     func gameOver() {
         isGameOver = true
+        runSpawnActions(true)
+
         tapsForStart = 0
 
         addChild(gameOverMenu)
         addChild(redButton)
         addChild(blueButton)
         addChild(yellowButton)
-//
-////        gameOverMenu.hidden = true
-////        redButton.hidden = true
-////        blueButton.hidden = true
-////        yellowButton.hidden = true
 
         gameOverMenu.size = CGSizeMake(420, 420)
         gameOverMenu.position = CGPointMake(500, 435)
-
 
         redButton.size = CGSizeMake(80, 80)
         redButton.position = CGPointMake(380, 430)
@@ -264,27 +269,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         blueButton.hidden = false
         yellowButton.hidden = false
 
-
-//            if isGameOver == true {
-//                addChild(gameOverMenu)
-//                addChild(redButton)
-//                addChild(blueButton)
-//                addChild(yellowButton)
-//                //println("\(i)")
-//
-//        }
-        
-
-
-    }
-
-    func gameOverPause() {
-        tapsForStart = 2
-        //scene.view?.paused = true // to pause the game
-//        scene?.view?.paused = true
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = true
+
     }
+
+//    func gameOverPause() {
+//        tapsForStart = 2
+//        //scene.view?.paused = true // to pause the game
+////        scene?.view?.paused = true
+////        buttonscencePause.hidden = true
+////        buttonscencePlay.hidden = true
+//    }
 
 
     func pauseGame() {
@@ -309,6 +305,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
 
         if isGameOver == false {
+//            isGameOver = true
+
             PowerUp.removeFromParent()
             scoreInfo.score = scoreInfo.score + 2
             scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
@@ -325,22 +323,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
-        bomb.removeFromParent()
-        bombExplode?.bombExplode(bombExplode!)
+
 
         if isGameOver == false {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 
+            isGameOver = true
+
+            bomb.removeFromParent()
+            bombExplode?.bombExplode(bombExplode!)
             die()
         }
 
     }
 
     func soldierDidCollideWithWarhead(soldier:SKSpriteNode, bomb:SKSpriteNode) {
-        warhead.removeFromParent()
-        warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
+
 
         if isGameOver == false {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 
+            isGameOver = true
+
+            warhead.removeFromParent()
+            warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
             die()
         }
     }
@@ -372,12 +378,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
                 soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
-                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
         else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.WarheadCategory != 0)){
                 soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
-                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
 
     }
@@ -501,9 +505,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
         soldierNode?.stepState()
-        var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
+        var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
 
-        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
+//        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
         //gameOver()
     }
 
