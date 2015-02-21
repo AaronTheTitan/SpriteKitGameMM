@@ -105,8 +105,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let view1 = super.view
 
 
-        buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(false)
-        buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(false)
+        buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(true)
+        buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
 
 //        var myConstraint =
 //                NSLayoutConstraint(item: buttonscencePause,
@@ -126,10 +126,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
-            println("long sentence")
             self.scene?.view?.paused = true
-            //self.pauseGame()
-
             return
             
         }
