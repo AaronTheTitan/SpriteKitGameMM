@@ -146,25 +146,25 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
     func handleSwipes(sender:UISwipeGestureRecognizer) {
 
-        if isGameOver == false {
+        //if isGameOver == false {
             if sender.direction == .Up {
                 jump()
 
             } else if sender.direction == .Down {
                 duck()
-            }
+          //  }
         }
     }
 
     func handleTaps(sender:UITapGestureRecognizer) {
 
-        if isGameOver == false {
+       // if isGameOver == false {
             if tapsForStart == 0 {
                 startGame()
                 tapsForStart = 1
             } else {
                 jump()
-            }
+         //   }
         }
 
         //        if tapsForStart == 0 {
@@ -210,7 +210,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func startGame() {
-        isGameOver = false
+        //isGameOver = false
         startLabel.removeFromParent()
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
         soldierNode?.stepState()
@@ -224,59 +224,59 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         self.runAction(spawnThenDelayForever)
     }
 
-    func gameOver() {
-        isGameOver = true
-        tapsForStart = 0
-
-        addChild(gameOverMenu)
-        addChild(redButton)
-        addChild(blueButton)
-        addChild(yellowButton)
-        //
-        ////        gameOverMenu.hidden = true
-        ////        redButton.hidden = true
-        ////        blueButton.hidden = true
-        ////        yellowButton.hidden = true
-
-        gameOverMenu.size = CGSizeMake(420, 420)
-        gameOverMenu.position = CGPointMake(500, 435)
-
-
-
-        redButton.size = CGSizeMake(80, 80)
-        redButton.position = CGPointMake(380, 430)
-        redButton.name = "redButton"
-        redButton.zPosition = 1.0;
-
-        blueButton.size = CGSizeMake(80, 80)
-        blueButton.position = CGPointMake(500, 430)
-        blueButton.name = "blueButton";//how the node is identified later
-        redButton.zPosition = 1.0;
-
-        yellowButton.size = CGSizeMake(80, 80)
-        yellowButton.position = CGPointMake(610, 430)
-        yellowButton.name = "yellowButton";//how the node is identified later
-        yellowButton.zPosition = 1.0;
-
-
-        gameOverMenu.hidden = false
-        redButton.hidden = false
-        blueButton.hidden = false
-        yellowButton.hidden = false
-
-
-        //            if isGameOver == true {
-        //                addChild(gameOverMenu)
-        //                addChild(redButton)
-        //                addChild(blueButton)
-        //                addChild(yellowButton)
-        //                //println("\(i)")
-        //
-        //        }
-
-
-
-    }
+//    //func gameOver() {
+//        isGameOver = true
+//        tapsForStart = 0
+//
+//        addChild(gameOverMenu)
+//        addChild(redButton)
+//        addChild(blueButton)
+//        addChild(yellowButton)
+//        //
+//        ////        gameOverMenu.hidden = true
+//        ////        redButton.hidden = true
+//        ////        blueButton.hidden = true
+//        ////        yellowButton.hidden = true
+//
+//        gameOverMenu.size = CGSizeMake(420, 420)
+//        gameOverMenu.position = CGPointMake(500, 435)
+//
+//
+//
+//        redButton.size = CGSizeMake(80, 80)
+//        redButton.position = CGPointMake(380, 430)
+//        redButton.name = "redButton"
+//        redButton.zPosition = 1.0;
+//
+//        blueButton.size = CGSizeMake(80, 80)
+//        blueButton.position = CGPointMake(500, 430)
+//        blueButton.name = "blueButton";//how the node is identified later
+//        redButton.zPosition = 1.0;
+//
+//        yellowButton.size = CGSizeMake(80, 80)
+//        yellowButton.position = CGPointMake(610, 430)
+//        yellowButton.name = "yellowButton";//how the node is identified later
+//        yellowButton.zPosition = 1.0;
+//
+//
+//        gameOverMenu.hidden = false
+//        redButton.hidden = false
+//        blueButton.hidden = false
+//        yellowButton.hidden = false
+//
+//
+//        //            if isGameOver == true {
+//        //                addChild(gameOverMenu)
+//        //                addChild(redButton)
+//        //                addChild(blueButton)
+//        //                addChild(yellowButton)
+//        //                //println("\(i)")
+//        //
+//        //        }
+//
+//
+//
+//    }
 
     func gameOverPause() {
         tapsForStart = 2
@@ -309,30 +309,30 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     // MARK: - COLLISION FUNCTIONS
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
 
-        if isGameOver == false {
+        //if isGameOver == false {
             PowerUp.removeFromParent()
-            scoreInfo.score = scoreInfo.score + 2
-            scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
+            //scoreInfo.score = scoreInfo.score + 2
+            //scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
 
             orbFlare.removeFromParent()
 
             playSound(soundSuperPowerUp)
 
-            if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
-                NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
-                NSUserDefaults.standardUserDefaults().synchronize()
-            }
-        }
+//            if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+//                NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
+//                NSUserDefaults.standardUserDefaults().synchronize()
+            //}
+        //}
     }
 
     func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
         bomb.removeFromParent()
         bombExplode?.bombExplode(bombExplode!)
 
-        if isGameOver == false {
+       // if isGameOver == false {
 
             die()
-        }
+       // }
 
     }
 
@@ -340,10 +340,10 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         warhead.removeFromParent()
         warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
 
-        if isGameOver == false {
+        //if isGameOver == false {
 
             die()
-        }
+        //}
     }
 
     //    func soldierCollidedWith(soldier:SKSpriteNode, bodyCollidedWith:SKSpriteNode) {
@@ -469,9 +469,9 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
         soldierNode?.stepState()
-        var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
+        //var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
 
-        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
+        //var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
         //gameOver()
     }
 
