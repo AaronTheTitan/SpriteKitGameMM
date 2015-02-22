@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 
+
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
@@ -27,6 +28,7 @@ extension SKNode {
 
 class GameViewController: UIViewController {
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,20 +43,35 @@ class GameViewController: UIViewController {
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
-
             skView.presentScene(scene)
 
 
             NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
 
                 self.performSegueWithIdentifier("gameOverSegue", sender: self)
+                scene.removeAllChildren()
+                scene.removeAllActions()
 
                 return
-                
             }
 
+
+
+            NSNotificationCenter.defaultCenter().addObserverForName("leader", object: nil, queue: nil) { (notification: NSNotification?) in
+                self.performSegueWithIdentifier("leaderSegue", sender: self)
+                
+                scene.removeAllChildren()
+                scene.removeAllActions()
+                //scene.scoreInfo.score
+                //println("\(scene.scoreInfo.score)")
+
+                return
+            }
         }
     }
+
+
+
 
     override func shouldAutorotate() -> Bool {
         return true
@@ -67,6 +84,7 @@ class GameViewController: UIViewController {
             return Int(UIInterfaceOrientationMask.All.rawValue)
         }
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
