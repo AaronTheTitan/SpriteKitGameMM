@@ -45,8 +45,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
 
     // MARK: - BUTTONS
-    let buttonscencePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
-    let buttonscencePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
+    let buttonScenePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    let buttonScenePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
 
     // MARK: - GROUND/WORLD
     var moveObject = SKAction()
@@ -105,8 +105,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let view1 = super.view
 
 
-        buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(true)
-        buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
+        buttonScenePause.setTranslatesAutoresizingMaskIntoConstraints(true)
+        buttonScenePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
 
 //        var myConstraint =
 //                NSLayoutConstraint(item: buttonscencePause,
@@ -192,19 +192,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         view.addGestureRecognizer(swipeDown)
 
 
-        buttonscencePause.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
+        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
         let buttonPauseImage = UIImage(named: "buttonPause")
-        buttonscencePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
-        buttonscencePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
+        buttonScenePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
+        buttonScenePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-        buttonscencePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
+        buttonScenePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
         let buttonPlayImage = UIImage(named: "buttonPlay")
-        buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
-        buttonscencePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
+        buttonScenePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
+        buttonScenePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-        scene?.view?.addSubview(buttonscencePause)
-        scene?.view?.addSubview(buttonscencePlay)
-        buttonscencePlay.hidden = true
+        scene?.view?.addSubview(buttonScenePause)
+        scene?.view?.addSubview(buttonScenePlay)
+        buttonScenePlay.hidden = true
     }
 
     func startGame() {
@@ -265,8 +265,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         blueButton.hidden = false
         yellowButton.hidden = false
 
-//        buttonscencePause.hidden = true
-//        buttonscencePlay.hidden = true
+
+        buttonScenePause.removeFromSuperview()
+        buttonScenePlay.removeFromSuperview()
+//        buttonScenePause.hidden = true
+//        buttonScenePlay.hidden = true
 
     }
 
@@ -282,8 +285,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func pauseGame() {
         //scene.view?.paused = true // to pause the game
         scene?.view?.paused = true
-        buttonscencePause.hidden = true
-        buttonscencePlay.hidden = false
+        buttonScenePause.hidden = true
+        buttonScenePlay.hidden = false
 
 
 
@@ -292,8 +295,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //scene.view?.paused = true // to pause the game
         scene?.view?.paused = false
 
-        buttonscencePause.hidden = false
-        buttonscencePlay.hidden = true
+        buttonScenePause.hidden = false
+        buttonScenePlay.hidden = true
     }
 
 
@@ -409,6 +412,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         var restartScene = GameScene(size: self.size)
         restartScene.scaleMode = .AspectFill
         self.view?.presentScene(restartScene)
+
+        buttonScenePlay.hidden = true
+        buttonScenePause.hidden = false
 
 
     }

@@ -17,6 +17,8 @@ import UIKit
 class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
    var score:Int?
+    var highScoreArray = [Int]()
+    var nameArray = [String]()
 
     @IBOutlet var postButton: UIButton!
 
@@ -32,14 +34,61 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
         score  = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
         
-        println("\(score)")
+        println("\(score!)")
         //tableView.registerNib(UINib(nibName: "LeaderBoardCell", bundle: nil), forCellReuseIdentifier: "leaderBoardCell")
 
-        
+        addHighScoreObject()
+
 }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(false);
+
+
+
+        
+    }
+
+    func addHighScoreObject () {
+        var playerNameArray = [String]()
+        var scoreArray = [Int]()
+        var query = PFQuery(className:"GameScore")
+        query.orderByAscending("score")
+        //query.whereKey("playerName", equalTo:"Sean Plott")
+        query.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]!, error: NSError!) -> Void in
+            if error == nil {
+                // The find succeeded.
+                //NSLog("Successfully retrieved \(objects.count) scores.")
+                // Do something with the found objects
+
+                for object in objects {
+                    var playerName = object.objectForKey("playerName") as String
+                    var score = object.objectForKey("score") as Int
+
+                    playerNameArray.insert(playerName, atIndex: 0)
+                    scoreArray.insert(score, atIndex: 0)
+
+                    self.highScoreArray = scoreArray
+                    self.nameArray = playerNameArray
+                    //println("\(self.nameArray)")
+
+
+                }
+                self.tableView.reloadData()
+
+            } else {
+                // Log details of the failure
+                NSLog("Error: %@ %@", error, error.userInfo!)
+            }
+            
+            
+        }
+
+    }
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return self.nameArray.count
     }
 
 
@@ -47,27 +96,31 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
         //let color = Color(rawValue: indexPath.row)
         let cell = tableView.dequeueReusableCellWithIdentifier("leaderBoardCell") as UITableViewCell
 
-        //cell.textLabel!.text = color?.title()
+        if !nameArray.isEmpty{
+        //println(" These are the player \(self.nameArray)")
+
+        var nameString = self.nameArray[indexPath.row]
+        cell.textLabel!.text = "\(indexPath.row). \(nameString)"
         //cell.backgroundColor = color?.backgroundColor()
 
-
+        }
         return cell
     }
 
 
-    func scoreArray () {
+    func postGameScore () {
         var gameScore = PFObject(className: "GameScore")
         gameScore.setObject(NSUserDefaults.standardUserDefaults().integerForKey("highscore"), forKey: "score")
         gameScore.setObject(nameTextField.text, forKey: "playerName")
         gameScore.saveInBackgroundWithBlock {
             (success: Bool!, error: NSError!) -> Void in
             if (success != nil) {
-                NSLog("Object created with id: \(gameScore.objectId)")
+                self.tableView.reloadData()
+                //NSLog("Object created with id: \(gameScore.objectId)")
             } else {
                 NSLog("%@", error)
             }
         }
-
 
     }
 
@@ -78,7 +131,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
 
     @IBAction func postButtonPressed(sender: UIButton) {
-        scoreArray()
+       postGameScore()
 
     }
 
@@ -86,7 +139,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook){
             var facebookSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            facebookSheet.setInitialText("My high score on Bomb Rush is \(score), try to beat that")
+            facebookSheet.setInitialText("My high score on Bomb Rush is \(score!), try to beat that")
             self.presentViewController(facebookSheet, animated: true, completion: nil)
         } else {
             var alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -100,7 +153,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
         if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter){
             var twitterSheet:SLComposeViewController = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
-            twitterSheet.setInitialText("My high score on Bomb Rush is \(score), try to beat that")
+            twitterSheet.setInitialText("My high score on Bomb Rush is \(score!), try to beat that")
             self.presentViewController(twitterSheet, animated: true, completion: nil)
         } else {
             var alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
