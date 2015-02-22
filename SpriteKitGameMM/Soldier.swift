@@ -129,7 +129,7 @@ class Soldier : SKSpriteNode {
 
             case .Dead:
                 currentState = .Dead
-                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Dead.sprites(), timePerFrame: 0.07), count: 1))
+                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Dead.sprites(), timePerFrame: 0.07), count: 1)) 
 
             case .RunShoot:
                 currentState = .RunShoot

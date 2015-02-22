@@ -53,7 +53,6 @@ class GameViewController: UIViewController {
                 scene.removeAllActions()
 
                 return
-                
             }
 
 
@@ -66,9 +65,7 @@ class GameViewController: UIViewController {
                 //scene.scoreInfo.score
                 //println("\(scene.scoreInfo.score)")
 
-
                 return
-                
             }
         }
     }

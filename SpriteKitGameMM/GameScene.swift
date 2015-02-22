@@ -406,8 +406,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func restartGame () {
 
-        var restartscence = GameScene(size: self.frame.size)
-        self.view?.presentScene(restartscence)
+        var restartScene = GameScene(size: self.size)
+        restartScene.scaleMode = .AspectFill
+        self.view?.presentScene(restartScene)
+
 
     }
 
