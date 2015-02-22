@@ -303,7 +303,6 @@
                                 </variation>
                                 <connections>
                                     <action selector="buttonTapChangeSoldier:" destination="sjL-6y-VbA" eventType="touchUpInside" id="ZZv-wi-BJn"/>
-                                    <segue destination="2QY-hA-Tgd" kind="presentation" id="F3A-kP-y1r"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVC-pW-zXz">
