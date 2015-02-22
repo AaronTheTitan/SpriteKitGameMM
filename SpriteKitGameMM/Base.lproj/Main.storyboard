@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sjL-6y-VbA">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -242,7 +243,7 @@
                                     <rect key="frame" x="0.0" y="20" width="600" height="380"/>
                                 </variation>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="r8K-JL-kFe">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="r8K-JL-kFe">
                                 <rect key="frame" x="20" y="90" width="441" height="26"/>
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -286,7 +287,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCa-Ua-hBL">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCa-Ua-hBL">
                                 <rect key="frame" x="246" y="276" width="109" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -314,7 +315,7 @@
                                     <segue destination="2QY-hA-Tgd" kind="presentation" id="F3A-kP-y1r"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVC-pW-zXz">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rVC-pW-zXz">
                                 <rect key="frame" x="448" y="276" width="88" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -339,7 +340,7 @@
                                     </mask>
                                 </variation>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1U-Et-Ycx">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1U-Et-Ycx">
                                 <rect key="frame" x="265" y="120" width="30" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -371,7 +372,7 @@
                                     <segue destination="LVB-YS-i5n" kind="show" id="sSm-Uy-cem"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhd-SI-2eA">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhd-SI-2eA">
                                 <rect key="frame" x="497" y="133" width="50" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -399,7 +400,7 @@
                                     <segue destination="dPz-aJ-hTq" kind="show" identifier="Tutorial" id="q7o-oL-IxQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jaT-ug-Jbo">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jaT-ug-Jbo">
                                 <rect key="frame" x="67" y="276" width="80" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -501,6 +502,12 @@
                                 <exclude reference="ap8-pF-XpC"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="6Tw-Y7-Rlc"/>
+                                <exclude reference="HuE-JI-GwK"/>
+                                <exclude reference="IDF-V8-jBB"/>
+                                <exclude reference="J1h-Qp-MC0"/>
+                                <exclude reference="cms-2Q-Cqd"/>
+                                <exclude reference="vXc-aA-NHl"/>
                                 <exclude reference="05K-ik-IZn"/>
                                 <exclude reference="7Vo-Tg-9Jz"/>
                                 <exclude reference="9qo-Uh-JRa"/>
@@ -508,20 +515,14 @@
                                 <exclude reference="emu-Sq-t6l"/>
                                 <exclude reference="fZd-EP-9Xb"/>
                                 <exclude reference="lUM-7k-mPD"/>
-                                <exclude reference="9s4-Wu-d6K"/>
-                                <exclude reference="gdx-cl-cVu"/>
-                                <exclude reference="6Tw-Y7-Rlc"/>
-                                <exclude reference="HuE-JI-GwK"/>
-                                <exclude reference="IDF-V8-jBB"/>
-                                <exclude reference="J1h-Qp-MC0"/>
-                                <exclude reference="cms-2Q-Cqd"/>
-                                <exclude reference="vXc-aA-NHl"/>
-                                <exclude reference="2yH-9A-6y5"/>
-                                <exclude reference="f5F-3Q-TkY"/>
                                 <exclude reference="4qc-aO-pEa"/>
                                 <exclude reference="7dl-Pa-h6s"/>
                                 <exclude reference="pjY-ak-cmo"/>
+                                <exclude reference="9s4-Wu-d6K"/>
+                                <exclude reference="gdx-cl-cVu"/>
+                                <exclude reference="2yH-9A-6y5"/>
                                 <exclude reference="YpN-l4-Uy1"/>
+                                <exclude reference="f5F-3Q-TkY"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -533,6 +534,12 @@
                                 <include reference="ap8-pF-XpC"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="6Tw-Y7-Rlc"/>
+                                <include reference="HuE-JI-GwK"/>
+                                <include reference="IDF-V8-jBB"/>
+                                <include reference="J1h-Qp-MC0"/>
+                                <include reference="cms-2Q-Cqd"/>
+                                <include reference="vXc-aA-NHl"/>
                                 <include reference="05K-ik-IZn"/>
                                 <include reference="7Vo-Tg-9Jz"/>
                                 <include reference="9qo-Uh-JRa"/>
@@ -540,20 +547,14 @@
                                 <include reference="emu-Sq-t6l"/>
                                 <include reference="fZd-EP-9Xb"/>
                                 <include reference="lUM-7k-mPD"/>
-                                <include reference="9s4-Wu-d6K"/>
-                                <include reference="gdx-cl-cVu"/>
-                                <include reference="6Tw-Y7-Rlc"/>
-                                <include reference="HuE-JI-GwK"/>
-                                <include reference="IDF-V8-jBB"/>
-                                <include reference="J1h-Qp-MC0"/>
-                                <include reference="cms-2Q-Cqd"/>
-                                <include reference="vXc-aA-NHl"/>
-                                <include reference="2yH-9A-6y5"/>
-                                <include reference="f5F-3Q-TkY"/>
                                 <include reference="4qc-aO-pEa"/>
                                 <include reference="7dl-Pa-h6s"/>
                                 <include reference="pjY-ak-cmo"/>
+                                <include reference="9s4-Wu-d6K"/>
+                                <include reference="gdx-cl-cVu"/>
+                                <include reference="2yH-9A-6y5"/>
                                 <include reference="YpN-l4-Uy1"/>
+                                <include reference="f5F-3Q-TkY"/>
                             </mask>
                         </variation>
                     </view>
@@ -596,11 +597,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jt9-x8-vRt">
-                                <rect key="frame" x="16" y="112" width="568" height="376"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="61" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jt9-x8-vRt">
+                                <rect key="frame" x="16" y="112" width="568" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaderBoardCell" rowHeight="61" id="Hs0-3k-Uke" customClass="LeaderBoardCell" customModule="SpriteKitGameMM" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaderBoardCell" rowHeight="61" id="Hs0-3k-Uke">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hs0-3k-Uke" id="Tvp-dU-e2S">
@@ -627,20 +628,15 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="cellRanking" destination="biL-cw-yMZ" id="KMR-ub-KI1"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="1rf-Xu-MHA" id="aHB-i4-5eh"/>
+                                    <outlet property="delegate" destination="1rf-Xu-MHA" id="gBl-oz-8fn"/>
+                                </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fx-TK-cde">
-                                <rect key="frame" x="51" y="532" width="135" height="30"/>
-                                <state key="normal" title="post to leaderboard">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggQ-GH-0fD">
-                                <rect key="frame" x="462" y="532" width="43" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggQ-GH-0fD">
+                                <rect key="frame" x="480" y="61" width="43" height="30"/>
                                 <state key="normal" title="twitter">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -648,14 +644,14 @@
                                     <action selector="twitterButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="opN-uO-alt"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leaderboard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3F0-xj-Vek">
-                                <rect key="frame" x="279" y="49" width="98" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Leaderboard" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3F0-xj-Vek">
+                                <rect key="frame" x="250" y="9" width="98" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kl-zs-Tyu">
-                                <rect key="frame" x="291" y="532" width="64" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kl-zs-Tyu">
+                                <rect key="frame" x="278" y="60" width="64" height="30"/>
                                 <state key="normal" title="facebook">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -663,23 +659,37 @@
                                     <action selector="faceBookButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="pYc-qc-mC3"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0b9-bI-xSP">
+                                <rect key="frame" x="38" y="61" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pG-nt-SLX">
+                                <rect key="frame" x="164" y="60" width="32" height="30"/>
+                                <state key="normal" title="Post">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="postButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="emj-np-aQn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fx-TK-cde">
+                                <rect key="frame" x="16" y="28" width="135" height="30"/>
+                                <state key="normal" title="post to leaderboard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="postToLeaderBoardButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="VLx-ec-CxH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="jt9-x8-vRt" firstAttribute="trailing" secondItem="5eB-JO-q4Y" secondAttribute="trailingMargin" id="2Rk-mY-8jo"/>
-                            <constraint firstItem="jt9-x8-vRt" firstAttribute="centerY" secondItem="5eB-JO-q4Y" secondAttribute="centerY" id="9cW-td-5X2"/>
-                            <constraint firstItem="7Kl-zs-Tyu" firstAttribute="baseline" secondItem="8fx-TK-cde" secondAttribute="baseline" id="Ad6-bZ-NES"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ggQ-GH-0fD" secondAttribute="trailing" constant="79" id="K8z-3r-gLW"/>
-                            <constraint firstItem="jt9-x8-vRt" firstAttribute="leading" secondItem="5eB-JO-q4Y" secondAttribute="leadingMargin" id="SEV-5B-p2M"/>
-                            <constraint firstItem="7Kl-zs-Tyu" firstAttribute="baseline" secondItem="ggQ-GH-0fD" secondAttribute="baseline" id="Shj-YS-MzT"/>
-                            <constraint firstItem="9Vy-xt-Dbu" firstAttribute="top" secondItem="8fx-TK-cde" secondAttribute="bottom" constant="38" id="Yze-EF-Q3W"/>
-                            <constraint firstItem="8fx-TK-cde" firstAttribute="leading" secondItem="5eB-JO-q4Y" secondAttribute="leadingMargin" constant="35" id="Z7b-LD-7jG"/>
-                            <constraint firstItem="7Kl-zs-Tyu" firstAttribute="leading" secondItem="5eB-JO-q4Y" secondAttribute="leading" constant="291" id="dz4-aS-rry"/>
-                            <constraint firstItem="jt9-x8-vRt" firstAttribute="top" secondItem="3F0-xj-Vek" secondAttribute="bottom" constant="42" id="fg1-0H-Egk"/>
-                            <constraint firstItem="3F0-xj-Vek" firstAttribute="top" secondItem="zzw-d4-aa9" secondAttribute="bottom" constant="29" id="uIs-Ls-8av"/>
-                            <constraint firstItem="3F0-xj-Vek" firstAttribute="leading" secondItem="5eB-JO-q4Y" secondAttribute="leading" constant="279" id="xz2-xl-E7p"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="nameTextField" destination="0b9-bI-xSP" id="aLh-ZP-nZM"/>
+                        <outlet property="postButton" destination="9pG-nt-SLX" id="4oA-aP-CpY"/>
+                        <outlet property="tableView" destination="jt9-x8-vRt" id="Wpf-f2-Aht"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Unl-ny-xPp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -692,6 +702,6 @@
         <image name="orbGameSplashBGYel" width="889" height="445"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ow3-BJ-IC8"/>
+        <segue reference="8kv-7m-gBk"/>
     </inferredMetricsTieBreakers>
 </document>
