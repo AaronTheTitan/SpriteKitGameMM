@@ -8,7 +8,7 @@
 import SpriteKit
 import AudioToolbox.AudioServices
 
-class TutorialScene: SKScene , SKPhysicsContactDelegate {
+class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     //----- BEGIN DECLARATIONS -----//
 
     // MARK: - PROPERTIES
@@ -59,7 +59,16 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     let startLabel = SKLabelNode(text: "Tap To Start")
     var tapsForStart = 0
 
-
+    // MARK: - Tutorial
+    var orbTutorial = SKSpriteNode(imageNamed: "orbTutorial")
+    var jumpTutorial = SKSpriteNode(imageNamed: "jumpTutorial")
+    var duckTutorial = SKSpriteNode(imageNamed: "duckTutorial")
+    var duckJumpTutorial = SKSpriteNode(imageNamed: "duckJumpTutorial")
+    var gotItButton = SKSpriteNode(imageNamed: "gotItButtonYellow")
+    var firstTimeDuck:Bool?
+    var firstTimeJump:Bool?
+    var firstTimeDuckJump:Bool?
+    var firstTimeOrb:Bool?
 
     //----- BEGIN LOGIC -----//
 
@@ -120,7 +129,10 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         //superview.addConstraint(myConstraint)
 
         startGameLabel()
-
+        firstTimeDuck = false
+        firstTimeDuckJump = false
+        firstTimeJump = false
+        firstTimeOrb = false
 
 
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
@@ -166,17 +178,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
                 jump()
          //   }
         }
-
-        //        if tapsForStart == 0 {
-        //            startGame()
-        //            tapsForStart = 1
-        //        } else if tapsForStart == 1{
-        //            jump()
-        //        } else {
-        //            tapsForStart = 0
-        //            restartGame()
-        //            isGameOver = false
-        //        }
     }
 
     func setupControls(view: SKView) {
@@ -217,66 +218,13 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         world.startGroundMoving()
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
+        var delay = SKAction.waitForDuration(NSTimeInterval(1.45))
 
         var spawnThenDelay = SKAction.sequence([delay, spawn])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
         self.runAction(spawnThenDelayForever)
     }
 
-//    //func gameOver() {
-//        isGameOver = true
-//        tapsForStart = 0
-//
-//        addChild(gameOverMenu)
-//        addChild(redButton)
-//        addChild(blueButton)
-//        addChild(yellowButton)
-//        //
-//        ////        gameOverMenu.hidden = true
-//        ////        redButton.hidden = true
-//        ////        blueButton.hidden = true
-//        ////        yellowButton.hidden = true
-//
-//        gameOverMenu.size = CGSizeMake(420, 420)
-//        gameOverMenu.position = CGPointMake(500, 435)
-//
-//
-//
-//        redButton.size = CGSizeMake(80, 80)
-//        redButton.position = CGPointMake(380, 430)
-//        redButton.name = "redButton"
-//        redButton.zPosition = 1.0;
-//
-//        blueButton.size = CGSizeMake(80, 80)
-//        blueButton.position = CGPointMake(500, 430)
-//        blueButton.name = "blueButton";//how the node is identified later
-//        redButton.zPosition = 1.0;
-//
-//        yellowButton.size = CGSizeMake(80, 80)
-//        yellowButton.position = CGPointMake(610, 430)
-//        yellowButton.name = "yellowButton";//how the node is identified later
-//        yellowButton.zPosition = 1.0;
-//
-//
-//        gameOverMenu.hidden = false
-//        redButton.hidden = false
-//        blueButton.hidden = false
-//        yellowButton.hidden = false
-//
-//
-//        //            if isGameOver == true {
-//        //                addChild(gameOverMenu)
-//        //                addChild(redButton)
-//        //                addChild(blueButton)
-//        //                addChild(yellowButton)
-//        //                //println("\(i)")
-//        //
-//        //        }
-//
-//
-//
-//    }
 
     func gameOverPause() {
         tapsForStart = 2
@@ -421,12 +369,17 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
             let touchedNode = self.nodeAtPoint(location)
 
 
-
             if touchedNode.name == "redButton" {
                 println("okay this work")
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
                 restartGame()
-
+            } else if touchedNode.name == "okayButton" {
+                resumeGame()
+                gotItButton.removeFromParent()
+                orbTutorial.removeFromParent()
+                jumpTutorial.removeFromParent()
+                duckTutorial.removeFromParent()
+                duckJumpTutorial.removeFromParent()
             }
         }
     }
@@ -496,7 +449,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         groundSpeedIncrease()
 
 
-        if spriteposition < 18 {
+        if spriteposition < 8 {
             spriteposition = spriteposition + 0.35
         }
 
@@ -592,6 +545,12 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
     func addPowerup() {
 
+        if firstTimeOrb == false {
+            firstTimeOrb = true
+            pauseGame()
+            orbAlertMessage()
+        }
+
         powerup = PowerUp(imageNamed: "powerup")
         powerup?.setScale(0.85)
         powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
@@ -631,13 +590,17 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func addBadGuys() {
-
         let y = arc4random_uniform(6)
         if y == 0 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.000967  * distance))
             moveObject = SKAction.sequence([moveObstruction])
 
+            if firstTimeJump == false {
+                firstTimeJump = true
+                pauseGame()
+                jumpAlertMessage()
+            }
             addBomb()
 
         } else if y == 1 {
@@ -645,6 +608,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.000973  * distance))
             moveObject = SKAction.sequence([moveObstruction])
 
+            if firstTimeDuck == false {
+                firstTimeDuck = true
+                pauseGame()
+                duckAlertMessage()
+            }
             addWarhead()
             addDuckWarhead()
 
@@ -675,7 +643,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
             let distance = CGFloat(self.frame.size.width * 2.0)
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.000882  * distance))
             moveObject = SKAction.sequence([moveObstruction])
-            
+            if firstTimeDuckJump == false {
+                firstTimeDuckJump = true
+                pauseGame()
+                duckJumpAlertMessage()
+            }
             addBomb()
             addDuckWarhead()
         }
@@ -709,6 +681,54 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     func playSound(soundVariable: SKAction) {
         runAction(soundVariable)
     }
-    
-}
 
+    func orbAlertMessage(){
+        addChild(orbTutorial)
+        addChild(gotItButton)
+        orbTutorial.size = CGSizeMake(400, 400)
+        orbTutorial.position = CGPointMake(500, 435)
+        gotItButton.size = CGSizeMake(150, 80)
+        gotItButton.position = CGPointMake(500, 340)
+        gotItButton.name = "okayButton"
+        gotItButton.hidden = false
+        gotItButton.zPosition = 1.0
+    }
+
+
+    func duckJumpAlertMessage(){
+        addChild(duckJumpTutorial)
+        addChild(gotItButton)
+        duckJumpTutorial.size = CGSizeMake(400, 400)
+        duckJumpTutorial.position = CGPointMake(500, 435)
+        gotItButton.size = CGSizeMake(150, 80)
+        gotItButton.position = CGPointMake(500, 340)
+        gotItButton.name = "okayButton"
+        gotItButton.hidden = false
+        gotItButton.zPosition = 1.0
+    }
+
+    func jumpAlertMessage(){
+        addChild(jumpTutorial)
+        addChild(gotItButton)
+        jumpTutorial.size = CGSizeMake(400, 400)
+        jumpTutorial.position = CGPointMake(500, 435)
+        gotItButton.size = CGSizeMake(150, 80)
+        gotItButton.position = CGPointMake(500, 340)
+        gotItButton.name = "okayButton"
+        gotItButton.hidden = false
+        gotItButton.zPosition = 1.0
+    }
+
+    func duckAlertMessage(){
+        addChild(duckTutorial)
+        addChild(gotItButton)
+        duckTutorial.size = CGSizeMake(400, 400)
+        duckTutorial.position = CGPointMake(500, 435)
+        gotItButton.size = CGSizeMake(150, 80)
+        gotItButton.position = CGPointMake(500, 340)
+        gotItButton.name = "okayButton"
+        gotItButton.hidden = false
+        gotItButton.zPosition = 1.0
+    }
+
+}
