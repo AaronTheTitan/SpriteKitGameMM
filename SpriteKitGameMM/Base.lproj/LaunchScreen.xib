@@ -12,7 +12,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="orbGameSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="W4n-Db-VPt">
                     <rect key="frame" x="0.0" y="112" width="480" height="255"/>
-                    <variation key="heightClass=compact" misplaced="YES">
+                    <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
                         <rect key="frame" x="106" y="119" width="268" height="134"/>
                     </variation>
                 </imageView>
@@ -28,8 +28,7 @@
                             <exclude reference="WmN-C3-6Op"/>
                         </mask>
                     </variation>
-                    <variation key="heightClass=compact" misplaced="YES">
-                        <rect key="frame" x="23" y="20" width="59" height="62"/>
+                    <variation key="heightClass=compact">
                         <mask key="constraints">
                             <include reference="A3g-pD-bwF"/>
                             <include reference="WmN-C3-6Op"/>
@@ -48,8 +47,7 @@
                             <exclude reference="sjY-W0-1gC"/>
                         </mask>
                     </variation>
-                    <variation key="heightClass=compact" misplaced="YES">
-                        <rect key="frame" x="398" y="20" width="59" height="62"/>
+                    <variation key="heightClass=compact">
                         <mask key="constraints">
                             <include reference="b64-7x-Uev"/>
                             <include reference="sjY-W0-1gC"/>
@@ -104,19 +102,19 @@
                     <exclude reference="ugc-3C-7JP"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="ban-Zx-vbv"/>
-                    <exclude reference="elu-YH-7Tf"/>
-                    <exclude reference="pbp-kt-RGD"/>
-                    <exclude reference="9SN-Bs-tZN"/>
-                    <exclude reference="Vn2-lT-slO"/>
-                    <exclude reference="vbq-k2-LDF"/>
                     <exclude reference="uVN-oC-rw1"/>
-                    <exclude reference="2Yr-X4-9Cd"/>
-                    <exclude reference="tS2-3s-GZe"/>
                     <exclude reference="Al5-bg-zvL"/>
                     <exclude reference="s3U-mm-LWW"/>
                     <exclude reference="vv9-jx-pG6"/>
                     <exclude reference="y6j-Nr-3G4"/>
+                    <exclude reference="pbp-kt-RGD"/>
+                    <exclude reference="9SN-Bs-tZN"/>
+                    <exclude reference="Vn2-lT-slO"/>
+                    <exclude reference="vbq-k2-LDF"/>
+                    <exclude reference="ban-Zx-vbv"/>
+                    <exclude reference="elu-YH-7Tf"/>
+                    <exclude reference="2Yr-X4-9Cd"/>
+                    <exclude reference="tS2-3s-GZe"/>
                 </mask>
             </variation>
             <variation key="heightClass=compact">
@@ -125,19 +123,19 @@
                     <include reference="ugc-3C-7JP"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="ban-Zx-vbv"/>
-                    <include reference="elu-YH-7Tf"/>
-                    <include reference="pbp-kt-RGD"/>
-                    <include reference="9SN-Bs-tZN"/>
-                    <include reference="Vn2-lT-slO"/>
-                    <include reference="vbq-k2-LDF"/>
                     <include reference="uVN-oC-rw1"/>
-                    <include reference="2Yr-X4-9Cd"/>
-                    <include reference="tS2-3s-GZe"/>
                     <include reference="Al5-bg-zvL"/>
                     <include reference="s3U-mm-LWW"/>
                     <include reference="vv9-jx-pG6"/>
                     <include reference="y6j-Nr-3G4"/>
+                    <include reference="pbp-kt-RGD"/>
+                    <include reference="9SN-Bs-tZN"/>
+                    <include reference="Vn2-lT-slO"/>
+                    <include reference="vbq-k2-LDF"/>
+                    <include reference="ban-Zx-vbv"/>
+                    <include reference="elu-YH-7Tf"/>
+                    <include reference="2Yr-X4-9Cd"/>
+                    <include reference="tS2-3s-GZe"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="623" y="455"/>
