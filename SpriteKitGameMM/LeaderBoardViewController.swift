@@ -17,6 +17,7 @@ import UIKit
 class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
    var score:Int?
+    var highScore:NSMutableArray?
 
     @IBOutlet var postButton: UIButton!
 
@@ -34,6 +35,8 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         println("\(score)")
         //tableView.registerNib(UINib(nibName: "LeaderBoardCell", bundle: nil), forCellReuseIdentifier: "leaderBoardCell")
+
+
 
         
 }
@@ -62,11 +65,48 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
         gameScore.saveInBackgroundWithBlock {
             (success: Bool!, error: NSError!) -> Void in
             if (success != nil) {
-                NSLog("Object created with id: \(gameScore.objectId)")
+                //NSLog("Object created with id: \(gameScore.objectId)")
             } else {
                 NSLog("%@", error)
             }
         }
+
+//        var query:PFQuery=PFQuery(className: "GameScore");
+//        query.findObjectsInBackgroundWithBlock {
+//            (objects: [AnyObject]!, error: NSError!) -> Void in
+//            if !(error != nil) {
+//                for(var i=0;i<objects.count;i++){
+//                    var object=objects[i] as PFObject;
+//                    var name = object.objectForKey("score") as String;
+//                    println(name);
+//
+//                }
+//            }
+//        }
+
+        var query = PFQuery(className:"GameScore")
+        query.orderByAscending("score")
+        //query.whereKey("playerName", equalTo:"Sean Plott")
+        query.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]!, error: NSError!) -> Void in
+            if error == nil {
+                // The find succeeded.
+                                NSLog("Successfully retrieved \(objects.count) scores.")
+                // Do something with the found objects
+                self.highScore?.addObjectsFromArray(objects)
+                println("\(self.highScore)")
+                for object in objects {
+
+
+
+                }
+            } else {
+                // Log details of the failure
+                NSLog("Error: %@ %@", error, error.userInfo!)
+            }
+        }
+
+
 
 
     }
