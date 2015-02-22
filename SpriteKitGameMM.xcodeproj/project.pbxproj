@@ -12,6 +12,7 @@
 		8A35F78D1A96B6ED00E90FE0 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A35F78B1A96B6ED00E90FE0 /* Fabric.framework */; };
 		8A5FF5CF1A98F53100E02B2A /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5FF5CE1A98F53100E02B2A /* TutorialScene.swift */; };
 		8A5FF5D11A98F63F00E02B2A /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5FF5D01A98F63F00E02B2A /* TutorialViewController.swift */; };
+		8ABEB7E21A990A570088FC0B /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8ABEB7E11A990A570088FC0B /* TutorialScene.sks */; };
 		8AFEE4871A8E9C6B00BF6D79 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */; };
 		8AFEE4891A8E9EAC00BF6D79 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */; };
 		9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911020991A8D3D1D002532E9 /* Bullet.swift */; };
@@ -79,6 +80,7 @@
 		8A35F78B1A96B6ED00E90FE0 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		8A5FF5CE1A98F53100E02B2A /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		8A5FF5D01A98F63F00E02B2A /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		8ABEB7E11A990A570088FC0B /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
 		8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
 		911020991A8D3D1D002532E9 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			children = (
 				91CEB7801A8BB2CD0055CB17 /* AppDelegate.swift */,
 				91CEB7821A8BB2CD0055CB17 /* GameScene.sks */,
+				8ABEB7E11A990A570088FC0B /* TutorialScene.sks */,
 				91CEB78D1A8BB2CD0055CB17 /* LaunchScreen.xib */,
 			);
 			name = Defaults;
@@ -417,6 +420,7 @@
 				91990D7E1A92905900553594 /* Jump.mp3 in Resources */,
 				91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */,
 				9192E0481A978DBB00BF1911 /* spark.png in Resources */,
+				8ABEB7E21A990A570088FC0B /* TutorialScene.sks in Resources */,
 				91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */,
 				91CEB7831A8BB2CD0055CB17 /* GameScene.sks in Resources */,
 				91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */,
