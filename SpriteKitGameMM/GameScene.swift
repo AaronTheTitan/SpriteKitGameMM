@@ -241,8 +241,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(blueButton)
         addChild(yellowButton)
 
-        gameOverMenu.size = CGSizeMake(420, 420)
-        gameOverMenu.position = CGPointMake(500, 435)
+        gameOverMenu.size = CGSizeMake(self.frame.size.width/2, 420)
+        gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
 
         redButton.size = CGSizeMake(80, 80)
         redButton.position = CGPointMake(380, 430)
