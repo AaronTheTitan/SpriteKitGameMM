@@ -9,42 +9,78 @@
 import Foundation
 import Parse
 import Social
+import UIKit
 
 
 
 
-class LeaderBoard: UIViewController{
+class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
    var score:Int?
 
+    @IBOutlet var postButton: UIButton!
 
+    @IBOutlet var nameTextField: UITextField!
 
+    @IBOutlet var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //NSInteger score = [[NSUserDefaults standardUserDefaults] integerForKey:@"highscore"];
+        postButton.hidden = true
+        nameTextField.hidden = true
 
         score  = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
         
         println("\(score)")
+        //tableView.registerNib(UINib(nibName: "LeaderBoardCell", bundle: nil), forCellReuseIdentifier: "leaderBoardCell")
+
+        
 }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 50
+    }
+
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        //let color = Color(rawValue: indexPath.row)
+        let cell = tableView.dequeueReusableCellWithIdentifier("leaderBoardCell") as UITableViewCell
+
+        //cell.textLabel!.text = color?.title()
+        //cell.backgroundColor = color?.backgroundColor()
+
+
+        return cell
+    }
 
 
     func scoreArray () {
         var gameScore = PFObject(className: "GameScore")
         gameScore.setObject(NSUserDefaults.standardUserDefaults().integerForKey("highscore"), forKey: "score")
-        gameScore.setObject("Sean Plott", forKey: "playerName")
+        gameScore.setObject(nameTextField.text, forKey: "playerName")
         gameScore.saveInBackgroundWithBlock {
             (success: Bool!, error: NSError!) -> Void in
-            if success {
+            if (success != nil) {
                 NSLog("Object created with id: \(gameScore.objectId)")
             } else {
                 NSLog("%@", error)
             }
         }
 
+
     }
 
+
+    @IBAction func postToLeaderBoardButtonPressed(sender: UIButton) {
+        postButton.hidden = false
+        nameTextField.hidden = false
+    }
+
+    @IBAction func postButtonPressed(sender: UIButton) {
+        scoreArray()
+
+    }
 
     @IBAction func faceBookButtonPressed(sender: UIButton) {
 
