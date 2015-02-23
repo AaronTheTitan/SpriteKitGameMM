@@ -146,6 +146,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
             tapsForStart = 1
         } else if paused == true {
             resumeGame()
+            gotItButton.removeFromParent()
+            orbTutorial.removeFromParent()
+            jumpTutorial.removeFromParent()
+            duckTutorial.removeFromParent()
+            duckJumpTutorial.removeFromParent()
         } else {
             jump()
         }
