@@ -42,9 +42,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     var scoreInfo = ScoreLabel()
     //MARK: - AUDIO
-    var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
-    var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
-    var soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
+    let soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
+    let soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
+    let soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
+    let soundWarhead = SKAction.playSoundFileNamed("WarheadSound.mp3", waitForCompletion: false)
 
     // MARK: - BUTTONS
     let buttonScenePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
@@ -572,6 +573,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         warhead.physicsBody?.velocity = CGVectorMake(-50, 0)
         warhead.runAction(moveObject)
         addChild(warhead!)
+
+        playSound(soundWarhead)
 
         warheadRocket = Bomb(imageNamed: "emptyMuzzle")
         warheadRocket?.position = CGPointMake(warhead.position.x + 120, warhead.position.y)

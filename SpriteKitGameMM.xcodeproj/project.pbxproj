@@ -15,6 +15,9 @@
 		8ABEB7E21A990A570088FC0B /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8ABEB7E11A990A570088FC0B /* TutorialScene.sks */; };
 		8AFEE4871A8E9C6B00BF6D79 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */; };
 		8AFEE4891A8E9EAC00BF6D79 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */; };
+		910A41E21A9B1BAB00D87213 /* SelectSoldier.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 910A41E11A9B1BAB00D87213 /* SelectSoldier.mp3 */; };
+		910A41E41A9B1BC700D87213 /* SwitchSoldier.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 910A41E31A9B1BC700D87213 /* SwitchSoldier.mp3 */; };
+		910A41E61A9B212C00D87213 /* WarheadSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 910A41E51A9B212C00D87213 /* WarheadSound.mp3 */; };
 		9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911020991A8D3D1D002532E9 /* Bullet.swift */; };
 		9110209C1A8D45EE002532E9 /* WorldGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110209B1A8D45EE002532E9 /* WorldGenerator.swift */; };
 		914ABA451A8D08EA008039D7 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914ABA441A8D08EA008039D7 /* Object.swift */; };
@@ -83,6 +86,9 @@
 		8ABEB7E11A990A570088FC0B /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
 		8AFEE4861A8E9C6B00BF6D79 /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		8AFEE4881A8E9EAC00BF6D79 /* PowerUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
+		910A41E11A9B1BAB00D87213 /* SelectSoldier.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SelectSoldier.mp3; sourceTree = "<group>"; };
+		910A41E31A9B1BC700D87213 /* SwitchSoldier.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SwitchSoldier.mp3; sourceTree = "<group>"; };
+		910A41E51A9B212C00D87213 /* WarheadSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WarheadSound.mp3; sourceTree = "<group>"; };
 		911020991A8D3D1D002532E9 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9110209B1A8D45EE002532E9 /* WorldGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldGenerator.swift; sourceTree = "<group>"; };
 		914ABA441A8D08EA008039D7 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
@@ -196,7 +202,10 @@
 			children = (
 				91990D7D1A92905900553594 /* Jump.mp3 */,
 				91990D791A928DFC00553594 /* Explosion.mp3 */,
+				910A41E11A9B1BAB00D87213 /* SelectSoldier.mp3 */,
+				910A41E51A9B212C00D87213 /* WarheadSound.mp3 */,
 				91990D741A92869100553594 /* PowerUpOne.mp3 */,
+				910A41E31A9B1BC700D87213 /* SwitchSoldier.mp3 */,
 				91990D751A92869100553594 /* PowerUpTwo.mp3 */,
 			);
 			name = SoundFX;
@@ -415,14 +424,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				91CEB78F1A8BB2CD0055CB17 /* LaunchScreen.xib in Resources */,
+				910A41E21A9B1BAB00D87213 /* SelectSoldier.mp3 in Resources */,
 				9192E0471A978DBB00BF1911 /* OrbParticle.sks in Resources */,
 				91CEB78C1A8BB2CD0055CB17 /* Images.xcassets in Resources */,
 				91990D7E1A92905900553594 /* Jump.mp3 in Resources */,
 				91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */,
 				9192E0481A978DBB00BF1911 /* spark.png in Resources */,
+				910A41E61A9B212C00D87213 /* WarheadSound.mp3 in Resources */,
 				8ABEB7E21A990A570088FC0B /* TutorialScene.sks in Resources */,
 				91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */,
 				91CEB7831A8BB2CD0055CB17 /* GameScene.sks in Resources */,
+				910A41E41A9B1BC700D87213 /* SwitchSoldier.mp3 in Resources */,
 				91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */,
 				91CEB78A1A8BB2CD0055CB17 /* Main.storyboard in Resources */,
 			);

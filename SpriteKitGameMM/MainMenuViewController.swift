@@ -20,6 +20,9 @@ class MainMenuViewController: UIViewController {
 
     //    let soldierImages:[UIImage] = [UIImage(named: "Idle__007")!, UIImage(named: "G-Idle__007")!]
 
+    var audioPlayer = AVAudioPlayer()
+
+
     @IBOutlet var imageViewSoldier: UIImageView!
 
 //    let soldierOneString:String = "Idle__007"
@@ -35,9 +38,14 @@ class MainMenuViewController: UIViewController {
             imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
         }
 
-//        self.runAction(SKAction.repeatActionForever(SKAction.playSoundFileNamed("ThemeOfKingsSnippet.mp3", waitForCompletion: true)))
+        var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("SwitchSoldier", ofType: "mp3")!)
+        // Removed deprecated use of AVAudioSessionDelegate protocol
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        AVAudioSession.sharedInstance().setActive(true, error: nil)
 
-
+        var error:NSError?
+        audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
+        audioPlayer.prepareToPlay()
 
     }
 
@@ -53,6 +61,12 @@ class MainMenuViewController: UIViewController {
         savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
 
         imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+
+        audioPlayer.play()
+
+//        audioPlayer.numberOfLoops = 1
+//        audioPlayer.play()
+
 
 
     }
