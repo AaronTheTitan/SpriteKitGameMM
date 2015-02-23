@@ -352,9 +352,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(pauseMenuRestart)
         addChild(pauseMenuExit)
 
-
         delay(0.1) {
-            self.scene!.view!.paused = true
+//            self.scene!.view!.paused = true
+            self.view!.paused = true
         }
 
     }
@@ -529,6 +529,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             if touchedNode.name == "facebook" {
                  NSNotificationCenter.defaultCenter().postNotificationName("leader", object:nil)
+            }
+
+
+            if touchedNode.name == "pauseMenuResume" {
+                resumeGame()
+                println("it works")
+            }
+
+            if touchedNode.name == "pauseMenuRestart" {
+                let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
+                restartGame()
+            }
+
+            if touchedNode.name == "pauseMenuExit" {
+                NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
+
             }
         }
     }
