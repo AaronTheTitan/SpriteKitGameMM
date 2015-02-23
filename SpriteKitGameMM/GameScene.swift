@@ -569,7 +569,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
 
         soldierNode?.update()
-        world.groundMovement()
+        //world.groundMovement()
         groundSpeedIncrease()
 
 

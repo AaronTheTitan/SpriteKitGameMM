@@ -64,12 +64,13 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     var jumpTutorial = SKSpriteNode(imageNamed: "jumpTutorial")
     var duckTutorial = SKSpriteNode(imageNamed: "duckTutorial")
     var duckJumpTutorial = SKSpriteNode(imageNamed: "duckJumpTutorial")
+    var completeTutorial = SKSpriteNode(imageNamed: "complete")
     var gotItButton = SKSpriteNode(imageNamed: "gotItButtonYellow")
     var firstTimeDuck:Bool?
     var firstTimeJump:Bool?
     var firstTimeDuckJump:Bool?
     var firstTimeOrb:Bool?
-
+    var hasTutorialCompleted:Bool?
     var currentSoldier:String?
 
 
@@ -85,20 +86,18 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
         world.setupScenery()
         addChild(world)
-
+        hasTutorialCompleted = false
         self.physicsWorld.gravity    = CGVectorMake(0, -40)
         physicsWorld.contactDelegate = self
         world.addEdge()
 
         addSoldier()
-        addChild(scoreInfo)
-        scoreInfo.addScoring()
+        //addChild(scoreInfo)
+        //scoreInfo.addScoring()
 
 
-        scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
-        scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
-
-
+        //scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
+        //scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
         let view1 = super.view
 
@@ -123,6 +122,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     }
 
+
     func startGameLabel() {
         startLabel.position = CGPointMake(frame.width/2, frame.height/2)
         startLabel.fontName = "MarkerFelt-Wide"
@@ -141,12 +141,19 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     }
 
     func handleTaps(sender:UITapGestureRecognizer) {
-
-            if tapsForStart == 0 {
-                startGame()
-                tapsForStart = 1
-            } else {
-                jump()
+        if tapsForStart == 0 {
+            startGame()
+            tapsForStart = 1
+        } else if paused == true {
+            resumeGame()
+            gotItButton.removeFromParent()
+            orbTutorial.removeFromParent()
+            jumpTutorial.removeFromParent()
+            duckTutorial.removeFromParent()
+            duckJumpTutorial.removeFromParent()
+            completeTutorial.removeFromParent()
+        } else {
+            jump()
         }
     }
 
@@ -188,7 +195,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         world.startGroundMoving()
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(1.45))
+        var delay = SKAction.waitForDuration(NSTimeInterval(1.65))
 
         var spawnThenDelay = SKAction.sequence([delay, spawn])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
@@ -204,17 +211,17 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     }
 
     func pauseGame() {
-        scene?.view?.paused = true
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = false
 
-        NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
+        delay(0.05) {
+            self.scene!.view!.paused = true
+        }
 
     }
 
     func resumeGame() {
         scene?.view?.paused = false
-
         buttonscencePause.hidden = false
         buttonscencePlay.hidden = true
     }
@@ -276,9 +283,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     }
 
-
     // MARK: - GROUND SPEED MANIPULATION
-
     func groundSpeedIncrease() {
 
         var wait = SKAction.waitForDuration(1)
@@ -313,13 +318,12 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
             let location = touch.locationInNode(self)
             let touchedNode = self.nodeAtPoint(location)
 
-
             if touchedNode.name == "redButton" {
                 println("okay this work")
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
                 restartGame()
             } else if touchedNode.name == "okayButton" {
-                resumeGame()
+//                resumeGame()
                 gotItButton.removeFromParent()
                 orbTutorial.removeFromParent()
                 jumpTutorial.removeFromParent()
@@ -331,6 +335,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     // MARK: - SOLDIER ACTIONS
     func jump() {
+
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
         playSound(soundJump)
@@ -356,39 +361,34 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
-     
+
     }
 
-    func fireGun() {
-        var fireShot = Bullet(imageNamed: "emptyMuzzle")
-        addChild(fireShot)
-        fireShot.position = CGPointMake(soldierNode!.position.x + 132, soldierNode!.position.y)
-        fireShot.shootFire(fireShot)
-    }
 
     let originalHeroPoint = CGPointMake(450, 450)
 
     //MARK: - UPDATE
     override func update(currentTime: CFTimeInterval) {
+        if scene?.view?.paused == true {
+            return
+        } else {
         /* Called before each frame is rendered */
-        if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
-            resetSoldierPosition()
+            if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
+                resetSoldierPosition()
+            }
+
+            soldierNode?.update()
+            world.groundMovement()
+            groundSpeedIncrease()
+
+            if spriteposition < 8 {
+                spriteposition = spriteposition + 0.35
+            }
+
+            for sprite in world.groundPieces {
+                sprite.position.x -= spriteposition
+            }
         }
-
-        soldierNode?.update()
-        world.groundMovement()
-        groundSpeedIncrease()
-
-
-        if spriteposition < 8 {
-            spriteposition = spriteposition + 0.35
-        }
-
-
-        for sprite in world.groundPieces {
-            sprite.position.x -= spriteposition
-        }
-
     }
 
     func resetSoldierPosition() {
@@ -422,7 +422,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
         warhead = Obstruction(imageNamed: "warhead")
         warhead.setScale(0.45)
-        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
+        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/3)
         warhead?.position = CGPointMake(1111.0, CGFloat(y + height + 205))
         warhead.physicsBody?.dynamic = false
         warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
@@ -450,7 +450,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
         warhead = Obstruction(imageNamed: "warhead")
         warhead.setScale(0.45)
-        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
+        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/3)
         warhead?.position = CGPointMake(1109.0, 325)
         warhead.physicsBody?.dynamic = false
         warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
@@ -521,6 +521,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     }
 
     func addBadGuys() {
+        if  firstTimeDuck == true && firstTimeDuckJump == true && firstTimeJump == true && firstTimeOrb == true && hasTutorialCompleted == false {
+            tutorialIsComplete()
+            pauseGame()
+        }
+
         let y = arc4random_uniform(6)
         if y == 0 {
             let distance = CGFloat(self.frame.size.width * 2.0)
@@ -588,7 +593,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         bomb = Bomb(imageNamed: "bomb_00")
         
         bomb?.setScale(0.45)
-        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
+        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/3)
         bomb?.position = CGPointMake(1465.0, 180)
         bomb?.physicsBody?.dynamic = false
         bomb?.physicsBody?.categoryBitMask = PhysicsCategory.BombCategory
@@ -615,51 +620,61 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     func orbAlertMessage(){
         addChild(orbTutorial)
-        addChild(gotItButton)
+        gotItButtonAdd()
         orbTutorial.size = CGSizeMake(400, 400)
         orbTutorial.position = CGPointMake(500, 435)
-        gotItButton.size = CGSizeMake(150, 80)
-        gotItButton.position = CGPointMake(500, 340)
-        gotItButton.name = "okayButton"
-        gotItButton.hidden = false
-        gotItButton.zPosition = 1.0
     }
 
 
     func duckJumpAlertMessage(){
         addChild(duckJumpTutorial)
-        addChild(gotItButton)
+        gotItButtonAdd()
         duckJumpTutorial.size = CGSizeMake(400, 400)
         duckJumpTutorial.position = CGPointMake(500, 435)
-        gotItButton.size = CGSizeMake(150, 80)
-        gotItButton.position = CGPointMake(500, 340)
-        gotItButton.name = "okayButton"
-        gotItButton.hidden = false
-        gotItButton.zPosition = 1.0
+
     }
 
     func jumpAlertMessage(){
         addChild(jumpTutorial)
-        addChild(gotItButton)
+        gotItButtonAdd()
         jumpTutorial.size = CGSizeMake(400, 400)
         jumpTutorial.position = CGPointMake(500, 435)
-        gotItButton.size = CGSizeMake(150, 80)
-        gotItButton.position = CGPointMake(500, 340)
-        gotItButton.name = "okayButton"
-        gotItButton.hidden = false
-        gotItButton.zPosition = 1.0
+
     }
 
     func duckAlertMessage(){
         addChild(duckTutorial)
-        addChild(gotItButton)
+        gotItButtonAdd()
         duckTutorial.size = CGSizeMake(400, 400)
         duckTutorial.position = CGPointMake(500, 435)
+
+    }
+
+    func gotItButtonAdd() {
+        addChild(gotItButton)
         gotItButton.size = CGSizeMake(150, 80)
         gotItButton.position = CGPointMake(500, 340)
         gotItButton.name = "okayButton"
         gotItButton.hidden = false
         gotItButton.zPosition = 1.0
+        buttonscencePause.hidden = true
+        buttonscencePlay.hidden = true
+    }
+
+    func tutorialIsComplete(){
+            hasTutorialCompleted = true
+            addChild(completeTutorial)
+            completeTutorial.size = CGSizeMake(400, 400)
+            completeTutorial.position = CGPointMake(500, 435)
+    }
+
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
     }
 
 }
