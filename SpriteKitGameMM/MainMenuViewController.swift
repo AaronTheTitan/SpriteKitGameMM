@@ -31,7 +31,9 @@ class MainMenuViewController: UIViewController {
     var soldierImageIndex:Int = 0
 
     override func viewWillAppear(animated: Bool) {
-        imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+        if savedSoldier.objectForKey("currentSoldier") != nil {
+            imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+        }
 
 //        self.runAction(SKAction.repeatActionForever(SKAction.playSoundFileNamed("ThemeOfKingsSnippet.mp3", waitForCompletion: true)))
 
