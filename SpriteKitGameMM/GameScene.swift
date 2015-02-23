@@ -60,6 +60,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let startLabel = SKLabelNode(text: "Tap To Start")
     var tapsForStart = 0
 
+    var currentSoldier:String?
+
 
 
 //----- BEGIN LOGIC -----//
@@ -67,7 +69,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
-
+        currentSoldier = "S2"
 
 //        isRunning = false
         isGameOver = false
@@ -210,8 +212,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func startGame() {
         isGameOver = false
         startLabel.removeFromParent()
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix:currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
         world.startGroundMoving()
 
         runSpawnActions(isGameOver!)
@@ -451,42 +453,31 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - SOLDIER ACTIONS
     func jump() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
         playSound(soundJump)
     }
 
     func duck() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Duck)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Duck, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
     }
 
     func run() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
     }
 
-    func runShoot() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.RunShoot)
-        soldierNode?.stepState()
-        fireGun()
-    }
-
-    func walkShoot() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.WalkShoot)
-        soldierNode?.stepState()
-        fireGun()
-    }
 
     func walk() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Walk, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
     }
 
 
     func die() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
         removeAllActions()
 
         var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
@@ -546,8 +537,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         addChild(soldierNode!)
 
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Idle)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Idle, soldierPrefix:currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
     }
 
     // Having fun, can remove in real thang if we want
