@@ -70,13 +70,16 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     var firstTimeDuckJump:Bool?
     var firstTimeOrb:Bool?
 
+    var currentSoldier:String?
+
+
     //----- BEGIN LOGIC -----//
 
     // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
 
-
+        currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
         //        isRunning = false
         //isGameOver = false
         setupControls(view)
@@ -98,17 +101,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
 
-
-
-        //        addChild(gameOverMenu)
-        //        addChild(redButton)
-        //        addChild(blueButton)
-        //        addChild(yellowButton)
-        //
-        //        gameOverMenu.hidden = true
-        //        redButton.hidden = true
-        //        blueButton.hidden = true
-        //        yellowButton.hidden = true
 
         let view1 = super.view
 
@@ -213,8 +205,8 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     func startGame() {
         //isGameOver = false
         startLabel.removeFromParent()
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix:currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
         world.startGroundMoving()
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
@@ -386,45 +378,36 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     // MARK: - SOLDIER ACTIONS
     func jump() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Jump)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
         playSound(soundJump)
     }
 
     func duck() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Duck)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Duck, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
     }
 
     func run() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Run)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
     }
 
-    func runShoot() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.RunShoot)
-        soldierNode?.stepState()
-        fireGun()
-    }
-
-    func walkShoot() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.WalkShoot)
-        soldierNode?.stepState()
-        fireGun()
-    }
 
     func walk() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Walk)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Walk, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
     }
 
 
     func die() {
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Dead)
-        soldierNode?.stepState()
-        //var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
+        removeAllActions()
 
-        //var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
+        var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
+
+        //        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
         //gameOver()
     }
 
@@ -479,8 +462,8 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
         addChild(soldierNode!)
 
-        soldierNode?.setCurrentState(Soldier.SoldierStates.Idle)
-        soldierNode?.stepState()
+        soldierNode?.setCurrentState(Soldier.SoldierStates.Idle, soldierPrefix:currentSoldier!)
+        soldierNode?.stepState(currentSoldier!)
     }
 
     // Having fun, can remove in real thang if we want

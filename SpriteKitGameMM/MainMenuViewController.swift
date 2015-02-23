@@ -8,8 +8,15 @@
 
 import Foundation
 import UIKit
+import SpriteKit
+import AudioToolbox.AudioServices
+import AVFoundation
 
 class MainMenuViewController: UIViewController {
+
+    var savedSoldier = NSUserDefaults.standardUserDefaults()
+//    var soundBGMusic = SKAction.playSoundFileNamed("ThemeOfKingsSnippet.mp3", waitForCompletion: true)
+
 
     //    let soldierImages:[UIImage] = [UIImage(named: "Idle__007")!, UIImage(named: "G-Idle__007")!]
 
@@ -20,13 +27,32 @@ class MainMenuViewController: UIViewController {
 
 
     let soldierImages:[String] = ["S1-Idle__007" , "S2-Idle__007", "S3-Idle__007", "S4-Idle__007"]
+    let soldierOrder:[String] = ["S1", "S2", "S3", "S4"]
     var soldierImageIndex:Int = 0
+
+    override func viewWillAppear(animated: Bool) {
+        imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+
+//        self.runAction(SKAction.repeatActionForever(SKAction.playSoundFileNamed("ThemeOfKingsSnippet.mp3", waitForCompletion: true)))
+
+
+
+    }
 
 
     @IBAction func buttonTapChangeSoldier(sender: UIButton) {
-        
+
         soldierImageIndex++
-        imageViewSoldier.image = UIImage(named: soldierCycle())
+
+        let selectedSoldier = soldierCycle()
+        savedSoldier.setObject(selectedSoldier, forKey: "currentSoldier")
+        savedSoldier.synchronize()
+
+        savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
+
+        imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+
+
     }
 
 
@@ -38,23 +64,15 @@ class MainMenuViewController: UIViewController {
 
         return soldierImages[soldierImageIndex]
 
-//        while soldierImageIndex < soldierImages.count {
-//
-//            var currentIndex = soldierImageIndex
-////            soldierImageIndex++
-//
-//            if soldierImageIndex >= soldierImages.count {
-//                soldierImageIndex = 0
-//            }
-//
-//            return soldierImages[currentIndex]
-//        }
-//
-//        return soldierImages[0]
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
+    if let gameViewController = segue.destinationViewController as? GameViewController
+        {
+            gameViewController.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
+    }
 
-
+    }
 
 }

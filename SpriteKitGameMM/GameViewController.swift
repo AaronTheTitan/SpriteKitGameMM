@@ -28,6 +28,7 @@ extension SKNode {
 
 class GameViewController: UIViewController {
 
+    var currentSoldier:String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,9 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             skView.presentScene(scene)
+
+//            scene.currentSoldier = self.currentSoldier!
+            scene.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
 
             NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
