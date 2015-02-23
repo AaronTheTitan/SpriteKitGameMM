@@ -30,7 +30,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     var warheadRocket:Bomb?
 
     var isRunning:Bool?
-    var isGameOver:Bool?
+    //var isGameOver:Bool?
 
     var spriteposition:CGFloat  = 5
     var moveGroundForeverAction: SKAction!
@@ -80,12 +80,10 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
 
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
-        //        isRunning = false
-        //isGameOver = false
+
         setupControls(view)
 
         world.setupScenery()
-        //        world.groundMovement()
         addChild(world)
 
         self.physicsWorld.gravity    = CGVectorMake(0, -40)
@@ -108,24 +106,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(false)
         buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(false)
 
-        //        var myConstraint =
-        //                NSLayoutConstraint(item: buttonscencePause,
-        //            attribute: NSLayoutAttribute.BottomMargin,
-        //            relatedBy: NSLayoutRelation.Equal,
-        //            toItem: super.view,
-        //            attribute: NSLayoutAttribute.BottomMargin,
-        //            multiplier: 0,
-        //            constant: 0)
-        //        super.view?.addConstraint(myConstraint)
-
-        //superview.addConstraint(myConstraint)
-
         startGameLabel()
         firstTimeDuck = false
         firstTimeDuckJump = false
         firstTimeJump = false
         firstTimeOrb = false
-
 
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
@@ -134,7 +119,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
             //self.pauseGame()
 
             return
-
         }
 
     }
@@ -149,26 +133,20 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
 
     func handleSwipes(sender:UISwipeGestureRecognizer) {
-
-        //if isGameOver == false {
-            if sender.direction == .Up {
-                jump()
-
-            } else if sender.direction == .Down {
-                duck()
-          //  }
+        if sender.direction == .Up {
+            jump()
+        } else if sender.direction == .Down {
+            duck()
         }
     }
 
     func handleTaps(sender:UITapGestureRecognizer) {
 
-       // if isGameOver == false {
             if tapsForStart == 0 {
                 startGame()
                 tapsForStart = 1
             } else {
                 jump()
-         //   }
         }
     }
 
@@ -220,25 +198,21 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     func gameOverPause() {
         tapsForStart = 2
-        //scene.view?.paused = true // to pause the game
-        //        scene?.view?.paused = true
+
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = true
     }
 
-
     func pauseGame() {
-        //scene.view?.paused = true // to pause the game
         scene?.view?.paused = true
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = false
 
-
         NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
 
     }
+
     func resumeGame() {
-        //scene.view?.paused = true // to pause the game
         scene?.view?.paused = false
 
         buttonscencePause.hidden = false
@@ -248,31 +222,17 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     // MARK: - COLLISION FUNCTIONS
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
+        PowerUp.removeFromParent()
+        orbFlare.removeFromParent()
+        playSound(soundSuperPowerUp)
 
-        //if isGameOver == false {
-            PowerUp.removeFromParent()
-            //scoreInfo.score = scoreInfo.score + 2
-            //scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
-
-            orbFlare.removeFromParent()
-
-            playSound(soundSuperPowerUp)
-
-//            if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
-//                NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
-//                NSUserDefaults.standardUserDefaults().synchronize()
-            //}
-        //}
     }
 
     func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
         bomb.removeFromParent()
         bombExplode?.bombExplode(bombExplode!)
 
-       // if isGameOver == false {
-
-            die()
-       // }
+        die()
 
     }
 
@@ -280,17 +240,10 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         warhead.removeFromParent()
         warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
 
-        //if isGameOver == false {
+        die()
 
-            die()
-        //}
     }
 
-    //    func soldierCollidedWith(soldier:SKSpriteNode, bodyCollidedWith:SKSpriteNode) {
-    //        if bodyCollidedWith == PhysicsCategory.SuperPowerCategory {
-    //
-    //        }
-    //    }
 
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
@@ -403,12 +356,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
-        removeAllActions()
-
-        var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
-
-        //        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
-        //gameOver()
+     
     }
 
     func fireGun() {
