@@ -41,9 +41,10 @@ class TutorialViewController: UIViewController {
 
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
-
             skView.presentScene(scene)
 
+
+            scene.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
 //            NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
 //

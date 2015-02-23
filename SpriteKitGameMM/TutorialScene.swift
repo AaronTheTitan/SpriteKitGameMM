@@ -214,7 +214,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = false
 
-        delay(0.05) {
+        delay(0.03) {
             self.scene!.view!.paused = true
         }
 

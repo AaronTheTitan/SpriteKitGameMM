@@ -66,6 +66,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var tapsForStart = 0
 
     var currentSoldier:String?
+    var isHighScore = false
+    var highScoreLabel = SKLabelNode(text: "New High Score! Congrats")
+    var isHighScoreDefaults:Bool!
 
     let pauseMenuBG = SKSpriteNode(imageNamed: "gamePausedMenuBG")
     let pauseMenuResume = SKSpriteNode(imageNamed: "pauseMenuResume")
@@ -81,7 +84,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
 //        self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(soldierSelected), timePerFrame: 0.07)))
 
-
+        isHighScoreDefaults = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
 
 
 //        YourAppDelegate *appDelegate = (YourAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -113,6 +116,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
+
 
 
 
@@ -298,6 +302,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(blueButton)
         addChild(yellowButton)
 
+        if isHighScore == true {
+            addChild(highScoreLabel)
+
+        }
+
         gameOverMenu.size = CGSizeMake(self.frame.size.width/2, 420)
         gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
 
@@ -315,6 +324,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         yellowButton.position = CGPointMake(610, 430)
         yellowButton.name = "yellowButton";//how the node is identified later
         yellowButton.zPosition = 1.0;
+
+
+        //highScoreLabel.size = CGSizeMake(80, 80)
+        highScoreLabel.position = CGPointMake(500, 330)
+        highScoreLabel.name = "highScore"
+        highScoreLabel.zPosition = 1.0;
+        highScoreLabel.color  = UIColor.blackColor()
+        highScoreLabel.fontSize = 36
+        highScoreLabel.fontName = "Noteworthy-Light"
 
 
         gameOverMenu.hidden = false
@@ -401,12 +419,57 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             playSound(soundSuperPowerUp)
 
-            if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
-                NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
-                NSUserDefaults.standardUserDefaults().synchronize()
-            }
+        self.setIsHighScore()
+
+
+
         }
+
+
     }
+
+    func setIsHighScore() {
+        if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+            isHighScore = true
+             //println("\(isHighScoreDefaults)")
+            NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
+            setscore()
+
+            NSUserDefaults.standardUserDefaults().synchronize()
+
+        }else {
+            //isHighScore = false
+            //println("\(isHighScoreDefaults)")
+
+//            NSUserDefaults.standardUserDefaults().setBool(isHighScore, forKey: "isHighScore")
+//            NSUserDefaults.standardUserDefaults().synchronize()
+//            let abool = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
+//            println("setting isHighScore = \(abool)")
+
+
+        }
+
+
+//        if scoreInfo.score <= NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+//            isHighScore = false
+//            println("\(isHighScoreDefaults)")
+//            NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
+//            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isHighScore")
+//
+//            NSUserDefaults.standardUserDefaults().synchronize()
+//            
+//        }
+
+
+    }
+
+    func setscore(){
+        NSUserDefaults.standardUserDefaults().setBool(isHighScore, forKey: "isHighScore")
+        let abool = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        //println("setting isHighScore = \(abool)")
+    }
+
 
     func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
 
@@ -420,6 +483,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             bombExplode?.bombExplode(bombExplode!)
             die()
         }
+
+        self.setIsHighScore()
 
     }
 
@@ -435,13 +500,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
             die()
         }
+        self.setIsHighScore()
     }
 
-//    func soldierCollidedWith(soldier:SKSpriteNode, bodyCollidedWith:SKSpriteNode) {
-//        if bodyCollidedWith == PhysicsCategory.SuperPowerCategory {
-//
-//        }
-//    }
+
 
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
