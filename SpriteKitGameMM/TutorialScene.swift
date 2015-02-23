@@ -98,8 +98,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         //scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         //scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
-
-
         let view1 = super.view
 
 
@@ -194,7 +192,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         world.startGroundMoving()
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(1.45))
+        var delay = SKAction.waitForDuration(NSTimeInterval(1.65))
 
         var spawnThenDelay = SKAction.sequence([delay, spawn])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
@@ -426,7 +424,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
         warhead = Obstruction(imageNamed: "warhead")
         warhead.setScale(0.45)
-        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
+        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/3)
         warhead?.position = CGPointMake(1111.0, CGFloat(y + height + 205))
         warhead.physicsBody?.dynamic = false
         warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
@@ -454,7 +452,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
         warhead = Obstruction(imageNamed: "warhead")
         warhead.setScale(0.45)
-        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
+        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/3)
         warhead?.position = CGPointMake(1109.0, 325)
         warhead.physicsBody?.dynamic = false
         warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
@@ -592,7 +590,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         bomb = Bomb(imageNamed: "bomb_00")
         
         bomb?.setScale(0.45)
-        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
+        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/3)
         bomb?.position = CGPointMake(1465.0, 180)
         bomb?.physicsBody?.dynamic = false
         bomb?.physicsBody?.categoryBitMask = PhysicsCategory.BombCategory
