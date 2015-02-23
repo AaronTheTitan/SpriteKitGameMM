@@ -79,8 +79,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     override func didMoveToView(view: SKView) {
 
 
-        currentSoldier = "S2"
-
+        currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
         //        isRunning = false
         //isGameOver = false
         setupControls(view)
@@ -102,17 +101,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
 
-
-
-        //        addChild(gameOverMenu)
-        //        addChild(redButton)
-        //        addChild(blueButton)
-        //        addChild(yellowButton)
-        //
-        //        gameOverMenu.hidden = true
-        //        redButton.hidden = true
-        //        blueButton.hidden = true
-        //        yellowButton.hidden = true
 
         let view1 = super.view
 

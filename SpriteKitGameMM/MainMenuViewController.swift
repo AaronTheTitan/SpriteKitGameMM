@@ -55,19 +55,6 @@ class MainMenuViewController: UIViewController {
 
         return soldierImages[soldierImageIndex]
 
-//        while soldierImageIndex < soldierImages.count {
-//
-//            var currentIndex = soldierImageIndex
-////            soldierImageIndex++
-//
-//            if soldierImageIndex >= soldierImages.count {
-//                soldierImageIndex = 0
-//            }
-//
-//            return soldierImages[currentIndex]
-//        }
-//
-//        return soldierImages[0]
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
