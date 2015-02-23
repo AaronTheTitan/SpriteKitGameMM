@@ -41,18 +41,10 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
         addHighScoreObject()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
 
         self.nameTextField.delegate = self
 }
 
-    func keyboardWillShow(sender: NSNotification) {
-        self.view.frame.origin.y -= 150
-    }
-    func keyboardWillHide(sender: NSNotification) {
-        self.view.frame.origin.y += 150
-    }
 
 
     func addHighScoreObject () {
@@ -144,6 +136,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @IBAction func postToLeaderBoardButtonPressed(sender: UIButton) {
         postButton.hidden = false
         nameTextField.hidden = false
+        nameTextField.becomeFirstResponder()
     }
 
     @IBAction func postButtonPressed(sender: UIButton) {
