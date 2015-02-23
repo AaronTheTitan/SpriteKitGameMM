@@ -108,7 +108,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
         //println(" These are the player \(self.nameArray)")
 
         var nameString = self.nameArray[indexPath.row]
-        cell.textLabel.text = "\(indexPath.row + 1). \(nameString)"
+        cell.textLabel!.text = "\(indexPath.row + 1). \(nameString)"
 
             var scoreString = self.highScoreArray[indexPath.row]
             cell.detailTextLabel?.text = "\(scoreString) points"

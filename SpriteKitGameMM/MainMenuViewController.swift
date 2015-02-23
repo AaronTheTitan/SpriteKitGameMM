@@ -37,6 +37,12 @@ class MainMenuViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         if savedSoldier.objectForKey("currentSoldier") != nil {
             imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+
+        } else {
+        savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
+        savedSoldier.synchronize()
+
+//            gameViewController.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
         }
 
 
@@ -112,6 +118,7 @@ class MainMenuViewController: UIViewController {
     if let gameViewController = segue.destinationViewController as? GameViewController
         {
             gameViewController.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
+            NSUserDefaults.standardUserDefaults().synchronize()
 //            bgMusicPlayer.stop()
 
 
