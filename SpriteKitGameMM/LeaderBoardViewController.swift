@@ -14,7 +14,7 @@ import UIKit
 
 
 
-class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
 
    var score:Int?
     var highScoreArray = [Int]()
@@ -37,17 +37,23 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
         println("\(score!)")
         //tableView.registerNib(UINib(nibName: "LeaderBoardCell", bundle: nil), forCellReuseIdentifier: "leaderBoardCell")
 
+        tableView.backgroundColor = UIColor.blackColor()
+
         addHighScoreObject()
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name:UIKeyboardWillShowNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name:UIKeyboardWillHideNotification, object: nil);
+
+        self.nameTextField.delegate = self
 }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(false);
-
-
-
-        
+    func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y -= 150
     }
+    func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y += 150
+    }
+
 
     func addHighScoreObject () {
         var playerNameArray = [String]()
@@ -81,9 +87,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
                 // Log details of the failure
                 NSLog("Error: %@ %@", error, error.userInfo!)
             }
-            
-            
-        }
+                  }
 
     }
 
@@ -95,14 +99,18 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let color = Color(rawValue: indexPath.row)
         let cell = tableView.dequeueReusableCellWithIdentifier("leaderBoardCell") as UITableViewCell
+        cell.backgroundColor = UIColor.grayColor()
+
 
         if !nameArray.isEmpty{
         //println(" These are the player \(self.nameArray)")
 
         var nameString = self.nameArray[indexPath.row]
-        cell.textLabel!.text = "\(indexPath.row). \(nameString)"
-        //cell.backgroundColor = color?.backgroundColor()
+        cell.textLabel!.text = "\(indexPath.row + 1). \(nameString)"
 
+            var scoreString = self.highScoreArray[indexPath.row]
+            cell.detailTextLabel?.text = "\(scoreString) points"
+            cell.detailTextLabel?.textColor = UIColor.blackColor()
         }
         return cell
     }
@@ -124,6 +132,11 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     }
 
+    func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
+    {
+        textField.resignFirstResponder()
+        return true;
+    }
 
     @IBAction func postToLeaderBoardButtonPressed(sender: UIButton) {
         postButton.hidden = false
@@ -132,6 +145,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBAction func postButtonPressed(sender: UIButton) {
        postGameScore()
+        nameTextField.resignFirstResponder() == true
 
     }
 
