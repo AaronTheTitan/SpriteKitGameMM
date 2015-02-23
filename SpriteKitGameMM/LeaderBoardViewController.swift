@@ -20,26 +20,41 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var highScoreArray = [Int]()
     var nameArray = [String]()
 
+    var isHighScore:Bool!
+
+
     @IBOutlet var postButton: UIButton!
 
     @IBOutlet var nameTextField: UITextField!
+
+    @IBOutlet var addYourButton: UIButton!
+   
+
 
     @IBOutlet var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         //NSInteger score = [[NSUserDefaults standardUserDefaults] integerForKey:@"highscore"];
         postButton.hidden = true
         nameTextField.hidden = true
+        addYourButton.hidden = true
+        //addYoursButton.hidden = true
 
         score  = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
-        
-        println("\(score!)")
+
+//        
+        isHighScore = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
+        println("setting isHighScore = \(isHighScore)")
+
+//        println("\(score!)")
         //tableView.registerNib(UINib(nibName: "LeaderBoardCell", bundle: nil), forCellReuseIdentifier: "leaderBoardCell")
 
         tableView.backgroundColor = UIColor.blackColor()
 
         addHighScoreObject()
+        checkIsHighScore()
 
 
         self.nameTextField.delegate = self
@@ -81,6 +96,16 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 NSLog("Error: %@ %@", error, error.userInfo!)
             }
             
+        }
+
+    }
+
+    func checkIsHighScore() {
+        if isHighScore == true {
+            addYourButton.hidden = false
+
+        }else {
+            addYourButton.hidden = true
         }
 
     }
@@ -142,7 +167,13 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @IBAction func postButtonPressed(sender: UIButton) {
        postGameScore()
         nameTextField.resignFirstResponder() == true
+        nameTextField.hidden = true
+        postButton.hidden = true
+        addYourButton.hidden = true
         self.tableView.reloadData()
+
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isHighScore")
+        NSUserDefaults.standardUserDefaults().synchronize()
 
     }
 
