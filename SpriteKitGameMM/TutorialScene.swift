@@ -91,12 +91,12 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         world.addEdge()
 
         addSoldier()
-        addChild(scoreInfo)
-        scoreInfo.addScoring()
+        //addChild(scoreInfo)
+        //scoreInfo.addScoring()
 
 
-        scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
-        scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
+        //scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
+        //scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
 
 
@@ -141,12 +141,13 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     }
 
     func handleTaps(sender:UITapGestureRecognizer) {
-
-            if tapsForStart == 0 {
-                startGame()
-                tapsForStart = 1
-            } else {
-                jump()
+        if tapsForStart == 0 {
+            startGame()
+            tapsForStart = 1
+        } else if paused == true {
+            resumeGame()
+        } else {
+            jump()
         }
     }
 
@@ -214,7 +215,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     func resumeGame() {
         scene?.view?.paused = false
-
         buttonscencePause.hidden = false
         buttonscencePlay.hidden = true
     }
@@ -276,9 +276,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     }
 
-
     // MARK: - GROUND SPEED MANIPULATION
-
     func groundSpeedIncrease() {
 
         var wait = SKAction.waitForDuration(1)
@@ -313,13 +311,12 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
             let location = touch.locationInNode(self)
             let touchedNode = self.nodeAtPoint(location)
 
-
             if touchedNode.name == "redButton" {
                 println("okay this work")
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
                 restartGame()
             } else if touchedNode.name == "okayButton" {
-                resumeGame()
+//                resumeGame()
                 gotItButton.removeFromParent()
                 orbTutorial.removeFromParent()
                 jumpTutorial.removeFromParent()
@@ -331,6 +328,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     // MARK: - SOLDIER ACTIONS
     func jump() {
+
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
         playSound(soundJump)
@@ -356,7 +354,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
-     
+
     }
 
     func fireGun() {
@@ -370,25 +368,26 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     //MARK: - UPDATE
     override func update(currentTime: CFTimeInterval) {
+        if scene?.view?.paused == true {
+            return
+        } else {
         /* Called before each frame is rendered */
-        if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
-            resetSoldierPosition()
+            if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
+                resetSoldierPosition()
+            }
+
+            soldierNode?.update()
+            world.groundMovement()
+            groundSpeedIncrease()
+
+            if spriteposition < 8 {
+                spriteposition = spriteposition + 0.35
+            }
+
+            for sprite in world.groundPieces {
+                sprite.position.x -= spriteposition
+            }
         }
-
-        soldierNode?.update()
-        world.groundMovement()
-        groundSpeedIncrease()
-
-
-        if spriteposition < 8 {
-            spriteposition = spriteposition + 0.35
-        }
-
-
-        for sprite in world.groundPieces {
-            sprite.position.x -= spriteposition
-        }
-
     }
 
     func resetSoldierPosition() {
@@ -615,51 +614,45 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     func orbAlertMessage(){
         addChild(orbTutorial)
-        addChild(gotItButton)
+        gotItButtonAdd()
         orbTutorial.size = CGSizeMake(400, 400)
         orbTutorial.position = CGPointMake(500, 435)
-        gotItButton.size = CGSizeMake(150, 80)
-        gotItButton.position = CGPointMake(500, 340)
-        gotItButton.name = "okayButton"
-        gotItButton.hidden = false
-        gotItButton.zPosition = 1.0
     }
 
 
     func duckJumpAlertMessage(){
         addChild(duckJumpTutorial)
-        addChild(gotItButton)
+        gotItButtonAdd()
         duckJumpTutorial.size = CGSizeMake(400, 400)
         duckJumpTutorial.position = CGPointMake(500, 435)
-        gotItButton.size = CGSizeMake(150, 80)
-        gotItButton.position = CGPointMake(500, 340)
-        gotItButton.name = "okayButton"
-        gotItButton.hidden = false
-        gotItButton.zPosition = 1.0
+
     }
 
     func jumpAlertMessage(){
         addChild(jumpTutorial)
-        addChild(gotItButton)
+        gotItButtonAdd()
         jumpTutorial.size = CGSizeMake(400, 400)
         jumpTutorial.position = CGPointMake(500, 435)
-        gotItButton.size = CGSizeMake(150, 80)
-        gotItButton.position = CGPointMake(500, 340)
-        gotItButton.name = "okayButton"
-        gotItButton.hidden = false
-        gotItButton.zPosition = 1.0
+
     }
 
     func duckAlertMessage(){
         addChild(duckTutorial)
-        addChild(gotItButton)
+        gotItButtonAdd()
         duckTutorial.size = CGSizeMake(400, 400)
         duckTutorial.position = CGPointMake(500, 435)
+
+    }
+
+    func gotItButtonAdd() {
+        addChild(gotItButton)
         gotItButton.size = CGSizeMake(150, 80)
         gotItButton.position = CGPointMake(500, 340)
         gotItButton.name = "okayButton"
         gotItButton.hidden = false
         gotItButton.zPosition = 1.0
+        buttonscencePause.hidden = true
+        buttonscencePlay.hidden = true
     }
 
 }
