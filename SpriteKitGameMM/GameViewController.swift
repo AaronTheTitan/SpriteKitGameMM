@@ -46,7 +46,8 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             skView.presentScene(scene)
 
-            scene.currentSoldier = self.currentSoldier!
+//            scene.currentSoldier = self.currentSoldier!
+            scene.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
 
             NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in

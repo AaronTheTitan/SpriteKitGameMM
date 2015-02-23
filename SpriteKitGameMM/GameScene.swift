@@ -72,7 +72,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
 
 //        currentSoldier = "S1"
-        currentSoldier = String()
+        currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
 
 //        isRunning = false
@@ -319,6 +319,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             orbFlare.removeFromParent()
 
             playSound(soundSuperPowerUp)
+
+        
 
             if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
                 NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")

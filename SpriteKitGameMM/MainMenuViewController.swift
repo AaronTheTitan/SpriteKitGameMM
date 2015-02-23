@@ -11,6 +11,8 @@ import UIKit
 
 class MainMenuViewController: UIViewController {
 
+    var savedSoldier = NSUserDefaults.standardUserDefaults()
+
     //    let soldierImages:[UIImage] = [UIImage(named: "Idle__007")!, UIImage(named: "G-Idle__007")!]
 
     @IBOutlet var imageViewSoldier: UIImageView!
@@ -23,11 +25,25 @@ class MainMenuViewController: UIViewController {
     let soldierOrder:[String] = ["S1", "S2", "S3", "S4"]
     var soldierImageIndex:Int = 0
 
+    override func viewWillAppear(animated: Bool) {
+        imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+
+    }
+
 
     @IBAction func buttonTapChangeSoldier(sender: UIButton) {
-        
+
         soldierImageIndex++
-        imageViewSoldier.image = UIImage(named: soldierCycle())
+
+        let selectedSoldier = soldierCycle()
+        savedSoldier.setObject(selectedSoldier, forKey: "currentSoldier")
+        savedSoldier.synchronize()
+
+        savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
+
+        imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+
+
     }
 
 
@@ -58,7 +74,7 @@ class MainMenuViewController: UIViewController {
 
     if let gameViewController = segue.destinationViewController as? GameViewController
         {
-            gameViewController.currentSoldier = self.soldierOrder[soldierImageIndex]
+            gameViewController.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
     }
 
     }
