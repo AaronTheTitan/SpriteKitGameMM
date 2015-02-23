@@ -51,6 +51,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let buttonScenePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
     let buttonScenePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
 
+
+
     // MARK: - GROUND/WORLD
     var moveObject = SKAction()
 
@@ -64,6 +66,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var tapsForStart = 0
 
     var currentSoldier:String?
+
+    let pauseMenuBG = SKSpriteNode(imageNamed: "gamePausedMenuBG")
+    let pauseMenuResume = SKSpriteNode(imageNamed: "pauseMenuResume")
+    let pauseMenuRestart = SKSpriteNode(imageNamed: "pauseMenuRestart")
+    let pauseMenuExit = SKSpriteNode(imageNamed: "pauseMenuExit")
+
 
 
 
@@ -209,10 +217,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         view.addGestureRecognizer(swipeDown)
 
 
-        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
-        let buttonPauseImage = UIImage(named: "buttonPause")
+        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 32, 37)
+        let buttonPauseImage = UIImage(named: "buttonPauseWhite")
         buttonScenePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
+
         buttonScenePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+//        pauseMenuBG.position = CGPointMake(self.frame.x/2, self.frame.y/2)
+
+
 
         buttonScenePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
         let buttonPlayImage = UIImage(named: "buttonPlay")
@@ -222,6 +235,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene?.view?.addSubview(buttonScenePause)
         scene?.view?.addSubview(buttonScenePlay)
         buttonScenePlay.hidden = true
+
+        pauseMenuBG.size = CGSizeMake(432, 486)
+        pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        pauseMenuBG.zPosition = 1.0
+
     }
 
     func startGame() {
@@ -305,17 +323,42 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //    }
 
 
+
     func pauseGame() {
         //scene.view?.paused = true // to pause the game
-        scene?.view?.paused = true
+//        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("pauseGame"), userInfo: nil, repeats: false)
+
+        addChild(pauseMenuBG)
         buttonScenePause.hidden = true
         buttonScenePlay.hidden = false
 
+        addChild(pauseMenuResume)
+        addChild(pauseMenuRestart)
+        addChild(pauseMenuExit)
 
+
+        delay(0.1) {
+            self.scene!.view!.paused = true
+        }
 
     }
+
+
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+
+
     func resumeGame() {
         //scene.view?.paused = true // to pause the game
+//        pauseMenuBG.removeAllChildren()
+        pauseMenuBG.removeFromParent()
+
         scene?.view?.paused = false
 
         buttonScenePause.hidden = false
