@@ -84,19 +84,19 @@ class Soldier : SKSpriteNode {
         switch currentState {
 
             case .Idle:
-                currentState = .Idle
+//                currentState = .Idle
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Idle.sprites(soldierSelected), timePerFrame: 0.07)))
 
             case .Walk:
-                currentState = .Walk
+//                currentState = .Walk
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(soldierSelected), timePerFrame: 0.07)))
 
             case .Run:
-                currentState = .Run
+//                currentState = .Run
                 self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Run.sprites(soldierSelected), timePerFrame: 0.04)))
 
             case .Jump:
-                currentState = .Jump
+//                currentState = .Jump
 
                 self.setScale(normalSize)
                 if isJumping == false {
@@ -113,7 +113,7 @@ class Soldier : SKSpriteNode {
             }
 
             case .Duck:
-                currentState = .Duck
+//                currentState = .Duck
 
                 self.setScale(duckingSize)
                 self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Duck.sprites(soldierSelected), timePerFrame: 0.07), count: 1), completion: { () -> Void in
@@ -122,8 +122,8 @@ class Soldier : SKSpriteNode {
                     )
 
             case .Dead:
-                currentState = .Dead
-                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Dead.sprites(soldierSelected), timePerFrame: 0.07), count: 1)) 
+//                currentState = .Dead
+                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Dead.sprites(soldierSelected), timePerFrame: 0.07), count: 1))
 
         }
     }
