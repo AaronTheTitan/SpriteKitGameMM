@@ -81,12 +81,14 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
 
                 }
+
                 self.tableView.reloadData()
 
             } else {
                 // Log details of the failure
                 NSLog("Error: %@ %@", error, error.userInfo!)
             }
+            
                   }
 
     }
@@ -128,6 +130,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
             } else {
                 NSLog("%@", error)
             }
+
         }
 
     }
@@ -146,6 +149,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @IBAction func postButtonPressed(sender: UIButton) {
        postGameScore()
         nameTextField.resignFirstResponder() == true
+        self.tableView.reloadData()
 
     }
 
