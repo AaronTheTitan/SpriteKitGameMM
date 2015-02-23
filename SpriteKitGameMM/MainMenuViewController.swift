@@ -20,6 +20,7 @@ class MainMenuViewController: UIViewController {
 
 
     let soldierImages:[String] = ["S1-Idle__007" , "S2-Idle__007", "S3-Idle__007", "S4-Idle__007"]
+    let soldierOrder:[String] = ["S1", "S2", "S3", "S4"]
     var soldierImageIndex:Int = 0
 
 
@@ -53,8 +54,13 @@ class MainMenuViewController: UIViewController {
 //        return soldierImages[0]
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
+    if let gameViewController = segue.destinationViewController as? GameViewController
+        {
+            gameViewController.currentSoldier = self.soldierOrder[soldierImageIndex]
+    }
 
-
+    }
 
 }

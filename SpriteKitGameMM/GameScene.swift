@@ -9,8 +9,10 @@ import SpriteKit
 import AudioToolbox.AudioServices
 import Social
 
+
 class GameScene: SKScene , SKPhysicsContactDelegate {
 //----- BEGIN DECLARATIONS -----//
+
 
     // MARK: - PROPERTIES
     var gameWorld:SKNode?
@@ -69,7 +71,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
-        currentSoldier = "S2"
+//        currentSoldier = "S1"
+        currentSoldier = String()
+
 
 //        isRunning = false
         isGameOver = false
