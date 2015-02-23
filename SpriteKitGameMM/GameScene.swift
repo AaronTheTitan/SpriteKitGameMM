@@ -74,6 +74,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(soldierSelected), timePerFrame: 0.07)))
 
 
+
+
+//        YourAppDelegate *appDelegate = (YourAppDelegate *)[[UIApplication sharedApplication] delegate];
+
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.stopBGMusic()
+        appDelegate.startInGameMusic()
+
 //        currentSoldier = "S1"
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 

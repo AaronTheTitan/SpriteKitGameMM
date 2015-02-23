@@ -21,6 +21,7 @@ class MainMenuViewController: UIViewController {
     //    let soldierImages:[UIImage] = [UIImage(named: "Idle__007")!, UIImage(named: "G-Idle__007")!]
 
     var audioPlayer = AVAudioPlayer()
+//    var bgMusicPlayer = AVAudioPlayer()
 
 
     @IBOutlet var imageViewSoldier: UIImageView!
@@ -38,16 +39,39 @@ class MainMenuViewController: UIViewController {
             imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
         }
 
-        var alertSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("SwitchSoldier", ofType: "mp3")!)
+
+//        playBGMusic()
+
+
+        var selectionSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("SwitchSoldier", ofType: "mp3")!)
         // Removed deprecated use of AVAudioSessionDelegate protocol
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
         AVAudioSession.sharedInstance().setActive(true, error: nil)
 
         var error:NSError?
-        audioPlayer = AVAudioPlayer(contentsOfURL: alertSound, error: &error)
+        audioPlayer = AVAudioPlayer(contentsOfURL: selectionSound, error: &error)
         audioPlayer.prepareToPlay()
 
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.stopInGameMusic()
+        appDelegate.startBGMusic()
+
+
+
     }
+
+//    func playBGMusic() {
+//
+//        var bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ThemeOfKingsSnippet", ofType: "mp3")!)
+//        bgMusicPlayer = AVAudioPlayer(contentsOfURL: bgMusic, error: nil)
+//
+//        if bgMusicPlayer.playing == false {
+//            bgMusicPlayer.prepareToPlay()
+//            bgMusicPlayer.play()
+//            bgMusicPlayer.playing == true
+//        }
+//
+//    }
 
 
     @IBAction func buttonTapChangeSoldier(sender: UIButton) {
@@ -84,9 +108,13 @@ class MainMenuViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
+
     if let gameViewController = segue.destinationViewController as? GameViewController
         {
             gameViewController.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
+//            bgMusicPlayer.stop()
+
+
     }
 
     }

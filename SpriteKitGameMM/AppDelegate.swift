@@ -10,12 +10,16 @@ import UIKit
 import Parse
 import Fabric
 import Crashlytics
+import AudioToolbox.AudioServices
+import AVFoundation
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
 
     var window: UIWindow?
+    var bgMusicPlayer = AVAudioPlayer()
+    var inGameMusicPlayer = AVAudioPlayer()
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -26,8 +30,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBLoginView.self
         FBProfilePictureView.self
         PFFacebookUtils.initializeFacebook()
-      
+
+
+        var bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ThemeOfKingsSnippet", ofType: "mp3")!)
+        bgMusicPlayer = AVAudioPlayer(contentsOfURL: bgMusic, error: nil)
+        bgMusicPlayer.delegate = self
+        bgMusicPlayer.numberOfLoops = -1
+        bgMusicPlayer.play()
+
+        var inGameMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ConquerIt", ofType: "mp3")!)
+        inGameMusicPlayer = AVAudioPlayer(contentsOfURL: inGameMusic, error: nil)
+
+
         return true
+    }
+
+    func startBGMusic() {
+//        bgMusicPlayer.volume = 0.0
+        bgMusicPlayer.play()
+
+
+//
+//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+//            Int64(1 * Double(NSEC_PER_SEC)))
+//
+//
+//
+//        while bgMusicPlayer.volume < 1 {
+//            dispatch_after(delayTime, dispatch_get_main_queue()) {
+//                self.bgMusicPlayer.volume += 0.5
+//            }
+//        }
+    }
+
+    func startInGameMusic() {
+        inGameMusicPlayer.play()
+    }
+
+    func stopInGameMusic() {
+        inGameMusicPlayer.stop()
+    }
+
+//    func delay(delay:Double, closure:()->()) {
+//        dispatch_after(
+//            dispatch_time(
+//                DISPATCH_TIME_NOW,
+//                Int64(delay * Double(NSEC_PER_SEC))
+//            ),
+//            dispatch_get_main_queue(), closure)
+//    }
+
+    func stopBGMusic() {
+        bgMusicPlayer.stop()
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {

@@ -18,6 +18,7 @@
 		910A41E21A9B1BAB00D87213 /* SelectSoldier.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 910A41E11A9B1BAB00D87213 /* SelectSoldier.mp3 */; };
 		910A41E41A9B1BC700D87213 /* SwitchSoldier.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 910A41E31A9B1BC700D87213 /* SwitchSoldier.mp3 */; };
 		910A41E61A9B212C00D87213 /* WarheadSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 910A41E51A9B212C00D87213 /* WarheadSound.mp3 */; };
+		910E16651A9B248F0008C750 /* ThemeOfKingsSnippet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 910E16641A9B248F0008C750 /* ThemeOfKingsSnippet.mp3 */; };
 		9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911020991A8D3D1D002532E9 /* Bullet.swift */; };
 		9110209C1A8D45EE002532E9 /* WorldGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110209B1A8D45EE002532E9 /* WorldGenerator.swift */; };
 		914ABA451A8D08EA008039D7 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914ABA441A8D08EA008039D7 /* Object.swift */; };
@@ -30,6 +31,7 @@
 		91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D751A92869100553594 /* PowerUpTwo.mp3 */; };
 		91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D791A928DFC00553594 /* Explosion.mp3 */; };
 		91990D7E1A92905900553594 /* Jump.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 91990D7D1A92905900553594 /* Jump.mp3 */; };
+		919FC89B1A9B831F00DA7EA1 /* ConquerIt.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 919FC89A1A9B831F00DA7EA1 /* ConquerIt.mp3 */; };
 		91A7931C1A9A4BC000FAC054 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A7931B1A9A4BC000FAC054 /* MainMenuViewController.swift */; };
 		91CEB7811A8BB2CD0055CB17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CEB7801A8BB2CD0055CB17 /* AppDelegate.swift */; };
 		91CEB7831A8BB2CD0055CB17 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91CEB7821A8BB2CD0055CB17 /* GameScene.sks */; };
@@ -89,6 +91,7 @@
 		910A41E11A9B1BAB00D87213 /* SelectSoldier.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SelectSoldier.mp3; sourceTree = "<group>"; };
 		910A41E31A9B1BC700D87213 /* SwitchSoldier.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SwitchSoldier.mp3; sourceTree = "<group>"; };
 		910A41E51A9B212C00D87213 /* WarheadSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WarheadSound.mp3; sourceTree = "<group>"; };
+		910E16641A9B248F0008C750 /* ThemeOfKingsSnippet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ThemeOfKingsSnippet.mp3; sourceTree = "<group>"; };
 		911020991A8D3D1D002532E9 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9110209B1A8D45EE002532E9 /* WorldGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldGenerator.swift; sourceTree = "<group>"; };
 		914ABA441A8D08EA008039D7 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 		91990D751A92869100553594 /* PowerUpTwo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PowerUpTwo.mp3; sourceTree = "<group>"; };
 		91990D791A928DFC00553594 /* Explosion.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Explosion.mp3; sourceTree = "<group>"; };
 		91990D7D1A92905900553594 /* Jump.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Jump.mp3; sourceTree = "<group>"; };
+		919FC89A1A9B831F00DA7EA1 /* ConquerIt.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ConquerIt.mp3; sourceTree = "<group>"; };
 		91A7931B1A9A4BC000FAC054 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		91CEB77B1A8BB2CD0055CB17 /* SpriteKitGameMM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpriteKitGameMM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91CEB77F1A8BB2CD0055CB17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -204,7 +208,9 @@
 				91990D791A928DFC00553594 /* Explosion.mp3 */,
 				910A41E11A9B1BAB00D87213 /* SelectSoldier.mp3 */,
 				910A41E51A9B212C00D87213 /* WarheadSound.mp3 */,
+				919FC89A1A9B831F00DA7EA1 /* ConquerIt.mp3 */,
 				91990D741A92869100553594 /* PowerUpOne.mp3 */,
+				910E16641A9B248F0008C750 /* ThemeOfKingsSnippet.mp3 */,
 				910A41E31A9B1BC700D87213 /* SwitchSoldier.mp3 */,
 				91990D751A92869100553594 /* PowerUpTwo.mp3 */,
 			);
@@ -428,6 +434,7 @@
 				9192E0471A978DBB00BF1911 /* OrbParticle.sks in Resources */,
 				91CEB78C1A8BB2CD0055CB17 /* Images.xcassets in Resources */,
 				91990D7E1A92905900553594 /* Jump.mp3 in Resources */,
+				919FC89B1A9B831F00DA7EA1 /* ConquerIt.mp3 in Resources */,
 				91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */,
 				9192E0481A978DBB00BF1911 /* spark.png in Resources */,
 				910A41E61A9B212C00D87213 /* WarheadSound.mp3 in Resources */,
@@ -435,6 +442,7 @@
 				91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */,
 				91CEB7831A8BB2CD0055CB17 /* GameScene.sks in Resources */,
 				910A41E41A9B1BC700D87213 /* SwitchSoldier.mp3 in Resources */,
+				910E16651A9B248F0008C750 /* ThemeOfKingsSnippet.mp3 in Resources */,
 				91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */,
 				91CEB78A1A8BB2CD0055CB17 /* Main.storyboard in Resources */,
 			);
