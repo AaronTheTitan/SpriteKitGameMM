@@ -8,10 +8,15 @@
 
 import Foundation
 import UIKit
+import SpriteKit
+import AudioToolbox.AudioServices
+import AVFoundation
 
 class MainMenuViewController: UIViewController {
 
     var savedSoldier = NSUserDefaults.standardUserDefaults()
+//    var soundBGMusic = SKAction.playSoundFileNamed("ThemeOfKingsSnippet.mp3", waitForCompletion: true)
+
 
     //    let soldierImages:[UIImage] = [UIImage(named: "Idle__007")!, UIImage(named: "G-Idle__007")!]
 
@@ -27,6 +32,10 @@ class MainMenuViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+
+//        self.runAction(SKAction.repeatActionForever(SKAction.playSoundFileNamed("ThemeOfKingsSnippet.mp3", waitForCompletion: true)))
+
+
 
     }
 

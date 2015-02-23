@@ -70,6 +70,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
+//        self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(soldierSelected), timePerFrame: 0.07)))
+
 
 //        currentSoldier = "S1"
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
@@ -214,11 +216,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func startGame() {
+
+//        self.runAction(SKAction.repeatActionForever(SKAction.playSoundFileNamed("ConquerIt.mp3", waitForCompletion: true)))
+
+
         isGameOver = false
         startLabel.removeFromParent()
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix:currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
         world.startGroundMoving()
+
+
 
         runSpawnActions(isGameOver!)
     }
