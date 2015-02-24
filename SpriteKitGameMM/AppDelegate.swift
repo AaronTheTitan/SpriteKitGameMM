@@ -46,21 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     }
 
     func startBGMusic() {
-//        bgMusicPlayer.volume = 0.0
         bgMusicPlayer.play()
 
-
-//
-//        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-//            Int64(1 * Double(NSEC_PER_SEC)))
-//
-//
-//
-//        while bgMusicPlayer.volume < 1 {
-//            dispatch_after(delayTime, dispatch_get_main_queue()) {
-//                self.bgMusicPlayer.volume += 0.5
-//            }
-//        }
     }
 
     func startInGameMusic() {
@@ -70,15 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     func stopInGameMusic() {
         inGameMusicPlayer.stop()
     }
-
-//    func delay(delay:Double, closure:()->()) {
-//        dispatch_after(
-//            dispatch_time(
-//                DISPATCH_TIME_NOW,
-//                Int64(delay * Double(NSEC_PER_SEC))
-//            ),
-//            dispatch_get_main_queue(), closure)
-//    }
 
     func stopBGMusic() {
         bgMusicPlayer.stop()

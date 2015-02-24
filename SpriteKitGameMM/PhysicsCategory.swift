@@ -15,9 +15,9 @@ struct PhysicsCategory {
     static let ObstructionCategory : UInt32 = 0b10      //2
     static let Edge                : UInt32 = 0b100     //3
     //        static let PowerupCategory     : UInt32 = 0b10000   //5
-    static let SuperPowerCategory  : UInt32 = 0b100000  //6
-    static let BombCategory        : UInt32 = 0b1000000 //7
-    static let WarheadCategory     : UInt32 = 0b10000000 //8
+    static let SuperPowerCategory  : UInt32 = 0b1000  //6
+    static let BombCategory        : UInt32 = 0b10000 //7
+    static let WarheadCategory     : UInt32 = 0b100000 //8
 
 }
 
