@@ -70,32 +70,31 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
         //query.whereKey("playerName", equalTo:"Sean Plott")
         query.findObjectsInBackgroundWithBlock {
             (objects: [AnyObject]!, error: NSError!) -> Void in
-            if error == nil {
-                // The find succeeded.
-                //NSLog("Successfully retrieved \(objects.count) scores.")
-                // Do something with the found objects
-
-                for object in objects {
-                    var playerName = object.objectForKey("playerName") as String
-                    var score = object.objectForKey("score") as Int
-
-                    playerNameArray.insert(playerName, atIndex: 0)
-                    scoreArray.insert(score, atIndex: 0)
-
-                    self.highScoreArray = scoreArray
-                    self.nameArray = playerNameArray
-                    //println("\(self.nameArray)")
 
 
+                if error == nil {
+                    // The find succeeded.
+                    //NSLog("Successfully retrieved \(objects.count) scores.")
+                    // Do something with the found objects
+
+                    for object in objects {
+                        var playerName = object.objectForKey("playerName") as String
+                        var score = object.objectForKey("score") as Int
+
+                        playerNameArray.insert(playerName, atIndex: 0)
+                        scoreArray.insert(score, atIndex: 0)
+
+                        self.highScoreArray = scoreArray
+                        self.nameArray = playerNameArray
+                        //println("\(self.nameArray)")
+                    }
+
+                    self.tableView.reloadData()
+                    
+                } else {
+                    // Log details of the failure
+                    NSLog("Error: %@ %@", error, error.userInfo!)
                 }
-
-                self.tableView.reloadData()
-
-            } else {
-                // Log details of the failure
-                NSLog("Error: %@ %@", error, error.userInfo!)
-            }
-            
         }
 
     }
@@ -125,7 +124,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
         //println(" These are the player \(self.nameArray)")
 
         var nameString = self.nameArray[indexPath.row]
-        cell.textLabel.text = "\(indexPath.row + 1). \(nameString)"
+        cell.textLabel!.text = "\(indexPath.row + 1). \(nameString)"
 
             var scoreString = self.highScoreArray[indexPath.row]
             cell.detailTextLabel?.text = "\(scoreString) points"
@@ -170,7 +169,9 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
         nameTextField.hidden = true
         postButton.hidden = true
         addYourButton.hidden = true
-        self.tableView.reloadData()
+
+        addHighScoreObject()
+        //self.tableView.reloadData()
 
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isHighScore")
         NSUserDefaults.standardUserDefaults().synchronize()
