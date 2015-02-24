@@ -223,7 +223,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
 //        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 32, 37)
-        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 35, 35)
+        buttonScenePause.frame = CGRectMake(self.frame.height - 238, 5, 35, 35)
+
 //        let buttonPauseImage = UIImage(named: "buttonPauseWhite")
         let buttonPauseImage = UIImage(named: "buttonPause")
         buttonScenePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
