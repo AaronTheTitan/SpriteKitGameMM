@@ -376,6 +376,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func pauseGame() {
         //scene.view?.paused = true // to pause the game
 //        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("pauseGame"), userInfo: nil, repeats: false)
+        NSNotificationCenter.defaultCenter().postNotificationName("pause", object:nil)
 
         addChild(pauseMenuBG)
         buttonScenePause.hidden = true

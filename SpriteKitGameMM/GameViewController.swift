@@ -63,6 +63,14 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
                 return
             }
 
+            NSNotificationCenter.defaultCenter().addObserverForName("pause", object: nil, queue: nil) { (notification: NSNotification?) in
+
+                self.performSegueWithIdentifier("pauseSegue", sender: self)
+
+
+                return
+            }
+
 
 
             NSNotificationCenter.defaultCenter().addObserverForName("leader", object: nil, queue: nil) { (notification: NSNotification?) in
