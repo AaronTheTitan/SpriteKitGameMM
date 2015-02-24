@@ -61,6 +61,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var redButton = SKSpriteNode (imageNamed: "redButtonBG")
     var blueButton = SKSpriteNode (imageNamed: "blueButtonBG")
     var yellowButton = SKSpriteNode (imageNamed: "yellowButtonBG")
+    var highScoreButton = SKSpriteNode (imageNamed: "menuButtonBlue")
 
     let startLabel = SKLabelNode(text: "Tap To Start")
     var tapsForStart = 0
@@ -307,6 +308,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         if isHighScore == true {
             addChild(highScoreLabel)
+            addChild(highScoreButton)
 
         }
 
@@ -336,6 +338,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         highScoreLabel.color  = UIColor.blackColor()
         highScoreLabel.fontSize = 36
         highScoreLabel.fontName = "Noteworthy-Light"
+
+        highScoreButton.position = CGPointMake(300, 330)
+        highScoreButton.name = "highScoreButton"
+        highScoreButton.zPosition = 1.0
+        highScoreButton.size = CGSizeMake(80, 80)
+
+
+
 
 
         gameOverMenu.hidden = false
@@ -591,6 +601,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             if touchedNode.name == "facebook" {
                  NSNotificationCenter.defaultCenter().postNotificationName("leader", object:nil)
             }
+
+            if touchedNode.name == "highScoreButton" {
+                println("moneyteam")
+                
+
+                NSNotificationCenter.defaultCenter().postNotificationName("highscore", object:nil)
+
+
+            }
+
 
 
             if touchedNode.name == "pauseMenuResume" {
