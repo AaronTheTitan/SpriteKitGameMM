@@ -219,12 +219,36 @@
                     <view key="view" contentMode="scaleToFill" id="a4Z-Sj-HX5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOL-q9-OBD">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Resume">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="heightClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="249" y="137" width="56" height="30"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="LVB-YS-i5n" kind="show" id="aA4-7a-DZQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="BOL-q9-OBD"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="subviews">
+                                <include reference="BOL-q9-OBD"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6w2-Q1-snX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="154" y="1089"/>
+            <point key="canvasLocation" x="440" y="1273.5"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="Goi-2l-rRM">
@@ -654,6 +678,7 @@
                     <connections>
                         <segue destination="sjL-6y-VbA" kind="show" identifier="gameOverSegue" id="Ow3-BJ-IC8"/>
                         <segue destination="1rf-Xu-MHA" kind="presentation" identifier="leaderSegue" id="Ohp-6E-IUE"/>
+                        <segue destination="2QY-hA-Tgd" kind="show" identifier="pauseSegue" id="pji-dT-BSe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
@@ -1198,7 +1223,8 @@
         <image name="powerup01_2" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AqY-gf-aub"/>
-        <segue reference="ycX-0N-nmO"/>
+        <segue reference="Ow3-BJ-IC8"/>
+        <segue reference="aA4-7a-DZQ"/>
+        <segue reference="Ohp-6E-IUE"/>
     </inferredMetricsTieBreakers>
 </document>
