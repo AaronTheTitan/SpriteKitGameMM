@@ -244,6 +244,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
         pauseMenuBG.zPosition = 1.0
 
+        pauseMenuResume.size = CGSizeMake(200, 95)
+        pauseMenuResume.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
+        pauseMenuResume.zPosition = 1.0
+
+        pauseMenuRestart.size = CGSizeMake(200, 95)
+        pauseMenuRestart.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 25)
+        pauseMenuRestart.zPosition = 1.0
+
+        pauseMenuExit.size = CGSizeMake(200, 95)
+        pauseMenuExit.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/3)
+        pauseMenuExit.zPosition = 1.0
+
+//        addChild(pauseMenuResume)
+//        addChild(pauseMenuRestart)
+//        addChild(pauseMenuExit)
+
     }
 
     func startGame() {
@@ -354,9 +370,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(pauseMenuRestart)
         addChild(pauseMenuExit)
 
-
         delay(0.1) {
-            self.scene!.view!.paused = true
+//            self.scene!.view!.paused = true
+            self.view!.paused = true
         }
 
     }
@@ -376,11 +392,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //scene.view?.paused = true // to pause the game
 //        pauseMenuBG.removeAllChildren()
         pauseMenuBG.removeFromParent()
+        pauseMenuResume.removeFromParent()
+        pauseMenuRestart.removeFromParent()
+        pauseMenuExit.removeFromParent()
 
         scene?.view?.paused = false
 
         buttonScenePause.hidden = false
         buttonScenePlay.hidden = true
+
+
     }
 
 
@@ -561,6 +582,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 restartGame()
 
             }
+
             if touchedNode.name == "yellowButton" {
                 NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
             }
@@ -568,10 +590,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
             if touchedNode.name == "facebook" {
-
                  NSNotificationCenter.defaultCenter().postNotificationName("leader", object:nil)
+            }
 
-                
+
+            if touchedNode.name == "pauseMenuResume" {
+                resumeGame()
+                println("it works")
+            }
+
+            if touchedNode.name == "pauseMenuRestart" {
+                let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
+                restartGame()
+            }
+
+            if touchedNode.name == "pauseMenuExit" {
+                NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
 
             }
         }
@@ -641,7 +675,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         for sprite in world.groundPieces {
             sprite.position.x -= spriteposition
         }
-
     }
 
     func resetSoldierPosition() {
