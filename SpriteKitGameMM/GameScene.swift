@@ -221,8 +221,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         view.addGestureRecognizer(swipeDown)
 
 
-        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 32, 37)
-        let buttonPauseImage = UIImage(named: "buttonPauseWhite")
+//        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 32, 37)
+        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 35, 35)
+//        let buttonPauseImage = UIImage(named: "buttonPauseWhite")
+        let buttonPauseImage = UIImage(named: "buttonPause")
         buttonScenePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
 
         buttonScenePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
@@ -247,6 +249,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         pauseMenuResume.size = CGSizeMake(200, 95)
         pauseMenuResume.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
         pauseMenuResume.zPosition = 1.0
+
 
         pauseMenuRestart.size = CGSizeMake(200, 95)
         pauseMenuRestart.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 25)
@@ -421,11 +424,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         self.setIsHighScore()
 
-
-
         }
-
-
     }
 
     func setIsHighScore() {
@@ -437,7 +436,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             NSUserDefaults.standardUserDefaults().synchronize()
 
-        }else {
+        } else {
             //isHighScore = false
             //println("\(isHighScoreDefaults)")
 
