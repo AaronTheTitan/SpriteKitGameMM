@@ -213,10 +213,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     func pauseGame() {
         buttonscencePause.hidden = true
         buttonscencePlay.hidden = false
+        self.scene!.view!.paused = true
 
-        delay(0.03) {
-            self.scene!.view!.paused = true
-        }
+//        delay(0.02) {
+//            self.scene!.view!.paused = true
+//        }
 
     }
 
@@ -361,7 +362,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
-
     }
 
 
@@ -522,6 +522,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     func addBadGuys() {
         if  firstTimeDuck == true && firstTimeDuckJump == true && firstTimeJump == true && firstTimeOrb == true && hasTutorialCompleted == false {
+
             tutorialIsComplete()
             pauseGame()
         }
@@ -667,7 +668,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
             completeTutorial.size = CGSizeMake(400, 400)
             completeTutorial.position = CGPointMake(500, 435)
     }
-
+//
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time(
