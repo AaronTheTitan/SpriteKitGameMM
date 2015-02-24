@@ -31,6 +31,7 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
     var currentSoldier:String?
     var alert:UIAlertController!
     var highScoreTextField:UITextField?
+    let nameTextField:UITextField?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,28 +80,42 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
             NSNotificationCenter.defaultCenter().addObserverForName("highscore", object: nil, queue: nil) { (notification: NSNotification?) in
 
 
-                 self.alert = UIAlertController(title: "Title", message: "Your msg",
-                    preferredStyle: UIAlertControllerStyle.Alert)
+                let alertController = UIAlertController(title: "New High Score", message: "Enter your name and post your new high score.", preferredStyle: .Alert)
 
+                               let postAction = UIAlertAction(title: "Post", style: .Default) { (action) in
+                    let name = alertController.textFields![0] as UITextField
 
+                    var gameScore = PFObject(className: "GameScore")
+                    gameScore.setObject(NSUserDefaults.standardUserDefaults().integerForKey("highscore"), forKey: "score")
+                    gameScore.setObject(name.text, forKey: "playerName")
+                    gameScore.saveInBackgroundWithBlock {
+                        (success: Bool!, error: NSError!) -> Void in
+                        if (success != nil) {
 
-                self.alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel,
-                    handler:nil))
+                            //NSLog("Object created with id: \(gameScore.objectId)")
+                        } else {
+                            NSLog("%@", error)
+                        }
+                        
+                    }
+                     self.performSegueWithIdentifier("leaderSegue", sender: self)
+                }
+                alertController.addAction(postAction)
 
-
-
-                self.alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+                    // ...
+                }
+                alertController.addAction(cancelAction)
+                
+                self.presentViewController(alertController, animated: true) {
+                    // ...
+                }
+                alertController.addTextFieldWithConfigurationHandler { (textField) in
                     textField.placeholder = "Name"
+                    textField.keyboardType = .EmailAddress
+                }
 
 
-                    //textField.secureTextEntry = true  // setting the secured text for using password
-                    textField.keyboardType = UIKeyboardType.Default
-                    self.highScoreTextField?.text = textField.text
-                    
-
-                        })
-
-                //println("\(self.highScoreTextField?.text)")
                 return
             }
 
