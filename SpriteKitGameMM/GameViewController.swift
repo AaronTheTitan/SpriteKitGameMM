@@ -146,4 +146,8 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+
+    override func viewDidLayoutSubviews() {
+        
+    }
 }

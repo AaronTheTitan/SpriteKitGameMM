@@ -58,17 +58,18 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     let totalGroundPieces = 5
     let gameOverMenu = SKSpriteNode(imageNamed: "gameOverMenu")
-    var redButton = SKSpriteNode (imageNamed: "redButtonBG")
-    var blueButton = SKSpriteNode (imageNamed: "blueButtonBG")
-    var yellowButton = SKSpriteNode (imageNamed: "yellowButtonBG")
-    var highScoreButton = SKSpriteNode (imageNamed: "menuButtonBlue")
+    var redButton = SKSpriteNode (imageNamed: "goRestart")
+    var blueButton = SKSpriteNode (imageNamed: "goLeaderBoard")
+    var yellowButton = SKSpriteNode (imageNamed: "goExit")
+//    var highScoreButton = SKSpriteNode (imageNamed: "menuButtonBlue")
+    let newHighScoreButton = SKSpriteNode(imageNamed: "newHighScore")
 
     let startLabel = SKLabelNode(text: "Tap To Start")
     var tapsForStart = 0
 
     var currentSoldier:String?
     var isHighScore = false
-    var highScoreLabel = SKLabelNode(text: "New High Score! Congrats")
+//    var highScoreLabel = SKLabelNode(text: "New High Score! Congrats")
     var isHighScoreDefaults:Bool!
 
     let pauseMenuBG = SKSpriteNode(imageNamed: "gamePausedMenuBG")
@@ -211,7 +212,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
 //        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 32, 37)
-        buttonScenePause.frame = CGRectMake(self.frame.height - 238, 5, 35, 35)
+        buttonScenePause.frame = CGRectMake(view.frame.size.width - buttonScenePause.bounds.size.width - 40, 5, 35, 35)
 
 //        let buttonPauseImage = UIImage(named: "buttonPauseWhite")
         let buttonPauseImage = UIImage(named: "buttonPause")
@@ -223,7 +224,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
 
-        buttonScenePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
+//        buttonScenePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
+        buttonScenePlay.frame = CGRectMake(view.frame.size.width - buttonScenePlay.bounds.size.width - 40, 5, 35, 35)
         let buttonPlayImage = UIImage(named: "buttonPlay")
         buttonScenePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
         buttonScenePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
@@ -248,6 +250,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         pauseMenuExit.size = CGSizeMake(200, 95)
         pauseMenuExit.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/3)
         pauseMenuExit.zPosition = 1.0
+
+
 
 //        addChild(pauseMenuResume)
 //        addChild(pauseMenuRestart)
@@ -296,42 +300,51 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(yellowButton)
 
         if isHighScore == true {
-            addChild(highScoreLabel)
-            addChild(highScoreButton)
+//            addChild(highScoreLabel)
+//            addChild(highScoreButton)
+            addChild(newHighScoreButton)
 
         }
 
-        gameOverMenu.size = CGSizeMake(self.frame.size.width/1.5, 420)
-        gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        gameOverMenu.size = CGSizeMake(self.frame.size.width/1.5, self.frame.size.height/1.5)
+        gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
 
-        redButton.size = CGSizeMake(80, 80)
-        redButton.position = CGPointMake(380, 430)
+//        redButton.size = CGSizeMake(80, 80)
+        redButton.setScale(1.0)
+//        redButton.position = CGPointMake(380, 430)
+        redButton.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/2)
         redButton.name = "redButton"
         redButton.zPosition = 1.0;
 
-        blueButton.size = CGSizeMake(80, 80)
-        blueButton.position = CGPointMake(500, 430)
+        //(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
+
+//        blueButton.size = CGSizeMake(80, 80)
+        blueButton.setScale(1.0)
+//        blueButton.position = CGPointMake(500, 430)
+        blueButton.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
         blueButton.name = "facebook";//how the node is identified later
         blueButton.zPosition = 1.0;
 
-        yellowButton.size = CGSizeMake(80, 80)
-        yellowButton.position = CGPointMake(610, 430)
+//        yellowButton.size = CGSizeMake(80, 80)
+        yellowButton.setScale(1.0)
+//        yellowButton.position = CGPointMake(610, 430)
+        yellowButton.position = CGPointMake(self.frame.size.width/1.5, self.frame.size.height/2)
         yellowButton.name = "yellowButton";//how the node is identified later
         yellowButton.zPosition = 1.0;
 
 
         //highScoreLabel.size = CGSizeMake(80, 80)
-        highScoreLabel.position = CGPointMake(500, 330)
-        highScoreLabel.name = "highScore"
-        highScoreLabel.zPosition = 1.0;
-        highScoreLabel.color  = UIColor.blackColor()
-        highScoreLabel.fontSize = 36
-        highScoreLabel.fontName = "Noteworthy-Light"
+        newHighScoreButton.position = CGPointMake(self.frame.size.width/2, CGRectGetMinY(yellowButton.frame) - newHighScoreButton.frame.size.height / 2)
+        newHighScoreButton.name = "highScore"
+        newHighScoreButton.zPosition = 1.0;
+//        newHighScoreButton.color  = UIColor.blackColor()
+//        newHighScoreButton.fontSize = 36
+//        newHighScoreButton.fontName = "Noteworthy-Light"
 
-        highScoreButton.position = CGPointMake(300, 330)
-        highScoreButton.name = "highScoreButton"
-        highScoreButton.zPosition = 1.0
-        highScoreButton.size = CGSizeMake(80, 80)
+//        newHighScoreButton.position = CGPointMake(300, 330)
+//        newHighScoreButton.name = "highScoreButton"
+//        newHighScoreButton.zPosition = 1.0
+        newHighScoreButton.setScale(1.0)
 
 
 
