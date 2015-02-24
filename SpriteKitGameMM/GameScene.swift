@@ -151,12 +151,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         //superview.addConstraint(myConstraint)
 
         startGameLabel()
-
-
-
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
-            self.scene?.view?.paused = true
+            self.resumeGame()
+            println("pause the game please")
             return
             
         }
@@ -195,17 +193,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             }
         }
 
-        //        if tapsForStart == 0 {
-//            startGame()
-//            tapsForStart = 1
-//        } else if tapsForStart == 1{
-//            jump()
-//        } else {
-//            tapsForStart = 0
-//            restartGame()
-//            isGameOver = false
-//        }
-    }
+         }
 
     func setupControls(view: SKView) {
 
@@ -309,7 +297,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         }
 
-        gameOverMenu.size = CGSizeMake(self.frame.size.width/2, 420)
+        gameOverMenu.size = CGSizeMake(self.frame.size.width/1.5, 420)
         gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
 
         redButton.size = CGSizeMake(80, 80)
@@ -384,6 +372,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //            self.scene!.view!.paused = true
             self.view!.paused = true
         }
+
+        
 
     }
 
@@ -608,6 +598,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 
 
                 NSNotificationCenter.defaultCenter().postNotificationName("highscore", object:nil)
+                var boss = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
+                println("\(boss)")
 
 
             }
