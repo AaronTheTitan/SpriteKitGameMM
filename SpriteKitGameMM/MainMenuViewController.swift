@@ -44,6 +44,7 @@ class MainMenuViewController: UIViewController {
         savedSoldier.synchronize()
 
 //            gameViewController.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
+            
         }
 
 
@@ -81,7 +82,6 @@ class MainMenuViewController: UIViewController {
 //            appDelegate.stopInGameMusic()
 //            appDelegate.stopBGMusic()
 //            
-            //appDelegate.startBGMusic()
         }
     }
 //    func playBGMusic() {
@@ -101,7 +101,7 @@ class MainMenuViewController: UIViewController {
     @IBAction func buttonTapChangeSoldier(sender: UIButton) {
 
         soldierImageIndex++
-
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let selectedSoldier = soldierCycle()
         savedSoldier.setObject(selectedSoldier, forKey: "currentSoldier")
         savedSoldier.synchronize()
@@ -109,13 +109,12 @@ class MainMenuViewController: UIViewController {
         savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
 
         imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
-
+        if appDelegate.isMuted == false {
         audioPlayer.play()
 
+        }
 //        audioPlayer.numberOfLoops = 1
 //        audioPlayer.play()
-
-
 
     }
 
@@ -132,17 +131,13 @@ class MainMenuViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-    
 
     if let gameViewController = segue.destinationViewController as? GameViewController
         {
             gameViewController.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
             NSUserDefaults.standardUserDefaults().synchronize()
-//            bgMusicPlayer.stop()
 
-    }
-
-
+        }
     }
 
 }

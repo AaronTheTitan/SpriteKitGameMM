@@ -73,7 +73,14 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     var hasTutorialCompleted:Bool?
     var currentSoldier:String?
 
+    let pauseMenuBG = SKSpriteNode(imageNamed: "gamePausedMenuBG")
 
+    let pauseMenuResume = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    let pauseMenuRestart = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    let pauseMenuExit = UIButton.buttonWithType(UIButtonType.System) as UIButton
+
+    let pause:String = "pause"
+    let resume:String = "resume"
     //----- BEGIN LOGIC -----//
 
     // MARK: - VIEW/SETUP

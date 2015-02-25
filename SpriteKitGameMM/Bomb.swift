@@ -32,11 +32,15 @@ class Bomb : SKSpriteNode {
     }
 
     func bombExplode(explodeNode: SKSpriteNode) {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+
         runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosion, timePerFrame: 0.14), count: 1), completion: {
             explodeNode.removeFromParent()
         })
-        runAction(soundExplosion)
 
+        if appDelegate.isMuted == false {
+        runAction(soundExplosion)
+        }
 //        , completion: {
 //        explodeNode.removeFromParent()
 //        })
@@ -50,22 +54,19 @@ class Bomb : SKSpriteNode {
         rocketFireFromScene = fireNode
     }
 
-
     func warHeadExplode(warhead: SKSpriteNode, warheadFire: SKSpriteNode) {
         warheadFire.removeFromParent()
 
         runAction(SKAction.repeatAction(SKAction.animateWithTextures(explosionInAir, timePerFrame: 0.14), count: 1), completion: {
             warhead.removeFromParent()
         })
-        runAction(soundExplosion)
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if appDelegate.isMuted == false {
+            runAction(soundExplosion)
+        }
     }
-
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-}
-
-
-
+    }
 
 }
