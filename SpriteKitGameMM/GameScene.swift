@@ -72,36 +72,33 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var isHighScoreDefaults:Bool!
 
     let pauseMenuBG = SKSpriteNode(imageNamed: "gamePausedMenuBG")
-    let pauseMenuResume = SKSpriteNode(imageNamed: "pauseMenuResume")
-    let pauseMenuRestart = SKSpriteNode(imageNamed: "pauseMenuRestart")
-    let pauseMenuExit = SKSpriteNode(imageNamed: "pauseMenuExit")
+//    let pauseMenuResume = SKSpriteNode(imageNamed: "pauseMenuResume")
+//    let pauseMenuRestart = SKSpriteNode(imageNamed: "pauseMenuRestart")
+//    let pauseMenuExit = SKSpriteNode(imageNamed: "pauseMenuExit")
+
+    let pauseMenuResume = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    let pauseMenuRestart = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    let pauseMenuExit = UIButton.buttonWithType(UIButtonType.System) as UIButton
 
 
-
+    let pause:String = "pause"
+    let resume:String = "resume"
 
 //----- BEGIN LOGIC -----//
 
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
-//        self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(soldierSelected), timePerFrame: 0.07)))
 
         isHighScoreDefaults = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
 
-
-//        YourAppDelegate *appDelegate = (YourAppDelegate *)[[UIApplication sharedApplication] delegate];
-
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
 
-//        currentSoldier = "S1"
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
-
-//        isRunning = false
         isGameOver = false
         setupControls(view)
 
         world.setupScenery()
-//        world.groundMovement()
         addChild(world)
 
         self.physicsWorld.gravity    = CGVectorMake(0, -40)
@@ -116,48 +113,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
-
-
-
-
-//        addChild(gameOverMenu)
-//        addChild(redButton)
-//        addChild(blueButton)
-//        addChild(yellowButton)
-//
-//        gameOverMenu.hidden = true
-//        redButton.hidden = true
-//        blueButton.hidden = true
-//        yellowButton.hidden = true
-
         let view1 = super.view
 
 
         buttonScenePause.setTranslatesAutoresizingMaskIntoConstraints(true)
         buttonScenePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
 
-//        var myConstraint =
-//                NSLayoutConstraint(item: buttonscencePause,
-//            attribute: NSLayoutAttribute.BottomMargin,
-//            relatedBy: NSLayoutRelation.Equal,
-//            toItem: super.view,
-//            attribute: NSLayoutAttribute.BottomMargin,
-//            multiplier: 0,
-//            constant: 0)
-//        super.view?.addConstraint(myConstraint)
-
-        //superview.addConstraint(myConstraint)
 
         startGameLabel()
+        
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
-            self.resumeGame()
-            println("pause the game please")
+            self.pauseGame()
+            println("pause tRhe game please")
             return
             
         }
 
     }
+
 
     func startGameLabel() {
         startLabel.position = CGPointMake(frame.width/2, frame.height/2)
@@ -208,22 +182,37 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         view.addGestureRecognizer(swipeDown)
 
 
-//        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 32, 37)
-        buttonScenePause.frame = CGRectMake(view.frame.size.width - buttonScenePause.bounds.size.width - 40, 5, 35, 35)
-
-//        let buttonPauseImage = UIImage(named: "buttonPauseWhite")
         let buttonPauseImage = UIImage(named: "buttonPause")
+        buttonScenePause.frame = CGRectMake(view.frame.size.width - buttonScenePause.bounds.size.width - 40, 5, 35, 35)
         buttonScenePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
-
         buttonScenePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-//        pauseMenuBG.position = CGPointMake(self.frame.x/2, self.frame.y/2)
+
+//MARK: - THESE ARE THE NEW PAUSE MENU BUTTONS
+        pauseMenuResume.setBackgroundImage(UIImage(named: "pauseMenuResume"), forState: UIControlState.Normal)
+        pauseMenuResume.frame = CGRectMake(view.frame.size.width/2, view.frame.size.height/2, 200, 95)
+        pauseMenuResume.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+        pauseMenuRestart.setBackgroundImage(UIImage(named: "pauseMenuRestart"), forState: UIControlState.Normal)
+        pauseMenuRestart.frame = CGRectMake(pauseMenuBG.size.width/2, pauseMenuBG.size.height/2, 200, 95)
+        pauseMenuRestart.addTarget(self, action: "restartGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+        pauseMenuExit.setBackgroundImage(UIImage(named: "pauseMenuExit"), forState: UIControlState.Normal)
+        pauseMenuExit.frame = CGRectMake(pauseMenuBG.size.width/2, pauseMenuBG.size.height/2, 200, 95)
+
+        //MARK: - FIX THIS BELOW, MAY NOT BE RIGHT, REGARDING THE EXIT BUTTON
+        pauseMenuExit.addTarget(self, action: "exitGame?", forControlEvents: UIControlEvents.TouchUpInside)
+
+
+        pauseMenuBG.size = CGSizeMake(432, 486)
+        pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        pauseMenuBG.zPosition = 1.0
 
 
 
-//        buttonScenePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
-        buttonScenePlay.frame = CGRectMake(view.frame.size.width - buttonScenePlay.bounds.size.width - 40, 5, 35, 35)
+
         let buttonPlayImage = UIImage(named: "buttonPlay")
+        buttonScenePlay.frame = CGRectMake(view.frame.size.width - buttonScenePlay.bounds.size.width - 40, 5, 35, 35)
         buttonScenePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
         buttonScenePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
@@ -231,22 +220,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene?.view?.addSubview(buttonScenePlay)
         buttonScenePlay.hidden = true
 
-        pauseMenuBG.size = CGSizeMake(432, 486)
-        pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
-        pauseMenuBG.zPosition = 1.0
 
-        pauseMenuResume.size = CGSizeMake(200, 95)
-        pauseMenuResume.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
-        pauseMenuResume.zPosition = 1.0
-
-
-        pauseMenuRestart.size = CGSizeMake(200, 95)
-        pauseMenuRestart.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 25)
-        pauseMenuRestart.zPosition = 1.0
-
-        pauseMenuExit.size = CGSizeMake(200, 95)
-        pauseMenuExit.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/3)
-        pauseMenuExit.zPosition = 1.0
+//        pauseMenuResume.size = CGSizeMake(200, 95)
+//        pauseMenuResume.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
+//        pauseMenuResume.zPosition = 1.0
+//
+//
+//        pauseMenuRestart.size = CGSizeMake(200, 95)
+//        pauseMenuRestart.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 25)
+//        pauseMenuRestart.zPosition = 1.0
+//
+//        pauseMenuExit.size = CGSizeMake(200, 95)
+//        pauseMenuExit.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/3)
+//        pauseMenuExit.zPosition = 1.0
 
 
 
@@ -355,6 +341,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         buttonScenePause.removeFromSuperview()
         buttonScenePlay.removeFromSuperview()
+
 //        buttonScenePause.hidden = true
 //        buttonScenePlay.hidden = true
 
@@ -373,23 +360,35 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func pauseGame() {
         //scene.view?.paused = true // to pause the game
 //        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("pauseGame"), userInfo: nil, repeats: false)
-        NSNotificationCenter.defaultCenter().postNotificationName("pause", object:nil)
+//        NSNotificationCenter.defaultCenter().postNotificationName("pause", object:nil)
 
-        addChild(pauseMenuBG)
+        updateToSuperView(pause)
+
         buttonScenePause.hidden = true
         buttonScenePlay.hidden = false
 
-        addChild(pauseMenuResume)
-        addChild(pauseMenuRestart)
-        addChild(pauseMenuExit)
-
-        delay(0.1) {
-//            self.scene!.view!.paused = true
+        delay(0.4, closure: { () -> () in
             self.view!.paused = true
+
+        })
+
+    }
+
+    func updateToSuperView(status: String) {
+
+        if status == pause {
+            addChild(pauseMenuBG)
+            scene?.view?.addSubview(pauseMenuResume)
+            scene?.view?.addSubview(pauseMenuRestart)
+            scene?.view?.addSubview(pauseMenuExit)
+
+        } else if status == resume {
+            pauseMenuBG.removeFromParent()
+            pauseMenuResume.removeFromSuperview()
+            pauseMenuRestart.removeFromSuperview()
+            pauseMenuExit.removeFromSuperview()
+
         }
-
-        
-
     }
 
 
@@ -405,11 +404,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func resumeGame() {
         //scene.view?.paused = true // to pause the game
+
+        updateToSuperView(resume)
 //        pauseMenuBG.removeAllChildren()
-        pauseMenuBG.removeFromParent()
-        pauseMenuResume.removeFromParent()
-        pauseMenuRestart.removeFromParent()
-        pauseMenuExit.removeFromParent()
+//        pauseMenuResume.removeFromParent()
+//        pauseMenuRestart.removeFromParent()
+//        pauseMenuExit.removeFromParent()
 
         scene?.view?.paused = false
 
