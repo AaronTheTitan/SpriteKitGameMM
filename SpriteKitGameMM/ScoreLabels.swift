@@ -37,7 +37,7 @@ class ScoreLabel: SKLabelNode {
 
     func addScoreLabel(){
         labelScore = SKLabelNode(text: "Score: \(score)")
-        labelScore.fontName = "Optima ExtraBlack"
+        labelScore.fontName = "Optima Bold"
         labelScore.fontSize = 24
         labelScore.zPosition = 4
 //        labelScore.position = CGPointMake(20 + self.frame.size.width/2, self.frame.size.height - (120 + labelScore.frame.size.height/2))
@@ -49,7 +49,7 @@ class ScoreLabel: SKLabelNode {
 
     func addHighScoreLabel(){
         highScoreLabel = SKLabelNode(text: "Highscore: \(highScore!)")
-        highScoreLabel.fontName = "Optima ExtraBlack"
+        highScoreLabel.fontName = "Optima Bold"
         highScoreLabel.fontSize  = 24
         highScoreLabel.zPosition = 4
 //        highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + labelScore.frame.size.height/2))
