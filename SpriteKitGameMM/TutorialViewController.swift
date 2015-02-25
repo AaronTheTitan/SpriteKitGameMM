@@ -36,6 +36,17 @@ class TutorialViewController: UIViewController {
             skView.showsFPS = true
             skView.showsNodeCount = true
 
+            NSNotificationCenter.defaultCenter().addObserverForName("mainMenu", object: nil, queue: nil) { (notification: NSNotification?) in
+
+                self.performSegueWithIdentifier("mainMenuSegue", sender: self)
+                scene.removeAllChildren()
+                scene.removeAllActions()
+
+
+                return
+            }
+
+
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
 
@@ -52,9 +63,25 @@ class TutorialViewController: UIViewController {
 //                self.performSegueWithIdentifier("gameOverSegue", sender: self)
 //
 //                return
+
+
 //}
 
         }
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(false);
+//        NSNotificationCenter.defaultCenter().addObserverForName("mainMenu", object: nil, queue: nil) { (notification: NSNotification?) in
+//
+//            self.performSegueWithIdentifier("mainMenuSegue", sender: self)
+////            scene.removeAllChildren()
+////            scene.removeAllActions()
+//
+//
+//            return
+//        }
+
     }
 
     override func shouldAutorotate() -> Bool {

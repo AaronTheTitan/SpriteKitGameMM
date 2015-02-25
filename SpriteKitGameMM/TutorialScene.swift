@@ -1,5 +1,5 @@
 //
-//  GameScene.swift
+//  TutorialScene.swift
 //  SpriteKitGameMM
 //
 //  Created by Aaron Bradley on 2/11/15.
@@ -8,7 +8,7 @@
 import SpriteKit
 import AudioToolbox.AudioServices
 
-class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
+class TutorialScene: SKScene , SKPhysicsContactDelegate {
     //----- BEGIN DECLARATIONS -----//
 
     // MARK: - PROPERTIES
@@ -22,7 +22,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     var orbFlarePath:NSString = NSString()
     var orbFlare = SKEmitterNode()
-
 
     var bomb:Bomb?
     var bombExplode:Bomb?
@@ -44,17 +43,12 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
     var soundJump = SKAction.playSoundFileNamed("Jump.mp3", waitForCompletion: false)
 
     // MARK: - BUTTONS
-    let buttonscencePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
-    let buttonscencePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
+    let buttonScenePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
 
     // MARK: - GROUND/WORLD
     var moveObject = SKAction()
 
     let totalGroundPieces = 5
-    let gameOverMenu = SKSpriteNode(imageNamed: "gameOverMenu")
-    var redButton = SKSpriteNode (imageNamed: "redButtonBG")
-    var blueButton = SKSpriteNode (imageNamed: "blueButtonBG")
-    var yellowButton = SKSpriteNode (imageNamed: "yellowButtonBG")
 
     let startLabel = SKLabelNode(text: "Tap To Start")
     var tapsForStart = 0
@@ -99,18 +93,10 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         world.addEdge()
 
         addSoldier()
-        //addChild(scoreInfo)
-        //scoreInfo.addScoring()
-
-
-        //scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
-        //scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
         let view1 = super.view
 
-
-        buttonscencePause.setTranslatesAutoresizingMaskIntoConstraints(false)
-        buttonscencePlay.setTranslatesAutoresizingMaskIntoConstraints(false)
+        buttonScenePause.setTranslatesAutoresizingMaskIntoConstraints(true)
 
         startGameLabel()
         firstTimeDuck = false
@@ -119,8 +105,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         firstTimeOrb = false
 
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
-
-            println("long sentence")
             self.scene?.view?.paused = true
             //self.pauseGame()
 
@@ -179,19 +163,34 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         view.addGestureRecognizer(swipeDown)
 
 
-        buttonscencePause.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
         let buttonPauseImage = UIImage(named: "buttonPause")
-        buttonscencePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
-        buttonscencePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
+        buttonScenePause.frame = CGRectMake(view.frame.size.width - buttonScenePause.bounds.size.width - 40, 5, 35, 35)
+        buttonScenePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
+        buttonScenePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-        buttonscencePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
-        let buttonPlayImage = UIImage(named: "buttonPlay")
-        buttonscencePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
-        buttonscencePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-        scene?.view?.addSubview(buttonscencePause)
-        scene?.view?.addSubview(buttonscencePlay)
-        buttonscencePlay.hidden = true
+        //MARK: - THESE ARE THE NEW PAUSE MENU BUTTONS
+        pauseMenuResume.setBackgroundImage(UIImage(named: "pauseMenuResume"), forState: UIControlState.Normal)
+        pauseMenuResume.frame = CGRectMake(view.frame.size.width/2 - pauseMenuResume.bounds.size.width - 55, view.frame.size.height/3 - 10, 110, 53)
+        pauseMenuResume.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+        pauseMenuRestart.setBackgroundImage(UIImage(named: "pauseMenuRestart"), forState: UIControlState.Normal)
+        pauseMenuRestart.frame = CGRectMake(view.frame.size.width/2 - pauseMenuRestart.bounds.size.width - 55, view.frame.size.height/2 - 7, 110, 53)
+        pauseMenuRestart.addTarget(self, action: "restartGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+        pauseMenuExit.setBackgroundImage(UIImage(named: "pauseMenuExit"), forState: UIControlState.Normal)
+        pauseMenuExit.frame = CGRectMake(view.frame.size.width/2 - pauseMenuExit.bounds.size.width - 55, view.frame.size.height/1.5 - 4, 110, 53)
+
+        pauseMenuExit.addTarget(self, action: "goToMainMenu", forControlEvents: UIControlEvents.TouchUpInside)
+
+
+        pauseMenuBG.size = CGSizeMake(432, 486)
+        pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
+        pauseMenuBG.zPosition = 1.0
+
+
+        scene?.view?.addSubview(buttonScenePause)
+
     }
 
     func startGame() {
@@ -209,29 +208,50 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         self.runAction(spawnThenDelayForever)
     }
 
-
-    func gameOverPause() {
-        tapsForStart = 2
-
-        buttonscencePause.hidden = true
-        buttonscencePlay.hidden = true
+    func goToMainMenu() {
+        NSNotificationCenter.defaultCenter().postNotificationName("mainMenu", object:nil)
     }
 
     func pauseGame() {
-        buttonscencePause.hidden = true
-        buttonscencePlay.hidden = false
+
+        updateToSuperView(pause)
+        buttonScenePause.hidden = true
+
+        delay(0.01, closure: { () -> () in
+            self.view!.paused = true
+            
+        })
+        
+    }
+//
+    func pauseGameTutorial() {
+        buttonScenePause.hidden = true
         self.scene!.view!.paused = true
-
-//        delay(0.02) {
-//            self.scene!.view!.paused = true
-//        }
-
     }
 
     func resumeGame() {
+
+        updateToSuperView(resume)
         scene?.view?.paused = false
-        buttonscencePause.hidden = false
-        buttonscencePlay.hidden = true
+        buttonScenePause.hidden = false
+        
+    }
+
+    func updateToSuperView(status: String) {
+
+        if status == pause {
+            addChild(pauseMenuBG)
+            scene?.view?.addSubview(pauseMenuResume)
+            scene?.view?.addSubview(pauseMenuRestart)
+            scene?.view?.addSubview(pauseMenuExit)
+
+        } else if status == resume {
+            pauseMenuBG.removeFromParent()
+            pauseMenuResume.removeFromSuperview()
+            pauseMenuRestart.removeFromSuperview()
+            pauseMenuExit.removeFromSuperview()
+            
+        }
     }
 
 
@@ -313,9 +333,14 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
     func restartGame () {
 
-        var restartscence = GameScene(size: self.frame.size)
-        self.view?.presentScene(restartscence)
+        resumeGame()
+        var restartScene = TutorialScene(size: self.size)
+        restartScene.scaleMode = .AspectFill
+        self.view?.presentScene(restartScene)
 
+        updateToSuperView(resume)
+        buttonScenePause.hidden = false
+        
     }
 
 
@@ -326,18 +351,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
             let location = touch.locationInNode(self)
             let touchedNode = self.nodeAtPoint(location)
 
-            if touchedNode.name == "redButton" {
-                println("okay this work")
-                let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
-                restartGame()
-            } else if touchedNode.name == "okayButton" {
-//                resumeGame()
-                gotItButton.removeFromParent()
-                orbTutorial.removeFromParent()
-                jumpTutorial.removeFromParent()
-                duckTutorial.removeFromParent()
-                duckJumpTutorial.removeFromParent()
-            }
         }
     }
 
@@ -485,7 +498,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
         if firstTimeOrb == false {
             firstTimeOrb = true
-            pauseGame()
+            pauseGameTutorial()
             orbAlertMessage()
         }
 
@@ -531,7 +544,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         if  firstTimeDuck == true && firstTimeDuckJump == true && firstTimeJump == true && firstTimeOrb == true && hasTutorialCompleted == false {
 
             tutorialIsComplete()
-            pauseGame()
+            pauseGameTutorial()
         }
 
         let y = arc4random_uniform(6)
@@ -542,7 +555,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
             if firstTimeJump == false {
                 firstTimeJump = true
-                pauseGame()
+                pauseGameTutorial()
                 jumpAlertMessage()
             }
             addBomb()
@@ -554,7 +567,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
 
             if firstTimeDuck == false {
                 firstTimeDuck = true
-                pauseGame()
+                pauseGameTutorial()
                 duckAlertMessage()
             }
             addWarhead()
@@ -589,7 +602,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
             moveObject = SKAction.sequence([moveObstruction])
             if firstTimeDuckJump == false {
                 firstTimeDuckJump = true
-                pauseGame()
+                pauseGameTutorial()
                 duckJumpAlertMessage()
             }
             addBomb()
@@ -662,11 +675,9 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate, UIAlertViewDelegate {
         addChild(gotItButton)
         gotItButton.size = CGSizeMake(150, 80)
         gotItButton.position = CGPointMake(500, 340)
-        gotItButton.name = "okayButton"
         gotItButton.hidden = false
         gotItButton.zPosition = 1.0
-        buttonscencePause.hidden = true
-        buttonscencePlay.hidden = true
+        buttonScenePause.hidden = true
     }
 
     func tutorialIsComplete(){

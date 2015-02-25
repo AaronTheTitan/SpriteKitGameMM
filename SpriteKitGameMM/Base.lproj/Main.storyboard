@@ -185,10 +185,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="sjL-6y-VbA" kind="show" identifier="mainMenuSegue" id="rWX-56-lfP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Qs-b8-haU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="974" y="-415.5"/>
+            <point key="canvasLocation" x="976" y="-415.5"/>
         </scene>
         <!--Player Selection-->
         <scene sceneID="l1T-N8-D8f">
@@ -718,8 +721,7 @@
                                         <exclude reference="k4Z-ul-u6Y"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="536" width="600" height="64"/>
+                                <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="k4Z-ul-u6Y"/>
                                     </mask>
@@ -780,9 +782,6 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="40" width="600" height="496"/>
-                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="1rf-Xu-MHA" id="aHB-i4-5eh"/>
                                     <outlet property="delegate" destination="1rf-Xu-MHA" id="gBl-oz-8fn"/>
@@ -801,8 +800,7 @@
                                         <exclude reference="jFZ-VY-mQR"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="535" width="600" height="3"/>
+                                <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="eb9-Jz-hJM"/>
                                         <include reference="jFZ-VY-mQR"/>
@@ -837,8 +835,7 @@
                                         <exclude reference="jRh-aK-J2C"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="36" y="544" width="160" height="50"/>
+                                <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="8eD-lB-yox"/>
                                         <include reference="jRh-aK-J2C"/>
@@ -867,8 +864,7 @@
                                         <exclude reference="ue8-S1-WeP"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="404" y="544" width="160" height="50"/>
+                                <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="VSx-JF-lzk"/>
                                         <include reference="ue8-S1-WeP"/>
@@ -985,8 +981,7 @@
                                         <exclude reference="vH3-mY-bQh"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="220" y="544" width="160" height="50"/>
+                                <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <exclude reference="9qn-SG-vQr"/>
                                         <include reference="BHR-vX-3Xr"/>
@@ -1234,7 +1229,7 @@
         <image name="powerup01_2" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ow3-BJ-IC8"/>
+        <segue reference="rWX-56-lfP"/>
         <segue reference="sSm-Uy-cem"/>
         <segue reference="ycX-0N-nmO"/>
     </inferredMetricsTieBreakers>
