@@ -34,7 +34,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     var isRunning:Bool?
     var isGameOver:Bool?
-
+    var isMuted:Bool?
     var spriteposition:CGFloat  = 5
     var moveGroundForeverAction: SKAction!
 
@@ -54,29 +54,37 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let buttonSceneExit = UIButton.buttonWithType(UIButtonType.System) as  UIButton
     let buttonSceneLeaderBroad = UIButton.buttonWithType(UIButtonType.System) as  UIButton
 
-
     // MARK: - GROUND/WORLD
     var moveObject = SKAction()
 
     let totalGroundPieces = 5
     let gameOverMenu = SKSpriteNode(imageNamed: "gameOverMenu")
-    var redButton = SKSpriteNode (imageNamed: "redButtonBG")
-    var blueButton = SKSpriteNode (imageNamed: "blueButtonBG")
-    var yellowButton = SKSpriteNode (imageNamed: "yellowButtonBG")
-    var highScoreButton = SKSpriteNode (imageNamed: "menuButtonBlue")
+    var redButton = SKSpriteNode (imageNamed: "goRestart")
+    var blueButton = SKSpriteNode (imageNamed: "goLeaderBoard")
+    var yellowButton = SKSpriteNode (imageNamed: "goExit")
+//    var highScoreButton = SKSpriteNode (imageNamed: "menuButtonBlue")
+    let newHighScoreButton = SKSpriteNode(imageNamed: "newHighScore")
 
     let startLabel = SKLabelNode(text: "Tap To Start")
     var tapsForStart = 0
 
     var currentSoldier:String?
     var isHighScore = false
-    var highScoreLabel = SKLabelNode(text: "New High Score! Congrats")
+//    var highScoreLabel = SKLabelNode(text: "New High Score! Congrats")
     var isHighScoreDefaults:Bool!
 
     let pauseMenuBG = SKSpriteNode(imageNamed: "gamePausedMenuBG")
-    let pauseMenuResume = SKSpriteNode(imageNamed: "pauseMenuResume")
-    let pauseMenuRestart = SKSpriteNode(imageNamed: "pauseMenuRestart")
-    let pauseMenuExit = SKSpriteNode(imageNamed: "pauseMenuExit")
+//    let pauseMenuResume = SKSpriteNode(imageNamed: "pauseMenuResume")
+//    let pauseMenuRestart = SKSpriteNode(imageNamed: "pauseMenuRestart")
+//    let pauseMenuExit = SKSpriteNode(imageNamed: "pauseMenuExit")
+
+    let pauseMenuResume = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    let pauseMenuRestart = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    let pauseMenuExit = UIButton.buttonWithType(UIButtonType.System) as UIButton
+
+
+    let pause:String = "pause"
+    let resume:String = "resume"
 
 
 
@@ -85,28 +93,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
-//        self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(soldierSelected), timePerFrame: 0.07)))
 
         isHighScoreDefaults = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
-
-
-//        YourAppDelegate *appDelegate = (YourAppDelegate *)[[UIApplication sharedApplication] delegate];
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.stopBGMusic()
         appDelegate.startInGameMusic()
         
 
-//        currentSoldier = "S1"
+
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
-
-//        isRunning = false
         isGameOver = false
         setupControls(view)
 
         world.setupScenery()
-//        world.groundMovement()
         addChild(world)
 
         self.physicsWorld.gravity    = CGVectorMake(0, -40)
@@ -121,48 +122,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
-
-
-
-
-//        addChild(gameOverMenu)
-//        addChild(redButton)
-//        addChild(blueButton)
-//        addChild(yellowButton)
-//
-//        gameOverMenu.hidden = true
-//        redButton.hidden = true
-//        blueButton.hidden = true
-//        yellowButton.hidden = true
-
         let view1 = super.view
 
 
         buttonScenePause.setTranslatesAutoresizingMaskIntoConstraints(true)
         buttonScenePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
 
-//        var myConstraint =
-//                NSLayoutConstraint(item: buttonscencePause,
-//            attribute: NSLayoutAttribute.BottomMargin,
-//            relatedBy: NSLayoutRelation.Equal,
-//            toItem: super.view,
-//            attribute: NSLayoutAttribute.BottomMargin,
-//            multiplier: 0,
-//            constant: 0)
-//        super.view?.addConstraint(myConstraint)
-
-        //superview.addConstraint(myConstraint)
 
         startGameLabel()
+        
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
-            self.resumeGame()
-            println("pause the game please")
+            self.pauseGame()
+            println("pause tRhe game please")
             return
             
         }
 
     }
+
 
     func startGameLabel() {
         startLabel.position = CGPointMake(frame.width/2, frame.height/2)
@@ -213,18 +191,36 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         view.addGestureRecognizer(swipeDown)
 
 
-        buttonScenePause.frame = CGRectMake(6.25, frame.width/3.9, 32, 37)
-        let buttonPauseImage = UIImage(named: "buttonPauseWhite")
+        let buttonPauseImage = UIImage(named: "buttonPause")
+        buttonScenePause.frame = CGRectMake(view.frame.size.width - buttonScenePause.bounds.size.width - 40, 5, 35, 35)
         buttonScenePause.setBackgroundImage(buttonPauseImage, forState: UIControlState.Normal)
-
         buttonScenePause.addTarget(self, action: "pauseGame", forControlEvents: UIControlEvents.TouchUpInside)
 
-//        pauseMenuBG.position = CGPointMake(self.frame.x/2, self.frame.y/2)
+
+//MARK: - THESE ARE THE NEW PAUSE MENU BUTTONS
+        pauseMenuResume.setBackgroundImage(UIImage(named: "pauseMenuResume"), forState: UIControlState.Normal)
+        pauseMenuResume.frame = CGRectMake(view.frame.size.width/3, view.frame.size.height/2, 200, 95)
+        pauseMenuResume.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+        pauseMenuRestart.setBackgroundImage(UIImage(named: "pauseMenuRestart"), forState: UIControlState.Normal)
+        pauseMenuRestart.frame = CGRectMake(view.frame.size.width/2, pauseMenuBG.size.height/2, 200, 95)
+        pauseMenuRestart.addTarget(self, action: "restartGame", forControlEvents: UIControlEvents.TouchUpInside)
+
+        pauseMenuExit.setBackgroundImage(UIImage(named: "pauseMenuExit"), forState: UIControlState.Normal)
+        pauseMenuExit.frame = CGRectMake(pauseMenuBG.size.width/2, pauseMenuBG.size.height/2, 200, 95)
+
+        pauseMenuExit.addTarget(self, action: "goToMainMenu", forControlEvents: UIControlEvents.TouchUpInside)
+
+
+        pauseMenuBG.size = CGSizeMake(432, 486)
+        pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        pauseMenuBG.zPosition = 1.0
 
 
 
-        buttonScenePlay.frame = CGRectMake(6.25, frame.width/3.9, 50, 50)
+
         let buttonPlayImage = UIImage(named: "buttonPlay")
+        buttonScenePlay.frame = CGRectMake(view.frame.size.width - buttonScenePlay.bounds.size.width - 40, 5, 35, 35)
         buttonScenePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
         buttonScenePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
@@ -232,26 +228,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene?.view?.addSubview(buttonScenePlay)
         buttonScenePlay.hidden = true
 
-        pauseMenuBG.size = CGSizeMake(432, 486)
-        pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
-        pauseMenuBG.zPosition = 1.0
 
-        pauseMenuResume.size = CGSizeMake(200, 95)
-        pauseMenuResume.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
-        pauseMenuResume.zPosition = 1.0
+//        pauseMenuResume.size = CGSizeMake(200, 95)
+//        pauseMenuResume.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
+//        pauseMenuResume.zPosition = 1.0
+//
+//
+//        pauseMenuRestart.size = CGSizeMake(200, 95)
+//        pauseMenuRestart.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 25)
+//        pauseMenuRestart.zPosition = 1.0
+//
+//        pauseMenuExit.size = CGSizeMake(200, 95)
+//        pauseMenuExit.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/3)
+//        pauseMenuExit.zPosition = 1.0
 
-        pauseMenuRestart.size = CGSizeMake(200, 95)
-        pauseMenuRestart.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 25)
-        pauseMenuRestart.zPosition = 1.0
 
-        pauseMenuExit.size = CGSizeMake(200, 95)
-        pauseMenuExit.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/3)
-        pauseMenuExit.zPosition = 1.0
 
 //        addChild(pauseMenuResume)
 //        addChild(pauseMenuRestart)
 //        addChild(pauseMenuExit)
 
+    }
+
+    func goToMainMenu() {
+        NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
     }
 
     func startGame() {
@@ -295,42 +295,51 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(yellowButton)
 
         if isHighScore == true {
-            addChild(highScoreLabel)
-            addChild(highScoreButton)
+//            addChild(highScoreLabel)
+//            addChild(highScoreButton)
+            addChild(newHighScoreButton)
 
         }
 
-        gameOverMenu.size = CGSizeMake(self.frame.size.width/1.5, 420)
-        gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        gameOverMenu.size = CGSizeMake(self.frame.size.width/1.5, self.frame.size.height/1.5)
+        gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
 
-        redButton.size = CGSizeMake(80, 80)
-        redButton.position = CGPointMake(380, 430)
+//        redButton.size = CGSizeMake(80, 80)
+        redButton.setScale(1.0)
+//        redButton.position = CGPointMake(380, 430)
+        redButton.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/2)
         redButton.name = "redButton"
         redButton.zPosition = 1.0;
 
-        blueButton.size = CGSizeMake(80, 80)
-        blueButton.position = CGPointMake(500, 430)
+        //(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
+
+//        blueButton.size = CGSizeMake(80, 80)
+        blueButton.setScale(1.0)
+//        blueButton.position = CGPointMake(500, 430)
+        blueButton.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
         blueButton.name = "facebook";//how the node is identified later
         blueButton.zPosition = 1.0;
 
-        yellowButton.size = CGSizeMake(80, 80)
-        yellowButton.position = CGPointMake(610, 430)
+//        yellowButton.size = CGSizeMake(80, 80)
+        yellowButton.setScale(1.0)
+//        yellowButton.position = CGPointMake(610, 430)
+        yellowButton.position = CGPointMake(self.frame.size.width/1.5, self.frame.size.height/2)
         yellowButton.name = "yellowButton";//how the node is identified later
         yellowButton.zPosition = 1.0;
 
 
         //highScoreLabel.size = CGSizeMake(80, 80)
-        highScoreLabel.position = CGPointMake(500, 330)
-        highScoreLabel.name = "highScore"
-        highScoreLabel.zPosition = 1.0;
-        highScoreLabel.color  = UIColor.blackColor()
-        highScoreLabel.fontSize = 36
-        highScoreLabel.fontName = "Noteworthy-Light"
+        newHighScoreButton.position = CGPointMake(self.frame.size.width/2, CGRectGetMinY(yellowButton.frame) - newHighScoreButton.frame.size.height / 2)
+        newHighScoreButton.name = "highScore"
+        newHighScoreButton.zPosition = 1.0;
+//        newHighScoreButton.color  = UIColor.blackColor()
+//        newHighScoreButton.fontSize = 36
+//        newHighScoreButton.fontName = "Noteworthy-Light"
 
-        highScoreButton.position = CGPointMake(300, 330)
-        highScoreButton.name = "highScoreButton"
-        highScoreButton.zPosition = 1.0
-        highScoreButton.size = CGSizeMake(80, 80)
+//        newHighScoreButton.position = CGPointMake(300, 330)
+//        newHighScoreButton.name = "highScoreButton"
+//        newHighScoreButton.zPosition = 1.0
+        newHighScoreButton.setScale(1.0)
 
 
 
@@ -344,6 +353,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         buttonScenePause.removeFromSuperview()
         buttonScenePlay.removeFromSuperview()
+
 //        buttonScenePause.hidden = true
 //        buttonScenePlay.hidden = true
 
@@ -360,25 +370,49 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     func pauseGame() {
-        //scene.view?.paused = true // to pause the game
-//        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("pauseGame"), userInfo: nil, repeats: false)
-        //NSNotificationCenter.defaultCenter().postNotificationName("pause", object:nil)
 
-        addChild(pauseMenuBG)
+
+        updateToSuperView(pause)
+
+
         buttonScenePause.hidden = true
         buttonScenePlay.hidden = false
 
-        addChild(pauseMenuResume)
-        addChild(pauseMenuRestart)
-        addChild(pauseMenuExit)
-
-        delay(0.1) {
-//            self.scene!.view!.paused = true
+        delay(0.4, closure: { () -> () in
             self.view!.paused = true
-        }
 
+        })
+
+    }
+
+    func restartGame () {
+        updateToSuperView(resume)
+
+        var restartScene = GameScene(size: self.size)
+        restartScene.scaleMode = .AspectFill
+        self.view?.presentScene(restartScene)
+
+        buttonScenePlay.hidden = true
+        buttonScenePause.hidden = false
         
+        
+    }
 
+    func updateToSuperView(status: String) {
+
+        if status == pause {
+            addChild(pauseMenuBG)
+            scene?.view?.addSubview(pauseMenuResume)
+            scene?.view?.addSubview(pauseMenuRestart)
+            scene?.view?.addSubview(pauseMenuExit)
+
+        } else if status == resume {
+            pauseMenuBG.removeFromParent()
+            pauseMenuResume.removeFromSuperview()
+            pauseMenuRestart.removeFromSuperview()
+            pauseMenuExit.removeFromSuperview()
+
+        }
     }
 
 
@@ -394,11 +428,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func resumeGame() {
         //scene.view?.paused = true // to pause the game
+
+        updateToSuperView(resume)
 //        pauseMenuBG.removeAllChildren()
-        pauseMenuBG.removeFromParent()
-        pauseMenuResume.removeFromParent()
-        pauseMenuRestart.removeFromParent()
-        pauseMenuExit.removeFromParent()
+//        pauseMenuResume.removeFromParent()
+//        pauseMenuRestart.removeFromParent()
+//        pauseMenuExit.removeFromParent()
 
         scene?.view?.paused = false
 
@@ -416,7 +451,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //            isGameOver = true
 
             PowerUp.removeFromParent()
-            scoreInfo.score = scoreInfo.score + 2
+            scoreInfo.score = scoreInfo.score + 1
             scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
 
             orbFlare.removeFromParent()
@@ -425,11 +460,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         self.setIsHighScore()
 
-
-
         }
-
-
     }
 
     func setIsHighScore() {
@@ -441,7 +472,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             NSUserDefaults.standardUserDefaults().synchronize()
 
-        }else {
+        } else {
             //isHighScore = false
             //println("\(isHighScoreDefaults)")
 
@@ -560,17 +591,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    func restartGame () {
 
-        var restartScene = GameScene(size: self.size)
-        restartScene.scaleMode = .AspectFill
-        self.view?.presentScene(restartScene)
-
-        buttonScenePlay.hidden = true
-        buttonScenePause.hidden = false
-
-
-    }
 
 
 // MARK: - TOUCHES BEGAN
@@ -895,8 +916,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     func playSound(soundVariable: SKAction) {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+
+        if appDelegate.isMuted == false {
         runAction(soundVariable)
+        }
     }
-
 }
-

@@ -14,6 +14,7 @@ import AVFoundation
 
 class MainMenuViewController: UIViewController {
 
+    @IBOutlet weak var muteButton: UIButton!
     var savedSoldier = NSUserDefaults.standardUserDefaults()
 //    var soundBGMusic = SKAction.playSoundFileNamed("ThemeOfKingsSnippet.mp3", waitForCompletion: true)
 
@@ -23,7 +24,7 @@ class MainMenuViewController: UIViewController {
     var audioPlayer = AVAudioPlayer()
 //    var bgMusicPlayer = AVAudioPlayer()
 
-
+    //var isMuted:Bool?
     @IBOutlet var imageViewSoldier: UIImageView!
 
 //    let soldierOneString:String = "Idle__007"
@@ -58,14 +59,31 @@ class MainMenuViewController: UIViewController {
         audioPlayer = AVAudioPlayer(contentsOfURL: selectionSound, error: &error)
         audioPlayer.prepareToPlay()
 
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        appDelegate.stopInGameMusic()
-        appDelegate.startBGMusic()
-
+//        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+//        appDelegate.stopInGameMusic()
+//        appDelegate.startBGMusic()
 
 
     }
 
+
+    @IBAction func onMuteButtonTapped(sender: UIButton) {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+
+        if appDelegate.isMuted == true {
+            appDelegate.isMuted = false
+            muteButton.setTitle("Mute", forState: nil)
+            appDelegate.startBGMusic()
+        } else {
+            appDelegate.isMuted = true
+            muteButton.setTitle("Unmute", forState: nil)
+            appDelegate.stopAllMusic()
+//            appDelegate.stopInGameMusic()
+//            appDelegate.stopBGMusic()
+//            
+            //appDelegate.startBGMusic()
+        }
+    }
 //    func playBGMusic() {
 //
 //        var bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ThemeOfKingsSnippet", ofType: "mp3")!)
@@ -114,6 +132,7 @@ class MainMenuViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
+    
 
     if let gameViewController = segue.destinationViewController as? GameViewController
         {
@@ -121,8 +140,8 @@ class MainMenuViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().synchronize()
 //            bgMusicPlayer.stop()
 
-
     }
+
 
     }
 

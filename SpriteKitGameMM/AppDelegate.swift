@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     var window: UIWindow?
     var bgMusicPlayer = AVAudioPlayer()
     var inGameMusicPlayer = AVAudioPlayer()
-
+    var isMuted:Bool?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -31,13 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         FBProfilePictureView.self
         PFFacebookUtils.initializeFacebook()
 
+        isMuted = false
 
         var bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ThemeOfKingsSnippet", ofType: "mp3")!)
         bgMusicPlayer = AVAudioPlayer(contentsOfURL: bgMusic, error: nil)
         bgMusicPlayer.delegate = self
         bgMusicPlayer.numberOfLoops = -1
         bgMusicPlayer.play()
-
         var inGameMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ConquerIt", ofType: "mp3")!)
         inGameMusicPlayer = AVAudioPlayer(contentsOfURL: inGameMusic, error: nil)
 
@@ -47,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
 
     func startBGMusic() {
         bgMusicPlayer.play()
-
     }
 
     func startInGameMusic() {
@@ -60,7 +59,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
 
     func stopBGMusic() {
         bgMusicPlayer.stop()
+
     }
+
+    func stopAllMusic() {
+        stopBGMusic()
+        stopInGameMusic()
+        isMuted = true
+    }
+
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {
 
@@ -78,6 +85,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
+
+        // CALL PAUSE FUNCTION
+        NSNotificationCenter.defaultCenter().postNotificationName("stayPausedNotification", object:nil)
+
+
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }

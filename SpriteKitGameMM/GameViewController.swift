@@ -39,8 +39,8 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
         if var scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
             let skView = self.view as SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+            skView.showsFPS = false
+            skView.showsNodeCount = false
 
 
 
@@ -65,17 +65,7 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
 
                 return
             }
-
-            NSNotificationCenter.defaultCenter().addObserverForName("pause", object: nil, queue: nil) { (notification: NSNotification?) in
-
             
-
-
-                return
-            }
-
-
-
             NSNotificationCenter.defaultCenter().addObserverForName("leader", object: nil, queue: nil) { (notification: NSNotification?) in
                 self.performSegueWithIdentifier("leaderSegue", sender: self)
                 
@@ -156,5 +146,9 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+
+    override func viewDidLayoutSubviews() {
+        
     }
 }
