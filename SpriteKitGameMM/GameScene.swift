@@ -50,7 +50,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     // MARK: - BUTTONS
     let buttonScenePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
     let buttonScenePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
-
+    let buttonSceneResume = UIButton.buttonWithType(UIButtonType.System) as  UIButton
+    let buttonSceneExit = UIButton.buttonWithType(UIButtonType.System) as  UIButton
+    let buttonSceneLeaderBroad = UIButton.buttonWithType(UIButtonType.System) as  UIButton
 
 
     // MARK: - GROUND/WORLD
@@ -93,6 +95,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.stopBGMusic()
         appDelegate.startInGameMusic()
+        
 
 //        currentSoldier = "S1"
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
@@ -359,7 +362,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func pauseGame() {
         //scene.view?.paused = true // to pause the game
 //        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("pauseGame"), userInfo: nil, repeats: false)
-        NSNotificationCenter.defaultCenter().postNotificationName("pause", object:nil)
+        //NSNotificationCenter.defaultCenter().postNotificationName("pause", object:nil)
 
         addChild(pauseMenuBG)
         buttonScenePause.hidden = true

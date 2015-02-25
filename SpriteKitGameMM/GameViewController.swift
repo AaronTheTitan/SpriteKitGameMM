@@ -36,11 +36,13 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
+        if var scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
             // Configure the view.
             let skView = self.view as SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
+
+
 
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
@@ -60,12 +62,13 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
                 scene.removeAllChildren()
                 scene.removeAllActions()
 
+
                 return
             }
 
             NSNotificationCenter.defaultCenter().addObserverForName("pause", object: nil, queue: nil) { (notification: NSNotification?) in
 
-                self.performSegueWithIdentifier("pauseSegue", sender: self)
+            
 
 
                 return
