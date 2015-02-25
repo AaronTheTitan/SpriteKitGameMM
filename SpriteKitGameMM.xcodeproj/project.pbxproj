@@ -22,6 +22,18 @@
 		9110209A1A8D3D1D002532E9 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911020991A8D3D1D002532E9 /* Bullet.swift */; };
 		9110209C1A8D45EE002532E9 /* WorldGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9110209B1A8D45EE002532E9 /* WorldGenerator.swift */; };
 		914ABA451A8D08EA008039D7 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914ABA441A8D08EA008039D7 /* Object.swift */; };
+		91529A241A9E5163000FD62B /* S1CrouchAim.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A171A9E5163000FD62B /* S1CrouchAim.atlas */; };
+		91529A251A9E5163000FD62B /* S1Dead.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A181A9E5163000FD62B /* S1Dead.atlas */; };
+		91529A261A9E5163000FD62B /* S1Idle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A191A9E5163000FD62B /* S1Idle.atlas */; };
+		91529A271A9E5163000FD62B /* S1Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A1A1A9E5163000FD62B /* S1Jump.atlas */; };
+		91529A281A9E5163000FD62B /* S1Run.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A1B1A9E5163000FD62B /* S1Run.atlas */; };
+		91529A291A9E5163000FD62B /* S1Walk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A1C1A9E5163000FD62B /* S1Walk.atlas */; };
+		91529A2A1A9E5163000FD62B /* S2CrouchAim.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A1E1A9E5163000FD62B /* S2CrouchAim.atlas */; };
+		91529A2B1A9E5163000FD62B /* S2Dead.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A1F1A9E5163000FD62B /* S2Dead.atlas */; };
+		91529A2C1A9E5163000FD62B /* S2Idle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A201A9E5163000FD62B /* S2Idle.atlas */; };
+		91529A2D1A9E5163000FD62B /* S2Jump.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A211A9E5163000FD62B /* S2Jump.atlas */; };
+		91529A2E1A9E5163000FD62B /* S2Run.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A221A9E5163000FD62B /* S2Run.atlas */; };
+		91529A2F1A9E5163000FD62B /* S2Walk.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 91529A231A9E5163000FD62B /* S2Walk.atlas */; };
 		915A81EA1A95336100509664 /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915A81E91A95336100509664 /* PhysicsCategory.swift */; };
 		915A81EC1A95393900509664 /* ScoreLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915A81EB1A95393900509664 /* ScoreLabels.swift */; };
 		916376461A993B2600C3D4FC /* LeaderBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916376451A993B2600C3D4FC /* LeaderBoardCell.swift */; };
@@ -95,6 +107,18 @@
 		911020991A8D3D1D002532E9 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9110209B1A8D45EE002532E9 /* WorldGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldGenerator.swift; sourceTree = "<group>"; };
 		914ABA441A8D08EA008039D7 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		91529A171A9E5163000FD62B /* S1CrouchAim.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S1CrouchAim.atlas; sourceTree = "<group>"; };
+		91529A181A9E5163000FD62B /* S1Dead.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S1Dead.atlas; sourceTree = "<group>"; };
+		91529A191A9E5163000FD62B /* S1Idle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S1Idle.atlas; sourceTree = "<group>"; };
+		91529A1A1A9E5163000FD62B /* S1Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S1Jump.atlas; sourceTree = "<group>"; };
+		91529A1B1A9E5163000FD62B /* S1Run.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S1Run.atlas; sourceTree = "<group>"; };
+		91529A1C1A9E5163000FD62B /* S1Walk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S1Walk.atlas; sourceTree = "<group>"; };
+		91529A1E1A9E5163000FD62B /* S2CrouchAim.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S2CrouchAim.atlas; sourceTree = "<group>"; };
+		91529A1F1A9E5163000FD62B /* S2Dead.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S2Dead.atlas; sourceTree = "<group>"; };
+		91529A201A9E5163000FD62B /* S2Idle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S2Idle.atlas; sourceTree = "<group>"; };
+		91529A211A9E5163000FD62B /* S2Jump.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S2Jump.atlas; sourceTree = "<group>"; };
+		91529A221A9E5163000FD62B /* S2Run.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S2Run.atlas; sourceTree = "<group>"; };
+		91529A231A9E5163000FD62B /* S2Walk.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = S2Walk.atlas; sourceTree = "<group>"; };
 		915A81E91A95336100509664 /* PhysicsCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		915A81EB1A95393900509664 /* ScoreLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreLabels.swift; sourceTree = "<group>"; };
 		916376451A993B2600C3D4FC /* LeaderBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderBoardCell.swift; path = SpriteKitGameMM/LeaderBoardCell.swift; sourceTree = "<group>"; };
@@ -201,6 +225,41 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		915299F31A9E4385000FD62B /* SoldierAtlases */ = {
+			isa = PBXGroup;
+			children = (
+				91529A161A9E5163000FD62B /* Soldier1Atlas */,
+				91529A1D1A9E5163000FD62B /* Soldier2Atlas */,
+			);
+			name = SoldierAtlases;
+			sourceTree = "<group>";
+		};
+		91529A161A9E5163000FD62B /* Soldier1Atlas */ = {
+			isa = PBXGroup;
+			children = (
+				91529A171A9E5163000FD62B /* S1CrouchAim.atlas */,
+				91529A181A9E5163000FD62B /* S1Dead.atlas */,
+				91529A191A9E5163000FD62B /* S1Idle.atlas */,
+				91529A1A1A9E5163000FD62B /* S1Jump.atlas */,
+				91529A1B1A9E5163000FD62B /* S1Run.atlas */,
+				91529A1C1A9E5163000FD62B /* S1Walk.atlas */,
+			);
+			path = Soldier1Atlas;
+			sourceTree = "<group>";
+		};
+		91529A1D1A9E5163000FD62B /* Soldier2Atlas */ = {
+			isa = PBXGroup;
+			children = (
+				91529A1E1A9E5163000FD62B /* S2CrouchAim.atlas */,
+				91529A1F1A9E5163000FD62B /* S2Dead.atlas */,
+				91529A201A9E5163000FD62B /* S2Idle.atlas */,
+				91529A211A9E5163000FD62B /* S2Jump.atlas */,
+				91529A221A9E5163000FD62B /* S2Run.atlas */,
+				91529A231A9E5163000FD62B /* S2Walk.atlas */,
+			);
+			path = Soldier2Atlas;
+			sourceTree = "<group>";
+		};
 		91990D721A92835D00553594 /* SoundFX */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +307,7 @@
 				91DD16401A8E5CF3004742FA /* PlayinAroundForGame.playground */,
 				915A81E91A95336100509664 /* PhysicsCategory.swift */,
 				91CEB7841A8BB2CD0055CB17 /* GameScene.swift */,
+				915299F31A9E4385000FD62B /* SoldierAtlases */,
 				8A5FF5CE1A98F53100E02B2A /* TutorialScene.swift */,
 				9192E0451A978DBB00BF1911 /* OrbParticle.sks */,
 				9192E0461A978DBB00BF1911 /* spark.png */,
@@ -430,22 +490,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91529A2A1A9E5163000FD62B /* S2CrouchAim.atlas in Resources */,
+				91529A2E1A9E5163000FD62B /* S2Run.atlas in Resources */,
+				91529A261A9E5163000FD62B /* S1Idle.atlas in Resources */,
 				91CEB78F1A8BB2CD0055CB17 /* LaunchScreen.xib in Resources */,
 				910A41E21A9B1BAB00D87213 /* SelectSoldier.mp3 in Resources */,
 				9192E0471A978DBB00BF1911 /* OrbParticle.sks in Resources */,
+				91529A251A9E5163000FD62B /* S1Dead.atlas in Resources */,
 				91CEB78C1A8BB2CD0055CB17 /* Images.xcassets in Resources */,
+				91529A291A9E5163000FD62B /* S1Walk.atlas in Resources */,
 				91990D7E1A92905900553594 /* Jump.mp3 in Resources */,
 				919FC89B1A9B831F00DA7EA1 /* ConquerIt.mp3 in Resources */,
+				91529A281A9E5163000FD62B /* S1Run.atlas in Resources */,
 				91990D781A92869100553594 /* PowerUpTwo.mp3 in Resources */,
+				91529A2D1A9E5163000FD62B /* S2Jump.atlas in Resources */,
 				9192E0481A978DBB00BF1911 /* spark.png in Resources */,
 				910A41E61A9B212C00D87213 /* WarheadSound.mp3 in Resources */,
+				91529A271A9E5163000FD62B /* S1Jump.atlas in Resources */,
 				8ABEB7E21A990A570088FC0B /* TutorialScene.sks in Resources */,
 				91990D7A1A928DFC00553594 /* Explosion.mp3 in Resources */,
 				91CEB7831A8BB2CD0055CB17 /* GameScene.sks in Resources */,
+				91529A2B1A9E5163000FD62B /* S2Dead.atlas in Resources */,
+				91529A2C1A9E5163000FD62B /* S2Idle.atlas in Resources */,
+				91529A241A9E5163000FD62B /* S1CrouchAim.atlas in Resources */,
 				910A41E41A9B1BC700D87213 /* SwitchSoldier.mp3 in Resources */,
 				910E16651A9B248F0008C750 /* ThemeOfKingsSnippet.mp3 in Resources */,
 				91990D771A92869100553594 /* PowerUpOne.mp3 in Resources */,
 				91CEB78A1A8BB2CD0055CB17 /* Main.storyboard in Resources */,
+				91529A2F1A9E5163000FD62B /* S2Walk.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

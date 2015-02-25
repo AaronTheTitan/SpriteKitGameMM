@@ -312,7 +312,8 @@
                                     <constraint firstAttribute="width" constant="125" id="HJV-IX-7rI"/>
                                     <constraint firstAttribute="height" constant="45" id="aM5-zx-wm7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Change Soldier" backgroundImage="menuButtonYellow">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -339,7 +340,8 @@
                                     <constraint firstAttribute="width" constant="125" id="JZV-GO-943"/>
                                     <constraint firstAttribute="height" constant="45" id="aCz-wz-Mju"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Leaderboard" backgroundImage="menuButtonYellow">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -368,8 +370,8 @@
                                         <variation key="heightClass=compact" constant="178"/>
                                     </constraint>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="25"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="-9" maxX="0.0" maxY="0.0"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="25"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="-7" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="PLAY!" backgroundImage="menuButtonBlue">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -396,7 +398,8 @@
                                     <constraint firstAttribute="height" constant="45" id="iIU-7c-80w"/>
                                     <constraint firstAttribute="width" constant="125" id="iy2-Gm-tSa"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Tutorial" backgroundImage="menuButtonYellow">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -423,7 +426,8 @@
                                     <constraint firstAttribute="width" constant="125" id="iL0-Bk-3f3"/>
                                     <constraint firstAttribute="height" constant="45" id="yLp-YO-DGU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Mute" backgroundImage="menuButtonYellow">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -813,7 +817,7 @@
                                     <constraint firstAttribute="height" constant="21" id="KoY-9H-63g"/>
                                     <constraint firstAttribute="width" constant="126" id="hfb-qi-rJ8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.81762761596697708" blue="0.21652543286595793" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -823,7 +827,7 @@
                                     <constraint firstAttribute="height" constant="50" id="8eD-lB-yox"/>
                                     <constraint firstAttribute="width" constant="160" id="jRh-aK-J2C"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Share on Facebook" backgroundImage="menuButtonBlue">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -852,7 +856,7 @@
                                     <constraint firstAttribute="width" constant="160" id="ue8-S1-WeP"/>
                                     <constraint firstAttribute="width" constant="59" id="xrZ-Eb-t8i"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Home" backgroundImage="menuButtonYellow">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -903,7 +907,7 @@
                                     <constraint firstAttribute="width" constant="59" id="3M5-Bg-kJq"/>
                                     <constraint firstAttribute="height" constant="30" id="ZUC-5e-fnj"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Post" backgroundImage="menuButtonYellow">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -938,7 +942,7 @@
                                     <constraint firstAttribute="height" constant="30" id="dhg-SR-wd9"/>
                                     <constraint firstAttribute="height" constant="30" id="syx-4N-JYe"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Add Yours" backgroundImage="menuButtonBlue">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -969,7 +973,7 @@
                                     <constraint firstAttribute="width" constant="160" id="BHR-vX-3Xr"/>
                                     <constraint firstAttribute="height" constant="50" id="vH3-mY-bQh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Share on Twitter!" backgroundImage="menuButtonBlue">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1229,8 +1233,8 @@
         <image name="powerup01_2" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rWX-56-lfP"/>
         <segue reference="sSm-Uy-cem"/>
+        <segue reference="AqY-gf-aub"/>
         <segue reference="ycX-0N-nmO"/>
     </inferredMetricsTieBreakers>
 </document>
