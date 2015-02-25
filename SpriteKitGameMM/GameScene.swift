@@ -427,7 +427,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //            isGameOver = true
 
             PowerUp.removeFromParent()
-            scoreInfo.score = scoreInfo.score + 2
+            scoreInfo.score = scoreInfo.score + 1
             scoreInfo.labelScore.text = "Score: \(scoreInfo.score)"
 
             orbFlare.removeFromParent()
