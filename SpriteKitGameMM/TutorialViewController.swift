@@ -57,30 +57,12 @@ class TutorialViewController: UIViewController {
 
             scene.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
-//            NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
-//
-//                println("long sentence")
-//                self.performSegueWithIdentifier("gameOverSegue", sender: self)
-//
-//                return
-
-
-//}
-
         }
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(false);
-//        NSNotificationCenter.defaultCenter().addObserverForName("mainMenu", object: nil, queue: nil) { (notification: NSNotification?) in
-//
-//            self.performSegueWithIdentifier("mainMenuSegue", sender: self)
-////            scene.removeAllChildren()
-////            scene.removeAllActions()
-//
-//
-//            return
-//        }
+
 
     }
 

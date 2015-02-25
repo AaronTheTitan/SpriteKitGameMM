@@ -43,13 +43,7 @@ class MainMenuViewController: UIViewController {
         savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
         savedSoldier.synchronize()
 
-//            gameViewController.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
-            
         }
-
-
-//        playBGMusic()
-
 
         var selectionSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("SwitchSoldier", ofType: "mp3")!)
         // Removed deprecated use of AVAudioSessionDelegate protocol
@@ -65,9 +59,11 @@ class MainMenuViewController: UIViewController {
         if appDelegate.isMuted == false {
             appDelegate.stopInGameMusic()
             appDelegate.startBGMusic()
+            muteButton.setTitle("Mute", forState: nil)
+        } else {
+            muteButton.setTitle("Unmute", forState: nil)
+
         }
-
-
     }
 
 
