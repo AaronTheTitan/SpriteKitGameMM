@@ -97,9 +97,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         isHighScoreDefaults = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        appDelegate.stopBGMusic()
-        appDelegate.startInGameMusic()
-        
+        if appDelegate.isMuted == false {
+            appDelegate.stopBGMusic()
+            appDelegate.startInGameMusic()
+        }
 
 
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
@@ -700,9 +701,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             sprite.position.x -= spriteposition
         }
 
-        for body: AnyObject in self.physicsBody?.allContactedBodies() ?? [] {
-            
-        }
 //        NSArray *tempArray = [yourNode.physicsBody allContactedBodies];
 //        for(SKNode *object in tempArray)
 //        {
@@ -910,7 +908,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         addChild(bombExplode!)
     }
-
 
     func playSound(soundVariable: SKAction) {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate

@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     func stopAllMusic() {
         stopBGMusic()
         stopInGameMusic()
-        isMuted = true
+        //isMuted = true
     }
 
 
