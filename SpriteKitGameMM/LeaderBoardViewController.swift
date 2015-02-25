@@ -16,7 +16,7 @@ import UIKit
 
 class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
 
-   var score:Int?
+    var score:Int?
     var highScoreArray = [Int]()
     var nameArray = [String]()
 
@@ -65,7 +65,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func addHighScoreObject () {
         var playerNameArray = [String]()
         var scoreArray = [Int]()
-        var query = PFQuery(className:"GameScore")
+        let query = PFQuery(className:"GameScore")
         query.orderByAscending("score")
         //query.whereKey("playerName", equalTo:"Sean Plott")
         query.findObjectsInBackgroundWithBlock {
@@ -78,8 +78,8 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
                     // Do something with the found objects
 
                     for object in objects {
-                        var playerName = object.objectForKey("playerName") as String
-                        var score = object.objectForKey("score") as Int
+                        let playerName = object.objectForKey("playerName") as String
+                        let score = object.objectForKey("score") as Int
 
                         playerNameArray.insert(playerName, atIndex: 0)
                         scoreArray.insert(score, atIndex: 0)
@@ -123,10 +123,10 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
         if !nameArray.isEmpty{
         //println(" These are the player \(self.nameArray)")
 
-        var nameString = self.nameArray[indexPath.row]
-        cell.textLabel.text = "\(indexPath.row + 1). \(nameString)"
+        let nameString = self.nameArray[indexPath.row]
+        cell.textLabel!.text = "\(indexPath.row + 1). \(nameString)"
 
-            var scoreString = self.highScoreArray[indexPath.row]
+            let scoreString = self.highScoreArray[indexPath.row]
             cell.detailTextLabel?.text = "\(scoreString) points"
             cell.detailTextLabel?.textColor = UIColor.blackColor()
         }
@@ -135,7 +135,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
 
     func postGameScore () {
-        var gameScore = PFObject(className: "GameScore")
+        let gameScore = PFObject(className: "GameScore")
         gameScore.setObject(NSUserDefaults.standardUserDefaults().integerForKey("highscore"), forKey: "score")
         gameScore.setObject(nameTextField.text, forKey: "playerName")
         gameScore.saveInBackgroundWithBlock {
@@ -185,7 +185,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
             facebookSheet.setInitialText("My high score on Bomb Rush is \(score!), try to beat that")
             self.presentViewController(facebookSheet, animated: true, completion: nil)
         } else {
-            var alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Accounts", message: "Please login to a Facebook account to share.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -200,7 +200,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
             self.presentViewController(twitterSheet, animated: true, completion: nil)
         } else {
-            var alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Accounts", message: "Please login to a Twitter account to share.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }

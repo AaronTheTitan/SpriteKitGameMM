@@ -80,7 +80,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let resume:String = "resume"
 
 
-
+    let removeObject = SKAction.removeFromParent() ////// THIS IS WHERE I WAS
 
 //----- BEGIN LOGIC -----//
 
@@ -90,6 +90,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         isHighScoreDefaults = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.inGameMusicPlayer.volume = 1
         if appDelegate.isMuted == false {
             appDelegate.stopBGMusic()
             appDelegate.startInGameMusic()
@@ -112,23 +113,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(scoreInfo)
         scoreInfo.addScoring()
 
-
         scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
 
         let view1 = super.view
 
-
         buttonScenePause.setTranslatesAutoresizingMaskIntoConstraints(true)
-//        buttonScenePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
-
 
         startGameLabel()
         
         NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
 
             self.pauseGame()
-            println("pause tRhe game please")
+//            println("pause tRhe game please")
             return
             
         }
@@ -168,7 +165,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             }
         }
 
-         }
+     }
 
     func setupControls(view: SKView) {
 
@@ -210,37 +207,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
         pauseMenuBG.zPosition = 1.0
 
-
-
-
-//        let buttonPlayImage = UIImage(named: "buttonPlay")
-//        buttonScenePlay.frame = CGRectMake(view.frame.size.width - buttonScenePlay.bounds.size.width - 40, 5, 35, 35)
-//        buttonScenePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
-//        buttonScenePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
-
         scene?.view?.addSubview(buttonScenePause)
-//        scene?.view?.addSubview(buttonScenePlay)
-//        buttonScenePlay.hidden = true
-
-
-//        pauseMenuResume.size = CGSizeMake(200, 95)
-//        pauseMenuResume.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
-//        pauseMenuResume.zPosition = 1.0
-//
-//
-//        pauseMenuRestart.size = CGSizeMake(200, 95)
-//        pauseMenuRestart.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 25)
-//        pauseMenuRestart.zPosition = 1.0
-//
-//        pauseMenuExit.size = CGSizeMake(200, 95)
-//        pauseMenuExit.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/3)
-//        pauseMenuExit.zPosition = 1.0
-
-
-
-//        addChild(pauseMenuResume)
-//        addChild(pauseMenuRestart)
-//        addChild(pauseMenuExit)
 
     }
 
@@ -250,28 +217,25 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func startGame() {
 
-//        self.runAction(SKAction.repeatActionForever(SKAction.playSoundFileNamed("ConquerIt.mp3", waitForCompletion: true)))
-
-
         isGameOver = false
         startLabel.removeFromParent()
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix:currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
         world.startGroundMoving()
 
-
-
         runSpawnActions(isGameOver!)
     }
 
     func runSpawnActions(gameOver: Bool) {
+
         if gameOver == false {
             let spawn = SKAction.runBlock({() in self.addBadGuys()})
-            var delay = SKAction.waitForDuration(NSTimeInterval(1.29))
+            let delay = SKAction.waitForDuration(NSTimeInterval(1.29))
 
-            var spawnThenDelay = SKAction.sequence([delay, spawn])
-            var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
+            let spawnThenDelay = SKAction.sequence([delay, spawn])
+            let spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
             self.runAction(spawnThenDelayForever)
+
         } else {
             removeAllActions()
         }
@@ -327,28 +291,31 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     func pauseGame() {
+        if isGameOver == false {
+            let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            appDelegate.inGameMusicPlayer.volume = 0.3
 
-       updateToSuperView(pause)
-       buttonScenePause.hidden = true
+           updateToSuperView(pause)
+           buttonScenePause.hidden = true
 
-        delay(0.01, closure: { () -> () in
-            self.view!.paused = true
+            delay(0.01, closure: { () -> () in
+                self.view!.paused = true
 
-        })
+            })
+        }
 
     }
 
     func restartGame () {
+//        removeAllChildren()
 
         resumeGame()
-        var restartScene = GameScene(size: self.size)
+        let restartScene = GameScene(size: self.size)
         restartScene.scaleMode = .AspectFill
         self.view?.presentScene(restartScene)
 
         updateToSuperView(resume)
         buttonScenePause.hidden = false
-        
-        
     }
 
     func updateToSuperView(status: String) {
@@ -380,11 +347,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     func resumeGame() {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.inGameMusicPlayer.volume = 1
 
         updateToSuperView(resume)
         scene?.view?.paused = false
         buttonScenePause.hidden = false
-
     }
 
 
@@ -402,7 +370,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             playSound(soundSuperPowerUp)
 
             self.setIsHighScore()
-
         }
     }
 
@@ -415,36 +382,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             NSUserDefaults.standardUserDefaults().synchronize()
 
-        } else {
-            //println("setting isHighScore = \(abool)")
-
-
         }
-
-
-//        if scoreInfo.score <= NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
-//            isHighScore = false
-//            println("\(isHighScoreDefaults)")
-//            NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
-//            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isHighScore")
-//
-//            NSUserDefaults.standardUserDefaults().synchronize()
-//            
-//        }
-
-
     }
 
     func setscore(){
         NSUserDefaults.standardUserDefaults().setBool(isHighScore, forKey: "isHighScore")
         let abool = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
         NSUserDefaults.standardUserDefaults().synchronize()
-        //println("setting isHighScore = \(abool)")
     }
 
 
     func soldierDidCollideWithBomb(soldier:SKSpriteNode, bomb:SKSpriteNode) {
-
 
         if isGameOver == false {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -457,7 +405,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
 
         self.setIsHighScore()
-
     }
 
     func soldierDidCollideWithWarhead(soldier:SKSpriteNode, bomb:SKSpriteNode) {
@@ -510,8 +457,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func groundSpeedIncrease() {
 
-        var wait = SKAction.waitForDuration(1)
-        var run = SKAction.runBlock {
+        let wait = SKAction.waitForDuration(1)
+        let run = SKAction.runBlock {
             //var speedUpAction = SKAction.speedTo(self.groundSpeed, duration: self.timeIncrement)
 
             if self.spriteposition  == 25 {
@@ -541,13 +488,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
                 let transition = SKTransition.revealWithDirection(SKTransitionDirection.Down, duration: 0.5)
                 restartGame()
-
             }
 
             if touchedNode.name == "yellowButton" {
                 NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
             }
-
 
 
             if touchedNode.name == "facebook" {
@@ -559,8 +504,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 NSNotificationCenter.defaultCenter().postNotificationName("highscore", object:nil)
 
             }
-
-
 
             if touchedNode.name == "pauseMenuResume" {
                 resumeGame()
@@ -609,26 +552,56 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         removeAllActions()
 
         var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
-
-//        var timer1 = NSTimer.scheduledTimerWithTimeInterval(0.8, target: self, selector:  Selector("gameOverPause"), userInfo: nil, repeats: false)
-        //gameOver()
     }
 
-    func fireGun() {
-        var fireShot = Bullet(imageNamed: "emptyMuzzle")
-        addChild(fireShot)
-        fireShot.position = CGPointMake(soldierNode!.position.x + 132, soldierNode!.position.y)
-        fireShot.shootFire(fireShot)
-    }
+//    func fireGun() {
+//        var fireShot = Bullet(imageNamed: "emptyMuzzle")
+//        addChild(fireShot)
+//        fireShot.position = CGPointMake(soldierNode!.position.x + 132, soldierNode!.position.y)
+//        fireShot.shootFire(fireShot)
+//    }
 
-    let originalHeroPoint = CGPointMake(450, 450)
+//    let originalHeroPoint = CGPointMake(450, 450)
+//
+//    override func didSimulatePhysics() {
+//        enumerateChildNodesWithName("bomb", usingBlock: { (node, stop) -> Void in
+//            if node.position.x < 0 {
+//                node.removeFromParent()
+//            }
+//        })
+//
+//        enumerateChildNodesWithName("warhead", usingBlock: { (node, stop) -> Void in
+//            if node.position.x < 0 {
+//                node.removeFromParent()
+//            }
+//        })
+//
+//        enumerateChildNodesWithName("warheadRocket", usingBlock: { (node, stop) -> Void in
+//            if node.position.x < 0 {
+//                node.removeFromParent()
+//            }
+//        })
+//
+//        enumerateChildNodesWithName("powerup", usingBlock: { (node, stop) -> Void in
+//            if node.position.x < 0 {
+//                node.removeFromParent()
+//            }
+//        })
+//
+//        enumerateChildNodesWithName("orbFlare", usingBlock: { (node, stop) -> Void in
+//            if node.position.x < 0 {
+//                node.removeFromParent()
+//            }
+//        })
+//    }
 
 //MARK: - UPDATE
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
-                resetSoldierPosition()
-        }
+    println(scene?.children.count)
+//        if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
+//                resetSoldierPosition()
+//        }
 
         soldierNode?.update()
         world.groundMovement()
@@ -641,18 +614,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         for sprite in world.groundPieces {
             sprite.position.x -= spriteposition
         }
-
-//        NSArray *tempArray = [yourNode.physicsBody allContactedBodies];
-//        for(SKNode *object in tempArray)
-//        {
-//            if([object.name isEqualToString:@"theBall"])
-//            NSLog(@"found the ball");
-//        }
     }
-
-    func resetSoldierPosition() {
-        soldierNode?.position.x = originalHeroPoint.x
-    }
+//
+//    func resetSoldierPosition() {
+//        soldierNode?.position.x = originalHeroPoint.x
+//    }
 
 // MARK: - ADD ASSETS TO SCENE
     func addSoldier() {
@@ -763,17 +729,16 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-    func addOrbFlare() {
-
-        let orbFlarePath:NSString = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
-        let orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
-        orbFlare.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 200)
-        //        orbFlare.position = CGPointMake(powerupWhite!.position.x, powerupWhite!.position.y)
-        orbFlare.name = "orbFlare"
-        orbFlare.zPosition = 1
-        orbFlare.targetNode = self
-        addChild(orbFlare)
-    }
+//    func addOrbFlare() {
+//
+//        let orbFlarePath:NSString = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+//        let orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
+//        orbFlare.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 200)
+//        orbFlare.name = "orbFlare"
+//        orbFlare.zPosition = 1
+//        orbFlare.targetNode = self
+//        addChild(orbFlare)
+//    }
 
     func addBadGuys() {
 

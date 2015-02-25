@@ -60,9 +60,12 @@ class MainMenuViewController: UIViewController {
         audioPlayer = AVAudioPlayer(contentsOfURL: selectionSound, error: &error)
         audioPlayer.prepareToPlay()
 
-//        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-//        appDelegate.stopInGameMusic()
-//        appDelegate.startBGMusic()
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+
+        if appDelegate.isMuted == false {
+            appDelegate.stopInGameMusic()
+            appDelegate.startBGMusic()
+        }
 
 
     }
@@ -74,6 +77,7 @@ class MainMenuViewController: UIViewController {
         if appDelegate.isMuted == true {
             appDelegate.isMuted = false
             muteButton.setTitle("Mute", forState: nil)
+            appDelegate.stopInGameMusic()
             appDelegate.startBGMusic()
         } else {
             appDelegate.isMuted = true

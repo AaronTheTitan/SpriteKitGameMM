@@ -17,7 +17,6 @@ class Soldier : SKSpriteNode {
     let duckingSize:CGFloat = 0.20
     var cgVector:CGVector = CGVectorMake(00, 1400)
     var aString = "aString"
-//    let originalPosition:CGPoint = CGPoint(self.position.x, self.position.y)
 
 
     required init?(coder aDecoder: NSCoder) {
@@ -37,6 +36,7 @@ class Soldier : SKSpriteNode {
         self.physicsBody?.charge = 0.0
         
     }
+
 
     enum SoldierStates:Int {
 
