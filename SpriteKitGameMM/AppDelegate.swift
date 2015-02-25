@@ -33,13 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
 
         isMuted = false
 
-        var bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ThemeOfKingsSnippet", ofType: "mp3")!)
+        let bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ThemeOfKingsSnippet", ofType: "mp3")!)
         bgMusicPlayer = AVAudioPlayer(contentsOfURL: bgMusic, error: nil)
         bgMusicPlayer.delegate = self
         bgMusicPlayer.numberOfLoops = -1
-        bgMusicPlayer.play()
-        var inGameMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ConquerIt", ofType: "mp3")!)
+        bgMusicPlayer.prepareToPlay()
+        startBGMusic()
+//        bgMusicPlayer.play()
+
+        let inGameMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ConquerIt", ofType: "mp3")!)
         inGameMusicPlayer = AVAudioPlayer(contentsOfURL: inGameMusic, error: nil)
+        inGameMusicPlayer.numberOfLoops = -1
 
 
         return true
