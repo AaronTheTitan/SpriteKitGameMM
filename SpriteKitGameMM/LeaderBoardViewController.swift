@@ -125,7 +125,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
         let nameString = self.nameArray[indexPath.row]
 
-        cell.textLabel!.text = "\(indexPath.row + 1). \(nameString)"
+        cell.textLabel.text = "\(indexPath.row + 1). \(nameString)"
 
             let scoreString = self.highScoreArray[indexPath.row]
             cell.detailTextLabel?.text = "\(scoreString) points"
