@@ -90,9 +90,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         isHighScoreDefaults = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        appDelegate.stopBGMusic()
-        appDelegate.startInGameMusic()
-        
+        if appDelegate.isMuted == false {
+            appDelegate.stopBGMusic()
+            appDelegate.startInGameMusic()
+        }
 
 
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
@@ -461,7 +462,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func soldierDidCollideWithWarhead(soldier:SKSpriteNode, bomb:SKSpriteNode) {
 
-
         if isGameOver == false {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
 
@@ -634,15 +634,20 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         world.groundMovement()
         groundSpeedIncrease()
 
-
         if spriteposition < 8 {
             spriteposition = spriteposition + 0.35
         }
 
-
         for sprite in world.groundPieces {
             sprite.position.x -= spriteposition
         }
+
+//        NSArray *tempArray = [yourNode.physicsBody allContactedBodies];
+//        for(SKNode *object in tempArray)
+//        {
+//            if([object.name isEqualToString:@"theBall"])
+//            NSLog(@"found the ball");
+//        }
     }
 
     func resetSoldierPosition() {
@@ -844,7 +849,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         addChild(bombExplode!)
     }
-
 
     func playSound(soundVariable: SKAction) {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
