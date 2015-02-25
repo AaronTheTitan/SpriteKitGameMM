@@ -97,8 +97,12 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
                         } else {
                             NSLog("%@", error)
                         }
-                        
+
+
                     }
+                    NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isHighScore")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+
                      self.performSegueWithIdentifier("leaderSegue", sender: self)
                 }
                 alertController.addAction(postAction)
