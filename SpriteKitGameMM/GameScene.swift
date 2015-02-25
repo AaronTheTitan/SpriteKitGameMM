@@ -49,7 +49,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     // MARK: - BUTTONS
     let buttonScenePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
-//    let buttonScenePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
     let buttonSceneResume = UIButton.buttonWithType(UIButtonType.System) as  UIButton
     let buttonSceneExit = UIButton.buttonWithType(UIButtonType.System) as  UIButton
     let buttonSceneLeaderBroad = UIButton.buttonWithType(UIButtonType.System) as  UIButton
@@ -59,10 +58,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     let totalGroundPieces = 5
     let gameOverMenu = SKSpriteNode(imageNamed: "gameOverMenu")
-    var redButton = SKSpriteNode (imageNamed: "goRestart")
-    var blueButton = SKSpriteNode (imageNamed: "goLeaderBoard")
-    var yellowButton = SKSpriteNode (imageNamed: "goExit")
-//    var highScoreButton = SKSpriteNode (imageNamed: "menuButtonBlue")
+    let redButton = SKSpriteNode (imageNamed: "goRestart")
+    let blueButton = SKSpriteNode (imageNamed: "goLeaderBoard")
+    let yellowButton = SKSpriteNode (imageNamed: "goExit")
     let newHighScoreButton = SKSpriteNode(imageNamed: "newHighScore")
 
     let startLabel = SKLabelNode(text: "Tap To Start")
@@ -70,18 +68,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     var currentSoldier:String?
     var isHighScore = false
-//    var highScoreLabel = SKLabelNode(text: "New High Score! Congrats")
     var isHighScoreDefaults:Bool!
 
     let pauseMenuBG = SKSpriteNode(imageNamed: "gamePausedMenuBG")
-//    let pauseMenuResume = SKSpriteNode(imageNamed: "pauseMenuResume")
-//    let pauseMenuRestart = SKSpriteNode(imageNamed: "pauseMenuRestart")
-//    let pauseMenuExit = SKSpriteNode(imageNamed: "pauseMenuExit")
 
     let pauseMenuResume = UIButton.buttonWithType(UIButtonType.System) as UIButton
     let pauseMenuRestart = UIButton.buttonWithType(UIButtonType.System) as UIButton
     let pauseMenuExit = UIButton.buttonWithType(UIButtonType.System) as UIButton
-
 
     let pause:String = "pause"
     let resume:String = "resume"
@@ -295,88 +288,47 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(yellowButton)
 
         if isHighScore == true {
-//            addChild(highScoreLabel)
-//            addChild(highScoreButton)
             addChild(newHighScoreButton)
-
         }
 
         gameOverMenu.size = CGSizeMake(self.frame.size.width/1.5, self.frame.size.height/1.5)
         gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
 
-//        redButton.size = CGSizeMake(80, 80)
         redButton.setScale(1.0)
-//        redButton.position = CGPointMake(380, 430)
         redButton.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/2)
         redButton.name = "redButton"
         redButton.zPosition = 1.0;
 
-        //(self.frame.size.width/2, self.frame.size.height/1.5 - 50)
-
-//        blueButton.size = CGSizeMake(80, 80)
         blueButton.setScale(1.0)
-//        blueButton.position = CGPointMake(500, 430)
         blueButton.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
         blueButton.name = "facebook";//how the node is identified later
         blueButton.zPosition = 1.0;
 
-//        yellowButton.size = CGSizeMake(80, 80)
         yellowButton.setScale(1.0)
-//        yellowButton.position = CGPointMake(610, 430)
         yellowButton.position = CGPointMake(self.frame.size.width/1.5, self.frame.size.height/2)
         yellowButton.name = "yellowButton";//how the node is identified later
         yellowButton.zPosition = 1.0;
 
-
-        //highScoreLabel.size = CGSizeMake(80, 80)
         newHighScoreButton.position = CGPointMake(self.frame.size.width/2, CGRectGetMinY(yellowButton.frame) - newHighScoreButton.frame.size.height / 2)
         newHighScoreButton.name = "highScore"
         newHighScoreButton.zPosition = 1.0;
-//        newHighScoreButton.color  = UIColor.blackColor()
-//        newHighScoreButton.fontSize = 36
-//        newHighScoreButton.fontName = "Noteworthy-Light"
-
-//        newHighScoreButton.position = CGPointMake(300, 330)
-//        newHighScoreButton.name = "highScoreButton"
-//        newHighScoreButton.zPosition = 1.0
         newHighScoreButton.setScale(1.0)
-
-
-
-
 
         gameOverMenu.hidden = false
         redButton.hidden = false
         blueButton.hidden = false
         yellowButton.hidden = false
 
-
         buttonScenePause.removeFromSuperview()
-//        buttonScenePlay.removeFromSuperview()
-
-//        buttonScenePause.hidden = true
-//        buttonScenePlay.hidden = true
-
     }
 
-//    func gameOverPause() {
-//        tapsForStart = 2
-//        //scene.view?.paused = true // to pause the game
-////        scene?.view?.paused = true
-////        buttonscencePause.hidden = true
-////        buttonscencePlay.hidden = true
-//    }
 
 
 
     func pauseGame() {
 
-
-        updateToSuperView(pause)
-
-
-        buttonScenePause.hidden = true
-//        buttonScenePlay.hidden = false
+       updateToSuperView(pause)
+       buttonScenePause.hidden = true
 
         delay(0.01, closure: { () -> () in
             self.view!.paused = true
@@ -393,7 +345,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.view?.presentScene(restartScene)
 
         updateToSuperView(resume)
-//        buttonScenePlay.hidden = true
         buttonScenePause.hidden = false
         
         
@@ -428,19 +379,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     func resumeGame() {
-        //scene.view?.paused = true // to pause the game
 
         updateToSuperView(resume)
-//        pauseMenuBG.removeAllChildren()
-//        pauseMenuResume.removeFromParent()
-//        pauseMenuRestart.removeFromParent()
-//        pauseMenuExit.removeFromParent()
-
         scene?.view?.paused = false
-
         buttonScenePause.hidden = false
-//        buttonScenePlay.hidden = true
-
 
     }
 
@@ -449,7 +391,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
 
         if isGameOver == false {
-//            isGameOver = true
 
             PowerUp.removeFromParent()
             scoreInfo.score = scoreInfo.score + 1
@@ -459,28 +400,22 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             playSound(soundSuperPowerUp)
 
-        self.setIsHighScore()
+            self.setIsHighScore()
 
         }
     }
 
     func setIsHighScore() {
         if scoreInfo.score > NSUserDefaults.standardUserDefaults().integerForKey("highscore") {
+
             isHighScore = true
-             //println("\(isHighScoreDefaults)")
             NSUserDefaults.standardUserDefaults().setInteger(scoreInfo.score, forKey: "highscore")
             setscore()
 
             NSUserDefaults.standardUserDefaults().synchronize()
 
         } else {
-            //isHighScore = false
-            //println("\(isHighScoreDefaults)")
-
-//            NSUserDefaults.standardUserDefaults().setBool(isHighScore, forKey: "isHighScore")
-//            NSUserDefaults.standardUserDefaults().synchronize()
-//            let abool = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
-//            println("setting isHighScore = \(abool)")
+            //println("setting isHighScore = \(abool)")
 
 
         }
