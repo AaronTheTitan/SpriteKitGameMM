@@ -199,7 +199,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 //MARK: - THESE ARE THE NEW PAUSE MENU BUTTONS
         pauseMenuResume.setBackgroundImage(UIImage(named: "pauseMenuResume"), forState: UIControlState.Normal)
-        pauseMenuResume.frame = CGRectMake(view.frame.size.width/3, view.frame.size.height/2, 200, 95)
+        pauseMenuResume.frame = CGRectMake(view.frame.size.width/3, view.frame.size.height/2, 150, 70)
         pauseMenuResume.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
         pauseMenuRestart.setBackgroundImage(UIImage(named: "pauseMenuRestart"), forState: UIControlState.Normal)
