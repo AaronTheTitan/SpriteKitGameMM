@@ -84,6 +84,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let pause:String = "pause"
     let resume:String = "resume"
 
+
+
+
 //----- BEGIN LOGIC -----//
 
 // MARK: - VIEW/SETUP
@@ -190,18 +193,17 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 //MARK: - THESE ARE THE NEW PAUSE MENU BUTTONS
         pauseMenuResume.setBackgroundImage(UIImage(named: "pauseMenuResume"), forState: UIControlState.Normal)
-        pauseMenuResume.frame = CGRectMake(view.frame.size.width/2, view.frame.size.height/2, 200, 95)
+        pauseMenuResume.frame = CGRectMake(view.frame.size.width/3, view.frame.size.height/2, 200, 95)
         pauseMenuResume.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
         pauseMenuRestart.setBackgroundImage(UIImage(named: "pauseMenuRestart"), forState: UIControlState.Normal)
-        pauseMenuRestart.frame = CGRectMake(pauseMenuBG.size.width/2, pauseMenuBG.size.height/2, 200, 95)
+        pauseMenuRestart.frame = CGRectMake(view.frame.size.width/2, pauseMenuBG.size.height/2, 200, 95)
         pauseMenuRestart.addTarget(self, action: "restartGame", forControlEvents: UIControlEvents.TouchUpInside)
 
         pauseMenuExit.setBackgroundImage(UIImage(named: "pauseMenuExit"), forState: UIControlState.Normal)
         pauseMenuExit.frame = CGRectMake(pauseMenuBG.size.width/2, pauseMenuBG.size.height/2, 200, 95)
 
-        //MARK: - FIX THIS BELOW, MAY NOT BE RIGHT, REGARDING THE EXIT BUTTON
-        pauseMenuExit.addTarget(self, action: "exitGame?", forControlEvents: UIControlEvents.TouchUpInside)
+        pauseMenuExit.addTarget(self, action: "goToMainMenu", forControlEvents: UIControlEvents.TouchUpInside)
 
 
         pauseMenuBG.size = CGSizeMake(432, 486)
@@ -240,6 +242,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        addChild(pauseMenuRestart)
 //        addChild(pauseMenuExit)
 
+    }
+
+    func goToMainMenu() {
+        NSNotificationCenter.defaultCenter().postNotificationName("segue", object:nil)
     }
 
     func startGame() {
@@ -372,6 +378,19 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         })
 
+    }
+
+    func restartGame () {
+        updateToSuperView(resume)
+
+        var restartScene = GameScene(size: self.size)
+        restartScene.scaleMode = .AspectFill
+        self.view?.presentScene(restartScene)
+
+        buttonScenePlay.hidden = true
+        buttonScenePause.hidden = false
+        
+        
     }
 
     func updateToSuperView(status: String) {
@@ -567,17 +586,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    func restartGame () {
 
-        var restartScene = GameScene(size: self.size)
-        restartScene.scaleMode = .AspectFill
-        self.view?.presentScene(restartScene)
-
-        buttonScenePlay.hidden = true
-        buttonScenePause.hidden = false
-
-
-    }
 
 
 // MARK: - TOUCHES BEGAN
