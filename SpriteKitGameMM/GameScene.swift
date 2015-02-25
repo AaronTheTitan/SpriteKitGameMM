@@ -49,7 +49,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     // MARK: - BUTTONS
     let buttonScenePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
-    let buttonScenePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
+//    let buttonScenePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
     let buttonSceneResume = UIButton.buttonWithType(UIButtonType.System) as  UIButton
     let buttonSceneExit = UIButton.buttonWithType(UIButtonType.System) as  UIButton
     let buttonSceneLeaderBroad = UIButton.buttonWithType(UIButtonType.System) as  UIButton
@@ -126,7 +126,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
         buttonScenePause.setTranslatesAutoresizingMaskIntoConstraints(true)
-        buttonScenePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
+//        buttonScenePlay.setTranslatesAutoresizingMaskIntoConstraints(true)
 
 
         startGameLabel()
@@ -199,34 +199,34 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 //MARK: - THESE ARE THE NEW PAUSE MENU BUTTONS
         pauseMenuResume.setBackgroundImage(UIImage(named: "pauseMenuResume"), forState: UIControlState.Normal)
-        pauseMenuResume.frame = CGRectMake(view.frame.size.width/3, view.frame.size.height/2, 150, 70)
+        pauseMenuResume.frame = CGRectMake(view.frame.size.width/2 - pauseMenuResume.bounds.size.width - 55, view.frame.size.height/3 - 10, 110, 53)
         pauseMenuResume.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
         pauseMenuRestart.setBackgroundImage(UIImage(named: "pauseMenuRestart"), forState: UIControlState.Normal)
-        pauseMenuRestart.frame = CGRectMake(view.frame.size.width/2, pauseMenuBG.size.height/2, 200, 95)
+        pauseMenuRestart.frame = CGRectMake(view.frame.size.width/2 - pauseMenuRestart.bounds.size.width - 55, view.frame.size.height/2 - 7, 110, 53)
         pauseMenuRestart.addTarget(self, action: "restartGame", forControlEvents: UIControlEvents.TouchUpInside)
 
         pauseMenuExit.setBackgroundImage(UIImage(named: "pauseMenuExit"), forState: UIControlState.Normal)
-        pauseMenuExit.frame = CGRectMake(pauseMenuBG.size.width/2, pauseMenuBG.size.height/2, 200, 95)
+        pauseMenuExit.frame = CGRectMake(view.frame.size.width/2 - pauseMenuExit.bounds.size.width - 55, view.frame.size.height/1.5 - 4, 110, 53)
 
         pauseMenuExit.addTarget(self, action: "goToMainMenu", forControlEvents: UIControlEvents.TouchUpInside)
 
 
         pauseMenuBG.size = CGSizeMake(432, 486)
-        pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
         pauseMenuBG.zPosition = 1.0
 
 
 
 
-        let buttonPlayImage = UIImage(named: "buttonPlay")
-        buttonScenePlay.frame = CGRectMake(view.frame.size.width - buttonScenePlay.bounds.size.width - 40, 5, 35, 35)
-        buttonScenePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
-        buttonScenePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
+//        let buttonPlayImage = UIImage(named: "buttonPlay")
+//        buttonScenePlay.frame = CGRectMake(view.frame.size.width - buttonScenePlay.bounds.size.width - 40, 5, 35, 35)
+//        buttonScenePlay.setBackgroundImage(buttonPlayImage, forState: UIControlState.Normal)
+//        buttonScenePlay.addTarget(self, action: "resumeGame", forControlEvents: UIControlEvents.TouchUpInside)
 
         scene?.view?.addSubview(buttonScenePause)
-        scene?.view?.addSubview(buttonScenePlay)
-        buttonScenePlay.hidden = true
+//        scene?.view?.addSubview(buttonScenePlay)
+//        buttonScenePlay.hidden = true
 
 
 //        pauseMenuResume.size = CGSizeMake(200, 95)
@@ -352,7 +352,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
         buttonScenePause.removeFromSuperview()
-        buttonScenePlay.removeFromSuperview()
+//        buttonScenePlay.removeFromSuperview()
 
 //        buttonScenePause.hidden = true
 //        buttonScenePlay.hidden = true
@@ -376,9 +376,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
         buttonScenePause.hidden = true
-        buttonScenePlay.hidden = false
+//        buttonScenePlay.hidden = false
 
-        delay(0.4, closure: { () -> () in
+        delay(0.01, closure: { () -> () in
             self.view!.paused = true
 
         })
@@ -392,7 +392,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         restartScene.scaleMode = .AspectFill
         self.view?.presentScene(restartScene)
 
-        buttonScenePlay.hidden = true
+//        buttonScenePlay.hidden = true
         buttonScenePause.hidden = false
         
         
@@ -438,7 +438,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         scene?.view?.paused = false
 
         buttonScenePause.hidden = false
-        buttonScenePlay.hidden = true
+//        buttonScenePlay.hidden = true
 
 
     }
