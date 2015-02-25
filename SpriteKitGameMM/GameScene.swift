@@ -618,14 +618,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                  NSNotificationCenter.defaultCenter().postNotificationName("leader", object:nil)
             }
 
-            if touchedNode.name == "highScoreButton" {
-                println("moneyteam")
-                
-
+            if touchedNode.name == "highScore" {
+               
                 NSNotificationCenter.defaultCenter().postNotificationName("highscore", object:nil)
-                var boss = NSUserDefaults.standardUserDefaults().integerForKey("highscore")
-                println("\(boss)")
-
 
             }
 
