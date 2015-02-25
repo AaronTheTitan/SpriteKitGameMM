@@ -129,7 +129,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             return
             
         }
-
     }
 
 
@@ -138,7 +137,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         startLabel.fontName = "MarkerFelt-Wide"
         startLabel.fontSize = 46
         addChild(startLabel)
-
     }
 
 
@@ -201,7 +199,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         pauseMenuExit.frame = CGRectMake(view.frame.size.width/2 - pauseMenuExit.bounds.size.width - 55, view.frame.size.height/1.5 - 4, 110, 53)
 
         pauseMenuExit.addTarget(self, action: "goToMainMenu", forControlEvents: UIControlEvents.TouchUpInside)
-
 
         pauseMenuBG.size = CGSizeMake(432, 486)
         pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
@@ -599,9 +596,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
     println(scene?.children.count)
-//        if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
-//                resetSoldierPosition()
-//        }
 
         soldierNode?.update()
         world.groundMovement()
@@ -615,10 +609,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             sprite.position.x -= spriteposition
         }
     }
-//
-//    func resetSoldierPosition() {
-//        soldierNode?.position.x = originalHeroPoint.x
-//    }
 
 // MARK: - ADD ASSETS TO SCENE
     func addSoldier() {
@@ -654,21 +644,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         warhead.physicsBody?.usesPreciseCollisionDetection = true
         warhead.physicsBody?.velocity = CGVectorMake(-50, 0)
-        warhead.runAction(moveObject)
+
         addChild(warhead!)
+        warhead.runAction(SKAction.sequence([moveObject, removeObject]))
 
         playSound(soundWarhead)
 
         warheadRocket = Bomb(imageNamed: "emptyMuzzle")
         warheadRocket?.position = CGPointMake(warhead.position.x + 120, warhead.position.y)
         warheadRocket?.rocketFire(warheadRocket!)
-        warheadRocket?.runAction(moveObject)
+
         addChild(warheadRocket!)
+        warheadRocket?.runAction(SKAction.sequence([moveObject, removeObject]))
 
         warheadExplode = Bomb(imageNamed: "empty")
         warheadExplode?.setScale(0.6)
         warheadExplode?.position = CGPointMake(warhead!.position.x, warhead!.position.y + 100)
-        warheadExplode?.runAction(moveObject)
+        warheadExplode?.runAction(SKAction.sequence([moveObject, removeObject]))
 
         addChild(warheadExplode!)
     }
@@ -684,21 +676,24 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         warhead.physicsBody?.usesPreciseCollisionDetection = true
         warhead.physicsBody?.velocity = CGVectorMake(-50, 0)
-        warhead.runAction(moveObject)
+
         addChild(warhead!)
+        warhead.runAction(SKAction.sequence([moveObject, removeObject]))
 
         warheadRocket = Bomb(imageNamed: "emptyMuzzle")
         warheadRocket?.position = CGPointMake(warhead.position.x + 120, warhead.position.y)
         warheadRocket?.rocketFire(warheadRocket!)
-        warheadRocket?.runAction(moveObject)
+
         addChild(warheadRocket!)
+        warheadRocket?.runAction(SKAction.sequence([moveObject, removeObject]))
 
         warheadExplode = Bomb(imageNamed: "empty")
         warheadExplode?.setScale(0.6)
         warheadExplode?.position = CGPointMake(warhead!.position.x, warhead!.position.y + 100)
-        warheadExplode?.runAction(moveObject)
 
         addChild(warheadExplode!)
+        warheadExplode?.runAction(SKAction.sequence([moveObject, removeObject]))
+
     }
 
     func addPowerup() {
@@ -712,10 +707,11 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         powerup?.physicsBody?.collisionBitMask = PhysicsCategory.None
         powerup?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         powerup?.physicsBody?.usesPreciseCollisionDetection = true
-        powerup?.runAction(moveObject)
-        powerup?.powerUpBlue()
 
         addChild(powerup!)
+        powerup?.runAction(SKAction.sequence([moveObject, removeObject]))
+        powerup?.powerUpBlue()
+
 
         orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
         orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
@@ -724,8 +720,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         orbFlare.zPosition = 1
         orbFlare.targetNode = self
 
-        orbFlare.runAction(moveObject)
         addChild(orbFlare)
+        orbFlare.runAction(SKAction.sequence([moveObject, removeObject]))
 
     }
 
@@ -746,14 +742,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if y == 0 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.000967  * distance))
-            moveObject = SKAction.sequence([moveObstruction])
+            moveObject = SKAction.sequence([moveObstruction, removeObject])
 
             addBomb()
 
         } else if y == 1 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.000973  * distance))
-            moveObject = SKAction.sequence([moveObstruction])
+            moveObject = SKAction.sequence([moveObstruction, removeObject])
 
             addWarhead()
             addDuckWarhead()
@@ -761,14 +757,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if y == 2 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.00098 * distance))
-            moveObject = SKAction.sequence([moveObstruction])
+            moveObject = SKAction.sequence([moveObstruction, removeObject])
 
             addPowerup()
 
         } else if y == 3 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.000963  * distance))
-            moveObject = SKAction.sequence([moveObstruction])
+            moveObject = SKAction.sequence([moveObstruction, removeObject])
 
             addPowerup()
             addBomb()
@@ -776,7 +772,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         } else if y == 4 {
             let distance = CGFloat(self.frame.size.width * 2.0)
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.000976  * distance))
-            moveObject = SKAction.sequence([moveObstruction])
+            moveObject = SKAction.sequence([moveObstruction, removeObject])
 
             addPowerup()
             addWarhead()
@@ -784,7 +780,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         else {
             let distance = CGFloat(self.frame.size.width * 2.0)
             let moveObstruction = SKAction.moveByX(-distance, y: 0.0, duration: NSTimeInterval(0.000882  * distance))
-                moveObject = SKAction.sequence([moveObstruction])
+                moveObject = SKAction.sequence([moveObstruction, removeObject])
 
             addBomb()
             addDuckWarhead()
@@ -802,7 +798,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bomb?.physicsBody?.collisionBitMask = PhysicsCategory.None
         bomb?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         bomb?.physicsBody?.usesPreciseCollisionDetection = true
-        bomb?.runAction(moveObject)
+        bomb?.runAction(SKAction.sequence([moveObject, removeObject]))
         bomb?.bombFlash()
 
         addChild(bomb!)
@@ -810,7 +806,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bombExplode = Bomb(imageNamed: "empty")
         bombExplode?.setScale(1.00)
         bombExplode?.position = CGPointMake(bomb!.position.x, bomb!.position.y + 100)
-        bombExplode?.runAction(moveObject)
+        bombExplode?.runAction(SKAction.sequence([moveObject, removeObject]))
 
         addChild(bombExplode!)
     }
