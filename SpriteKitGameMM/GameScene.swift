@@ -335,15 +335,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        newHighScoreButton.zPosition = 1.0
         newHighScoreButton.setScale(1.0)
 
-
-
-
-
         gameOverMenu.hidden = false
         redButton.hidden = false
         blueButton.hidden = false
         yellowButton.hidden = false
-
 
         buttonScenePause.removeFromSuperview()
         buttonScenePlay.removeFromSuperview()
@@ -519,7 +514,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func soldierDidCollideWithWarhead(soldier:SKSpriteNode, bomb:SKSpriteNode) {
-
 
         if isGameOver == false {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -698,15 +692,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         world.groundMovement()
         groundSpeedIncrease()
 
-
         if spriteposition < 8 {
             spriteposition = spriteposition + 0.35
         }
 
-
         for sprite in world.groundPieces {
             sprite.position.x -= spriteposition
         }
+
+        for body: AnyObject in self.physicsBody?.allContactedBodies() ?? [] {
+            
+        }
+//        NSArray *tempArray = [yourNode.physicsBody allContactedBodies];
+//        for(SKNode *object in tempArray)
+//        {
+//            if([object.name isEqualToString:@"theBall"])
+//            NSLog(@"found the ball");
+//        }
     }
 
     func resetSoldierPosition() {
