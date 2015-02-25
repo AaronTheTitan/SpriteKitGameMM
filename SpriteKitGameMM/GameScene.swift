@@ -137,7 +137,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func startGameLabel() {
         startLabel.position = CGPointMake(frame.width/2, frame.height/2)
-        startLabel.fontName = "MarkerFelt-Wide"
+        startLabel.fontName = "Optima ExtraBlack"
         startLabel.fontSize = 46
         addChild(startLabel)
     }

@@ -118,7 +118,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
     func startGameLabel() {
         startLabel.position = CGPointMake(frame.width/2, frame.height/2)
-        startLabel.fontName = "MarkerFelt-Wide"
+        startLabel.fontName = "Optima ExtraBlack"
         startLabel.fontSize = 46
         addChild(startLabel)
 
@@ -185,11 +185,9 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
         pauseMenuExit.addTarget(self, action: "goToMainMenu", forControlEvents: UIControlEvents.TouchUpInside)
 
-
         pauseMenuBG.size = CGSizeMake(432, 486)
         pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
         pauseMenuBG.zPosition = 1.0
-
 
         scene?.view?.addSubview(buttonScenePause)
 
