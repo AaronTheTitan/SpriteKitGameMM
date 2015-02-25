@@ -16,10 +16,14 @@ class WorldGenerator: SKNode {
     var moveGroundForeverAction: SKAction!
 
     var groundSpeed: CGFloat = 1.0
-    let groundResetXCoord: CGFloat = -500
+    let groundResetXCoord: CGFloat = -800
     var timeIncrement:Double = 0.001
 
     let bgImages:[String] = ["bg_spaceship_1", "bg_spaceship_2", "bg_spaceship_3"]
+    var downtime:NSTimeInterval?
+    var lastUpdateTime:NSTimeInterval?
+
+    var velocity:CGPoint?
 
 
     override init() {
@@ -91,7 +95,10 @@ class WorldGenerator: SKNode {
             addChild(sprite)
             
         }
+
+        
     }
+
 
     func groundMovement() {
         for var x = 0; x < groundPieces.count; x++ {
@@ -106,13 +113,5 @@ class WorldGenerator: SKNode {
     }
 
 
-    //    func moveBackground() {
-    //
-    //        var moveGroundAction = SKAction.repeatActionForever(SKAction.sequence([SKAction.moveByX(-groundSpeed, y: 0, duration: 0.02)]))
-    //
-    //        for sprite in groundPieces {
-    //            sprite.runAction(moveGroundForeverAction)
-    //        }
-    //        
-    //    }
+
 }

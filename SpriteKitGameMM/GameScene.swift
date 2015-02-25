@@ -603,6 +603,26 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //                resetSoldierPosition()
 //        }
 
+        if (world.lastUpdateTime != nil) {
+            world.downtime = currentTime - world.lastUpdateTime!
+        }else {
+            world.downtime = 0
+        }
+
+        world.lastUpdateTime = currentTime
+        
+
+//        if(_lastUpdateTime)
+//        {
+//            _dt = currentTime - _lastUpdateTime;
+//        }
+//        else
+//        {
+//            _dt=0;
+//        }
+//        _lastUpdateTime = currentTime;
+//        [self moveBackground];
+
         soldierNode?.update()
         world.groundMovement()
         groundSpeedIncrease()
