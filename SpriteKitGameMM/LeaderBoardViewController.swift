@@ -124,6 +124,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
         //println(" These are the player \(self.nameArray)")
 
         let nameString = self.nameArray[indexPath.row]
+
         cell.textLabel!.text = "\(indexPath.row + 1). \(nameString)"
 
             let scoreString = self.highScoreArray[indexPath.row]
