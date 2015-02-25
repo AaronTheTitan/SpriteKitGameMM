@@ -47,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
 
     func startBGMusic() {
         bgMusicPlayer.play()
-
     }
 
     func startInGameMusic() {
@@ -60,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
 
     func stopBGMusic() {
         bgMusicPlayer.stop()
+
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {
@@ -78,6 +78,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
+
+        // CALL PAUSE FUNCTION
+        NSNotificationCenter.defaultCenter().postNotificationName("stayPausedNotification", object:nil)
+
+
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }

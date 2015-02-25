@@ -714,7 +714,8 @@
                                         <exclude reference="k4Z-ul-u6Y"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact">
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="536" width="600" height="64"/>
                                     <mask key="constraints">
                                         <include reference="k4Z-ul-u6Y"/>
                                     </mask>
@@ -775,6 +776,9 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="40" width="600" height="496"/>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="1rf-Xu-MHA" id="aHB-i4-5eh"/>
                                     <outlet property="delegate" destination="1rf-Xu-MHA" id="gBl-oz-8fn"/>
@@ -793,7 +797,8 @@
                                         <exclude reference="jFZ-VY-mQR"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact">
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="535" width="600" height="3"/>
                                     <mask key="constraints">
                                         <include reference="eb9-Jz-hJM"/>
                                         <include reference="jFZ-VY-mQR"/>
@@ -828,7 +833,8 @@
                                         <exclude reference="jRh-aK-J2C"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact">
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="36" y="544" width="160" height="50"/>
                                     <mask key="constraints">
                                         <include reference="8eD-lB-yox"/>
                                         <include reference="jRh-aK-J2C"/>
@@ -857,7 +863,8 @@
                                         <exclude reference="ue8-S1-WeP"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact">
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="404" y="544" width="160" height="50"/>
                                     <mask key="constraints">
                                         <include reference="VSx-JF-lzk"/>
                                         <include reference="ue8-S1-WeP"/>
@@ -974,7 +981,8 @@
                                         <exclude reference="vH3-mY-bQh"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=compact">
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="220" y="544" width="160" height="50"/>
                                     <mask key="constraints">
                                         <exclude reference="9qn-SG-vQr"/>
                                         <include reference="BHR-vX-3Xr"/>
