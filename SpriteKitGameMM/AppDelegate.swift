@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     var window: UIWindow?
     var bgMusicPlayer = AVAudioPlayer()
     var inGameMusicPlayer = AVAudioPlayer()
-
+    var isMuted:Bool?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -31,13 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         FBProfilePictureView.self
         PFFacebookUtils.initializeFacebook()
 
+        isMuted = false
 
         var bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ThemeOfKingsSnippet", ofType: "mp3")!)
         bgMusicPlayer = AVAudioPlayer(contentsOfURL: bgMusic, error: nil)
         bgMusicPlayer.delegate = self
         bgMusicPlayer.numberOfLoops = -1
         bgMusicPlayer.play()
-
         var inGameMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ConquerIt", ofType: "mp3")!)
         inGameMusicPlayer = AVAudioPlayer(contentsOfURL: inGameMusic, error: nil)
 
@@ -61,6 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         bgMusicPlayer.stop()
 
     }
+
+    func stopAllMusic() {
+        stopBGMusic()
+        stopInGameMusic()
+        isMuted = true
+    }
+
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {
 

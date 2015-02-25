@@ -34,7 +34,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     var isRunning:Bool?
     var isGameOver:Bool?
-
+    var isMuted:Bool?
     var spriteposition:CGFloat  = 5
     var moveGroundForeverAction: SKAction!
 
@@ -50,7 +50,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     // MARK: - BUTTONS
     let buttonScenePause   = UIButton.buttonWithType(UIButtonType.System) as UIButton
     let buttonScenePlay = UIButton.buttonWithType(UIButtonType.System) as  UIButton
-
 
 
     // MARK: - GROUND/WORLD
@@ -93,8 +92,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         isHighScoreDefaults = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        appDelegate.stopBGMusic()
-        appDelegate.startInGameMusic()
 
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
@@ -905,8 +902,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     func playSound(soundVariable: SKAction) {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+
+        if appDelegate.isMuted == false {
         runAction(soundVariable)
+        }
     }
-
 }
-
