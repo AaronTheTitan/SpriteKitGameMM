@@ -31,7 +31,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var bombExplode:Bomb?
     var warheadExplode:Bomb?
     var warheadRocket:Bomb?
-
+    var upperWarhead:Obstruction!
+    var upperWarheadRocket:Bomb?
+    var upperWarheadExplode:Bomb?
+    
     var isRunning:Bool?
     var isGameOver:Bool?
     var isMuted:Bool?
@@ -418,7 +421,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.setIsHighScore()
     }
 
+    func soldierDidCollideWithObstruction(soldier:SKSpriteNode, bomb:SKSpriteNode) {
 
+
+        if isGameOver == false {
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+
+            isGameOver = true
+
+            upperWarhead.removeFromParent()
+            upperWarheadExplode?.warHeadExplode(upperWarheadExplode!, warheadFire: upperWarheadRocket!)
+
+            die()
+        }
+        self.setIsHighScore()
+    }
 
     //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
@@ -445,6 +462,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.WarheadCategory != 0)){
                 soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
+        } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+            (secondBody.categoryBitMask & PhysicsCategory.ObstructionCategory != 0)){
+                soldierDidCollideWithObstruction(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
 
     }
@@ -655,34 +676,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         let height = UInt32(self.frame.size.height / 4)
         let y = arc4random_uniform(height) % (height + height)
 
-        warhead = Obstruction(imageNamed: "warhead")
-        warhead.setScale(0.45)
-        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
-        warhead?.position = CGPointMake(1111.0, CGFloat(y + height + 205))
-        warhead.physicsBody?.dynamic = false
-        warhead.physicsBody?.categoryBitMask = PhysicsCategory.WarheadCategory
-        warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
-        warhead.physicsBody?.usesPreciseCollisionDetection = true
-        warhead.physicsBody?.velocity = CGVectorMake(-50, 0)
+        upperWarhead = Obstruction(imageNamed: "warhead")
+        upperWarhead.setScale(0.45)
+        upperWarhead.physicsBody = SKPhysicsBody(circleOfRadius: upperWarhead!.size.width/3)
+        upperWarhead?.position = CGPointMake(1111.0, CGFloat(y + height + 205))
+        upperWarhead.physicsBody?.dynamic = false
+        upperWarhead.physicsBody?.categoryBitMask = PhysicsCategory.ObstructionCategory
+        upperWarhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
+        upperWarhead.physicsBody?.usesPreciseCollisionDetection = true
+        upperWarhead.physicsBody?.velocity = CGVectorMake(-50, 0)
+        upperWarhead.runAction(moveObject)
+        addChild(upperWarhead!)
 
-        addChild(warhead!)
-        warhead.runAction(SKAction.sequence([moveObject, removeObject]))
+        upperWarheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        upperWarheadRocket?.position = CGPointMake(upperWarhead.position.x + 115, upperWarhead.position.y)
+        upperWarheadRocket?.rocketFire(upperWarheadRocket!)
+        upperWarheadRocket?.runAction(moveObject)
+        addChild(upperWarheadRocket!)
 
-        playSound(soundWarhead)
+        upperWarheadExplode = Bomb(imageNamed: "empty")
+        upperWarheadExplode?.setScale(0.6)
+        upperWarheadExplode?.position = CGPointMake(upperWarhead!.position.x, upperWarhead!.position.y + 95)
+        upperWarheadExplode?.runAction(moveObject)
 
-        warheadRocket = Bomb(imageNamed: "emptyMuzzle")
-        warheadRocket?.position = CGPointMake(warhead.position.x + 120, warhead.position.y)
-        warheadRocket?.rocketFire(warheadRocket!)
-
-        addChild(warheadRocket!)
-        warheadRocket?.runAction(SKAction.sequence([moveObject, removeObject]))
-
-        warheadExplode = Bomb(imageNamed: "empty")
-        warheadExplode?.setScale(0.6)
-        warheadExplode?.position = CGPointMake(warhead!.position.x, warhead!.position.y + 100)
-        warheadExplode?.runAction(SKAction.sequence([moveObject, removeObject]))
-
-        addChild(warheadExplode!)
+        addChild(upperWarheadExplode!)
     }
 
     func addDuckWarhead() {
