@@ -16,7 +16,7 @@ class WorldGenerator: SKNode {
     var moveGroundForeverAction: SKAction!
 
     var groundSpeed: CGFloat = 1.0
-    let groundResetXCoord: CGFloat = -800
+    let groundResetXCoord: CGFloat = -650
     var timeIncrement:Double = 0.001
 
     let bgImages:[String] = ["bg_spaceship_1", "bg_spaceship_2", "bg_spaceship_3"]
