@@ -382,12 +382,13 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func restartGame () {
-        updateToSuperView(resume)
 
+        resumeGame()
         var restartScene = GameScene(size: self.size)
         restartScene.scaleMode = .AspectFill
         self.view?.presentScene(restartScene)
 
+        updateToSuperView(resume)
 //        buttonScenePlay.hidden = true
         buttonScenePause.hidden = false
         
