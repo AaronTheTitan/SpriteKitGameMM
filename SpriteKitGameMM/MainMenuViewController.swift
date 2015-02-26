@@ -72,18 +72,16 @@ class MainMenuViewController: UIViewController {
 
         if appDelegate.isMuted == true {
             appDelegate.isMuted = false
-//            muteButton.setTitle("Mute", forState: nil)
-//            sender.imageView?.image = UIImage(named: "muteButtonBlue")
-            sender.backgroundImageForState(UIControlState.Normal)
+
+            muteButton.setImage(UIImage(named: "muteButtonBlue"), forState: UIControlState.Normal)
 
             appDelegate.stopInGameMusic()
             appDelegate.startBGMusic()
         } else {
             appDelegate.isMuted = true
-//            muteButton.setTitle("Unmute", forState: nil)
-//            sender.imageView?.image = UIImage(named: "muteButtonGray")
-            sender.backgroundImageForState(UIControlState.Selected)
-//            sender.setAttributedTitle("backgroundImageForState", forState: "")
+            muteButton.setImage(UIImage(named: "muteButtonGray"), forState: UIControlState.Normal)
+
+
             appDelegate.stopAllMusic()
 //            appDelegate.stopInGameMusic()
 //            appDelegate.stopBGMusic()
