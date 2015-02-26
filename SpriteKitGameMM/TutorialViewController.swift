@@ -33,8 +33,8 @@ class TutorialViewController: UIViewController {
         if let scene = TutorialScene.unarchiveFromFileTutorial("TutorialScene") as? TutorialScene {
             // Configure the view.
             let skView = self.view as SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
+            skView.showsFPS = false
+            skView.showsNodeCount = false
 
             NSNotificationCenter.defaultCenter().addObserverForName("mainMenu", object: nil, queue: nil) { (notification: NSNotification?) in
 

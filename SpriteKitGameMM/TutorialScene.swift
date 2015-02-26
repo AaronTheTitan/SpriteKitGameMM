@@ -85,6 +85,8 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
         setupControls(view)
 
+        makeEnemies()
+
         world.setupScenery()
         addChild(world)
         hasTutorialCompleted = false
@@ -108,7 +110,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
             appDelegate.stopBGMusic()
             appDelegate.startInGameMusic()
         }
-
     }
 
     func startGameLabel() {
@@ -207,10 +208,18 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
     func pauseGame() {
 
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.inGameMusicPlayer.volume = 0.3
+
         updateToSuperView(pause)
         buttonScenePause.hidden = true
-        self.view!.paused = true
-        
+
+        delay(0.01, closure: { () -> () in
+            self.view!.paused = true
+
+        })
+
+
     }
 
     func pauseGameTutorial() {
@@ -402,7 +411,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     // MARK: - ADD ASSETS TO SCENE
     func addSoldier() {
 
-        soldierNode = Soldier(imageNamed: "Walk__000")
+        soldierNode = Soldier(imageNamed: "\(currentSoldier!)-Walk__000")
+
+        soldierSprites = soldierNode!.initSpritesCache(currentSoldier!)
+
+
         soldierNode?.position = CGPointMake(250, 450)
         soldierNode?.setScale(0.32)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
@@ -417,6 +430,23 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Idle, soldierPrefix:currentSoldier!)
         soldierNode?.stepState(soldierSprites)
     }
+
+
+    func makeEnemies() {
+
+        upperWarhead = Obstruction(imageNamed: "warhead")
+        upperWarheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        upperWarheadExplode = Bomb(imageNamed: "empty")
+        warhead = Obstruction(imageNamed: "warhead")
+        warheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        warheadExplode = Bomb(imageNamed: "empty")
+        powerup = PowerUp(imageNamed: "powerup")
+        bomb = Bomb(imageNamed: "bomb_00")
+        bombExplode = Bomb(imageNamed: "empty")
+
+        orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+    }
+
 
     // Having fun, can remove in real thang if we want
     func addWarhead() {
@@ -505,7 +535,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
         addChild(powerup!)
 
-        orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
         orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
         orbFlare.position = CGPointMake(1480.0, 620)
         orbFlare.name = "orbFlare"
