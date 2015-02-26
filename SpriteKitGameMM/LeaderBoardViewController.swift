@@ -19,6 +19,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var score:Int?
     var highScoreArray = [Int]()
     var nameArray = [String]()
+    var newestObjectArray = [String]()
 
     var isHighScore:Bool!
 
@@ -66,8 +67,6 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.nameTextField.delegate = self
 }
 
-
-
     func addHighScoreObject () {
         var playerNameArray = [String]()
         var scoreArray = [Int]()
@@ -96,12 +95,51 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
                     }
 
                     self.tableView.reloadData()
+
                     
                 } else {
                     // Log details of the failure
                     NSLog("Error: %@ %@", error, error.userInfo!)
                 }
         }
+
+    }
+
+    func findnewObject() {
+
+        var newObject = [String]()
+        let queryNewObject = PFQuery(className:"GameScore")
+        queryNewObject.orderByAscending("createdAt")
+
+        queryNewObject.findObjectsInBackgroundWithBlock {
+            (objects: [AnyObject]!, error: NSError!) -> Void in
+
+
+            if error == nil {
+                // The find succeeded.
+                //NSLog("Successfully retrieved \(objects.count) scores.")
+                // Do something with the found objects
+
+                for object in objects {
+                    let playerName = object.objectForKey("playerName") as String
+
+
+                    newObject.insert(playerName, atIndex: 0)
+
+
+                    self.newestObjectArray = newObject
+
+                }
+
+                self.tableView.reloadData()
+
+
+            } else {
+                // Log details of the failure
+                NSLog("Error: %@ %@", error, error.userInfo!)
+            }
+        }
+
 
     }
 
@@ -121,21 +159,27 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //let color = Color(rawValue: indexPath.row)
+
         let cell = tableView.dequeueReusableCellWithIdentifier("leaderBoardCell") as UITableViewCell
         cell.backgroundColor = UIColor.grayColor()
 
+        if !newestObjectArray.isEmpty{
+            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: true)
+
+        }
 
         if !nameArray.isEmpty{
-        //println(" These are the player \(self.nameArray)")
 
         let nameString = self.nameArray[indexPath.row]
+            if nameString == newestObjectArray.first{
+                            }
 
         cell.textLabel!.text = "\(indexPath.row + 1). \(nameString)"
 
             let scoreString = self.highScoreArray[indexPath.row]
             cell.detailTextLabel?.text = "\(scoreString) points"
             cell.detailTextLabel?.textColor = UIColor.blackColor()
+
         }
         return cell
     }
@@ -178,7 +222,11 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
         addYourButton.hidden = true
 
         addHighScoreObject()
-        //self.tableView.reloadData()
+        findnewObject()
+
+
+        //self.tableView.scrollToRowAtIndexPath(newestObjectArray[indexPath], atScrollPosition: UITableViewScrollPosition.None, animated: false)
+
 
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isHighScore")
         NSUserDefaults.standardUserDefaults().synchronize()
