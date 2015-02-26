@@ -83,6 +83,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let pause:String = "pause"
     let resume:String = "resume"
 
+// SOLDIER VECTORS
+
+
 
     let removeObject = SKAction.removeFromParent() ////// THIS IS WHERE I WAS
 
@@ -100,6 +103,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             appDelegate.startInGameMusic()
         }
 
+
+        makeEnemies()
 
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
@@ -129,16 +134,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         NSNotificationCenter.defaultCenter().addObserverForName("stayPaused", object: nil, queue: nil) { (notification: NSNotification?) in
 
             self.pauseGame()
-             let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
-            //println("\(pausedPlease)")
-            println("pause tRhe game please")
+            let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
             self.scene?.view?.paused = true
-//            self.isPaused = true
-//            self.setIsPause()
+
             return
             
         }
     }
+
+
 
 
     func startGameLabel() {
@@ -547,7 +551,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             if touchedNode.name == "pauseMenuResume" {
                 resumeGame()
-                println("it works")
             }
 
             if touchedNode.name == "pauseMenuRestart" {
@@ -564,9 +567,10 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - SOLDIER ACTIONS
     func jump() {
-                        println(NSDate().timeIntervalSinceReferenceDate)
+//                        println(NSDate().timeIntervalSinceReferenceDate)
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(soldierSprites)
+//        soldierNode?.physicsBody?.applyImpulse(jumpVector!)
         playSound(soundJump)
     }
 
@@ -683,11 +687,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func addSoldier() {
 
-        soldierNode = Soldier(imageNamed: "Walk__000")
+        soldierNode = Soldier(imageNamed: "\(currentSoldier!)-Walk__000")
 
         soldierSprites = soldierNode!.initSpritesCache(currentSoldier!)
 
         soldierNode?.position = CGPointMake(250, 450)
+//        soldierNode?.physicsBody?.mass = 1.0
         soldierNode?.setScale(0.32)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
@@ -700,6 +705,29 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         soldierNode?.setCurrentState(Soldier.SoldierStates.Idle, soldierPrefix:currentSoldier!)
         soldierNode?.stepState(soldierSprites)
+    }
+
+    func makeEnemies() {
+
+        upperWarhead = Obstruction(imageNamed: "warhead")
+        upperWarheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        upperWarheadExplode = Bomb(imageNamed: "empty")
+        warhead = Obstruction(imageNamed: "warhead")
+        warheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        warheadExplode = Bomb(imageNamed: "empty")
+        powerup = PowerUp(imageNamed: "powerup")
+        bomb = Bomb(imageNamed: "bomb_00")
+        bombExplode = Bomb(imageNamed: "empty")
+
+        orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+
+
+//        upperWarhead.physicsBody = SKPhysicsBody(circleOfRadius: upperWarhead!.size.width/3)
+//        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
+//        powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
+//        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
+
+
     }
 
     // Having fun, can remove in real thang if we want
@@ -783,7 +811,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         powerup?.powerUpBlue()
 
 
-        orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+
         orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
         orbFlare.position = CGPointMake(1480.0, 620)
         orbFlare.name = "orbFlare"

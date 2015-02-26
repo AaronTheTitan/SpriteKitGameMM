@@ -194,7 +194,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         world.startGroundMoving()
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
-        var delay = SKAction.waitForDuration(NSTimeInterval(1.65))
+        var delay = SKAction.waitForDuration(NSTimeInterval(1.85))
 
         var spawnThenDelay = SKAction.sequence([delay, spawn])
         var spawnThenDelayForever = SKAction.repeatActionForever(spawnThenDelay)
@@ -384,7 +384,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
         /* Called before each frame is rendered */
 
-            soldierNode?.update()
+//            soldierNode?.update()
             world.groundMovement()
             groundSpeedIncrease()
 
