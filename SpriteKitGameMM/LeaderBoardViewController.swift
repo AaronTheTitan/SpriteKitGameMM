@@ -35,6 +35,12 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.inGameMusicPlayer.volume = 1
+        if appDelegate.isMuted == false {
+            appDelegate.stopInGameMusic()
+            appDelegate.startBGMusic()
+        }
 
         //NSInteger score = [[NSUserDefaults standardUserDefaults] integerForKey:@"highscore"];
         postButton.hidden = true

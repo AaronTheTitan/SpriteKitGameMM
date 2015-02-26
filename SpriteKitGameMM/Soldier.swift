@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 
+
 class Soldier : SKSpriteNode {
 
     var currentState = SoldierStates.Idle
@@ -56,23 +57,28 @@ class Soldier : SKSpriteNode {
 
 
 
-//    var cache: [[SKTexture]] = []
-//
-//    func initCache() {
+
+    var cache: [[SKTexture]] = []
+    func initSpritesCache(soldierPrefix: String) -> Array<[SKTexture]> {
+
 //        let soldierPrefix = "Max"
-//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Idle__00\($0)")! })
-//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Walk__00\($0)")! })
-//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Run__00\($0)")! })
-//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Jump_Shoot__00\($0)")! })
-//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Crouch_Aim__00\($0)")! })
-//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Dead__00\($0)")! })
-//
-//    }
-//
-//    func sprites(state: SoldierStates) -> [SKTexture] {
-//        return cache[state.rawValue]
-//
-//    }
+        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Idle__00\($0)")! })
+        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Walk__00\($0)")! })
+        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Run__00\($0)")! })
+        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Jump_Shoot__00\($0)")! })
+        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Crouch_Aim__00\($0)")! })
+        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Dead__00\($0)")! })
+
+        return cache
+
+    }
+
+    func sprites(state: SoldierStates) -> [SKTexture] {
+        return cache[state.rawValue]
+
+    }
+
+
 
     enum SoldierStates:Int {
 
@@ -85,31 +91,71 @@ class Soldier : SKSpriteNode {
 
 
 
-        func sprites(soldierPrefix: String) -> [SKTexture] {
+        func sprites(spritesArray: Array<[SKTexture]>) -> [SKTexture] {
 
             switch self {
 
             case Idle:
-                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Idle__00\($0)")! }
+                return spritesArray[0]
 
             case Walk:
-                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Walk__00\($0)")! }
+                return spritesArray[1]
 
             case Run:
-                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Run__00\($0)")! }
+                return spritesArray[2]
 
             case Jump:
-                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Jump_Shoot__00\($0)")! }
+                return spritesArray[3]
 
             case Duck:
-                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Crouch_Aim__00\($0)")! }
+                return spritesArray[4]
 
             case .Dead:
-                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Dead__00\($0)")! }
-
+                return spritesArray[5]
+                
             }
         }
     }
+
+
+
+
+//    enum SoldierStates:Int {
+//
+//        case Idle
+//        case Walk
+//        case Run
+//        case Jump
+//        case Duck
+//        case Dead
+//
+//
+//
+//        func sprites(soldierPrefix: String) -> [SKTexture] {
+//
+//            switch self {
+//
+//            case Idle:
+//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Idle__00\($0)")! }
+//
+//            case Walk:
+//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Walk__00\($0)")! }
+//
+//            case Run:
+//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Run__00\($0)")! }
+//
+//            case Jump:
+//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Jump_Shoot__00\($0)")! }
+//
+//            case Duck:
+//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Crouch_Aim__00\($0)")! }
+//
+//            case .Dead:
+//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Dead__00\($0)")! }
+//
+//            }
+//        }
+//    }
 
     func setCurrentState(currentStateEntry: SoldierStates, soldierPrefix: String) {
         currentState = currentStateEntry
@@ -117,24 +163,19 @@ class Soldier : SKSpriteNode {
 
 
 
-    func stepState(soldierSelected: String) {
+    func stepState(spritesArray: Array<[SKTexture]>) {
         switch currentState {
 
             case .Idle:
-//                currentState = .Idle
-                self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Idle.sprites(soldierSelected), timePerFrame: 0.07)))
+                self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Idle.sprites(spritesArray), timePerFrame: 0.07)))
 
             case .Walk:
-//                currentState = .Walk
-                self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(soldierSelected), timePerFrame: 0.07)))
+                self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Walk.sprites(spritesArray), timePerFrame: 0.07)))
 
             case .Run:
-//                currentState = .Run
-                self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Run.sprites(soldierSelected), timePerFrame: 0.04)))
+                self.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(SoldierStates.Run.sprites(spritesArray), timePerFrame: 0.04)))
 
             case .Jump:
-//                currentState = .Jump
-
                 println(NSDate().timeIntervalSinceReferenceDate)
 
                 self.setScale(normalSize)
@@ -142,27 +183,24 @@ class Soldier : SKSpriteNode {
 
                     isJumping = true
                     self.physicsBody?.applyImpulse(cgVector)
-                    self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(soldierSelected), timePerFrame: 0.07), count: 1), completion: { () -> Void in
+                    self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(spritesArray), timePerFrame: 0.07), count: 1), completion: { () -> Void in
 
                         dispatch_after(1, dispatch_get_main_queue()) {
-//                          self.runAction(SKAction.moveTo(CGPointMake(self.position.x - 200, self.position.y), duration:0.5))
                             self.isJumping = false
                         }
                     })
             }
 
             case .Duck:
-//                currentState = .Duck
 
                 self.setScale(duckingSize)
-                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Duck.sprites(soldierSelected), timePerFrame: 0.07), count: 1), completion: { () -> Void in
+                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Duck.sprites(spritesArray), timePerFrame: 0.07), count: 1), completion: { () -> Void in
                     self.setScale(self.normalSize)
                         }
                     )
 
             case .Dead:
-//                currentState = .Dead
-                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Dead.sprites(soldierSelected), timePerFrame: 0.07), count: 1))
+                self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Dead.sprites(spritesArray), timePerFrame: 0.07), count: 1))
         }
     }
 

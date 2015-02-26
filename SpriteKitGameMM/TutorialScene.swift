@@ -188,7 +188,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         //isGameOver = false
         startLabel.removeFromParent()
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix:currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
         world.startGroundMoving()
 
         let spawn = SKAction.runBlock({() in self.addBadGuys()})
@@ -348,30 +348,30 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     // MARK: - SOLDIER ACTIONS
     func jump() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
         playSound(soundJump)
     }
 
     func duck() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Duck, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
     func run() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
 
     func walk() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Walk, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
 
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
 
@@ -395,6 +395,8 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.position.x = originalHeroPoint.x
     }
 
+    var soldierSprites: [[SKTexture]] = []
+
     // MARK: - ADD ASSETS TO SCENE
     func addSoldier() {
 
@@ -411,7 +413,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         addChild(soldierNode!)
 
         soldierNode?.setCurrentState(Soldier.SoldierStates.Idle, soldierPrefix:currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
     // Having fun, can remove in real thang if we want
