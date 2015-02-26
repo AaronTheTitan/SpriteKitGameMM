@@ -31,17 +31,20 @@ class MainMenuViewController: UIViewController {
 //    let soldierTwoString:String = "G-Idle__007"
 
 
-    let soldierImages:[String] = ["S1-Idle__007" , "S2-Idle__007", "S3-Idle__007", "S4-Idle__007"]
-    let soldierOrder:[String] = ["S1", "S2", "S3", "S4"]
-    var soldierImageIndex:Int = 0
+    let soldierImages: [String] = ["S1-Idle__007" , "S2-Idle__007", "S3-Idle__007", "S4-Idle__007"]
+    let soldierOrder: [String] = ["S1", "S2", "S3", "S4"]
+    var soldierImageIndex: Int = 0
 
     override func viewWillAppear(animated: Bool) {
         if savedSoldier.objectForKey("currentSoldier") != nil {
-            imageViewSoldier.image = UIImage(named: savedSoldier.objectForKey("currentSoldier") as String)
+            let name = savedSoldier.objectForKey("currentSoldier") as String
+            imageViewSoldier.image = UIImage(named: name)
+            soldierImageIndex = find(soldierImages, name)!
+            println(soldierImageIndex)
 
         } else {
-        savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
-        savedSoldier.synchronize()
+            savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
+            savedSoldier.synchronize()
 
         }
 
@@ -82,31 +85,16 @@ class MainMenuViewController: UIViewController {
             appDelegate.isMuted = true
             muteButton.setImage(UIImage(named: "muteButtonGray"), forState: UIControlState.Normal)
 
-
             appDelegate.stopAllMusic()
-//            appDelegate.bgMusicPlayer.pause()
-//            appDelegate.stopInGameMusic()
-//            appDelegate.stopBGMusic()
-//            
+
         }
     }
-//    func playBGMusic() {
-//
-//        var bgMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ThemeOfKingsSnippet", ofType: "mp3")!)
-//        bgMusicPlayer = AVAudioPlayer(contentsOfURL: bgMusic, error: nil)
-//
-//        if bgMusicPlayer.playing == false {
-//            bgMusicPlayer.prepareToPlay()
-//            bgMusicPlayer.play()
-//            bgMusicPlayer.playing == true
-//        }
-//
-//    }
 
 
     @IBAction func buttonTapChangeSoldier(sender: UIButton) {
 
         soldierImageIndex++
+        println(soldierImageIndex)
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let selectedSoldier = soldierCycle()
         savedSoldier.setObject(selectedSoldier, forKey: "currentSoldier")
