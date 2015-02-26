@@ -72,6 +72,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     var currentSoldier:String?
     var isHighScore = false
     var isHighScoreDefaults:Bool!
+    var isPaused = false
 
     let pauseMenuBG = SKSpriteNode(imageNamed: "gamePausedMenuBG")
 
@@ -125,10 +126,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         startGameLabel()
         
-        NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
+        NSNotificationCenter.defaultCenter().addObserverForName("stayPaused", object: nil, queue: nil) { (notification: NSNotification?) in
 
             self.pauseGame()
-//            println("pause tRhe game please")
+             let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
+            //println("\(pausedPlease)")
+            println("pause tRhe game please")
+            self.scene?.view?.paused = true
+//            self.isPaused = true
+//            self.setIsPause()
             return
             
         }
@@ -287,16 +293,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         buttonScenePause.removeFromSuperview()
     }
 
+    func setIsPause() {
+        NSUserDefaults.standardUserDefaults().setBool(isPaused, forKey: "isPaused")
+        let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
+        NSUserDefaults.standardUserDefaults().synchronize()
+        if pausedPlease == true {
+            //pauseGame()
+
+        }else {
+            self.scene?.view?.paused = false
+        }
+    }
 
 
 
     func pauseGame() {
         if isGameOver == false {
+
             let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
             appDelegate.inGameMusicPlayer.volume = 0.3
 
            updateToSuperView(pause)
            buttonScenePause.hidden = true
+//            isPaused = true
+//            setIsPause()
 
             delay(0.01, closure: { () -> () in
                 self.view!.paused = true
@@ -618,7 +638,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //MARK: - UPDATE
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-    println(scene?.children.count)
+    //println(scene?.children.count)
 
         if (world.lastUpdateTime != nil) {
             world.downtime = currentTime - world.lastUpdateTime!
@@ -641,7 +661,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        [self moveBackground];
 
         soldierNode?.update()
+
         world.groundMovement()
+
         groundSpeedIncrease()
 
         if spriteposition < 8 {
