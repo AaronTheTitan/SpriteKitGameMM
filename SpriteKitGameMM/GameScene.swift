@@ -417,6 +417,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             warhead.removeFromParent()
             warheadExplode?.warHeadExplode(warheadExplode!, warheadFire: warheadRocket!)
             die()
+
         }
         self.setIsHighScore()
     }
@@ -567,6 +568,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
+
         removeAllActions()
 
         var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)

@@ -59,10 +59,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
 
     func stopInGameMusic() {
         inGameMusicPlayer.stop()
+        inGameMusicPlayer.currentTime = 0
     }
 
     func stopBGMusic() {
         bgMusicPlayer.stop()
+        bgMusicPlayer.currentTime = 0
 
     }
 

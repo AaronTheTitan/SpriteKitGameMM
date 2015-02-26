@@ -115,7 +115,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-
     func startGameLabel() {
         startLabel.position = CGPointMake(frame.width/2, frame.height/2)
         startLabel.fontName = "Optima Bold"
@@ -123,7 +122,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         addChild(startLabel)
 
     }
-
 
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         if sender.direction == .Up {
@@ -307,8 +305,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
             (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
                 soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        }
-        else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+        } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.WarheadCategory != 0)){
                 soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
