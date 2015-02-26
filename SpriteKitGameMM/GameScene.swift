@@ -128,9 +128,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         
         NSNotificationCenter.defaultCenter().addObserverForName("stayPaused", object: nil, queue: nil) { (notification: NSNotification?) in
 
+            if self.isPaused == false{
             self.pauseGame()
             let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
             self.scene?.view?.paused = true
+            }
+
 
             return
             
@@ -307,7 +310,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 
     func pauseGame() {
+        isPaused = true
         if isGameOver == false {
+
 
             let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
             appDelegate.inGameMusicPlayer.volume = 0.3
@@ -319,6 +324,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
                 self.view!.paused = true
 
             })
+
         }
 
     }
@@ -365,6 +371,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func resumeGame() {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.inGameMusicPlayer.volume = 1
+        isPaused = false
 
         updateToSuperView(resume)
         scene?.view?.paused = false

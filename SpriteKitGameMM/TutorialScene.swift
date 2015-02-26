@@ -71,6 +71,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     let pauseMenuResume = UIButton.buttonWithType(UIButtonType.System) as UIButton
     let pauseMenuRestart = UIButton.buttonWithType(UIButtonType.System) as UIButton
     let pauseMenuExit = UIButton.buttonWithType(UIButtonType.System) as UIButton
+    var isPaused = false
 
     let pause:String = "pause"
     let resume:String = "resume"
@@ -112,10 +113,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("tutorialPaused", object: nil, queue: nil) { (notification: NSNotification?) in
-
+            if self.isPaused == false {
             self.pauseGame()
             let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
             self.scene?.view?.paused = true
+            }
 
             return
             
@@ -218,6 +220,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func pauseGame() {
+        isPaused = true
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.inGameMusicPlayer.volume = 0.3
@@ -239,6 +242,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func resumeGame() {
+        isPaused = false
         updateToSuperView(resume)
         scene?.view?.paused = false
         buttonScenePause.hidden = false
