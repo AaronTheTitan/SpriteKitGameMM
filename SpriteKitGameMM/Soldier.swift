@@ -16,7 +16,13 @@ class Soldier : SKSpriteNode {
     var isJumping:Bool = false
     let normalSize:CGFloat = 0.32
     let duckingSize:CGFloat = 0.20
-    var cgVector:CGVector = CGVectorMake(00, 1400)
+//    var cgVector:CGVector = CGVectorMake(00, 1650)
+
+//    let s1Vector = CGVectorMake(00, 1400)
+//    let s2Vector = CGVectorMake(00, 1500)
+//    let s3Vector = CGVectorMake(00, 1650)
+//    let s4Vector = CGVectorMake(00, 1650)
+
     var aString = "aString"
 
 
@@ -162,7 +168,7 @@ class Soldier : SKSpriteNode {
                 if isJumping == false {
 
                     isJumping = true
-                    self.physicsBody?.applyImpulse(cgVector)
+//                    self.physicsBody?.applyImpulse(cgVector)
                     self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(spritesArray), timePerFrame: 0.07), count: 1), completion: { () -> Void in
 
                         dispatch_after(1, dispatch_get_main_queue()) {

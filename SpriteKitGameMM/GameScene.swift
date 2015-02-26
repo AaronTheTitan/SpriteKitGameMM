@@ -83,6 +83,14 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let pause:String = "pause"
     let resume:String = "resume"
 
+// SOLDIER VECTORS
+    let s1Vector = CGVectorMake(00, 1400)
+    let s2Vector = CGVectorMake(00, 1600)
+    let s3Vector = CGVectorMake(00, 1650)
+    let s4Vector = CGVectorMake(00, 1600)
+
+    var jumpVector:CGVector?
+
 
     let removeObject = SKAction.removeFromParent() ////// THIS IS WHERE I WAS
 
@@ -104,6 +112,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         makeEnemies()
 
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
+        jumpVector = setSoldierVector()
 
         isGameOver = false
         setupControls(view)
@@ -137,6 +146,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
             return
             
         }
+    }
+
+    func setSoldierVector() -> CGVector {
+
+        if currentSoldier == "S1" {
+            return s1Vector
+        } else if currentSoldier == "S2" {
+            return s2Vector
+        } else if currentSoldier == "S3" {
+            return s3Vector
+        } else {
+            return s4Vector
+        }
+
+//        return jumpVector!
     }
 
 
@@ -565,6 +589,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //                        println(NSDate().timeIntervalSinceReferenceDate)
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(soldierSprites)
+        soldierNode?.physicsBody?.applyImpulse(jumpVector!)
         playSound(soundJump)
     }
 
@@ -681,11 +706,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     func addSoldier() {
 
-        soldierNode = Soldier(imageNamed: "Walk__000")
+        soldierNode = Soldier(imageNamed: "\(currentSoldier!)-Walk__000")
 
         soldierSprites = soldierNode!.initSpritesCache(currentSoldier!)
 
         soldierNode?.position = CGPointMake(250, 450)
+//        soldierNode?.physicsBody?.mass = 1.0
         soldierNode?.setScale(0.32)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
