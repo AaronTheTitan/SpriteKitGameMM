@@ -210,6 +210,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         pauseMenuExit.addTarget(self, action: "goToMainMenu", forControlEvents: UIControlEvents.TouchUpInside)
 
         pauseMenuBG.size = CGSizeMake(432, 486)
+//        pauseMenuBG.size = CGSizeMake(432, 550)
         pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
         pauseMenuBG.zPosition = 1.0
 
@@ -226,7 +227,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         isGameOver = false
         startLabel.removeFromParent()
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix:currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
         world.startGroundMoving()
 
         runSpawnActions(isGameOver!)
@@ -266,21 +267,21 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         gameOverMenu.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
 
         redButton.setScale(1.0)
-        redButton.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/2)
+        redButton.position = CGPointMake(self.frame.size.width/3, self.frame.size.height/2 + 10)
         redButton.name = "redButton"
         redButton.zPosition = 1.0;
 
         blueButton.setScale(1.0)
-        blueButton.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2)
+        blueButton.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 + 10)
         blueButton.name = "facebook";//how the node is identified later
         blueButton.zPosition = 1.0;
 
         yellowButton.setScale(1.0)
-        yellowButton.position = CGPointMake(self.frame.size.width/1.5, self.frame.size.height/2)
+        yellowButton.position = CGPointMake(self.frame.size.width/1.5, self.frame.size.height/2 + 10)
         yellowButton.name = "yellowButton";//how the node is identified later
         yellowButton.zPosition = 1.0;
 
-        newHighScoreButton.position = CGPointMake(self.frame.size.width/2, CGRectGetMinY(yellowButton.frame) - newHighScoreButton.frame.size.height / 2)
+        newHighScoreButton.position = CGPointMake(self.frame.size.width/2, CGRectGetMinY(yellowButton.frame) - newHighScoreButton.frame.size.height / 2 - 10)
         newHighScoreButton.name = "highScore"
         newHighScoreButton.zPosition = 1.0;
         newHighScoreButton.setScale(1.0)
@@ -565,30 +566,30 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func jump() {
                         println(NSDate().timeIntervalSinceReferenceDate)
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
         playSound(soundJump)
     }
 
     func duck() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Duck, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
     func run() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Run, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
 
     func walk() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Walk, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
 
     func die() {
         soldierNode?.setCurrentState(Soldier.SoldierStates.Dead, soldierPrefix: currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
 
         removeAllActions()
 
@@ -661,7 +662,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //        _lastUpdateTime = currentTime;
 //        [self moveBackground];
 
-        soldierNode?.update()
+//        soldierNode?.update()
 
         world.groundMovement()
 
@@ -677,9 +678,15 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
 // MARK: - ADD ASSETS TO SCENE
+
+    var soldierSprites: [[SKTexture]] = []
+
     func addSoldier() {
 
         soldierNode = Soldier(imageNamed: "Walk__000")
+
+        soldierSprites = soldierNode!.initSpritesCache(currentSoldier!)
+
         soldierNode?.position = CGPointMake(250, 450)
         soldierNode?.setScale(0.32)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
@@ -692,7 +699,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addChild(soldierNode!)
 
         soldierNode?.setCurrentState(Soldier.SoldierStates.Idle, soldierPrefix:currentSoldier!)
-        soldierNode?.stepState(currentSoldier!)
+        soldierNode?.stepState(soldierSprites)
     }
 
     // Having fun, can remove in real thang if we want
@@ -723,6 +730,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         upperWarheadExplode?.setScale(0.6)
         upperWarheadExplode?.position = CGPointMake(upperWarhead!.position.x, upperWarhead!.position.y + 95)
         upperWarheadExplode?.runAction(moveObject)
+        playSound(soundWarhead)
 
         addChild(upperWarheadExplode!)
     }

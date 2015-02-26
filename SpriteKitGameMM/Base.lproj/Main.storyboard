@@ -486,7 +486,7 @@
                         <viewControllerLayoutGuide type="top" id="PCf-gQ-wO7"/>
                         <viewControllerLayoutGuide type="bottom" id="b3d-qh-BLL"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bdc-N1-crn" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" id="bdc-N1-crn" customClass="MySKView" customModule="SpriteKitGameMM" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -568,7 +568,7 @@
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaderBoardCell" textLabel="gjn-e2-yQ3" detailTextLabel="4d0-5L-ai9" style="IBUITableViewCellStyleValue1" id="7Ox-v5-uqY">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaderBoardCell" textLabel="gjn-e2-yQ3" detailTextLabel="4d0-5L-ai9" rowHeight="61" style="IBUITableViewCellStyleValue1" id="7Ox-v5-uqY">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Ox-v5-uqY" id="CLi-sC-J2T">
@@ -625,36 +625,6 @@
                                 <color key="textColor" red="1" green="0.81762761596697708" blue="0.21652543286595793" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kl-zs-Tyu">
-                                <rect key="frame" x="222" y="501" width="181" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="8eD-lB-yox"/>
-                                    <constraint firstAttribute="width" constant="160" id="jRh-aK-J2C">
-                                        <variation key="heightClass=compact" constant="150"/>
-                                    </constraint>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Share on Facebook" backgroundImage="menuButtonBlue">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="8eD-lB-yox"/>
-                                        <exclude reference="jRh-aK-J2C"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="8eD-lB-yox"/>
-                                        <include reference="jRh-aK-J2C"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="faceBookButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="pYc-qc-mC3"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0b9-bI-xSP">
                                 <rect key="frame" x="30" y="539" width="97" height="30"/>
                                 <constraints>
@@ -680,12 +650,14 @@
                                 <rect key="frame" x="141" y="539" width="59" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="59" id="2FO-3O-lHV"/>
-                                    <constraint firstAttribute="width" constant="59" id="3M5-Bg-kJq"/>
+                                    <constraint firstAttribute="width" constant="59" id="3M5-Bg-kJq">
+                                        <variation key="heightClass=compact" constant="30"/>
+                                    </constraint>
                                     <constraint firstAttribute="height" constant="30" id="ZUC-5e-fnj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Post" backgroundImage="menuButtonYellow">
+                                <state key="normal" backgroundImage="addButtonYellow">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -742,6 +714,36 @@
                                     <action selector="postToLeaderBoardButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="VLx-ec-CxH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kl-zs-Tyu">
+                                <rect key="frame" x="222" y="501" width="181" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="8eD-lB-yox"/>
+                                    <constraint firstAttribute="width" constant="160" id="jRh-aK-J2C">
+                                        <variation key="heightClass=compact" constant="150"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Share on Facebook" backgroundImage="menuButtonBlue">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="8eD-lB-yox"/>
+                                        <exclude reference="jRh-aK-J2C"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="8eD-lB-yox"/>
+                                        <include reference="jRh-aK-J2C"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="faceBookButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="pYc-qc-mC3"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggQ-GH-0fD">
                                 <rect key="frame" x="430" y="501" width="128" height="30"/>
                                 <constraints>
@@ -779,13 +781,13 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="VSx-JF-lzk"/>
                                     <constraint firstAttribute="width" constant="160" id="ue8-S1-WeP">
-                                        <variation key="heightClass=compact" constant="150"/>
+                                        <variation key="heightClass=compact" constant="50"/>
                                     </constraint>
                                     <constraint firstAttribute="width" constant="59" id="xrZ-Eb-t8i"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Home" backgroundImage="menuButtonYellow">
+                                <state key="normal" backgroundImage="homeButtonYellow">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -806,13 +808,6 @@
                                     <segue destination="sjL-6y-VbA" kind="presentation" id="AqY-gf-aub"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5z-8F-8tn">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="heightClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="488" y="68" width="120" height="52"/>
-                                </variation>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -831,7 +826,9 @@
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="eqp-9D-PJ7" secondAttribute="trailing" constant="-16" id="5Rz-fX-QQs"/>
-                            <constraint firstItem="9pG-nt-SLX" firstAttribute="leading" secondItem="0b9-bI-xSP" secondAttribute="trailing" constant="9" id="5c1-pA-hPU"/>
+                            <constraint firstItem="9pG-nt-SLX" firstAttribute="leading" secondItem="0b9-bI-xSP" secondAttribute="trailing" constant="9" id="5c1-pA-hPU">
+                                <variation key="heightClass=compact" constant="4"/>
+                            </constraint>
                             <constraint firstItem="YNi-gj-3L1" firstAttribute="top" secondItem="0b9-bI-xSP" secondAttribute="bottom" constant="-36" id="6G1-ib-aBb">
                                 <variation key="heightClass=compact" constant="-35"/>
                             </constraint>
@@ -855,7 +852,9 @@
                                 <variation key="heightClass=compact" constant="254.5"/>
                             </constraint>
                             <constraint firstItem="9Vy-xt-Dbu" firstAttribute="top" secondItem="DoT-sj-3dq" secondAttribute="bottom" constant="6" id="Flj-RC-Pta"/>
-                            <constraint firstItem="9pG-nt-SLX" firstAttribute="trailing" secondItem="5eB-JO-q4Y" secondAttribute="trailingMargin" id="GBQ-jS-5HY"/>
+                            <constraint firstItem="9pG-nt-SLX" firstAttribute="trailing" secondItem="5eB-JO-q4Y" secondAttribute="trailingMargin" id="GBQ-jS-5HY">
+                                <variation key="heightClass=compact" constant="-34"/>
+                            </constraint>
                             <constraint firstItem="4hZ-Oz-Wba" firstAttribute="top" secondItem="YNi-gj-3L1" secondAttribute="bottom" constant="-64" id="GTP-0A-hnF">
                                 <variation key="heightClass=compact" constant="-65"/>
                             </constraint>
@@ -884,7 +883,9 @@
                             <constraint firstItem="7Kl-zs-Tyu" firstAttribute="baseline" secondItem="8fx-TK-cde" secondAttribute="firstBaseline" id="Z2r-S1-u5J">
                                 <variation key="heightClass=compact" constant="296"/>
                             </constraint>
-                            <constraint firstAttribute="centerX" secondItem="ggQ-GH-0fD" secondAttribute="centerX" id="ZHb-fD-3bg"/>
+                            <constraint firstAttribute="centerX" secondItem="ggQ-GH-0fD" secondAttribute="centerX" id="ZHb-fD-3bg">
+                                <variation key="heightClass=compact" constant="-50"/>
+                            </constraint>
                             <constraint firstItem="9Vy-xt-Dbu" firstAttribute="top" secondItem="eqp-9D-PJ7" secondAttribute="bottom" id="ZY9-XN-jJM"/>
                             <constraint firstItem="0b9-bI-xSP" firstAttribute="bottom" secondItem="9pG-nt-SLX" secondAttribute="bottom" id="Zo2-qg-2do"/>
                             <constraint firstItem="9Vy-xt-Dbu" firstAttribute="top" secondItem="7Kl-zs-Tyu" secondAttribute="bottom" constant="6" id="b78-J7-8Yp"/>
@@ -922,7 +923,6 @@
                                 <exclude reference="eqp-9D-PJ7"/>
                                 <exclude reference="CND-Hg-5Gt"/>
                                 <exclude reference="4hZ-Oz-Wba"/>
-                                <exclude reference="F5z-8F-8tn"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="B3b-bX-QHy"/>
@@ -963,7 +963,6 @@
                                 <include reference="eqp-9D-PJ7"/>
                                 <include reference="CND-Hg-5Gt"/>
                                 <include reference="4hZ-Oz-Wba"/>
-                                <include reference="F5z-8F-8tn"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="B3b-bX-QHy"/>
@@ -1039,14 +1038,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Unl-ny-xPp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1191" y="327"/>
+            <point key="canvasLocation" x="1191" y="316.5"/>
         </scene>
     </scenes>
     <resources>
         <image name="BombRushText" width="150" height="51"/>
         <image name="Idle__007" width="298" height="451"/>
+        <image name="addButtonYellow" width="125" height="125"/>
         <image name="bg_spaceship_1" width="1200" height="768"/>
         <image name="bomb_red" width="146" height="152"/>
+        <image name="homeButtonYellow" width="128" height="126"/>
         <image name="menuButtonBlue" width="270" height="130"/>
         <image name="menuButtonYellow" width="270" height="130"/>
         <image name="muteButtonBlue" width="128" height="126"/>

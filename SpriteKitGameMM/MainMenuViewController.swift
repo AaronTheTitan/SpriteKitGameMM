@@ -59,9 +59,10 @@ class MainMenuViewController: UIViewController {
         if appDelegate.isMuted == false {
             appDelegate.stopInGameMusic()
             appDelegate.startBGMusic()
-            muteButton.setTitle("Mute", forState: nil)
+//            muteButton.setTitle("Mute", forState: nil)
         } else {
-            muteButton.setTitle("Unmute", forState: nil)
+//            muteButton.setTitle("Unmute", forState: nil)
+            muteButton.setImage(UIImage(named: "muteButtonGray"), forState: UIControlState.Normal)
 
         }
     }
@@ -83,6 +84,7 @@ class MainMenuViewController: UIViewController {
 
 
             appDelegate.stopAllMusic()
+//            appDelegate.bgMusicPlayer.pause()
 //            appDelegate.stopInGameMusic()
 //            appDelegate.stopBGMusic()
 //            
