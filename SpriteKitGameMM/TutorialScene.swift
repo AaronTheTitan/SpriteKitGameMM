@@ -384,7 +384,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
         /* Called before each frame is rendered */
 
-            soldierNode?.update()
+//            soldierNode?.update()
             world.groundMovement()
             groundSpeedIncrease()
 

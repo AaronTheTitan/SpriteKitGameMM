@@ -715,6 +715,12 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
 
 
+//        upperWarhead.physicsBody = SKPhysicsBody(circleOfRadius: upperWarhead!.size.width/3)
+//        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
+//        powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
+//        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
+
+
     }
 
     // Having fun, can remove in real thang if we want
