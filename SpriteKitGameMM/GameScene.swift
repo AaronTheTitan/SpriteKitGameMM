@@ -320,8 +320,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
            updateToSuperView(pause)
            buttonScenePause.hidden = true
-//            isPaused = true
-//            setIsPause()
 
             delay(0.01, closure: { () -> () in
                 self.view!.paused = true
@@ -600,46 +598,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         var timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:  Selector("gameOver"), userInfo: nil, repeats: false)
     }
 
-//    func fireGun() {
-//        var fireShot = Bullet(imageNamed: "emptyMuzzle")
-//        addChild(fireShot)
-//        fireShot.position = CGPointMake(soldierNode!.position.x + 132, soldierNode!.position.y)
-//        fireShot.shootFire(fireShot)
-//    }
-
-//    let originalHeroPoint = CGPointMake(450, 450)
-//
-//    override func didSimulatePhysics() {
-//        enumerateChildNodesWithName("bomb", usingBlock: { (node, stop) -> Void in
-//            if node.position.x < 0 {
-//                node.removeFromParent()
-//            }
-//        })
-//
-//        enumerateChildNodesWithName("warhead", usingBlock: { (node, stop) -> Void in
-//            if node.position.x < 0 {
-//                node.removeFromParent()
-//            }
-//        })
-//
-//        enumerateChildNodesWithName("warheadRocket", usingBlock: { (node, stop) -> Void in
-//            if node.position.x < 0 {
-//                node.removeFromParent()
-//            }
-//        })
-//
-//        enumerateChildNodesWithName("powerup", usingBlock: { (node, stop) -> Void in
-//            if node.position.x < 0 {
-//                node.removeFromParent()
-//            }
-//        })
-//
-//        enumerateChildNodesWithName("orbFlare", usingBlock: { (node, stop) -> Void in
-//            if node.position.x < 0 {
-//                node.removeFromParent()
-//            }
-//        })
-//    }
 
 //MARK: - UPDATE
     override func update(currentTime: CFTimeInterval) {
@@ -653,23 +611,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
 
         world.lastUpdateTime = currentTime
-        
 
-//        if(_lastUpdateTime)
-//        {
-//            _dt = currentTime - _lastUpdateTime;
-//        }
-//        else
-//        {
-//            _dt=0;
-//        }
-//        _lastUpdateTime = currentTime;
-//        [self moveBackground];
-
-//        soldierNode?.update()
 
         world.groundMovement()
-
         groundSpeedIncrease()
 
         if spriteposition < 8 {
@@ -720,14 +664,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         bombExplode = Bomb(imageNamed: "empty")
 
         orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
-
-
-//        upperWarhead.physicsBody = SKPhysicsBody(circleOfRadius: upperWarhead!.size.width/3)
-//        warhead.physicsBody = SKPhysicsBody(circleOfRadius: warhead!.size.width/2)
-//        powerup?.physicsBody = SKPhysicsBody(circleOfRadius: powerup!.size.width/200)
-//        bomb?.physicsBody = SKPhysicsBody(circleOfRadius: bomb!.size.width/2)
-
-
     }
 
     // Having fun, can remove in real thang if we want
