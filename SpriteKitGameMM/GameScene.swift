@@ -84,12 +84,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     let resume:String = "resume"
 
 // SOLDIER VECTORS
-    let s1Vector = CGVectorMake(00, 1400)
-    let s2Vector = CGVectorMake(00, 1600)
-    let s3Vector = CGVectorMake(00, 1650)
-    let s4Vector = CGVectorMake(00, 1600)
 
-    var jumpVector:CGVector?
 
 
     let removeObject = SKAction.removeFromParent() ////// THIS IS WHERE I WAS
@@ -112,7 +107,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         makeEnemies()
 
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
-        jumpVector = setSoldierVector()
 
         isGameOver = false
         setupControls(view)
@@ -148,20 +142,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-    func setSoldierVector() -> CGVector {
 
-        if currentSoldier == "S1" {
-            return s1Vector
-        } else if currentSoldier == "S2" {
-            return s2Vector
-        } else if currentSoldier == "S3" {
-            return s3Vector
-        } else {
-            return s4Vector
-        }
-
-//        return jumpVector!
-    }
 
 
     func startGameLabel() {
@@ -589,7 +570,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 //                        println(NSDate().timeIntervalSinceReferenceDate)
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(soldierSprites)
-        soldierNode?.physicsBody?.applyImpulse(jumpVector!)
+//        soldierNode?.physicsBody?.applyImpulse(jumpVector!)
         playSound(soundJump)
     }
 

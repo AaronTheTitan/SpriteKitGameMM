@@ -18,10 +18,14 @@ class Soldier : SKSpriteNode {
     let duckingSize:CGFloat = 0.20
 //    var cgVector:CGVector = CGVectorMake(00, 1650)
 
-//    let s1Vector = CGVectorMake(00, 1400)
-//    let s2Vector = CGVectorMake(00, 1500)
-//    let s3Vector = CGVectorMake(00, 1650)
-//    let s4Vector = CGVectorMake(00, 1650)
+    var cgVector:CGVector?
+
+    let s1Vector = CGVectorMake(00, 1400)
+    let s2Vector = CGVectorMake(00, 1600)
+    let s3Vector = CGVectorMake(00, 1650)
+    let s4Vector = CGVectorMake(00, 1600)
+
+    var jumpVector:CGVector?
 
     var aString = "aString"
 
@@ -145,6 +149,7 @@ class Soldier : SKSpriteNode {
 
     func setCurrentState(currentStateEntry: SoldierStates, soldierPrefix: String) {
         currentState = currentStateEntry
+        cgVector = setSoldierVector(soldierPrefix)
     }
 
 
@@ -168,7 +173,7 @@ class Soldier : SKSpriteNode {
                 if isJumping == false {
 
                     isJumping = true
-//                    self.physicsBody?.applyImpulse(cgVector)
+                    self.physicsBody?.applyImpulse(cgVector!)
                     self.runAction(SKAction.repeatAction(SKAction.animateWithTextures(SoldierStates.Jump.sprites(spritesArray), timePerFrame: 0.07), count: 1), completion: { () -> Void in
 
                         dispatch_after(1, dispatch_get_main_queue()) {
@@ -190,6 +195,21 @@ class Soldier : SKSpriteNode {
         }
     }
 
+
+    func setSoldierVector(currentSoldier: String) -> CGVector {
+
+        if currentSoldier == "S1" {
+            return s1Vector
+        } else if currentSoldier == "S2" {
+            return s2Vector
+        } else if currentSoldier == "S3" {
+            return s3Vector
+        } else {
+            return s4Vector
+        }
+
+        //        return jumpVector!
+    }
 
 
 //    func update() {
