@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
     var isMuted:Bool?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
         Fabric.with([Crashlytics()])
 
         Parse.setApplicationId("PeaTcxDstCFxbD320OshP9bA9PkBXvyNIw5FJlIF", clientKey: "fU0X9yNe0TUmr566CoSU0gVmnjzBRQUZcJzCTUft")
@@ -39,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         bgMusicPlayer.numberOfLoops = -1
         bgMusicPlayer.prepareToPlay()
         startBGMusic()
-//        bgMusicPlayer.play()
 
         let inGameMusic = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("ConquerIt", ofType: "mp3")!)
         inGameMusicPlayer = AVAudioPlayer(contentsOfURL: inGameMusic, error: nil)
@@ -70,9 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
 
     func stopAllMusic() {
         stopBGMusic()
-//        bgMusicPlayer.pause()
         stopInGameMusic()
-        //isMuted = true
     }
 
 

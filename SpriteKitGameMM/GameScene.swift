@@ -13,7 +13,6 @@ import Social
 class GameScene: SKScene , SKPhysicsContactDelegate {
 //----- BEGIN DECLARATIONS -----//
 
-
     // MARK: - PROPERTIES
     var gameWorld:SKNode?
 
@@ -82,12 +81,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     let pause:String = "pause"
     let resume:String = "resume"
-
-// SOLDIER VECTORS
-
-
-
     let removeObject = SKAction.removeFromParent() ////// THIS IS WHERE I WAS
+
 
 //----- BEGIN LOGIC -----//
 
@@ -214,7 +209,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         pauseMenuExit.addTarget(self, action: "goToMainMenu", forControlEvents: UIControlEvents.TouchUpInside)
 
         pauseMenuBG.size = CGSizeMake(432, 486)
-//        pauseMenuBG.size = CGSizeMake(432, 550)
         pauseMenuBG.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 10)
         pauseMenuBG.zPosition = 1.0
 
@@ -330,7 +324,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func restartGame () {
-//        removeAllChildren()
 
         resumeGame()
         let restartScene = GameScene(size: self.size)
@@ -461,7 +454,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         self.setIsHighScore()
     }
 
-    //when contact begins
     func didBeginContact(contact: SKPhysicsContact) {
 
         var firstBody : SKPhysicsBody
@@ -501,7 +493,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
         let wait = SKAction.waitForDuration(1)
         let run = SKAction.runBlock {
-            //var speedUpAction = SKAction.speedTo(self.groundSpeed, duration: self.timeIncrement)
 
             if self.spriteposition  == 25 {
                 self.run()
@@ -565,10 +556,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - SOLDIER ACTIONS
     func jump() {
-//                        println(NSDate().timeIntervalSinceReferenceDate)
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(soldierSprites)
-//        soldierNode?.physicsBody?.applyImpulse(jumpVector!)
         playSound(soundJump)
     }
 
@@ -601,8 +590,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 //MARK: - UPDATE
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-    //println(scene?.children.count)
 
         if (world.lastUpdateTime != nil) {
             world.downtime = currentTime - world.lastUpdateTime!
@@ -632,11 +619,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
     func addSoldier() {
 
         soldierNode = Soldier(imageNamed: "\(currentSoldier!)-Walk__000")
-
         soldierSprites = soldierNode!.initSpritesCache(currentSoldier!)
-
         soldierNode?.position = CGPointMake(250, 450)
-//        soldierNode?.physicsBody?.mass = 1.0
         soldierNode?.setScale(0.32)
         soldierNode?.physicsBody = SKPhysicsBody(rectangleOfSize: soldierNode!.size)
         soldierNode?.physicsBody?.categoryBitMask = PhysicsCategory.SoldierCategory
@@ -666,7 +650,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
     }
 
-    // Having fun, can remove in real thang if we want
     func addWarhead() {
 
         let height = UInt32(self.frame.size.height / 4)
@@ -759,16 +742,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
     }
 
-//    func addOrbFlare() {
-//
-//        let orbFlarePath:NSString = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
-//        let orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
-//        orbFlare.position = CGPointMake(self.frame.size.width/2, self.frame.size.height/2 - 200)
-//        orbFlare.name = "orbFlare"
-//        orbFlare.zPosition = 1
-//        orbFlare.targetNode = self
-//        addChild(orbFlare)
-//    }
 
     func addBadGuys() {
 

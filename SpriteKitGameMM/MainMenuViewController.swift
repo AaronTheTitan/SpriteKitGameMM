@@ -16,20 +16,9 @@ class MainMenuViewController: UIViewController {
 
     @IBOutlet weak var muteButton: UIButton!
     var savedSoldier = NSUserDefaults.standardUserDefaults()
-//    var soundBGMusic = SKAction.playSoundFileNamed("ThemeOfKingsSnippet.mp3", waitForCompletion: true)
-
-
-    //    let soldierImages:[UIImage] = [UIImage(named: "Idle__007")!, UIImage(named: "G-Idle__007")!]
-
     var audioPlayer = AVAudioPlayer()
-//    var bgMusicPlayer = AVAudioPlayer()
 
-    //var isMuted:Bool?
     @IBOutlet var imageViewSoldier: UIImageView!
-
-//    let soldierOneString:String = "Idle__007"
-//    let soldierTwoString:String = "G-Idle__007"
-
 
     let soldierImages: [String] = ["S1-Idle__007" , "S2-Idle__007", "S3-Idle__007", "S4-Idle__007"]
     let soldierOrder: [String] = ["S1", "S2", "S3", "S4"]
@@ -40,7 +29,6 @@ class MainMenuViewController: UIViewController {
             let name = savedSoldier.objectForKey("currentSoldier") as String
             imageViewSoldier.image = UIImage(named: name)
             soldierImageIndex = find(soldierImages, name)!
-            println(soldierImageIndex)
 
         } else {
             savedSoldier.setObject(self.soldierOrder[soldierImageIndex], forKey: "currentSoldierString")
@@ -49,7 +37,6 @@ class MainMenuViewController: UIViewController {
         }
 
         var selectionSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("SwitchSoldier", ofType: "mp3")!)
-        // Removed deprecated use of AVAudioSessionDelegate protocol
         AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
         AVAudioSession.sharedInstance().setActive(true, error: nil)
 
@@ -62,9 +49,8 @@ class MainMenuViewController: UIViewController {
         if appDelegate.isMuted == false {
             appDelegate.stopInGameMusic()
             appDelegate.startBGMusic()
-//            muteButton.setTitle("Mute", forState: nil)
+
         } else {
-//            muteButton.setTitle("Unmute", forState: nil)
             muteButton.setImage(UIImage(named: "muteButtonGray"), forState: UIControlState.Normal)
 
         }
@@ -94,7 +80,6 @@ class MainMenuViewController: UIViewController {
     @IBAction func buttonTapChangeSoldier(sender: UIButton) {
 
         soldierImageIndex++
-        println(soldierImageIndex)
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         let selectedSoldier = soldierCycle()
         savedSoldier.setObject(selectedSoldier, forKey: "currentSoldier")
@@ -107,8 +92,7 @@ class MainMenuViewController: UIViewController {
         audioPlayer.play()
 
         }
-//        audioPlayer.numberOfLoops = 1
-//        audioPlayer.play()
+
 
     }
 

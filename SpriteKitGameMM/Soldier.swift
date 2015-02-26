@@ -16,7 +16,6 @@ class Soldier : SKSpriteNode {
     var isJumping:Bool = false
     let normalSize:CGFloat = 0.32
     let duckingSize:CGFloat = 0.20
-//    var cgVector:CGVector = CGVectorMake(00, 1650)
 
     var cgVector:CGVector?
 
@@ -47,8 +46,6 @@ class Soldier : SKSpriteNode {
     }
 
 
-
-
     var cache: [[SKTexture]] = []
     func initSpritesCache(soldierPrefix: String) -> Array<[SKTexture]> {
 
@@ -68,8 +65,6 @@ class Soldier : SKSpriteNode {
 
     }
 
-
-
     enum SoldierStates:Int {
 
         case Idle
@@ -78,7 +73,6 @@ class Soldier : SKSpriteNode {
         case Jump
         case Duck
         case Dead
-
 
 
         func sprites(spritesArray: Array<[SKTexture]>) -> [SKTexture] {
@@ -108,50 +102,10 @@ class Soldier : SKSpriteNode {
     }
 
 
-
-
-//    enum SoldierStates:Int {
-//
-//        case Idle
-//        case Walk
-//        case Run
-//        case Jump
-//        case Duck
-//        case Dead
-//
-//
-//
-//        func sprites(soldierPrefix: String) -> [SKTexture] {
-//
-//            switch self {
-//
-//            case Idle:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Idle__00\($0)")! }
-//
-//            case Walk:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Walk__00\($0)")! }
-//
-//            case Run:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Run__00\($0)")! }
-//
-//            case Jump:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Jump_Shoot__00\($0)")! }
-//
-//            case Duck:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Crouch_Aim__00\($0)")! }
-//
-//            case .Dead:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Dead__00\($0)")! }
-//
-//            }
-//        }
-//    }
-
     func setCurrentState(currentStateEntry: SoldierStates, soldierPrefix: String) {
         currentState = currentStateEntry
         cgVector = setSoldierVector(soldierPrefix)
     }
-
 
 
     func stepState(spritesArray: Array<[SKTexture]>) {
@@ -207,13 +161,5 @@ class Soldier : SKSpriteNode {
         } else {
             return s4Vector
         }
-
-        //        return jumpVector!
     }
-
-
-//    func update() {
-//        // update when told by the GameScene class
-//
-//    }
 }
