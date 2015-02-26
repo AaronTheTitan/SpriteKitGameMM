@@ -104,6 +104,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         firstTimeDuckJump = false
         firstTimeJump = false
         firstTimeOrb = false
+        buttonScenePause.hidden = true
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.inGameMusicPlayer.volume = 1
@@ -144,6 +145,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     func handleTaps(sender:UITapGestureRecognizer) {
         if tapsForStart == 0 {
             startGame()
+            buttonScenePause.hidden = false
             tapsForStart = 1
         } else if paused == true {
             resumeGame()

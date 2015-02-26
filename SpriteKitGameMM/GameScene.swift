@@ -116,6 +116,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         addSoldier()
         addChild(scoreInfo)
         scoreInfo.addScoring()
+        buttonScenePause.hidden = true
 
         scoreInfo.labelScore.position = CGPointMake(20 + scoreInfo.labelScore.frame.size.width/2, self.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
         scoreInfo.highScoreLabel.position = CGPointMake(self.frame.size.width/2, self.frame.size.height - (120 + scoreInfo.labelScore.frame.size.height/2))
@@ -168,6 +169,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         if isGameOver == false {
             if tapsForStart == 0 {
                 startGame()
+                buttonScenePause.hidden = false
                 tapsForStart = 1
             } else {
                 jump()
