@@ -74,6 +74,8 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
     let pause:String = "pause"
     let resume:String = "resume"
+
+     let removeObject = SKAction.removeFromParent()
     //----- BEGIN LOGIC -----//
 
     // MARK: - VIEW/SETUP
@@ -429,21 +431,22 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         upperWarhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         upperWarhead.physicsBody?.usesPreciseCollisionDetection = true
         upperWarhead.physicsBody?.velocity = CGVectorMake(-50, 0)
-        upperWarhead.runAction(moveObject)
         addChild(upperWarhead!)
+        upperWarhead.runAction(SKAction.sequence([moveObject, removeObject]))
 
         upperWarheadRocket = Bomb(imageNamed: "emptyMuzzle")
         upperWarheadRocket?.position = CGPointMake(upperWarhead.position.x + 115, upperWarhead.position.y)
         upperWarheadRocket?.rocketFire(upperWarheadRocket!)
-        upperWarheadRocket?.runAction(moveObject)
         addChild(upperWarheadRocket!)
+        upperWarheadRocket?.runAction(SKAction.sequence([moveObject, removeObject]))
 
         upperWarheadExplode = Bomb(imageNamed: "empty")
         upperWarheadExplode?.setScale(0.6)
         upperWarheadExplode?.position = CGPointMake(upperWarhead!.position.x, upperWarhead!.position.y + 95)
-        upperWarheadExplode?.runAction(moveObject)
 
         addChild(upperWarheadExplode!)
+        upperWarheadExplode?.runAction(SKAction.sequence([moveObject, removeObject]))
+
     }
 
     func addDuckWarhead() {
@@ -457,21 +460,25 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         warhead.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         warhead.physicsBody?.usesPreciseCollisionDetection = true
         warhead.physicsBody?.velocity = CGVectorMake(-50, 0)
-        warhead.runAction(moveObject)
+        //warhead.runAction(moveObject)
         addChild(warhead!)
+        warhead?.runAction(SKAction.sequence([moveObject, removeObject]))
 
         warheadRocket = Bomb(imageNamed: "emptyMuzzle")
         warheadRocket?.position = CGPointMake(warhead.position.x + 120, warhead.position.y)
         warheadRocket?.rocketFire(warheadRocket!)
-        warheadRocket?.runAction(moveObject)
+        //warheadRocket?.runAction(moveObject)
         addChild(warheadRocket!)
+        warheadRocket?.runAction(SKAction.sequence([moveObject, removeObject]))
 
         warheadExplode = Bomb(imageNamed: "empty")
         warheadExplode?.setScale(0.6)
         warheadExplode?.position = CGPointMake(warhead!.position.x, warhead!.position.y + 100)
-        warheadExplode?.runAction(moveObject)
+        //warheadExplode?.runAction(moveObject)
 
         addChild(warheadExplode!)
+        warheadExplode!.runAction(SKAction.sequence([moveObject, removeObject]))
+
     }
 
     func addPowerup() {
@@ -502,9 +509,9 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         orbFlare.name = "orbFlare"
         orbFlare.zPosition = 1
         orbFlare.targetNode = self
-
-        orbFlare.runAction(moveObject)
+        //orbFlare.runAction(moveObject)
         addChild(orbFlare)
+        orbFlare.runAction(SKAction.sequence([moveObject, removeObject]))
 
     }
 
@@ -606,19 +613,22 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         bomb?.physicsBody?.collisionBitMask = PhysicsCategory.None
         bomb?.physicsBody?.contactTestBitMask = PhysicsCategory.SoldierCategory
         bomb?.physicsBody?.usesPreciseCollisionDetection = true
-        bomb?.runAction(moveObject)
+        //bomb?.runAction(moveObject)
         bomb?.bombFlash()
         
         addChild(bomb!)
-        
+        bomb!.runAction(SKAction.sequence([moveObject, removeObject]))
+
         bombExplode = Bomb(imageNamed: "empty")
         bombExplode?.setScale(1.00)
         bombExplode?.position = CGPointMake(bomb!.position.x, bomb!.position.y + 100)
-        bombExplode?.runAction(moveObject)
+        //bombExplode?.runAction(moveObject)
         
         addChild(bombExplode!)
+        bombExplode!.runAction(SKAction.sequence([moveObject, removeObject]))
+
     }
-    
+
     
     func playSound(soundVariable: SKAction) {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
