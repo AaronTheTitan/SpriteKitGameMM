@@ -52,7 +52,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
 //        
         isHighScore = NSUserDefaults.standardUserDefaults().boolForKey("isHighScore")
-        println("setting isHighScore = \(isHighScore)")
+
 
 //        println("\(score!)")
         //tableView.registerNib(UINib(nibName: "LeaderBoardCell", bundle: nil), forCellReuseIdentifier: "leaderBoardCell")
