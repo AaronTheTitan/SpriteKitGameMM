@@ -15,7 +15,7 @@
                         <viewControllerLayoutGuide type="top" id="04Y-db-Ucx"/>
                         <viewControllerLayoutGuide type="bottom" id="LAT-WE-JZx"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="HA6-4i-PPs" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" id="HA6-4i-PPs" customClass="MySKView" customModule="SpriteKitGameMM" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1054,7 +1054,7 @@
         <image name="powerup01_2" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AqY-gf-aub"/>
+        <segue reference="rWX-56-lfP"/>
         <segue reference="ycX-0N-nmO"/>
     </inferredMetricsTieBreakers>
 </document>

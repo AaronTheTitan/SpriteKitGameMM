@@ -25,6 +25,8 @@ extension SKNode {
     }
 }
 
+
+
 class TutorialViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -45,6 +47,8 @@ class TutorialViewController: UIViewController {
 
                 return
             }
+
+            NSNotificationCenter.defaultCenter().addObserver(skView, selector:Selector("setStayPaused"), name: "stayPausedNotification", object: nil)
 
 
             /* Sprite Kit applies additional optimizations to improve rendering performance */

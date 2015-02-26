@@ -107,6 +107,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 
          NSNotificationCenter.defaultCenter().postNotificationName("stayPaused", object:nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("tutorialPaused", object:nil)
+
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
