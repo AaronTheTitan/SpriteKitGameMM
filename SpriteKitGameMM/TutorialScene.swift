@@ -222,7 +222,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func pauseGame() {
-        isPaused = true
+
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.inGameMusicPlayer.volume = 0.3
@@ -239,6 +239,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func pauseGameTutorial() {
+        isPaused = true
         buttonScenePause.hidden = true
         self.scene!.view!.paused = true
     }

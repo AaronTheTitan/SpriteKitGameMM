@@ -174,7 +174,7 @@ class LeaderBoard: UIViewController, UITableViewDelegate, UITableViewDataSource,
             if nameString == newestObjectArray.first{
                             }
 
-        cell.textLabel.text = "\(indexPath.row + 1). \(nameString)"
+        cell.textLabel!.text = "\(indexPath.row + 1). \(nameString)"
 
             let scoreString = self.highScoreArray[indexPath.row]
             cell.detailTextLabel?.text = "\(scoreString) points"
