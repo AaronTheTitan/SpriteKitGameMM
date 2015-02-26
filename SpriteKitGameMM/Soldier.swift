@@ -54,66 +54,25 @@ class Soldier : SKSpriteNode {
         self.physicsBody?.charge = 0.0
     }
 
-//    func makeSoldierOnelases() {
+
+
+//    var cache: [[SKTexture]] = []
 //
-//        var idleFrames = [SKTexture]()
-//        var walkFrames = [SKTexture]()
-//        var runFrames = [SKTexture]()
-//        var jumpFrames = [SKTexture]()
-//        var duckFrames = [SKTexture]()
-//        var deadFrames = [SKTexture]()
-//
-//        for (var i = 1; i <= s1IdleAtlas.textureNames.count; i++) {
-//            let textureName = String("S1-Idle__00\(i)")
-//            let temp = s1IdleAtlas.textureNamed(textureName)
-//            idleFrames.append(temp)
-//        }
-//
-//        s1IdleFrames = idleFrames
-//
-//        for (var i = 1; i <= s1WalkAtlas.textureNames.count; i++) {
-//            let textureName = String("S1-Walk__00\(i)")
-//            let temp = s1WalkAtlas.textureNamed(textureName)
-//            walkFrames.append(temp)
-//        }
-//
-//        s1WalkFrames = walkFrames
-//
-//        for (var i = 1; i <= s1RunAtlas.textureNames.count; i++) {
-//            let textureName = String("S1-Run__00\(i)")
-//            let temp = s1RunAtlas.textureNamed(textureName)
-//            runFrames.append(temp)
-//        }
-//
-//        s1RunFrames = runFrames
-//
-//
-//        for (var i = 1; i <= s1JumpAtlas.textureNames.count; i++) {
-//            let textureName = String("S1-Jump_Shoot__00\(i)")
-//            let temp = s1JumpAtlas.textureNamed(textureName)
-//            jumpFrames.append(temp)
-//        }
-//
-//        s1JumpFrames = jumpFrames
-//
-//        for (var i = 1; i <= s1DuckAtlas.textureNames.count; i++) {
-//            let textureName = String("S1-Crouch_Aim__00\(i)")
-//            let temp = s1IdleAtlas.textureNamed(textureName)
-//            duckFrames.append(temp)
-//        }
-//
-//        s1DuckFrames = duckFrames
-//
-//        for (var i = 1; i <= s1DeadAtlas.textureNames.count; i++) {
-//            let textureName = String("S1-Dead__00\(i)")
-//            let temp = s1DeadAtlas.textureNamed(textureName)
-//            deadFrames.append(temp)
-//        }
-//
-//        s1DeadFrames = deadFrames
+//    func initCache() {
+//        let soldierPrefix = "Max"
+//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Idle__00\($0)")! })
+//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Walk__00\($0)")! })
+//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Run__00\($0)")! })
+//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Jump_Shoot__00\($0)")! })
+//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Crouch_Aim__00\($0)")! })
+//        cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Dead__00\($0)")! })
 //
 //    }
-
+//
+//    func sprites(state: SoldierStates) -> [SKTexture] {
+//        return cache[state.rawValue]
+//
+//    }
 
     enum SoldierStates:Int {
 
@@ -123,6 +82,7 @@ class Soldier : SKSpriteNode {
         case Jump
         case Duck
         case Dead
+
 
 
         func sprites(soldierPrefix: String) -> [SKTexture] {
@@ -146,34 +106,9 @@ class Soldier : SKSpriteNode {
 
             case .Dead:
                 return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Dead__00\($0)")! }
-                
+
             }
         }
-
-        //        func sprites(soldierPrefix: String) -> [SKTexture] {
-//
-//            switch self {
-//
-//            case Idle:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Idle__00\($0)")! }
-//
-//            case Walk:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Walk__00\($0)")! }
-//
-//            case Run:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Run__00\($0)")! }
-//
-//            case Jump:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Jump_Shoot__00\($0)")! }
-//
-//            case Duck:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Crouch_Aim__00\($0)")! }
-//
-//            case .Dead:
-//                return (0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Dead__00\($0)")! }
-//
-//            }
-//        }
     }
 
     func setCurrentState(currentStateEntry: SoldierStates, soldierPrefix: String) {
@@ -199,6 +134,8 @@ class Soldier : SKSpriteNode {
 
             case .Jump:
 //                currentState = .Jump
+
+                println(NSDate().timeIntervalSinceReferenceDate)
 
                 self.setScale(normalSize)
                 if isJumping == false {

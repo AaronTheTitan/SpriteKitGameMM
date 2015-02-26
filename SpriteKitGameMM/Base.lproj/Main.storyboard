@@ -423,12 +423,14 @@
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jaT-ug-Jbo">
                                 <rect key="frame" x="67" y="276" width="80" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="iL0-Bk-3f3"/>
+                                    <constraint firstAttribute="width" constant="125" id="iL0-Bk-3f3">
+                                        <variation key="heightClass=compact" constant="45"/>
+                                    </constraint>
                                     <constraint firstAttribute="height" constant="45" id="yLp-YO-DGU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-2" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Mute" backgroundImage="menuButtonYellow">
+                                <state key="normal" backgroundImage="muteButtonBlue">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -509,7 +511,9 @@
                         <color key="backgroundColor" white="0.122733353" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Qu5-ft-AxZ" firstAttribute="top" secondItem="Zhd-SI-2eA" secondAttribute="bottom" constant="15" id="0Lk-Pb-f7r"/>
-                            <constraint firstItem="JCa-Ua-hBL" firstAttribute="centerX" secondItem="TYT-cb-vlq" secondAttribute="centerX" constant="-4.5" id="3z9-Fg-acW"/>
+                            <constraint firstItem="JCa-Ua-hBL" firstAttribute="centerX" secondItem="TYT-cb-vlq" secondAttribute="centerX" constant="-4.5" id="3z9-Fg-acW">
+                                <variation key="heightClass=compact" constant="-4.5"/>
+                            </constraint>
                             <constraint firstItem="9hk-hU-jlv" firstAttribute="leading" secondItem="6cy-Db-EO7" secondAttribute="leadingMargin" constant="-16" id="4fm-4V-rTc"/>
                             <constraint firstItem="jaT-ug-Jbo" firstAttribute="leading" secondItem="JCa-Ua-hBL" secondAttribute="trailing" constant="18" id="7dl-Pa-h6s"/>
                             <constraint firstItem="tO9-ra-zJX" firstAttribute="leading" secondItem="6cy-Db-EO7" secondAttribute="leadingMargin" constant="-16" id="9zC-wS-Fb3"/>
@@ -518,7 +522,9 @@
                                 <variation key="heightClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="tO9-ra-zJX" firstAttribute="top" secondItem="9hk-hU-jlv" secondAttribute="bottom" constant="-3" id="B6K-QR-dZW"/>
-                            <constraint firstItem="9hk-hU-jlv" firstAttribute="centerX" secondItem="rVC-pW-zXz" secondAttribute="centerX" constant="-71.5" id="D6I-cU-vVc"/>
+                            <constraint firstItem="9hk-hU-jlv" firstAttribute="centerX" secondItem="rVC-pW-zXz" secondAttribute="centerX" constant="-71.5" id="D6I-cU-vVc">
+                                <variation key="heightClass=compact" constant="-104.5"/>
+                            </constraint>
                             <constraint firstItem="r8K-JL-kFe" firstAttribute="top" secondItem="ap8-pF-XpC" secondAttribute="bottom" constant="8" id="Gwg-Qu-1iO"/>
                             <constraint firstItem="r8K-JL-kFe" firstAttribute="leading" secondItem="6cy-Db-EO7" secondAttribute="leadingMargin" constant="-16" id="HuE-JI-GwK"/>
                             <constraint firstItem="Zhd-SI-2eA" firstAttribute="bottom" secondItem="rVC-pW-zXz" secondAttribute="bottom" id="IQ5-qY-uPY"/>
@@ -526,9 +532,13 @@
                             <constraint firstItem="8nf-wT-Ki8" firstAttribute="centerY" secondItem="50C-O3-jgz" secondAttribute="centerY" constant="13" id="Ivk-ZI-OnH">
                                 <variation key="heightClass=compact" constant="8"/>
                             </constraint>
-                            <constraint firstItem="jaT-ug-Jbo" firstAttribute="leading" secondItem="rVC-pW-zXz" secondAttribute="trailing" constant="15" id="Jfo-5O-eke"/>
+                            <constraint firstItem="jaT-ug-Jbo" firstAttribute="leading" secondItem="rVC-pW-zXz" secondAttribute="trailing" constant="15" id="Jfo-5O-eke">
+                                <variation key="heightClass=compact" constant="15"/>
+                            </constraint>
                             <constraint firstItem="Zhd-SI-2eA" firstAttribute="bottom" secondItem="JCa-Ua-hBL" secondAttribute="bottom" id="N9X-tQ-Sel"/>
-                            <constraint firstItem="JCa-Ua-hBL" firstAttribute="leading" secondItem="Zhd-SI-2eA" secondAttribute="trailing" constant="17" id="O3G-sW-2LO"/>
+                            <constraint firstItem="JCa-Ua-hBL" firstAttribute="leading" secondItem="Zhd-SI-2eA" secondAttribute="trailing" constant="17" id="O3G-sW-2LO">
+                                <variation key="heightClass=compact" constant="9"/>
+                            </constraint>
                             <constraint firstItem="50C-O3-jgz" firstAttribute="top" secondItem="6cy-Db-EO7" secondAttribute="topMargin" constant="6" id="XlG-Tj-fMB">
                                 <variation key="heightClass=compact" constant="18"/>
                             </constraint>
@@ -554,7 +564,9 @@
                             <constraint firstItem="B1U-Et-Ycx" firstAttribute="centerX" secondItem="jaT-ug-Jbo" secondAttribute="centerX" constant="-71" id="gdx-cl-cVu">
                                 <variation key="heightClass=compact" constant="76.5"/>
                             </constraint>
-                            <constraint firstItem="rVC-pW-zXz" firstAttribute="leading" secondItem="JCa-Ua-hBL" secondAttribute="trailing" constant="18" id="hUd-DJ-9Of"/>
+                            <constraint firstItem="rVC-pW-zXz" firstAttribute="leading" secondItem="JCa-Ua-hBL" secondAttribute="trailing" constant="18" id="hUd-DJ-9Of">
+                                <variation key="heightClass=compact" constant="9"/>
+                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="tO9-ra-zJX" secondAttribute="trailing" constant="-16" id="l0v-Y8-oqg"/>
                             <constraint firstItem="8nf-wT-Ki8" firstAttribute="leading" secondItem="50C-O3-jgz" secondAttribute="trailing" constant="-40" id="mB1-av-c02">
                                 <variation key="heightClass=compact" constant="-35"/>
@@ -825,7 +837,9 @@
                                 <rect key="frame" x="222" y="501" width="181" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8eD-lB-yox"/>
-                                    <constraint firstAttribute="width" constant="160" id="jRh-aK-J2C"/>
+                                    <constraint firstAttribute="width" constant="160" id="jRh-aK-J2C">
+                                        <variation key="heightClass=compact" constant="150"/>
+                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
@@ -847,36 +861,6 @@
                                 </variation>
                                 <connections>
                                     <action selector="faceBookButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="pYc-qc-mC3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoT-sj-3dq">
-                                <rect key="frame" x="271" y="539" width="59" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="VSx-JF-lzk"/>
-                                    <constraint firstAttribute="width" constant="160" id="ue8-S1-WeP"/>
-                                    <constraint firstAttribute="width" constant="59" id="xrZ-Eb-t8i"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Home" backgroundImage="menuButtonYellow">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="VSx-JF-lzk"/>
-                                        <exclude reference="ue8-S1-WeP"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="VSx-JF-lzk"/>
-                                        <include reference="ue8-S1-WeP"/>
-                                        <exclude reference="xrZ-Eb-t8i"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <segue destination="sjL-6y-VbA" kind="presentation" id="AqY-gf-aub"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0b9-bI-xSP">
@@ -970,7 +954,9 @@
                                 <rect key="frame" x="430" y="501" width="128" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="9qn-SG-vQr"/>
-                                    <constraint firstAttribute="width" constant="160" id="BHR-vX-3Xr"/>
+                                    <constraint firstAttribute="width" constant="160" id="BHR-vX-3Xr">
+                                        <variation key="heightClass=compact" constant="150"/>
+                                    </constraint>
                                     <constraint firstAttribute="height" constant="50" id="vH3-mY-bQh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
@@ -996,6 +982,38 @@
                                     <action selector="twitterButtonPressed:" destination="1rf-Xu-MHA" eventType="touchUpInside" id="opN-uO-alt"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoT-sj-3dq">
+                                <rect key="frame" x="271" y="539" width="59" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="VSx-JF-lzk"/>
+                                    <constraint firstAttribute="width" constant="160" id="ue8-S1-WeP">
+                                        <variation key="heightClass=compact" constant="150"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="59" id="xrZ-Eb-t8i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="-3" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Home" backgroundImage="menuButtonYellow">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="VSx-JF-lzk"/>
+                                        <exclude reference="ue8-S1-WeP"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="VSx-JF-lzk"/>
+                                        <include reference="ue8-S1-WeP"/>
+                                        <exclude reference="xrZ-Eb-t8i"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="sjL-6y-VbA" kind="presentation" id="AqY-gf-aub"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1004,14 +1022,14 @@
                             </constraint>
                             <constraint firstItem="eqp-9D-PJ7" firstAttribute="top" secondItem="jt9-x8-vRt" secondAttribute="bottom" id="2XJ-Y4-gqE"/>
                             <constraint firstItem="DoT-sj-3dq" firstAttribute="leading" secondItem="ggQ-GH-0fD" secondAttribute="trailing" constant="44" id="2wC-G2-jed">
-                                <variation key="heightClass=compact" constant="24"/>
+                                <variation key="heightClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstItem="jt9-x8-vRt" firstAttribute="leading" secondItem="5eB-JO-q4Y" secondAttribute="leading" id="37b-7z-oWe"/>
                             <constraint firstItem="3F0-xj-Vek" firstAttribute="leading" secondItem="7Kl-zs-Tyu" secondAttribute="leading" id="4rK-EM-SgD">
                                 <variation key="heightClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="ggQ-GH-0fD" firstAttribute="leading" secondItem="7Kl-zs-Tyu" secondAttribute="trailing" constant="44" id="5F0-Rw-iqo">
-                                <variation key="heightClass=compact" constant="24"/>
+                                <variation key="heightClass=compact" constant="8"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="eqp-9D-PJ7" secondAttribute="trailing" constant="-16" id="5Rz-fX-QQs"/>
                             <constraint firstItem="9pG-nt-SLX" firstAttribute="leading" secondItem="0b9-bI-xSP" secondAttribute="trailing" constant="9" id="5c1-pA-hPU"/>
@@ -1230,6 +1248,7 @@
         <image name="bomb_red" width="146" height="152"/>
         <image name="menuButtonBlue" width="270" height="130"/>
         <image name="menuButtonYellow" width="270" height="130"/>
+        <image name="muteButtonBlue" width="128" height="126"/>
         <image name="powerup01_2" width="66" height="66"/>
     </resources>
     <inferredMetricsTieBreakers>

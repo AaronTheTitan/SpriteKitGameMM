@@ -542,6 +542,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - SOLDIER ACTIONS
     func jump() {
+                        println(NSDate().timeIntervalSinceReferenceDate)
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
         playSound(soundJump)
