@@ -114,10 +114,13 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("tutorialPaused", object: nil, queue: nil) { (notification: NSNotification?) in
+            //println("\(self.isPaused)")
             if self.isPaused == false {
             self.pauseGame()
             let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
             self.scene?.view?.paused = true
+            } else {
+                println("no")
             }
 
             return
@@ -222,7 +225,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     }
 
     func pauseGame() {
-
+        isPaused = true
 
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         appDelegate.inGameMusicPlayer.volume = 0.3
