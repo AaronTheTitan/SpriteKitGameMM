@@ -101,6 +101,8 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         }
 
 
+        makeEnemies()
+
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
         isGameOver = false
@@ -129,12 +131,9 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         NSNotificationCenter.defaultCenter().addObserverForName("stayPaused", object: nil, queue: nil) { (notification: NSNotification?) in
 
             self.pauseGame()
-             let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
-            //println("\(pausedPlease)")
-            println("pause tRhe game please")
+            let pausedPlease = NSUserDefaults.standardUserDefaults().boolForKey("isPaused")
             self.scene?.view?.paused = true
-//            self.isPaused = true
-//            self.setIsPause()
+
             return
             
         }
@@ -547,7 +546,6 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
             if touchedNode.name == "pauseMenuResume" {
                 resumeGame()
-                println("it works")
             }
 
             if touchedNode.name == "pauseMenuRestart" {
@@ -564,7 +562,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
 
 // MARK: - SOLDIER ACTIONS
     func jump() {
-                        println(NSDate().timeIntervalSinceReferenceDate)
+//                        println(NSDate().timeIntervalSinceReferenceDate)
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(soldierSprites)
         playSound(soundJump)
@@ -702,6 +700,23 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         soldierNode?.stepState(soldierSprites)
     }
 
+    func makeEnemies() {
+
+        upperWarhead = Obstruction(imageNamed: "warhead")
+        upperWarheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        upperWarheadExplode = Bomb(imageNamed: "empty")
+        warhead = Obstruction(imageNamed: "warhead")
+        warheadRocket = Bomb(imageNamed: "emptyMuzzle")
+        warheadExplode = Bomb(imageNamed: "empty")
+        powerup = PowerUp(imageNamed: "powerup")
+        bomb = Bomb(imageNamed: "bomb_00")
+        bombExplode = Bomb(imageNamed: "empty")
+
+        orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+
+
+    }
+
     // Having fun, can remove in real thang if we want
     func addWarhead() {
 
@@ -783,7 +798,7 @@ class GameScene: SKScene , SKPhysicsContactDelegate {
         powerup?.powerUpBlue()
 
 
-        orbFlarePath = NSBundle.mainBundle().pathForResource("OrbParticle", ofType: "sks")!
+
         orbFlare = NSKeyedUnarchiver.unarchiveObjectWithFile(orbFlarePath) as SKEmitterNode
         orbFlare.position = CGPointMake(1480.0, 620)
         orbFlare.name = "orbFlare"

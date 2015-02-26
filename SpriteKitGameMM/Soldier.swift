@@ -19,24 +19,6 @@ class Soldier : SKSpriteNode {
     var cgVector:CGVector = CGVectorMake(00, 1400)
     var aString = "aString"
 
-//    var s1IdleFrames: [SKTexture]?
-//    let s1IdleAtlas = SKTextureAtlas(named: "S1Idle.atlas")
-//
-//    var s1WalkFrames: [SKTexture]?
-//    let s1WalkAtlas = SKTextureAtlas(named: "S1Walk.atlas")
-//
-//    var s1RunFrames: [SKTexture]?
-//    let s1RunAtlas = SKTextureAtlas(named: "S1Run.atlas")
-//
-//    var s1JumpFrames: [SKTexture]?
-//    let s1JumpAtlas = SKTextureAtlas(named: "S1Jump.atlast")
-//
-//    var s1DuckFrames: [SKTexture]?
-//    let s1DuckAtlas = SKTextureAtlas(named: "S1CrouchAim.atlas")
-//
-//    var s1DeadFrames: [SKTexture]?
-//    let s1DeadAtlas = SKTextureAtlas(named: "S1Dead.atlas")
-
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -47,7 +29,6 @@ class Soldier : SKSpriteNode {
         let imageTexture = SKTexture(imageNamed: imageNamed)
         super.init(texture: imageTexture, color: nil, size: imageTexture.size())
 
-        // may or may not need
         self.physicsBody = SKPhysicsBody(circleOfRadius: (imageTexture.size().width / 2.6))
         self.physicsBody?.dynamic = true
         self.physicsBody?.allowsRotation = false
@@ -61,7 +42,6 @@ class Soldier : SKSpriteNode {
     var cache: [[SKTexture]] = []
     func initSpritesCache(soldierPrefix: String) -> Array<[SKTexture]> {
 
-//        let soldierPrefix = "Max"
         cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Idle__00\($0)")! })
         cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Walk__00\($0)")! })
         cache.append((0...9).map{ SKTexture(imageNamed: "\(soldierPrefix)-Run__00\($0)")! })
@@ -206,8 +186,8 @@ class Soldier : SKSpriteNode {
 
 
 
-    func update() {
-        // update when told by the GameScene class
-
-    }
+//    func update() {
+//        // update when told by the GameScene class
+//
+//    }
 }
