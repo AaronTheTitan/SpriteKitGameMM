@@ -15,10 +15,8 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     var gameWorld:SKNode?
 
     var soldierNode:Soldier?
-    var obstruction:Obstruction!
     var warhead:Obstruction!
     var powerup: PowerUp?
-    var powerupWhite: PowerUp?
 
     var orbFlarePath:NSString = NSString()
     var orbFlare = SKEmitterNode()
@@ -33,12 +31,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     var isRunning:Bool?
     //var isGameOver:Bool?
 
-    var spriteposition:CGFloat  = 5
+    let spriteposition:CGFloat  = 5
     var moveGroundForeverAction: SKAction!
 
     let world = WorldGenerator()
 
-    var scoreInfo = ScoreLabel()
     //MARK: - AUDIO
     var soundPowerUp = SKAction.playSoundFileNamed("PowerUpOne.mp3", waitForCompletion: false)
     var soundSuperPowerUp = SKAction.playSoundFileNamed("PowerUpTwo.mp3", waitForCompletion: false)
@@ -82,7 +79,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     // MARK: - VIEW/SETUP
     override func didMoveToView(view: SKView) {
 
-
         currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
         setupControls(view)
@@ -96,8 +92,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
         addSoldier()
 
-        let view1 = super.view
-
         buttonScenePause.setTranslatesAutoresizingMaskIntoConstraints(true)
 
         startGameLabel()
@@ -106,15 +100,14 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         firstTimeJump = false
         firstTimeOrb = false
 
-        NSNotificationCenter.defaultCenter().addObserverForName("stayPausedNotification", object: nil, queue: nil) { (notification: NSNotification?) in
-            self.scene?.view?.paused = true
-            //self.pauseGame()
-
-            return
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        appDelegate.inGameMusicPlayer.volume = 1
+        if appDelegate.isMuted == false {
+            appDelegate.stopBGMusic()
+            appDelegate.startInGameMusic()
         }
 
     }
-
 
     func startGameLabel() {
         startLabel.position = CGPointMake(frame.width/2, frame.height/2)
@@ -123,7 +116,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         addChild(startLabel)
 
     }
-
 
     func handleSwipes(sender:UISwipeGestureRecognizer) {
         if sender.direction == .Up {
@@ -163,7 +155,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
         swipeDown.direction = .Down
         view.addGestureRecognizer(swipeDown)
-
 
         let buttonPauseImage = UIImage(named: "buttonPause")
         buttonScenePause.frame = CGRectMake(view.frame.size.width - buttonScenePause.bounds.size.width - 40, 5, 35, 35)
@@ -216,21 +207,16 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
         updateToSuperView(pause)
         buttonScenePause.hidden = true
-
-        delay(0.01, closure: { () -> () in
-            self.view!.paused = true
-            
-        })
+        self.view!.paused = true
         
     }
-//
+
     func pauseGameTutorial() {
         buttonScenePause.hidden = true
         self.scene!.view!.paused = true
     }
 
     func resumeGame() {
-
         updateToSuperView(resume)
         scene?.view?.paused = false
         buttonScenePause.hidden = false
@@ -254,7 +240,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         }
     }
 
-
     // MARK: - COLLISION FUNCTIONS
     func soldierDidCollideWithSuperPowerup(Soldier:SKSpriteNode, PowerUp:SKSpriteNode){
         PowerUp.removeFromParent()
@@ -277,6 +262,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
         die()
     }
+
     func soldierDidCollideWithObstruction(soldier:SKSpriteNode, bomb:SKSpriteNode) {
         upperWarhead.removeFromParent()
         upperWarheadExplode?.warHeadExplode(upperWarheadExplode!, warheadFire: upperWarheadRocket!)
@@ -307,8 +293,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
             (secondBody.categoryBitMask & PhysicsCategory.BombCategory != 0)){
                 soldierDidCollideWithBomb(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        }
-        else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
+        } else if ((firstBody.categoryBitMask & PhysicsCategory.SoldierCategory != 0) &&
             (secondBody.categoryBitMask & PhysicsCategory.WarheadCategory != 0)){
                 soldierDidCollideWithWarhead(firstBody.node as SKSpriteNode, bomb: secondBody.node as SKSpriteNode)
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -350,7 +335,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
         
     }
 
-
     // MARK: - TOUCHES BEGAN
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
 
@@ -363,7 +347,6 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
     // MARK: - SOLDIER ACTIONS
     func jump() {
-
         soldierNode?.setCurrentState(Soldier.SoldierStates.Jump, soldierPrefix: currentSoldier!)
         soldierNode?.stepState(currentSoldier!)
         playSound(soundJump)
@@ -396,25 +379,15 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
 
     //MARK: - UPDATE
     override func update(currentTime: CFTimeInterval) {
-        if scene?.view?.paused == true {
-            return
-        } else {
+
         /* Called before each frame is rendered */
-            if soldierNode?.position.x < originalHeroPoint.x - 300 || soldierNode?.position.x > originalHeroPoint.x + 300 {
-                resetSoldierPosition()
-            }
 
             soldierNode?.update()
             world.groundMovement()
             groundSpeedIncrease()
 
-            if spriteposition < 8 {
-                spriteposition = spriteposition + 0.35
-            }
-
             for sprite in world.groundPieces {
                 sprite.position.x -= spriteposition
-            }
         }
     }
 
@@ -554,6 +527,10 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
             pauseGameTutorial()
         }
 
+        if scene?.view?.paused == true {
+            return
+        } else {
+            
         let y = arc4random_uniform(6)
         if y == 0 {
             let distance = CGFloat(self.frame.size.width * 2.0)
@@ -615,6 +592,7 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
             addBomb()
             addDuckWarhead()
         }
+        }
     }
     
     func addBomb() {
@@ -643,7 +621,11 @@ class TutorialScene: SKScene , SKPhysicsContactDelegate {
     
     
     func playSound(soundVariable: SKAction) {
-        runAction(soundVariable)
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+
+        if appDelegate.isMuted == false {
+            runAction(soundVariable)
+        }
     }
 
     func orbAlertMessage(){

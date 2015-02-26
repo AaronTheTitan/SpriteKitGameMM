@@ -26,6 +26,27 @@ extension SKNode {
     }
 }
 
+
+class MySKView: SKView {
+    var stayPaused = false as Bool
+
+    override var paused: Bool {
+        get {
+            return super.paused
+        }
+        set {
+            if (!stayPaused) {
+                super.paused = newValue
+            }
+            stayPaused = false
+        }
+    }
+
+    func setStayPaused() {
+        self.stayPaused = true
+    }
+}
+
 class GameViewController: UIViewController, UIAlertViewDelegate {
 
     var currentSoldier:String?
@@ -55,6 +76,8 @@ class GameViewController: UIViewController, UIAlertViewDelegate {
 //            scene.currentSoldier = self.currentSoldier!
             scene.currentSoldier = NSUserDefaults.standardUserDefaults().objectForKey("currentSoldierString") as? String
 
+
+            NSNotificationCenter.defaultCenter().addObserver(skView, selector:Selector("setStayPaused"), name: "stayPausedNotification", object: nil)
 
             NSNotificationCenter.defaultCenter().addObserverForName("segue", object: nil, queue: nil) { (notification: NSNotification?) in
 
